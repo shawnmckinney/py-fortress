@@ -53,7 +53,18 @@ def unload(entry):
     entity.cn = ldaphelper.get_attr(entry[ATTRIBUTES][CN])
     entity.sn = ldaphelper.get_attr(entry[ATTRIBUTES][SN])
     entity.description = ldaphelper.get_attr(entry[ATTRIBUTES][DESCRIPTION])
+    entity.displayName = ldaphelper.get_attr(entry[ATTRIBUTES][DISPLAY_NAME])
+    entity.employeeType = ldaphelper.get_attr(entry[ATTRIBUTES][EMPLOYEE_TYPE])
+    entity.title = ldaphelper.get_attr(entry[ATTRIBUTES][TITLE])
     
+    entity.phones = ldaphelper.get_attr(entry[ATTRIBUTES][TELEPHONE_NUMBER])
+    entity.mobiles = ldaphelper.get_attr(entry[ATTRIBUTES][MOBILE])
+    entity.emails = ldaphelper.get_attr(entry[ATTRIBUTES][MAIL])
+    
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
@@ -85,6 +96,12 @@ CN = 'cn'
 SN = 'sn'
 DN = 'dn'
 DESCRIPTION = 'description'
+DISPLAY_NAME = 'displayName'
+EMPLOYEE_TYPE = 'employeeType'
+TITLE = 'title'
+TELEPHONE_NUMBER = 'telephoneNumber'
+MOBILE = 'mobile'
+MAIL = 'mail'
 
 ATTRIBUTES = 'attributes'
 SEARCH_ATTRS = Config.get('schema')['user']['attributes']

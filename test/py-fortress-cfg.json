@@ -25,7 +25,8 @@
     "user": {
       "attributes": [
         "uid", "ou", "ftid", "ftra", "pwdPolicySubentry",
-        "cn", "sn", "description"
+        "cn", "sn", "description", "displayName", "employeeType",
+        "title", "telephoneNumber", "mobile", "mail"
       ]
     }
   }
