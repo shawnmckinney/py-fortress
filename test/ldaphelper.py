@@ -65,6 +65,10 @@ def get_result(conn, id):
     return res[1].get('result')
 
 
+def get_dn(entry):
+    return entry['dn']
+
+
 # Begin the Config section:
 Config.load('py-fortress-cfg.json')
 LDAP = 'ldap'

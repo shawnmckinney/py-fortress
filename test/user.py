@@ -13,24 +13,45 @@ class User:
             uid=None,
             password=None,
             ou=None,
+            internalId=None,
+            roles=None,
+            pwPolicy=None,
+            cn=None,
+            sn=None,
+            dn=None,
+            description=None,
+            
+#             x=None,
+#             x=None,
+#             x=None,
+#             x=None,
+#             x=None,
+#             x=None,
+                        
             ):
         self.uid = uid
         self.password = password
         self.ou = ou
+        self.internalId = internalId
+        self.roles = roles
+        self.pwPolicy = pwPolicy        
+        self.cn = cn       
+        self.sn = sn
+        self.dn = dn
+        self.description = description
         
-#     private String userId;
-#     private String password;
-#     private String newPassword;
-#     private String internalId;
-#     private List<UserRole> roles;
-#     private List<UserAdminRole> adminRoles;
-#     private String pwPolicy;
+#         self.x = x
+#         self.x = x
+#         self.x = x
+#         self.x = x
+#         self.x = x
+#         self.x = x
+
+#     private String description;        
 #     private String cn;
 #     private String sn;
 #     private String dn;
-#     private String ou;
 #     private String displayName;
-#     private String description;
 #     private String beginTime;
 #     private String endTime;
 #     private String beginDate;
@@ -50,6 +71,9 @@ class User:
 #     private List<String> phones;
 #     private List<String> mobiles;
 #     private List<String> emails;
+
+#     private List<UserRole> roles;
+#     private List<UserAdminRole> adminRoles;
 #     @XmlTransient
 #     private byte[] jpegPhoto;
 # 

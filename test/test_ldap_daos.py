@@ -21,8 +21,23 @@ class BasicTestSuite(unittest.TestCase):
      
 def print_user (entity, label):
         print(label)
-        print('uid=' + str(entity.uid))    
+        print('uid=' + str(entity.uid))
+        print('dn=' + str(entity.dn))
+        print('cn=' + str(entity.cn))
+        print('sn=' + str(entity.sn))
+        print('description=' + str(entity.description))            
         print('ou=' + str(entity.ou))
+        print('internalId=' + str(entity.internalId))
+        print('roles=' + str(entity.roles))
+        print('pwPolicy=' + str(entity.pwPolicy))        
+        
+#         print('x=' + str(entity.x))
+#         print('x=' + str(entity.x))
+#         print('x=' + str(entity.x))
+#         print('x=' + str(entity.x))
+#         print('x=' + str(entity.x))
+#         print('x=' + str(entity.x))
+        
         print("*************** " + label + " *******************")
 
     

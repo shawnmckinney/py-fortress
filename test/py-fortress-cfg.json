@@ -24,7 +24,8 @@
   "schema": {
     "user": {
       "attributes": [
-        "uid", "ou"
+        "uid", "ou", "ftid", "ftra", "pwdPolicySubentry",
+        "cn", "sn", "description"
       ]
     }
   }

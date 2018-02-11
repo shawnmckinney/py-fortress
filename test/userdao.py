@@ -39,9 +39,29 @@ def search (entity):
 
 
 def unload(entry):
-    entity = user.User()    
+    
+    print(entry['dn'], entry['attributes'])
+    
+    entity = user.User()
+    entity.dn = ldaphelper.get_dn(entry)        
     entity.uid = ldaphelper.get_attr(entry[ATTRIBUTES][UID])
     entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])  
+    entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])
+    entity.internalId = ldaphelper.get_attr(entry[ATTRIBUTES][INTERNAL_ID])            
+    entity.roles = ldaphelper.get_attr(entry[ATTRIBUTES][ROLES])
+    entity.pwPolicy = ldaphelper.get_attr(entry[ATTRIBUTES][PW_POLICY])
+    entity.cn = ldaphelper.get_attr(entry[ATTRIBUTES][CN])
+    entity.sn = ldaphelper.get_attr(entry[ATTRIBUTES][SN])
+    entity.description = ldaphelper.get_attr(entry[ATTRIBUTES][DESCRIPTION])
+    
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
     return entity
 
 
@@ -58,6 +78,14 @@ USER_OC_NAME = 'inetOrgPerson'
 UID = 'uid'
 OU = 'ou'
 PW = 'pw'
+INTERNAL_ID = 'ftid'
+ROLES = 'ftra'
+PW_POLICY = 'pwdPolicySubentry'
+CN = 'cn'
+SN = 'sn'
+DN = 'dn'
+DESCRIPTION = 'description'
+
 ATTRIBUTES = 'attributes'
 SEARCH_ATTRS = Config.get('schema')['user']['attributes']
 search_base = Config.get('dit')['users']
