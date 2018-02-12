@@ -27,7 +27,8 @@
         "uid", "ou", "ftid", "ftra", "pwdPolicySubentry",
         "cn", "sn", "description", "displayName", "employeeType",
         "title", "telephoneNumber", "mobile", "mail", "pwdReset",
-        "pwdAccountLockedTime", "ftSystem", "ftProps"
+        "pwdAccountLockedTime", "ftSystem", "ftProps", "departmentNumber",
+        "l", "physicalDeliveryOfficeName", "postalCode", "roomNumber"
 
       ]
     }

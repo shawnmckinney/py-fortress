@@ -29,7 +29,12 @@ class User:
             lockedTime = None,
             system = None,
             props = None,
-    
+            departmentNumber = None,
+            l = None,
+            physicalDeliveryOfficeName = None,
+            postalCode = None,
+            roomNumber = None,
+            
             #constraint=None,
 #             x=None,
 #             x=None,
@@ -58,8 +63,12 @@ class User:
         self.reset = reset
         self.lockedTime = lockedTime
         self.system = system
-        self.props = props
-        
+        self.props = props        
+        self.departmentNumber = departmentNumber
+        self.l = l
+        self.physicalDeliveryOfficeName = physicalDeliveryOfficeName
+        self.postalCode = postalCode
+        self.roomNumber = roomNumber
         
         #self.constraint = constraint
         
@@ -70,22 +79,10 @@ class User:
 #         self.x = x
 #         self.x = x
 #     private Address address;
-
 #     private List<UserRole> roles;
 #     private List<UserAdminRole> adminRoles;
-#     @XmlTransient
 #     private byte[] jpegPhoto;
 # 
-#     // RFC2307bis:
-#     /*
-#     MUST ( cn $ uid $ uidNumber $ gidNumber $ homeDirectory )
-#     MAY ( userPassword $ loginShell $ gecos $ description ) )
-#      */
-#     private String uidNumber;
-#     private String gidNumber;
-#     private String homeDirectory;
-#     private String loginShell;
-#     private String gecos;
         
 #             beginTime=None,
 #             endTime=None,

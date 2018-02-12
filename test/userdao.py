@@ -66,11 +66,12 @@ def unload(entry):
     entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
     entity.props = ldaphelper.get_attr(entry[ATTRIBUTES][PROPS])
 
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+    entity.departmentNumber = ldaphelper.get_attr(entry[ATTRIBUTES][DEPT_NUM])
+    entity.l = ldaphelper.get_attr(entry[ATTRIBUTES][LOCATION])
+    entity.physicalDeliveryOfficeName = ldaphelper.get_attr(entry[ATTRIBUTES][PHYSICAL_OFFICE_NM])
+    entity.postalCode = ldaphelper.get_attr(entry[ATTRIBUTES][POSTAL_CODE])
+    entity.roomNumber = ldaphelper.get_attr(entry[ATTRIBUTES][RM_NUM])
+    
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
@@ -107,6 +108,12 @@ IS_RESET = 'pwdReset'
 LOCKED_TIME = 'pwdAccountLockedTime'
 IS_SYSTEM = 'ftSystem'
 PROPS = 'ftProps'
+DEPT_NUM = 'departmentNumber'
+LOCATION = 'l'
+PHYSICAL_OFFICE_NM = 'physicalDeliveryOfficeName'
+POSTAL_CODE = 'postalCode'
+RM_NUM = 'roomNumber'
+
 
 
 
