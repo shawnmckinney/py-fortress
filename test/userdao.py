@@ -61,10 +61,11 @@ def unload(entry):
     entity.mobiles = ldaphelper.get_attr(entry[ATTRIBUTES][MOBILE])
     entity.emails = ldaphelper.get_attr(entry[ATTRIBUTES][MAIL])
     
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+    entity.reset = ldaphelper.get_attr(entry[ATTRIBUTES][IS_RESET])
+    entity.lockedTime = ldaphelper.get_attr(entry[ATTRIBUTES][LOCKED_TIME])
+    entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
+    entity.props = ldaphelper.get_attr(entry[ATTRIBUTES][PROPS])
+
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
@@ -102,6 +103,12 @@ TITLE = 'title'
 TELEPHONE_NUMBER = 'telephoneNumber'
 MOBILE = 'mobile'
 MAIL = 'mail'
+IS_RESET = 'pwdReset'
+LOCKED_TIME = 'pwdAccountLockedTime'
+IS_SYSTEM = 'ftSystem'
+PROPS = 'ftProps'
+
+
 
 ATTRIBUTES = 'attributes'
 SEARCH_ATTRS = Config.get('schema')['user']['attributes']

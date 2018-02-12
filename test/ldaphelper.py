@@ -60,6 +60,12 @@ def get_attr(lattr):
     return value
 
 
+def get_bool(lattr):
+    value = False
+    value = str (lattr)
+    return value
+
+
 def get_result(conn, id):
     res = conn.get_response(id)
     return res[1].get('result')

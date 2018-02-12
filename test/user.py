@@ -3,8 +3,6 @@ Created on Feb 10, 2018
 
 @author: smckinney
 '''
-from email._header_value_parser import DisplayName
-
 
 class User:    
     "Fortess User"
@@ -27,13 +25,12 @@ class User:
             phones=None,
             mobiles=None,
             emails=None,
-            
-            
-            
+            reset = None,
+            lockedTime = None,
+            system = None,
+            props = None,
+    
             #constraint=None,
-            
-            
-            
 #             x=None,
 #             x=None,
 #             x=None,
@@ -58,6 +55,10 @@ class User:
         self.phones = phones
         self.mobiles = mobiles
         self.emails = emails
+        self.reset = reset
+        self.lockedTime = lockedTime
+        self.system = system
+        self.props = props
         
         
         #self.constraint = constraint
@@ -68,14 +69,7 @@ class User:
 #         self.x = x
 #         self.x = x
 #         self.x = x
-#     private boolean reset;
-#     private boolean locked;
-#     private Boolean system;
-#     private Props props = new Props();
 #     private Address address;
-#     private List<String> phones;
-#     private List<String> mobiles;
-#     private List<String> emails;
 
 #     private List<UserRole> roles;
 #     private List<UserAdminRole> adminRoles;
