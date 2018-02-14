@@ -5,8 +5,8 @@ Created on Feb 11, 2018
 '''
 
 import ldap3
-import daoex
-from config import Config
+from ldap import LdapException, NotFound, NotUnique
+from util import Config
 import logging
 
 from ldap3.utils.log import set_library_log_activation_level
@@ -38,7 +38,7 @@ def _open_ (is_auto_bind):
                              lazy=False
                              )
     except Exception as e:
-        raise ldapex.LDAPException ('connutl.open Exception=' + str (e))
+        raise LdapException ('connutl.open Exception=' + str (e))
     if(_ldap_debug):
         print(c.usage)        
     return c

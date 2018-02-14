@@ -5,9 +5,10 @@ Created on Feb 10, 2018
 '''
 
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
-import user
-import ldaphelper, daoex
-from config import Config
+from model import User
+from ldap import ldaphelper, LdapException, NotFound, NotUnique
+from util import Config
+
 import logging
 
 
@@ -27,7 +28,7 @@ def search (entity):
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
-        raise daoex.FortressException('Exception in userdao.search=' + str(e))
+        raise LdapException('Exception in userdao.search=' + str(e))
     else:        
         if total_entries > 0:
             for entry in response:
@@ -42,7 +43,7 @@ def unload(entry):
     
     print(entry['dn'], entry['attributes'])
     
-    entity = user.User()
+    entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
     entity.uid = ldaphelper.get_attr(entry[ATTRIBUTES][UID])
     entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])  
@@ -84,7 +85,7 @@ def validate(entity, op):
 
                     
 def raise_exception(operation, field):
-    raise daoex.FortressException('userdao.' + operation + ' required field missing:' + field)
+    raise LdapException('userdao.' + operation + ' required field missing:' + field)
 
 
 USER_OC_NAME = 'inetOrgPerson'

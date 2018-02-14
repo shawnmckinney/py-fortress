@@ -6,9 +6,9 @@ Created on Feb 10, 2018
 
 import unittest
 import trace
-import userdao
-import user
-from config import Config
+from ldap import userdao
+from model import User
+from util import Config
 import logging
 
 Config.load('py-fortress-cfg.json')
@@ -67,7 +67,7 @@ class TestDaos(unittest.TestCase):
         """
         print('test search users by uid')        
         try:
-            usr = user.User()
+            usr = User()
             usr.uid = "jts*"
             uList = userdao.search(usr)
             ctr = 1;
