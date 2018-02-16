@@ -11,6 +11,16 @@ from util import Config
 import logging
 
 
+def read (entity):
+    userList = search(entity)
+    if userList is None or len(userList) == 0:
+        raise NotFound()
+    elif len(userList > 1):
+        raise NotUnique()
+    else:
+        return userList[0]
+
+
 def search (entity):
     validate(entity, "User Search")
     conn = None            
