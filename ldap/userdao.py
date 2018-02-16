@@ -37,22 +37,6 @@ def authenticate (entity):
     return True
 
 
-def authenticatex (entity):
-    validate(entity, "User Bind")
-    conn = None            
-    try:
-        conn = ldaphelper.open()
-        user_dn = UID + '=' + entity.uid + ',' + search_base 
-        if not ldaphelper.bind(user_dn, entity.password):
-            raise InvalidCredentials
-    except Exception as e:
-        raise LdapException('Exception in userdao.bind=' + str(e))
-    finally:
-        if conn:        
-            ldaphelper.close(conn)
-    return True
-
-
 def search (entity):
     validate(entity, "User Search")
     conn = None            
@@ -84,7 +68,7 @@ def unload(entry):
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
     entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][UID])    
-    entity.ou = ldaphelper.get_attr_val(entry[ATTRIBUTES][OU])  
+    entity.ou = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][OU])  
     entity.internalId = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])    
     entity.pwPolicy = ldaphelper.get_attr_val(entry[ATTRIBUTES][PW_POLICY])
     entity.cn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][CN])
@@ -110,20 +94,15 @@ def unload(entry):
     entity.roles = ldaphelper.get_list(entry[ATTRIBUTES][ROLES])
     
     # unload raw user constraint:
-    entity.constraint = Constraint()
-    entity.constraint.raw = ldaphelper.get_attr_val(entry[ATTRIBUTES][CONSTRAINT])
-    entity.constraint.load()
+    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][CONSTRAINT]))
     
     # now, unload raw user-role constraints:    
     rcsRaw = ldaphelper.get_list(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
     if rcsRaw is not None :
         entity.roleConstraints = []
         for rcRaw in rcsRaw :
-            constraint = Constraint()
-            entity.roleConstraints.append(constraint)
-            constraint.raw = rcRaw
-            constraint.load()    
-            
+            constraint = Constraint(rcRaw)
+                        
     return entity
 
 

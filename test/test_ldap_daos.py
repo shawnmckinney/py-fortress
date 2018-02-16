@@ -11,7 +11,7 @@ from model import User, Permission
 from util import Config
 import logging
 
-Config.load('py-fortress-cfg.json')
+Config.load()
 logging.basicConfig(filename='py-fortress-test.log', level=logging.INFO)
 
 
