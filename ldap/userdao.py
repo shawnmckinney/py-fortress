@@ -40,9 +40,6 @@ def search (entity):
 
 
 def unload(entry):
-    
-    print(entry['dn'], entry['attributes'])
-    
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
     entity.uid = ldaphelper.get_attr(entry[ATTRIBUTES][UID])
@@ -56,22 +53,28 @@ def unload(entry):
     entity.displayName = ldaphelper.get_attr(entry[ATTRIBUTES][DISPLAY_NAME])
     entity.employeeType = ldaphelper.get_attr(entry[ATTRIBUTES][EMPLOYEE_TYPE])
     entity.title = ldaphelper.get_attr(entry[ATTRIBUTES][TITLE])
-    entity.phones = ldaphelper.get_attr(entry[ATTRIBUTES][TELEPHONE_NUMBER])
-    entity.mobiles = ldaphelper.get_attr(entry[ATTRIBUTES][MOBILE])
-    entity.emails = ldaphelper.get_attr(entry[ATTRIBUTES][MAIL])
     entity.reset = ldaphelper.get_attr(entry[ATTRIBUTES][IS_RESET])
     entity.lockedTime = ldaphelper.get_attr(entry[ATTRIBUTES][LOCKED_TIME])
     entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
-    entity.props = ldaphelper.get_attr(entry[ATTRIBUTES][PROPS])
     entity.departmentNumber = ldaphelper.get_attr(entry[ATTRIBUTES][DEPT_NUM])
     entity.l = ldaphelper.get_attr(entry[ATTRIBUTES][LOCATION])
     entity.physicalDeliveryOfficeName = ldaphelper.get_attr(entry[ATTRIBUTES][PHYSICAL_OFFICE_NM])
     entity.postalCode = ldaphelper.get_attr(entry[ATTRIBUTES][POSTAL_CODE])
     entity.roomNumber = ldaphelper.get_attr(entry[ATTRIBUTES][RM_NUM])
-    entity.roles = ldaphelper.get_attr(entry[ATTRIBUTES][ROLES])
+
+    # Get the multi-occurring attrs:
+    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][PROPS])    
+    entity.phones = ldaphelper.get_list(entry[ATTRIBUTES][TELEPHONE_NUMBER])
+    entity.mobiles = ldaphelper.get_list(entry[ATTRIBUTES][MOBILE])
+    entity.emails = ldaphelper.get_list(entry[ATTRIBUTES][MAIL])
+    entity.roles = ldaphelper.get_list(entry[ATTRIBUTES][ROLES])
+    
+    # unload raw user constraint:
     entity.constraint = Constraint()
     entity.constraint.raw = ldaphelper.get_attr(entry[ATTRIBUTES][CONSTRAINT])
-    entity.constraint.load()    
+    entity.constraint.load()
+    
+    # now, unload raw user-role constraints:    
     rcsRaw = ldaphelper.get_list(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
     if rcsRaw is not None :
         entity.roleConstraints = []
@@ -80,10 +83,7 @@ def unload(entry):
             entity.roleConstraints.append(constraint)
             constraint.raw = rcRaw
             constraint.load()    
-                                           
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
-#     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
+            
     return entity
 
 
@@ -124,7 +124,6 @@ LOCATION = 'l'
 PHYSICAL_OFFICE_NM = 'physicalDeliveryOfficeName'
 POSTAL_CODE = 'postalCode'
 RM_NUM = 'roomNumber'
-
 
 ATTRIBUTES = 'attributes'
 SEARCH_ATTRS = Config.get('schema')['user']['attributes']

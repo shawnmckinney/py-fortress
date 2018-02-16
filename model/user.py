@@ -64,24 +64,3 @@ class User:
         self.physicalDeliveryOfficeName = physicalDeliveryOfficeName
         self.postalCode = postalCode
         self.roomNumber = roomNumber
-        
-#     private Address address;
-#     private List<UserRole> roles;
-#     private List<UserAdminRole> adminRoles;
-#     private byte[] jpegPhoto;
-#         
-#             beginTime=None,
-#             endTime=None,
-#             beginDate=None,
-#             endDate=None,
-#             beginLockDate=None,
-#             endLockDate=None,
-#             dayMask=None,
-#     private int timeout;
-#         self.beginTime = beginTime
-#         self.endTime = endTime
-#         self.beginDate = beginDate
-#         self.endDate = endDate
-#         self.beginLockDate = beginLockDate
-#         self.endLockDate = endLockDate
-#         self.dayMask = dayMask

@@ -19,15 +19,15 @@ class BasicTestSuite(unittest.TestCase):
 
 def print_constraint (constraint, label):
         print('\t' + label)    
-        print('\t\t' + 'constraint.name=' + constraint.name)
-        print('\t\t' + 'constraint.timeout=' + constraint.timeout)
-        print('\t\t' + 'constraint.beginTime=' + constraint.beginTime)
-        print('\t\t' + 'constraint.endTime=' + constraint.endTime)
-        print('\t\t' + 'constraint.beginDate=' + constraint.beginDate)
-        print('\t\t' + 'constraint.endDate=' + constraint.endDate)
-        print('\t\t' + 'constraint.beginLockDate=' + constraint.beginLockDate)
-        print('\t\t' + 'constraint.endLockDate=' + constraint.endLockDate)
-        print('\t\t' + 'constraint.dayMask=' + constraint.dayMask)
+        print('\t\t' + 'name=' + constraint.name)
+        print('\t\t' + 'timeout=' + constraint.timeout)
+        print('\t\t' + 'beginTime=' + constraint.beginTime)
+        print('\t\t' + 'endTime=' + constraint.endTime)
+        print('\t\t' + 'beginDate=' + constraint.beginDate)
+        print('\t\t' + 'endDate=' + constraint.endDate)
+        print('\t\t' + 'beginLockDate=' + constraint.beginLockDate)
+        print('\t\t' + 'endLockDate=' + constraint.endLockDate)
+        print('\t\t' + 'dayMask=' + constraint.dayMask)
 
 def print_user (entity, label):
         print(label)
