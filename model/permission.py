@@ -9,24 +9,24 @@ class Permission:
     "Fortess Permission"
     def __init__(
             self,
-            objName=None,
-            opName=None,
-            objId=None,
+            obj_name=None,
+            op_name=None,
+            obj_id=None,
             description=None,
-            abstractName=None,
-            internalId=None,
+            abstract_name=None,
+            internal_id=None,
             type=None,
             users=None,
             roles=None,
             props=None,
             dn=None
             ):
-        self.objName=objName
-        self.opName=opName
-        self.objId=objId
+        self.obj_name=obj_name
+        self.op_name=op_name
+        self.obj_id=obj_id
         self.description=description
-        self.abstractName=abstractName
-        self.internalId=internalId
+        self.abstract_name=abstract_name
+        self.internal_id=internal_id
         self.type=type
         self.users=users
         self.roles=roles

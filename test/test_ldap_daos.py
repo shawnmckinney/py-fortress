@@ -22,13 +22,13 @@ def print_constraint (constraint, label):
         print('\t' + label)    
         print('\t\t' + 'name=' + constraint.name)
         print('\t\t' + 'timeout=' + constraint.timeout)
-        print('\t\t' + 'beginTime=' + constraint.beginTime)
-        print('\t\t' + 'endTime=' + constraint.endTime)
-        print('\t\t' + 'beginDate=' + constraint.beginDate)
-        print('\t\t' + 'endDate=' + constraint.endDate)
-        print('\t\t' + 'beginLockDate=' + constraint.beginLockDate)
-        print('\t\t' + 'endLockDate=' + constraint.endLockDate)
-        print('\t\t' + 'dayMask=' + constraint.dayMask)
+        print('\t\t' + 'begin_time=' + constraint.begin_time)
+        print('\t\t' + 'end_time=' + constraint.end_time)
+        print('\t\t' + 'begin_date=' + constraint.begin_date)
+        print('\t\t' + 'end_date=' + constraint.end_date)
+        print('\t\t' + 'begin_lock_date=' + constraint.begin_lock_date)
+        print('\t\t' + 'end_lock_date=' + constraint.end_lock_date)
+        print('\t\t' + 'day_mask=' + constraint.day_mask)
 
 def print_user (entity, label):
         print(label)
@@ -38,24 +38,24 @@ def print_user (entity, label):
         print('\t' + 'sn=' + str(entity.sn))
         print('\t' + 'description=' + str(entity.description))            
         print('\t' + 'ou=' + str(entity.ou))
-        print('\t' + 'internalId=' + str(entity.internalId))
+        print('\t' + 'internal_id=' + str(entity.internal_id))
         print('\t' + 'roles=' + str(entity.roles))
-        print('\t' + 'pwPolicy=' + str(entity.pwPolicy))                
-        print('\t' + 'displayName=' + str(entity.displayName))        
-        print('\t' + 'employeeType=' + str(entity.employeeType))
+        print('\t' + 'pw_policy=' + str(entity.pw_policy))                
+        print('\t' + 'display_name=' + str(entity.display_name))        
+        print('\t' + 'employee_type=' + str(entity.employee_type))
         print('\t' + 'title=' + str(entity.title))
         print('\t' + 'phones=' + str(entity.phones))
         print('\t' + 'mobiles=' + str(entity.mobiles))
         print('\t' + 'emails=' + str(entity.emails))        
         print('\t' + 'reset=' + str(entity.reset))
-        print('\t' + 'lockedTime=' + str(entity.lockedTime))
+        print('\t' + 'lockedTime=' + str(entity.locked_time))
         print('\t' + 'system=' + str(entity.system))
         print('\t' + 'props=' + str(entity.props))        
-        print('\t' + 'departmentNumber=' + str(entity.departmentNumber))
+        print('\t' + 'department_number=' + str(entity.department_number))
         print('\t' + 'l=' + str(entity.l))
-        print('\t' + 'physicalDeliveryOfficeName=' + str(entity.physicalDeliveryOfficeName))
-        print('\t' + 'postalCode=' + str(entity.postalCode))
-        print('\t' + 'roomNumber=' + str(entity.roomNumber))
+        print('\t' + 'physical_delivery_office_name=' + str(entity.physical_delivery_office_name))
+        print('\t' + 'postal_code=' + str(entity.postal_code))
+        print('\t' + 'room_number=' + str(entity.room_number))
         print_constraint (entity.constraint, "User Constraint:")
         for idx, constraint in enumerate(entity.roleConstraints) :
             print_constraint (constraint, "User-Role Constraint[" + str(idx+1) + "]:")
@@ -65,12 +65,12 @@ def print_user (entity, label):
     
 def print_perm (entity, label):
         print(label)
-        print('\t' + 'objName=' + str(entity.objName))
-        print('\t' + 'opName=' + str(entity.opName))
-        print('\t' + 'objId=' + str(entity.objId))
+        print('\t' + 'obj_name=' + str(entity.obj_name))
+        print('\t' + 'op_name=' + str(entity.op_name))
+        print('\t' + 'obj_id=' + str(entity.obj_id))
         print('\t' + 'description=' + str(entity.description))            
-        print('\t' + 'internalId=' + str(entity.internalId))        
-        print('\t' + 'abstractName=' + str(entity.abstractName))
+        print('\t' + 'internal_id=' + str(entity.internal_id))        
+        print('\t' + 'abstract_name=' + str(entity.abstract_name))
         print('\t' + 'type=' + str(entity.type))
         print('\t' + 'users=' + str(entity.users))
         print('\t' + 'roles=' + str(entity.roles))        
@@ -101,13 +101,13 @@ class TestDaos(unittest.TestCase):
             
     def test_search_perms(self):
         """
-        Test the perm search by objName and opName in ldap
+        Test the perm search by obj_name and op_name in ldap
         """
         print('test search perms by objNm')        
         try:
             prm = Permission()
-            prm.objName = "TOB*"
-            prm.opName = "TOP*"            
+            prm.obj_name = "TOB*"
+            prm.op_name = "TOP*"            
             pList = permdao.search(prm)
             for idx, entity in enumerate(pList) :            
                 print_perm(entity, "Perm[" + str(idx+1) + "]:")

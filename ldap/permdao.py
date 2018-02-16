@@ -27,12 +27,12 @@ def search (entity):
     conn = None            
     permList = []
     search_filter = '(&(objectClass=' + PERM_OC_NAME + ')'
-    if entity.objName is not None and len(entity.objName) > 0 :
-        search_filter += '(' + OBJ_NM + '=' + entity.objName + ')'
-    if entity.opName is not None and len(entity.opName) > 0 :
-        search_filter += '(' + OP_NM + '=' + entity.opName + ')'
-    if entity.objId is not None and len(entity.objId) > 0 :
-        search_filter += '(' + OBJ_ID + '=' + entity.objId + ')'
+    if entity.obj_name is not None and len(entity.obj_name) > 0 :
+        search_filter += '(' + OBJ_NM + '=' + entity.obj_name + ')'
+    if entity.op_name is not None and len(entity.op_name) > 0 :
+        search_filter += '(' + OP_NM + '=' + entity.op_name + ')'
+    if entity.obj_id is not None and len(entity.obj_id) > 0 :
+        search_filter += '(' + OBJ_ID + '=' + entity.obj_id + ')'
     search_filter += ')'           
     try:
         conn = ldaphelper.open()
@@ -55,11 +55,11 @@ def unload(entry):
     entity = Permission()
     entity.dn = ldaphelper.get_dn(entry)
     
-    entity.internalId = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])
-    entity.objId = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_ID])
-    entity.objName = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_NM])
-    entity.opName = ldaphelper.get_attr_val(entry[ATTRIBUTES][OP_NM])
-    entity.abstractName = ldaphelper.get_attr_val(entry[ATTRIBUTES][PERM_NAME])
+    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])
+    entity.obj_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_ID])
+    entity.obj_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_NM])
+    entity.op_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][OP_NM])
+    entity.abstract_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][PERM_NAME])
     entity.type = ldaphelper.get_attr_val(entry[ATTRIBUTES][TYPE])
     entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DESC])
 
@@ -72,9 +72,9 @@ def unload(entry):
 
 
 def validate(entity, op):
-    if entity.objName is None or len(entity.objName) == 0 :
+    if entity.obj_name is None or len(entity.obj_name) == 0 :
         raise_exception(op, OBJ_NM)
-    if entity.opName is None or len(entity.opName) == 0 :
+    if entity.op_name is None or len(entity.op_name) == 0 :
         raise_exception(op, OP_NM)
 
                     
