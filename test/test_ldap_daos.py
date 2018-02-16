@@ -5,7 +5,6 @@ Created on Feb 10, 2018
 '''
 
 import unittest
-import trace
 from ldap import userdao
 from model import User
 from util import Config

@@ -49,11 +49,6 @@ def unload(entry):
     entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])  
     entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])
     entity.internalId = ldaphelper.get_attr(entry[ATTRIBUTES][INTERNAL_ID])
-    entity.constraint = Constraint()
-    entity.constraint.raw = ldaphelper.get_attr(entry[ATTRIBUTES][CONSTRAINT])
-    entity.constraint.load()
-    entity.roleConstraints = ldaphelper.get_attr(entry[ATTRIBUTES][ROLE_CONSTRAINTS])                                                            
-    entity.roles = ldaphelper.get_attr(entry[ATTRIBUTES][ROLES])
     entity.pwPolicy = ldaphelper.get_attr(entry[ATTRIBUTES][PW_POLICY])
     entity.cn = ldaphelper.get_attr(entry[ATTRIBUTES][CN])
     entity.sn = ldaphelper.get_attr(entry[ATTRIBUTES][SN])
@@ -73,7 +68,21 @@ def unload(entry):
     entity.physicalDeliveryOfficeName = ldaphelper.get_attr(entry[ATTRIBUTES][PHYSICAL_OFFICE_NM])
     entity.postalCode = ldaphelper.get_attr(entry[ATTRIBUTES][POSTAL_CODE])
     entity.roomNumber = ldaphelper.get_attr(entry[ATTRIBUTES][RM_NUM])
-    
+    entity.roles = ldaphelper.get_attr(entry[ATTRIBUTES][ROLES])
+    entity.constraint = Constraint()
+    entity.constraint.raw = ldaphelper.get_attr(entry[ATTRIBUTES][CONSTRAINT])
+    entity.constraint.load()    
+    entity.roleConstraints = ldaphelper.get_attr(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
+#     rcRaw = ldaphelper.get_attr(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
+#     if rcRaw is not None :
+#         entity.roleConstraints = []
+#         indx = 0
+#         for rc in rcRaw :
+#             entity.roleConstraints[indx] = Constraint()
+#             entity.roleConstraints[indx].raw = rc
+#             entity.roleConstraints[indx].load()    
+#             indx+= 1                  
+                                           
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
