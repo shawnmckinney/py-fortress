@@ -24,7 +24,7 @@
   "schema": {
     "user": {
       "attributes": [
-        "uid", "ou", "ftid", "ftra", "pwdPolicySubentry",
+        "uid", "ou", "ftid", "ftRA", "ftRC", "pwdPolicySubentry", "ftCstr",
         "cn", "sn", "description", "displayName", "employeeType",
         "title", "telephoneNumber", "mobile", "mail", "pwdReset",
         "pwdAccountLockedTime", "ftSystem", "ftProps", "departmentNumber",

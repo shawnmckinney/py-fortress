@@ -13,6 +13,8 @@ class User:
             password=None,
             ou=None,
             internalId=None,
+            constraint=None,            
+            roleConstraints=None,            
             roles=None,
             pwPolicy=None,
             cn=None,
@@ -33,21 +35,14 @@ class User:
             l = None,
             physicalDeliveryOfficeName = None,
             postalCode = None,
-            roomNumber = None,
-            
-            #constraint=None,
-#             x=None,
-#             x=None,
-#             x=None,
-#             x=None,
-#             x=None,
-#             x=None,
-                        
+            roomNumber = None,                        
             ):
         self.uid = uid
         self.password = password
         self.ou = ou
         self.internalId = internalId
+        self.constraint = constraint        
+        self.roleConstraints = roleConstraints        
         self.roles = roles
         self.pwPolicy = pwPolicy        
         self.cn = cn       
@@ -70,20 +65,11 @@ class User:
         self.postalCode = postalCode
         self.roomNumber = roomNumber
         
-        #self.constraint = constraint
-        
-#         self.x = x
-#         self.x = x
-#         self.x = x
-#         self.x = x
-#         self.x = x
-#         self.x = x
 #     private Address address;
 #     private List<UserRole> roles;
 #     private List<UserAdminRole> adminRoles;
 #     private byte[] jpegPhoto;
-# 
-        
+#         
 #             beginTime=None,
 #             endTime=None,
 #             beginDate=None,
@@ -92,7 +78,6 @@ class User:
 #             endLockDate=None,
 #             dayMask=None,
 #     private int timeout;
-
 #         self.beginTime = beginTime
 #         self.endTime = endTime
 #         self.beginDate = beginDate

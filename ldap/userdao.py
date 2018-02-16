@@ -48,7 +48,9 @@ def unload(entry):
     entity.uid = ldaphelper.get_attr(entry[ATTRIBUTES][UID])
     entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])  
     entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])
-    entity.internalId = ldaphelper.get_attr(entry[ATTRIBUTES][INTERNAL_ID])            
+    entity.internalId = ldaphelper.get_attr(entry[ATTRIBUTES][INTERNAL_ID])
+    entity.constraint = ldaphelper.get_attr(entry[ATTRIBUTES][CONSTRAINT])
+    entity.roleConstraints = ldaphelper.get_attr(entry[ATTRIBUTES][ROLE_CONSTRAINTS])                                                            
     entity.roles = ldaphelper.get_attr(entry[ATTRIBUTES][ROLES])
     entity.pwPolicy = ldaphelper.get_attr(entry[ATTRIBUTES][PW_POLICY])
     entity.cn = ldaphelper.get_attr(entry[ATTRIBUTES][CN])
@@ -57,16 +59,13 @@ def unload(entry):
     entity.displayName = ldaphelper.get_attr(entry[ATTRIBUTES][DISPLAY_NAME])
     entity.employeeType = ldaphelper.get_attr(entry[ATTRIBUTES][EMPLOYEE_TYPE])
     entity.title = ldaphelper.get_attr(entry[ATTRIBUTES][TITLE])
-    
     entity.phones = ldaphelper.get_attr(entry[ATTRIBUTES][TELEPHONE_NUMBER])
     entity.mobiles = ldaphelper.get_attr(entry[ATTRIBUTES][MOBILE])
     entity.emails = ldaphelper.get_attr(entry[ATTRIBUTES][MAIL])
-    
     entity.reset = ldaphelper.get_attr(entry[ATTRIBUTES][IS_RESET])
     entity.lockedTime = ldaphelper.get_attr(entry[ATTRIBUTES][LOCKED_TIME])
     entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
     entity.props = ldaphelper.get_attr(entry[ATTRIBUTES][PROPS])
-
     entity.departmentNumber = ldaphelper.get_attr(entry[ATTRIBUTES][DEPT_NUM])
     entity.l = ldaphelper.get_attr(entry[ATTRIBUTES][LOCATION])
     entity.physicalDeliveryOfficeName = ldaphelper.get_attr(entry[ATTRIBUTES][PHYSICAL_OFFICE_NM])
@@ -98,6 +97,8 @@ PW_POLICY = 'pwdPolicySubentry'
 CN = 'cn'
 SN = 'sn'
 DN = 'dn'
+CONSTRAINT = 'ftCstr'
+ROLE_CONSTRAINTS = 'ftRC'
 DESCRIPTION = 'description'
 DISPLAY_NAME = 'displayName'
 EMPLOYEE_TYPE = 'employeeType'
@@ -114,8 +115,6 @@ LOCATION = 'l'
 PHYSICAL_OFFICE_NM = 'physicalDeliveryOfficeName'
 POSTAL_CODE = 'postalCode'
 RM_NUM = 'roomNumber'
-
-
 
 
 ATTRIBUTES = 'attributes'
