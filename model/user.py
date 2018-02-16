@@ -3,6 +3,7 @@ Created on Feb 10, 2018
 
 @author: smckinney
 '''
+# Copyright 2018 - Symas Corporation
 
 class User:    
     "Fortess User"

@@ -3,6 +3,7 @@ Created on Feb 10, 2018
 
 @author: smckinney
 '''
+# Copyright 2018 - Symas Corporation
 
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 from model import User, Constraint

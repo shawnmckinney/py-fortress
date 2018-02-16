@@ -3,6 +3,7 @@ Created on Feb 10, 2018
 
 @author: smckinn
 '''
+# Copyright 2018 - Symas Corporation
 
 import unittest
 from ldap import userdao, permdao

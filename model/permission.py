@@ -3,7 +3,7 @@ Created on Feb 16, 2018
 
 @author: smckinn
 '''
-
+# Copyright 2018 - Symas Corporation
 
 class Permission:    
     "Fortess Permission"
