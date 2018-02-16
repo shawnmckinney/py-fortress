@@ -31,6 +31,12 @@
         "l", "physicalDeliveryOfficeName", "postalCode", "roomNumber"
       ]
     },
+    "permission": {
+      "attributes": [
+        "ftid", "ftObjNm", "ftOpNm", "ftPermName", "ftObjId", "ftRoles", 
+        "ftUsers", "ftType", "ftProps", "description"
+      ]
+    },    
     "raw_delimiter": "$"
   }
 }

@@ -5,8 +5,8 @@ Created on Feb 10, 2018
 '''
 
 import unittest
-from ldap import userdao
-from model import User
+from ldap import userdao, permdao
+from model import User, Permission
 from util import Config
 import logging
 
@@ -59,18 +59,24 @@ def print_user (entity, label):
         for idx, constraint in enumerate(entity.roleConstraints) :
             print_constraint (constraint, "User-Role Constraint[" + str(idx+1) + "]:")
             
-                                
-        
-#         print('x=' + str(entity.x))
-#         print('x=' + str(entity.x))
-#         print('x=' + str(entity.x))
-#         print('x=' + str(entity.x))
-#         print('x=' + str(entity.x))
-#         print('x=' + str(entity.x))
-        
         print("*************** " + label + " *******************")
 
     
+def print_perm (entity, label):
+        print(label)
+        print('\t' + 'objName=' + str(entity.objName))
+        print('\t' + 'opName=' + str(entity.opName))
+        print('\t' + 'objId=' + str(entity.objId))
+        print('\t' + 'description=' + str(entity.description))            
+        print('\t' + 'internalId=' + str(entity.internalId))        
+        print('\t' + 'abstractName=' + str(entity.abstractName))
+        print('\t' + 'type=' + str(entity.type))
+        print('\t' + 'users=' + str(entity.users))
+        print('\t' + 'roles=' + str(entity.roles))        
+        print('\t' + 'dn=' + str(entity.dn))
+        print('\t' + 'props=' + str(entity.props))
+        
+                
 class TestDaos(unittest.TestCase):
     """
     Test the user functions from the userdaomodule
@@ -84,6 +90,7 @@ class TestDaos(unittest.TestCase):
         try:
             usr = User()
             usr.uid = "jts*"
+            #usr.uid = "jtsTU11User1"
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :            
                 print_user(entity, "User[" + str(idx+1) + "]:")
@@ -91,9 +98,26 @@ class TestDaos(unittest.TestCase):
             self.fail('user search failed, exception=' + str(e))
 
             
+    def test_search_perms(self):
+        """
+        Test the perm search by objName and opName in ldap
+        """
+        print('test search perms by objNm')        
+        try:
+            prm = Permission()
+            prm.objName = "TOB*"
+            prm.opName = "TOP*"            
+            pList = permdao.search(prm)
+            for idx, entity in enumerate(pList) :            
+                print_perm(entity, "Perm[" + str(idx+1) + "]:")
+        except Exception as e:
+            self.fail('perm search failed, exception=' + str(e))
+
+            
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestDaos('test_search_users'))    
+    suite.addTest(TestDaos('test_search_perms'))    
     return suite  
 
  
