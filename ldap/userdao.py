@@ -5,7 +5,7 @@ Created on Feb 10, 2018
 '''
 
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
-from model import User
+from model import User, Constraint
 from ldap import ldaphelper, LdapException, NotFound, NotUnique
 from util import Config
 
@@ -49,7 +49,9 @@ def unload(entry):
     entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])  
     entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])
     entity.internalId = ldaphelper.get_attr(entry[ATTRIBUTES][INTERNAL_ID])
-    entity.constraint = ldaphelper.get_attr(entry[ATTRIBUTES][CONSTRAINT])
+    entity.constraint = Constraint()
+    entity.constraint.raw = ldaphelper.get_attr(entry[ATTRIBUTES][CONSTRAINT])
+    entity.constraint.load()
     entity.roleConstraints = ldaphelper.get_attr(entry[ATTRIBUTES][ROLE_CONSTRAINTS])                                                            
     entity.roles = ldaphelper.get_attr(entry[ATTRIBUTES][ROLES])
     entity.pwPolicy = ldaphelper.get_attr(entry[ATTRIBUTES][PW_POLICY])

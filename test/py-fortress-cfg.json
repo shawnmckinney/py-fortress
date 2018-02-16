@@ -29,8 +29,8 @@
         "title", "telephoneNumber", "mobile", "mail", "pwdReset",
         "pwdAccountLockedTime", "ftSystem", "ftProps", "departmentNumber",
         "l", "physicalDeliveryOfficeName", "postalCode", "roomNumber"
-
       ]
-    }
+    },
+    "raw_delimiter": "$"
   }
 }
