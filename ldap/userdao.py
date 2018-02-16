@@ -101,7 +101,7 @@ def unload(entry):
     if rcsRaw is not None :
         entity.roleConstraints = []
         for rcRaw in rcsRaw :
-            constraint = Constraint(rcRaw)
+            entity.roleConstraints.append(Constraint(rcRaw))
                         
     return entity
 
