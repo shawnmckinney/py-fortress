@@ -25,6 +25,21 @@ def read (entity):
 def authenticate (entity):
     validate(entity, "User Bind")
     conn = None            
+    try:        
+        conn = ldaphelper.open_user(UID + '=' + entity.uid + ',' + search_base, entity.password)
+        if not conn.bind():
+            raise InvalidCredentials
+    except Exception as e:
+        raise LdapException('Exception in userdao.authenticate=' + str(e))
+    finally:
+        if conn:        
+            ldaphelper.close(conn)
+    return True
+
+
+def authenticatex (entity):
+    validate(entity, "User Bind")
+    conn = None            
     try:
         conn = ldaphelper.open()
         user_dn = UID + '=' + entity.uid + ',' + search_base 

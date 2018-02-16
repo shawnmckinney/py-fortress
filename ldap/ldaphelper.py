@@ -14,24 +14,17 @@ from ldap3.utils.log import set_library_log_activation_level
 set_library_log_activation_level(logging.CRITICAL)
 from ldap3.utils.log import set_library_log_detail_level, OFF, ERROR, BASIC, PROTOCOL, NETWORK, EXTENDED
 
-# Check authentication for a user:
-def bind (user_dn, password):
+# Open a connection for a particular user:
+def open_user (user_dn, password):
     c = _open_user(user_dn, password)    
-    if not c.bind():        
-        logging.debug('bind user dn: ' + user_dn + ', result', c.result)
-        return False
-    else:
-        return True
+    return c
 
-# DAO's call this:
+# Open a connection from the pool with service accounts:
 def open ():
-    c = _open_(True)
+    c = _open_admin()
     if(_ldap_debug):
         print(c.usage)        
     return c
-
-def _open_ (is_auto_bind):
-    return _open_admin(is_auto_bind, _service_uid, _service_pw )
 
 def _open_user (user_dn, password):
     try:
@@ -55,13 +48,13 @@ def _open_user (user_dn, password):
     return c
 
 
-def _open_admin (is_auto_bind, user_dn, password):
+def _open_admin ():
     try:
         c = ldap3.Connection(_srv_pool,
-                             user=user_dn,
-                             password=password,
+                             user=_service_uid,
+                             password=_service_pw,
                              client_strategy='REUSABLE',
-                             auto_bind=is_auto_bind,
+                             auto_bind=True,
                              collect_usage=_ldap_debug,
                              pool_name=_pool_name,
                              pool_size=_pool_size,
@@ -94,13 +87,13 @@ def get_attr_val(lattr):
         #value = lattr
     return value
 
+
 # Call this when expecting a single value from a multi-occurring attribute:
 def get_one_attr_val(lattr):
     value = ""
     if len (lattr) > 0:
         lst = lattr
         value = lst[0]
-        #value = lattr
     return value
 
 
