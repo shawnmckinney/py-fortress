@@ -72,16 +72,14 @@ def unload(entry):
     entity.constraint = Constraint()
     entity.constraint.raw = ldaphelper.get_attr(entry[ATTRIBUTES][CONSTRAINT])
     entity.constraint.load()    
-    entity.roleConstraints = ldaphelper.get_attr(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
-#     rcRaw = ldaphelper.get_attr(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
-#     if rcRaw is not None :
-#         entity.roleConstraints = []
-#         indx = 0
-#         for rc in rcRaw :
-#             entity.roleConstraints[indx] = Constraint()
-#             entity.roleConstraints[indx].raw = rc
-#             entity.roleConstraints[indx].load()    
-#             indx+= 1                  
+    rcsRaw = ldaphelper.get_list(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
+    if rcsRaw is not None :
+        entity.roleConstraints = []
+        for rcRaw in rcsRaw :
+            constraint = Constraint()
+            entity.roleConstraints.append(constraint)
+            constraint.raw = rcRaw
+            constraint.load()    
                                            
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])
 #     entity.x = ldaphelper.get_attr(entry[ATTRIBUTES][x])

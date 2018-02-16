@@ -60,6 +60,13 @@ def get_attr(lattr):
     return value
 
 
+def get_list(lattr):
+    value = ""
+    if len (lattr) > 0:
+        value = lattr
+    return value
+
+
 def get_bool(lattr):
     value = False
     value = str (lattr)
