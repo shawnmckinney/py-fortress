@@ -115,9 +115,30 @@ class TestDaos(unittest.TestCase):
             self.fail('perm search failed, exception=' + str(e))
 
             
+    def test_bind_users(self):
+        """
+        Test the user bind
+        """
+        print('test bind users')        
+        try:
+            usr = User()
+            usr.uid = "jtsuser*"
+            #usr.uid = "jtsTU11User1"
+            uList = userdao.search(usr)
+            for idx, entity in enumerate(uList) :
+                entity.password = 'passw0rd' + str(idx+1)      
+                result = userdao.authenticate(entity)
+                if result is False:
+                    self.fail('test bind failed ' + entity.uid)
+                          
+        except Exception as e:
+            self.fail('user bind failed, exception=' + str(e))
+
+            
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(TestDaos('test_search_users'))    
+    suite.addTest(TestDaos('test_search_users'))
+    suite.addTest(TestDaos('test_bind_users'))    
     suite.addTest(TestDaos('test_search_perms'))    
     return suite  
 

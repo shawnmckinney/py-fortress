@@ -55,13 +55,13 @@ def unload(entry):
     entity = Permission()
     entity.dn = ldaphelper.get_dn(entry)
     
-    entity.internalId = ldaphelper.get_attr(entry[ATTRIBUTES][INTERNAL_ID])
-    entity.objId = ldaphelper.get_attr(entry[ATTRIBUTES][OBJ_ID])
-    entity.objName = ldaphelper.get_attr(entry[ATTRIBUTES][OBJ_NM])
-    entity.opName = ldaphelper.get_attr(entry[ATTRIBUTES][OP_NM])
-    entity.abstractName = ldaphelper.get_attr(entry[ATTRIBUTES][PERM_NAME])
-    entity.type = ldaphelper.get_attr(entry[ATTRIBUTES][TYPE])
-    entity.description = ldaphelper.get_attr(entry[ATTRIBUTES][DESC])
+    entity.internalId = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])
+    entity.objId = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_ID])
+    entity.objName = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_NM])
+    entity.opName = ldaphelper.get_attr_val(entry[ATTRIBUTES][OP_NM])
+    entity.abstractName = ldaphelper.get_attr_val(entry[ATTRIBUTES][PERM_NAME])
+    entity.type = ldaphelper.get_attr_val(entry[ATTRIBUTES][TYPE])
+    entity.description = ldaphelper.get_attr_val(entry[ATTRIBUTES][DESC])
 
     # Get the multi-occurring attrs:
     entity.users = ldaphelper.get_list(entry[ATTRIBUTES][USERS])    

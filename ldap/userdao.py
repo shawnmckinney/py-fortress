@@ -7,7 +7,7 @@ Created on Feb 10, 2018
 
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 from model import User, Constraint
-from ldap import ldaphelper, LdapException, NotFound, NotUnique
+from ldap import ldaphelper, LdapException, NotFound, NotUnique, InvalidCredentials
 from util import Config
 import logging
 
@@ -20,6 +20,22 @@ def read (entity):
         raise NotUnique()
     else:
         return userList[0]
+
+
+def authenticate (entity):
+    validate(entity, "User Bind")
+    conn = None            
+    try:
+        conn = ldaphelper.open()
+        user_dn = UID + '=' + entity.uid + ',' + search_base 
+        if not ldaphelper.bind(user_dn, entity.password):
+            raise InvalidCredentials
+    except Exception as e:
+        raise LdapException('Exception in userdao.bind=' + str(e))
+    finally:
+        if conn:        
+            ldaphelper.close(conn)
+    return True
 
 
 def search (entity):
@@ -52,25 +68,24 @@ def search (entity):
 def unload(entry):
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
-    entity.uid = ldaphelper.get_attr(entry[ATTRIBUTES][UID])
-    entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])  
-    entity.ou = ldaphelper.get_attr(entry[ATTRIBUTES][OU])
-    entity.internalId = ldaphelper.get_attr(entry[ATTRIBUTES][INTERNAL_ID])
-    entity.pwPolicy = ldaphelper.get_attr(entry[ATTRIBUTES][PW_POLICY])
-    entity.cn = ldaphelper.get_attr(entry[ATTRIBUTES][CN])
-    entity.sn = ldaphelper.get_attr(entry[ATTRIBUTES][SN])
-    entity.description = ldaphelper.get_attr(entry[ATTRIBUTES][DESCRIPTION])
-    entity.displayName = ldaphelper.get_attr(entry[ATTRIBUTES][DISPLAY_NAME])
-    entity.employeeType = ldaphelper.get_attr(entry[ATTRIBUTES][EMPLOYEE_TYPE])
-    entity.title = ldaphelper.get_attr(entry[ATTRIBUTES][TITLE])
-    entity.reset = ldaphelper.get_attr(entry[ATTRIBUTES][IS_RESET])
-    entity.lockedTime = ldaphelper.get_attr(entry[ATTRIBUTES][LOCKED_TIME])
+    entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][UID])    
+    entity.ou = ldaphelper.get_attr_val(entry[ATTRIBUTES][OU])  
+    entity.internalId = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])    
+    entity.pwPolicy = ldaphelper.get_attr_val(entry[ATTRIBUTES][PW_POLICY])
+    entity.cn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][CN])
+    entity.sn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][SN])
+    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DESCRIPTION])
+    entity.displayName = ldaphelper.get_attr_val(entry[ATTRIBUTES][DISPLAY_NAME])
+    entity.employeeType = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][EMPLOYEE_TYPE])
+    entity.title = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][TITLE])
+    entity.reset = ldaphelper.get_attr_val(entry[ATTRIBUTES][IS_RESET])
+    entity.lockedTime = ldaphelper.get_attr_val(entry[ATTRIBUTES][LOCKED_TIME])
     entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
-    entity.departmentNumber = ldaphelper.get_attr(entry[ATTRIBUTES][DEPT_NUM])
-    entity.l = ldaphelper.get_attr(entry[ATTRIBUTES][LOCATION])
-    entity.physicalDeliveryOfficeName = ldaphelper.get_attr(entry[ATTRIBUTES][PHYSICAL_OFFICE_NM])
-    entity.postalCode = ldaphelper.get_attr(entry[ATTRIBUTES][POSTAL_CODE])
-    entity.roomNumber = ldaphelper.get_attr(entry[ATTRIBUTES][RM_NUM])
+    entity.departmentNumber = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DEPT_NUM])
+    entity.l = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][LOCATION])
+    entity.physicalDeliveryOfficeName = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][PHYSICAL_OFFICE_NM])
+    entity.postalCode = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][POSTAL_CODE])
+    entity.roomNumber = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][RM_NUM])
 
     # Get the multi-occurring attrs:
     entity.props = ldaphelper.get_list(entry[ATTRIBUTES][PROPS])    
@@ -81,7 +96,7 @@ def unload(entry):
     
     # unload raw user constraint:
     entity.constraint = Constraint()
-    entity.constraint.raw = ldaphelper.get_attr(entry[ATTRIBUTES][CONSTRAINT])
+    entity.constraint.raw = ldaphelper.get_attr_val(entry[ATTRIBUTES][CONSTRAINT])
     entity.constraint.load()
     
     # now, unload raw user-role constraints:    

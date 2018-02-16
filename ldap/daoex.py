@@ -13,3 +13,6 @@ class NotFound(LdapException):
 
 class NotUnique(LdapException):
     pass
+
+class InvalidCredentials(LdapException):
+    pass

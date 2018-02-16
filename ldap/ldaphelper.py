@@ -14,6 +14,14 @@ from ldap3.utils.log import set_library_log_activation_level
 set_library_log_activation_level(logging.CRITICAL)
 from ldap3.utils.log import set_library_log_detail_level, OFF, ERROR, BASIC, PROTOCOL, NETWORK, EXTENDED
 
+# Check authentication for a user:
+def bind (user_dn, password):
+    c = _open_user(user_dn, password)    
+    if not c.bind():        
+        logging.debug('bind user dn: ' + user_dn + ', result', c.result)
+        return False
+    else:
+        return True
 
 # DAO's call this:
 def open ():
@@ -22,12 +30,36 @@ def open ():
         print(c.usage)        
     return c
 
-
 def _open_ (is_auto_bind):
+    return _open_admin(is_auto_bind, _service_uid, _service_pw )
+
+def _open_user (user_dn, password):
+    try:
+        c = ldap3.Connection(_usr_pool,
+                             user=user_dn,
+                             password=password,
+                             client_strategy='REUSABLE',
+                             auto_bind=False,
+                             collect_usage=_ldap_debug,
+                             pool_name=_pool_name + 'usr',
+                             pool_size=_pool_size,
+                             pool_lifetime=_pool_lifetime,
+                             pool_keepalive=_pool_keepalive,
+                             receive_timeout=_ldap_timeout,
+                             lazy=False
+                             )
+    except Exception as e:
+        raise LdapException ('connutl.open Exception=' + str (e))
+    if(_ldap_debug):
+        print(c.usage)        
+    return c
+
+
+def _open_admin (is_auto_bind, user_dn, password):
     try:
         c = ldap3.Connection(_srv_pool,
-                             user=_service_uid,
-                             password=_service_pw,
+                             user=user_dn,
+                             password=password,
                              client_strategy='REUSABLE',
                              auto_bind=is_auto_bind,
                              collect_usage=_ldap_debug,
@@ -54,13 +86,25 @@ def get_response(conn, id):
     return res[0] 
 
     
-def get_attr(lattr):
+# Call this to get value from a single-occurring attribute:    
+def get_attr_val(lattr):
     value = ""
     if len (lattr) > 0:
         value = str (lattr)
+        #value = lattr
+    return value
+
+# Call this when expecting a single value from a multi-occurring attribute:
+def get_one_attr_val(lattr):
+    value = ""
+    if len (lattr) > 0:
+        lst = lattr
+        value = lst[0]
+        #value = lattr
     return value
 
 
+# Call this to get a list of attribute values:
 def get_list(lattr):
     value = ""
     if len (lattr) > 0:
@@ -118,3 +162,4 @@ set_library_log_detail_level(_ldap3_log_level)
 # Needed for server/connection pooling:
 _srv1 = ldap3.Server(host=_ldap_host, port=_ldap_port, connect_timeout=_ldap_timeout, use_ssl=_ldap_use_ssl)
 _srv_pool = ldap3.ServerPool([_srv1], ldap3.ROUND_ROBIN, exhaust=True, active=True)
+_usr_pool = ldap3.ServerPool([_srv1], ldap3.ROUND_ROBIN, exhaust=True, active=True)

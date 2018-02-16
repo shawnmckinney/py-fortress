@@ -1,1 +1,1 @@
-from ldap.daoex import LdapException, NotFound, NotUnique
+from ldap.daoex import LdapException, NotFound, NotUnique, InvalidCredentials
