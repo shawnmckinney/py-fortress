@@ -31,7 +31,7 @@ def _open_user (user_dn, password):
         c = ldap3.Connection(_usr_pool,
                              user=user_dn,
                              password=password,
-                             client_strategy='REUSABLE',
+                             client_strategy='SYNC',
                              auto_bind=False,
                              collect_usage=_ldap_debug,
                              pool_name=_pool_name + 'usr',
@@ -85,6 +85,14 @@ def get_attr_val(lattr):
     if len (lattr) > 0:
         value = str (lattr)
         #value = lattr
+    return value
+
+
+# Call this to get value from a single-occurring attribute:    
+def get_attr_object(lattr):
+    value = ""
+    if lattr is not None:
+        value = lattr
     return value
 
 

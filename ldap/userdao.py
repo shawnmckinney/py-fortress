@@ -24,16 +24,18 @@ def read (entity):
 
 def authenticate (entity):
     validate(entity, "User Bind")
-    conn = None            
+    conn = None
+    result = False            
     try:        
         conn = ldaphelper.open_user(UID + '=' + entity.uid + ',' + search_base, entity.password)
-        if not conn.bind():
-            raise InvalidCredentials
+        result = conn.bind()
     except Exception as e:
         raise LdapException('Exception in userdao.authenticate=' + str(e))
     finally:
         if conn:        
             ldaphelper.close(conn)
+    if result is False:
+        raise InvalidCredentials        
     return True
 
 
@@ -67,7 +69,7 @@ def search (entity):
 def unload(entry):
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
-    entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][UID])    
+    entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][UID])
     entity.ou = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][OU])  
     entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])    
     entity.pw_policy = ldaphelper.get_attr_val(entry[ATTRIBUTES][PW_POLICY])
@@ -78,7 +80,7 @@ def unload(entry):
     entity.employee_type = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][EMPLOYEE_TYPE])
     entity.title = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][TITLE])
     entity.reset = ldaphelper.get_attr_val(entry[ATTRIBUTES][IS_RESET])
-    entity.locked_time = ldaphelper.get_attr_val(entry[ATTRIBUTES][LOCKED_TIME])
+    entity.locked_time = ldaphelper.get_attr_object(entry[ATTRIBUTES][LOCKED_TIME])
     entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
     entity.department_number = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DEPT_NUM])
     entity.l = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][LOCATION])
