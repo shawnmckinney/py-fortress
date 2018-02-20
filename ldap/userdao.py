@@ -80,13 +80,15 @@ def unload(entry):
     entity.employee_type = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][EMPLOYEE_TYPE])
     entity.title = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][TITLE])
     entity.reset = ldaphelper.get_attr_val(entry[ATTRIBUTES][IS_RESET])
-    entity.locked_time = ldaphelper.get_attr_object(entry[ATTRIBUTES][LOCKED_TIME])
     entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
     entity.department_number = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DEPT_NUM])
     entity.l = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][LOCATION])
     entity.physical_delivery_office_name = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][PHYSICAL_OFFICE_NM])
     entity.postal_code = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][POSTAL_CODE])
     entity.room_number = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][RM_NUM])
+
+    # Get the attr as object:
+    entity.locked_time = ldaphelper.get_attr_object(entry[ATTRIBUTES][LOCKED_TIME])
 
     # Get the multi-occurring attrs:
     entity.props = ldaphelper.get_list(entry[ATTRIBUTES][PROPS])    
