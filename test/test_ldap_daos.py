@@ -2,8 +2,8 @@
 Created on Feb 10, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
-# Copyright 2018 - Symas Corporation
 
 import unittest
 from ldap import userdao, permdao, LdapException, InvalidCredentials

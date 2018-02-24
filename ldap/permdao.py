@@ -2,8 +2,8 @@
 Created on Feb 16, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
-# Copyright 2018 - Symas Corporation
 
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 from model import Permission

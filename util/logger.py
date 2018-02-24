@@ -2,6 +2,7 @@
 Created on Feb 23, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
 
 import datetime

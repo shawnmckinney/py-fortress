@@ -2,8 +2,8 @@
 Created on Feb 16, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
-# Copyright 2018 - Symas Corporation
 
 from util import Config
 

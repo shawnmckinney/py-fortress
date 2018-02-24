@@ -2,8 +2,8 @@
 Created on Feb 11, 2018
 
 @author: smckinney
+@copyright: 2018 - Symas Corporation
 '''
-# Copyright 2018 - Symas Corporation
 
 import ldap3
 from ldap import LdapException, NotFound, NotUnique
