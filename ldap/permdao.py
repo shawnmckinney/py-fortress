@@ -9,7 +9,6 @@ from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 from model import Permission
 from ldap import ldaphelper, LdapException, NotFound, NotUnique
 from util import Config
-import logging
 
 
 def read (entity):

@@ -8,11 +8,7 @@ Created on Feb 10, 2018
 import unittest
 from ldap import userdao, permdao, LdapException, InvalidCredentials
 from model import User, Permission
-from util import Config
-import logging
-
-Config.load()
-logging.basicConfig(filename='py-fortress-test.log', level=logging.INFO)
+from util.logger import log
 
 
 class BasicTestSuite(unittest.TestCase):

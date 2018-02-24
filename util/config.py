@@ -6,15 +6,13 @@ Created on Feb 11, 2018
 
 import json
 
-
 class Config:
     current = {
         "data": {},
         "filename": None
     }
-
-    def load(filename='py-fortress-cfg.json'):
-                
+    
+    def load(filename='py-fortress-cfg.json'):                
         with open(filename) as json_file:
             Config.current["data"] = json.load(json_file)
             Config.current["filename"] = filename
@@ -24,3 +22,6 @@ class Config:
 
     def getDefault(key, default=None):
         return Config.current["data"].get(key, default)
+
+# bootstrap the config:
+Config.load()

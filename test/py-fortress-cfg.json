@@ -1,4 +1,8 @@
 {
+  "logger": {
+    "level": "INFO",
+    "file_name": "fortress"                    
+  },
   "ldap": {
     "host": "localhost",
     "port": 32770,
