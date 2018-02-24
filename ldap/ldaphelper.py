@@ -6,9 +6,10 @@ Created on Feb 11, 2018
 '''
 
 import ldap3
-from ldap import LdapException, NotFound, NotUnique
+from ldap import LdapException
 from util import Config
 import logging
+from util.logger import log
 
 from ldap3.utils.log import set_library_log_activation_level
 set_library_log_activation_level(logging.CRITICAL)
@@ -44,7 +45,7 @@ def _open_user (user_dn, password):
     except Exception as e:
         raise LdapException ('connutl.open Exception=' + str (e))
     if(_ldap_debug):
-        print(c.usage)        
+        log.debug(c.usage)        
     return c
 
 
@@ -66,7 +67,7 @@ def _open_admin ():
     except Exception as e:
         raise LdapException ('connutl.open Exception=' + str (e))
     if(_ldap_debug):
-        print(c.usage)        
+        log.debug(c.usage)        
     return c
 
 
