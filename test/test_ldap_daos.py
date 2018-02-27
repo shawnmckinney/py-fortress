@@ -8,7 +8,7 @@ Created on Feb 10, 2018
 import unittest
 from ldap import userdao, permdao, LdapException, InvalidCredentials
 from model import User, Permission
-from test.utils import print_user, print_perm
+from test.utils import print_user, print_perm, print_constraint
 
 
 class BasicTestSuite(unittest.TestCase):

@@ -12,7 +12,16 @@ class Constraint:
     
     def __init__(
             self,
-            raw  
+            raw=None,
+            name=None,
+            timeout=None,
+            begin_time=None,
+            end_time=None,
+            begin_date=None,
+            end_date=None,
+            begin_lock_date=None,
+            end_lock_date=None,
+            day_mask=None 
             ):
     
         self.raw = raw
@@ -37,3 +46,13 @@ class Constraint:
                 self.end_lock_date=entity_constraint[7]
             if entity_constraint[8] is not None:
                 self.day_mask=entity_constraint[8]            
+        else:
+            self.name = name
+            self.timeout = timeout
+            self.begin_time = begin_time
+            self.end_time = end_time
+            self.begin_date = begin_date
+            self.end_date = end_date
+            self.begin_lock_date = begin_lock_date
+            self.end_lock_date = end_lock_date
+            self.day_mask = day_mask
