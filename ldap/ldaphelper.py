@@ -5,12 +5,11 @@ Created on Feb 11, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-import ldap3
-from ldap import LdapException
 from util import Config
 import logging
-from util.logger import log
-
+from util.logger import logger
+import ldap3
+from ldap import LdapException
 from ldap3.utils.log import set_library_log_activation_level
 set_library_log_activation_level(logging.CRITICAL)
 from ldap3.utils.log import set_library_log_detail_level, OFF, ERROR, BASIC, PROTOCOL, NETWORK, EXTENDED
@@ -24,7 +23,7 @@ def open_user (user_dn, password):
 def open ():
     c = _open_admin()
     if(_ldap_debug):
-        print(c.usage)        
+        logger.debug(c.usage)        
     return c
 
 def _open_user (user_dn, password):
@@ -45,7 +44,7 @@ def _open_user (user_dn, password):
     except Exception as e:
         raise LdapException ('connutl.open Exception=' + str (e))
     if(_ldap_debug):
-        log.debug(c.usage)        
+        logger.debug(c.usage)        
     return c
 
 
@@ -67,7 +66,7 @@ def _open_admin ():
     except Exception as e:
         raise LdapException ('connutl.open Exception=' + str (e))
     if(_ldap_debug):
-        log.debug(c.usage)        
+        logger.debug(c.usage)        
     return c
 
 
@@ -146,7 +145,10 @@ _ldap_use_ssl = Config.get(LDAP)['use_ssl']
 _ldap3_log_level_str = Config.get(LDAP)['ldap3_log_level']
 _ldap3_log_level = 0
 
-# Map from config string literals to ldap3 logger constants to set log level:
+logger.info('Initialize py-fortress ldap...')
+logger.info('ldap host: ' + _ldap_host +  ', port:' + str(_ldap_port))
+
+# Map from config string literals to ldap3 logger constants to set logger level:
 if _ldap3_log_level_str == 'OFF' :
     _ldap3_log_level = OFF
 elif _ldap3_log_level_str == 'ERROR' :

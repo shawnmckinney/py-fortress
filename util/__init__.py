@@ -1,5 +1,5 @@
 from util.config import Config
-from util.logger import log
+from util.logger import logger
 from util.validator import Validator
 from util.date import Date
 from util.day import Day

@@ -12,8 +12,12 @@ from logging import DEBUG, INFO, WARNING, ERROR, CRITICAL
 
 LOGGER = 'logger'
 
-def setup():
+ctr = 1
+
+def setup(ctr):
     """Function setup as many loggers as you want"""
+    print('ctr=' + str(ctr))
+    ctr += 1    
     now = datetime.datetime.now()
     name = Config.get(LOGGER)['file_name']
     handler = logging.FileHandler(
@@ -24,7 +28,7 @@ def setup():
     handler.setFormatter(formatter)
     mlog = logging.getLogger( name )
     mlog.setLevel( level_ )
-    mlog.addHandler(handler)
+    #mlog.addHandler(handler)
     return [mlog, handler]
 
 level_str_ = Config.get(LOGGER)['level']
@@ -42,7 +46,7 @@ elif level_str_ == 'CRITICAL' :
  
 is_log = False
 if is_log is False:
-    log, handler_ = setup()    
+    logger, handler_ = setup(ctr)    
     is_log = True
     
 my_handlers = [handler_]

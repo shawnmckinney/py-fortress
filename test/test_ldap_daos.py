@@ -8,7 +8,7 @@ Created on Feb 10, 2018
 import unittest
 from ldap import userdao, permdao, LdapException, InvalidCredentials
 from model import User, Permission
-from test.utils import print_user, print_perm, print_constraint
+from test.utils import print_user, print_perm, print_constraint, print_ln
 
 
 class BasicTestSuite(unittest.TestCase):
@@ -23,9 +23,9 @@ class TestDaos(unittest.TestCase):
         """
         Test the user search by uid in ldap
         """
-        print('test search users by uid')        
+        print_ln('test search users by uid')        
         try:
-            usr = User(uid = "jtsUser1")
+            usr = User(uid = "jts*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :            
                 print_user(entity, "User[" + str(idx+1) + "]:")
@@ -37,7 +37,7 @@ class TestDaos(unittest.TestCase):
         """
         Test the perm search by obj_name and op_name in ldap
         """
-        print('test search perms by objNm')        
+        print_ln('test search perms by objNm')        
         try:
             prm = Permission(obj_name = "TOB*", op_name = "TOP*")
             pList = permdao.search(prm)
@@ -51,7 +51,7 @@ class TestDaos(unittest.TestCase):
         """
         Test the user bind
         """
-        print('test bind users')        
+        print_ln('test bind users')        
         try:
             usr = User(uid = "jtsuser*")
             uList = userdao.search(usr)
@@ -70,7 +70,7 @@ class TestDaos(unittest.TestCase):
         """
         Test the user bind
         """
-        print('test bind users')        
+        print_ln('test bind users')        
         try:
             usr = User(uid = "jtsuser*")
             uList = userdao.search(usr)
