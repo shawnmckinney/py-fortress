@@ -5,6 +5,7 @@ Created on Feb 24, 2018
 '''
 
 from util.validator import Validator
+from util.logger import logger
 
 class TimeOut(Validator):
     '''
@@ -18,5 +19,5 @@ class TimeOut(Validator):
         '''
         
     def validate(self, constraint, time):
-        print('TimeOut.validate time=' + str(time) + ', constraint timeout=' + constraint.timeout)
+        logger.info('TimeOut.validate time=' + str(time) + ', constraint timeout=' + constraint.timeout)
         

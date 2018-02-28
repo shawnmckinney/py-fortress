@@ -5,6 +5,7 @@ Created on Feb 24, 2018
 '''
 
 from util.validator import Validator
+from util.logger import logger
 
 class Time(Validator):
     '''
@@ -18,5 +19,5 @@ class Time(Validator):
         '''
         
     def validate(self, constraint, time):
-        print('Time.validate time=' + str(time) + ', constraint begin_time=' + constraint.begin_time + ', end_time=' + constraint.end_time)
+        logger.info('Time.validate time=' + str(time) + ', constraint begin_time=' + constraint.begin_time + ', end_time=' + constraint.end_time)
         

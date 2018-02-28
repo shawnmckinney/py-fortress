@@ -5,6 +5,7 @@ Created on Feb 24, 2018
 '''
 
 from util.validator import Validator
+from util.logger import logger
 
 class LockDate(Validator):
     '''
@@ -18,5 +19,5 @@ class LockDate(Validator):
         '''
         
     def validate(self, constraint, time):
-        print('LockDate.validate time=' + str(time) + ', constraint begin_lock_date=' + constraint.begin_lock_date + ', end_lock_date=' + constraint.end_lock_date)
+        logger.info('LockDate.validate time=' + str(time) + ', constraint begin_lock_date=' + constraint.begin_lock_date + ', end_lock_date=' + constraint.end_lock_date)
         
