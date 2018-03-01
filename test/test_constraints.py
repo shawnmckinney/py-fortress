@@ -62,7 +62,6 @@ class TestConstraints(unittest.TestCase):
         Test the temporal constraints
         """
         print('test time-based constraints')
-        now = CurrentDateTime()
         validators = []
         validators.append(Date())
         validators.append(Day())
@@ -71,7 +70,7 @@ class TestConstraints(unittest.TestCase):
         validators.append(TimeOut())
         for constraint in cons1:
             for validator in validators:
-                result = validator.validate(constraint, now)
+                result = validator.validate(constraint, CurrentDateTime())
                 print_constraint( constraint, "Validate" + str(validator) )
                 print_ln( 'result=' + str(result), 1 )
     
