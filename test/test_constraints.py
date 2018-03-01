@@ -4,6 +4,7 @@ Created on Feb 24, 2018
 @author: smckinn
 @copyright: 2018 - Symas Corporation
 '''
+
 import unittest
 from util.date import Date
 from util.day import Day
@@ -51,14 +52,14 @@ cons1 = [
     ]
 
 class BasicTestSuite(unittest.TestCase):
-    """Test Constraints."""
+    """Verify the temporal validators against the current system date with some sample constraint values."""
                 
 class TestConstraints(unittest.TestCase):
     
         
-    def test_time(self):
+    def test_validators(self):
         """
-        Test time-based constraints
+        Test the temporal constraints
         """
         print('test time-based constraints')
         now = CurrentDateTime()
@@ -77,7 +78,7 @@ class TestConstraints(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(TestConstraints('test_time'))
+    suite.addTest(TestConstraints('test_validators'))
     return suite  
 
 
