@@ -18,6 +18,6 @@ class TimeOut(Validator):
         Constructor
         '''
         
-    def validate(self, constraint, time):
-        logger.info('TimeOut.validate time=' + str(time) + ', constraint timeout=' + constraint.timeout)
+    def validate(self, constraint, now):
+        logger.debug('TimeOut.validate time=' + now.time + ', constraint timeout=' + constraint.timeout)
         

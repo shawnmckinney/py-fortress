@@ -18,6 +18,11 @@ class Day(Validator):
         Constructor
         '''
         
-    def validate(self, constraint, time):
-        logger.info('Day.validate time=' + str(time) + ', constraint day_mask=' + constraint.day_mask)
+    def validate(self, constraint, now):
+        logger.debug('Day.validate constraint day_of_week=' + now.day_of_week + ', day_mask=' + constraint.day_mask)
+        if now.day_of_week in constraint.day_mask:
+            return True
+        else:
+            return False        
+        
         

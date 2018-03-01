@@ -18,6 +18,10 @@ class Date(Validator):
         Constructor
         '''
         
-    def validate(self, constraint, time):
-        logger.info('Date.validate time=' + str(time) + ', constraint begin_date=' + constraint.begin_date + ', end_date=' + constraint.end_date)
+    def validate(self, constraint, now):
+        logger.debug('Date.validate constraint date=' + now.date + ', begin_date=' + constraint.begin_date + ', end_date=' + constraint.end_date)
+        if constraint.begin_date <= now.date <= constraint.end_date:
+            return True
+        else:
+            return False        
         

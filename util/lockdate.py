@@ -18,6 +18,11 @@ class LockDate(Validator):
         Constructor
         '''
         
-    def validate(self, constraint, time):
-        logger.info('LockDate.validate time=' + str(time) + ', constraint begin_lock_date=' + constraint.begin_lock_date + ', end_lock_date=' + constraint.end_lock_date)
+    def validate(self, constraint, now):
+        logger.debug('LockDate.validate constraint date=' + now.date + ', begin_lock_date=' + constraint.begin_lock_date + ', end_lock_date=' + constraint.end_lock_date)
+        if constraint.begin_lock_date <= now.date <= constraint.end_lock_date:
+            return False
+        else:
+            return True        
+        
         

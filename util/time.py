@@ -18,6 +18,9 @@ class Time(Validator):
         Constructor
         '''
         
-    def validate(self, constraint, time):
-        logger.info('Time.validate time=' + str(time) + ', constraint begin_time=' + constraint.begin_time + ', end_time=' + constraint.end_time)
-        
+    def validate(self, constraint, now):
+        logger.debug('Time.validate constraint time=' + now.time + ', begin_time=' + constraint.begin_time + ', end_time=' + constraint.end_time)
+        if constraint.begin_time <= now.time <= constraint.end_time:
+            return True
+        else:
+            return False        
