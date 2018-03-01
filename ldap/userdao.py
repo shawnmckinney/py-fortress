@@ -4,7 +4,7 @@ Created on Feb 10, 2018
 @author: smckinney
 @copyright: 2018 - Symas Corporation
 '''
-
+    
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 from model import User, Constraint
 from ldap import ldaphelper, LdapException, NotFound, NotUnique, InvalidCredentials
@@ -147,6 +147,13 @@ PHYSICAL_OFFICE_NM = 'physicalDeliveryOfficeName'
 POSTAL_CODE = 'postalCode'
 RM_NUM = 'roomNumber'
 
+SEARCH_ATTRS = [
+    UID, OU, INTERNAL_ID, ROLES, ROLE_CONSTRAINTS, PW_POLICY, CONSTRAINT,
+    CN, SN, DESCRIPTION, DISPLAY_NAME, EMPLOYEE_TYPE,
+    TITLE, TELEPHONE_NUMBER, MOBILE, MAIL, IS_RESET,
+    LOCKED_TIME, IS_SYSTEM, PROPS, DEPT_NUM,
+    PHYSICAL_OFFICE_NM, POSTAL_CODE, RM_NUM, LOCATION
+    ]
+
 ATTRIBUTES = 'attributes'
-SEARCH_ATTRS = Config.get('schema')['user']['attributes']
 search_base = Config.get('dit')['users']

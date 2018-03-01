@@ -12,4 +12,6 @@ class TimeOut(Validator):
         
     def validate(self, constraint, now):
         logger.debug('TimeOut.validate time=' + now.time + ', constraint timeout=' + constraint.timeout)
+        # Todo: until implemented, return False:
+        return False
         

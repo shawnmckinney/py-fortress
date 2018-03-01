@@ -93,6 +93,10 @@ TYPE = 'ftType'
 PROPS = 'ftProps'
 DESC = 'description'
 
-ATTRIBUTES = 'attributes'
-SEARCH_ATTRS = Config.get('schema')['permission']['attributes']
+SEARCH_ATTRS = [
+    INTERNAL_ID, OBJ_NM, OP_NM, PERM_NAME, OBJ_ID, ROLES,
+     USERS, TYPE, PROPS, DESC
+     ]
+
 search_base = Config.get('dit')['perms']
+ATTRIBUTES = 'attributes'

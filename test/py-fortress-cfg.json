@@ -26,21 +26,6 @@
     "constraints": "ou=RBAC, dc=example,dc=com"        
   },
   "schema": {
-    "user": {
-      "attributes": [
-        "uid", "ou", "ftid", "ftRA", "ftRC", "pwdPolicySubentry", "ftCstr",
-        "cn", "sn", "description", "displayName", "employeeType",
-        "title", "telephoneNumber", "mobile", "mail", "pwdReset",
-        "pwdAccountLockedTime", "ftSystem", "ftProps", "departmentNumber",
-        "l", "physicalDeliveryOfficeName", "postalCode", "roomNumber"
-      ]
-    },
-    "permission": {
-      "attributes": [
-        "ftid", "ftObjNm", "ftOpNm", "ftPermName", "ftObjId", "ftRoles", 
-        "ftUsers", "ftType", "ftProps", "description"
-      ]
-    },    
     "raw_delimiter": "$"
   }
 }
