@@ -6,17 +6,17 @@ Created on Feb 10, 2018
 '''
 
 import unittest
-from ldap import userdao, permdao, LdapException, InvalidCredentials
+from ldap import userdao, permdao, InvalidCredentials
 from model import User, Permission
-from test.utils import print_user, print_perm, print_constraint, print_ln
+from test.utils import print_user, print_perm, print_ln
 
 
 class BasicTestSuite(unittest.TestCase):
-    """Basic test cases."""
+    """These tests assume fortress user and permission data has been pre-loaded into Ldap, i.e. via apache fortress administrative functions."""
                 
 class TestDaos(unittest.TestCase):
     """
-    Test the user functions from the userdaomodule
+    Test the user functions from the user and perm dao modules
     """    
     
     def test_search_users(self):
@@ -65,6 +65,7 @@ class TestDaos(unittest.TestCase):
             self.fail('user bind invalid creds, user=' + entity.uid)
         except Exception as e:
             self.fail('user bind exception=' + str(e))
+
 
     def test_bind_users_negative(self):
         """
