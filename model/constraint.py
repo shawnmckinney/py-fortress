@@ -8,7 +8,7 @@ Created on Feb 16, 2018
 from util import Config
 
 class Constraint:    
-    "Fortess Constraint"
+    "Fortress Constraint"
     
     def __init__(
             self,

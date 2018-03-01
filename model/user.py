@@ -6,7 +6,7 @@ Created on Feb 10, 2018
 '''
 
 class User:    
-    "Fortess User"
+    "Fortress User"
 
     def __init__(
             self,

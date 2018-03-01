@@ -2,22 +2,14 @@
 Created on Feb 24, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
 
 import abc
 
 
 class Validator(object):
-    '''
-    classdocs
-    '''
-
-
-    def __init__(self, params):
-        '''
-        Constructor
-        '''
         
     @abc.abstractmethod
-    def validate(self, constraint, time):
+    def validate(self, constraint, now):
         pass

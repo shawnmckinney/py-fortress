@@ -2,15 +2,13 @@
 Created on Feb 28, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
 
 from datetime import datetime
 
 
 class CurrentDateTime:
-    '''
-    classdocs
-    '''
 
     def __init__(
         self,

@@ -2,6 +2,7 @@
 Created on Feb 24, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
 import unittest
 from util.date import Date
@@ -62,11 +63,11 @@ class TestConstraints(unittest.TestCase):
         print('test time-based constraints')
         now = CurrentDateTime()
         validators = []
-        validators.append(Date(None))
-        validators.append(Day(None))
-        validators.append(LockDate(None))
-        validators.append(Time(None))
-        validators.append(TimeOut(None))
+        validators.append(Date())
+        validators.append(Day())
+        validators.append(LockDate())
+        validators.append(Time())
+        validators.append(TimeOut())
         for constraint in cons1:
             for validator in validators:
                 result = validator.validate(constraint, now)

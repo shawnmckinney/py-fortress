@@ -6,7 +6,7 @@ Created on Feb 16, 2018
 '''
 
 class Session:    
-    "Fortess Session"
+    "Fortress Session"
     def __init__(
             self,
             user=None,

@@ -6,7 +6,7 @@ Created on Feb 16, 2018
 '''
 
 class Permission:    
-    "Fortess Permission"
+    "Fortress Permission"
     def __init__(
             self,
             obj_name=None,
