@@ -43,7 +43,7 @@ class User:
         self.ou = ou
         self.internal_id = internal_id
         self.constraint = constraint        
-        self.roleConstraints = role_constraints        
+        self.role_constraints = role_constraints        
         self.roles = roles
         self.pw_policy = pw_policy        
         self.cn = cn       

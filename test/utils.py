@@ -59,7 +59,7 @@ def print_user (entity, label):
         print_ln('postal_code=' + str(entity.postal_code), 1)
         print_ln('room_number=' + str(entity.room_number), 1)
         print_constraint (entity.constraint, "User Constraint:")
-        for idx, constraint in enumerate(entity.roleConstraints) :
+        for idx, constraint in enumerate(entity.role_constraints) :
             print_constraint (constraint, "User-Role Constraint[" + str(idx+1) + "]:")
             
         print_ln("*************** " + label + " *******************")

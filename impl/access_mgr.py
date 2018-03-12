@@ -35,12 +35,12 @@ def create_session (user, is_trusted):
     result = validate_constraint(entity.constraint)
     if result is False:
         raise SecurityException
-    for user_role in entity.roleConstraints:
-        result = validate_constraint(user_role)
+    for role_constraint in entity.role_constraints:
+        result = validate_constraint(role_constraint)
         if result is False:
             print('remove constraint for user-role...')
-            entity.roles.remove(user_role.name)
-            entity.roleConstraints.remove(user_role)
+            entity.roles.remove(role_constraint.name)
+            entity.role_constraints.remove(role_constraint)
     session.user = entity    
     return session
 

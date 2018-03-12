@@ -103,9 +103,9 @@ def unload(entry):
     # now, unload raw user-role constraints:    
     rcsRaw = ldaphelper.get_list(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
     if rcsRaw is not None :
-        entity.roleConstraints = []
+        entity.role_constraints = []
         for rcRaw in rcsRaw :
-            entity.roleConstraints.append(Constraint(rcRaw))
+            entity.role_constraints.append(Constraint(rcRaw))
                         
     return entity
 
