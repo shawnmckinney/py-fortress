@@ -12,10 +12,11 @@ from util import Config
 
 
 def read (entity):
+    userList = []
     userList = search(entity)
     if userList is None or len(userList) == 0:
         raise NotFound()
-    elif len(userList > 1):
+    elif len(userList) > 1:
         raise NotUnique()
     else:
         return userList[0]
