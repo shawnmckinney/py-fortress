@@ -11,7 +11,8 @@ from util.logger import logger
 class Day(Validator):
         
     def validate(self, constraint, now):
-        logger.debug('Day.validate constraint day_of_week=' + now.day_of_week + ', day_mask=' + constraint.day_mask)
+        if constraint.day_mask == 'all' or not constraint.day_mask or constraint.day_mask is None:
+            return True                
         if now.day_of_week in constraint.day_mask:
             return True
         else:

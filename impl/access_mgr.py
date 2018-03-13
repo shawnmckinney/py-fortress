@@ -21,6 +21,7 @@ validators.append(Date())
 validators.append(Day())
 validators.append(LockDate())
 validators.append(Time())
+# TODO addme:
 #validators.append(TimeOut())
 
 def create_session (user, is_trusted):
@@ -31,7 +32,6 @@ def create_session (user, is_trusted):
         session.is_authenticated = True
     if result:
         entity = userdao.read(user)
-    # todo: validate constraints here...
     result = validate_constraint(entity.constraint)
     if result is False:
         raise SecurityException
@@ -49,13 +49,28 @@ def validate_constraint(constraint):
     for validator in validators:
         result = validator.validate(constraint, CurrentDateTime())
         if result is False:
-            logger.debug('validate_constraint validator:' + str(validator) + ' for constraint=' + constraint.name )            
+            logger.debug(validator.__class__.__name__ + ' validation failed:' + constraint.name )
             break
     return result
 
 
 def check_access (session, permission):
     result = False
+    # TODO validate constraints here:
+    
     entity = permdao.read(permission)
-    # check perm here
+    
+    # TODO check perm here:
+    # for ever user-role in activation list... do
+    
+    return result
+
+
+def is_user_in_role (session, role):
+    result = False
+    # TODO validate constraints here:
+    
+    # TODO check role here:
+    # for ever user-role in activation list... do
+    
     return result

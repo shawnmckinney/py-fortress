@@ -15,9 +15,7 @@ LOGGER = 'logger'
 ctr = 1
 
 def setup(ctr):
-    """Function setup as many loggers as you want"""
-    print('ctr=' + str(ctr))
-    ctr += 1    
+    """Function setup as many loggers as you want"""    
     now = datetime.datetime.now()
     name = Config.get(LOGGER)['file_name']
     handler = logging.FileHandler(
