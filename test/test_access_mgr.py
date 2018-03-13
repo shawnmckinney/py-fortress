@@ -39,18 +39,20 @@ class TestAccessMgr(unittest.TestCase):
         """
         print_ln('test create sessions')        
         try:
-            usr = User(uid = "jtsuser*")
+            #usr = User(uid = "jtsuser*")
+            usr = User(uid = "jts*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :
+                #print('test_create_sessions uid=' + entity.uid)
                 entity.password = 'passw0rd' + str(idx+1)
-                session = access_mgr.create_session(entity, False)
+                session = access_mgr.create_session(entity, True)
                 if session is None:
                     self.fail('test create sessions failed ' + entity.uid)
                           
         except InvalidCredentials:
             self.fail('user bind invalid creds, user=' + entity.uid)
         except Exception as e:
-            self.fail('user bind exception=' + str(e))
+            self.fail('user create_session exception=' + str(e))
 
 
 

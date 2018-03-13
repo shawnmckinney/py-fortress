@@ -38,7 +38,7 @@ def create_session (user, is_trusted):
     for role_constraint in entity.role_constraints:
         result = validate_constraint(role_constraint)
         if result is False:
-            print('remove constraint for user-role...')
+            logger.debug('deactivate user-role: ' + entity.uid + '.' + role_constraint.name)
             entity.roles.remove(role_constraint.name)
             entity.role_constraints.remove(role_constraint)
     session.user = entity    
@@ -48,8 +48,8 @@ def validate_constraint(constraint):
     result = True
     for validator in validators:
         result = validator.validate(constraint, CurrentDateTime())
-        logger.debug('validate_constraint validator:' + str(validator) + ', result=' + str(result) )
         if result is False:
+            logger.debug('validate_constraint validator:' + str(validator) + ' for constraint=' + constraint.name )            
             break
     return result
 

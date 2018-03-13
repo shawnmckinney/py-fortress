@@ -79,7 +79,7 @@ def unload(entry):
     entity.display_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][DISPLAY_NAME])
     entity.employee_type = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][EMPLOYEE_TYPE])
     entity.title = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][TITLE])
-    entity.reset = ldaphelper.get_attr_val(entry[ATTRIBUTES][IS_RESET])
+    entity.reset = ldaphelper.get_bool(entry[ATTRIBUTES][IS_RESET])
     entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
     entity.department_number = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DEPT_NUM])
     entity.l = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][LOCATION])
