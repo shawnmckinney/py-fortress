@@ -18,6 +18,10 @@ def print_ln( ln, num=None ):
     print( tabs + ln )    
     logger.debug( ( tabs + ln ) )    
 
+def print_thing (entity, label):
+    print (label)
+    for name in entity.__dict__:
+        print ("\t{0}: {1}".format(name,entity.__dict__[name]))
 
 def print_constraint (constraint, label):
         print_ln(label, 1)    
