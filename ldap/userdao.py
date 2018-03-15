@@ -23,7 +23,7 @@ def read (entity):
 
 
 def authenticate (entity):
-    validate(entity, "User Bind")
+    __validate(entity, "User Bind")
     conn = None
     result = False            
     try:        
@@ -40,7 +40,7 @@ def authenticate (entity):
 
 
 def search (entity):
-    validate(entity, "User Search")
+    __validate(entity, "User Search")
     conn = None            
     userList = []
     search_filter = '(&(objectClass=' + USER_OC_NAME + ')'
@@ -59,14 +59,14 @@ def search (entity):
     else:        
         if total_entries > 0:
             for entry in response:
-                userList.append(unload(entry))
+                userList.append(__unload(entry))
     finally:
         if conn:        
             ldaphelper.close(conn)
     return userList
 
 
-def unload(entry):
+def __unload(entry):
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
     entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][UID])
@@ -110,12 +110,12 @@ def unload(entry):
     return entity
 
 
-def validate(entity, op):
+def __validate(entity, op):
     if entity.uid is None or len(entity.uid) == 0 :
-        raise_exception(op, UID)
+        __raise_exception(op, UID)
 
                     
-def raise_exception(operation, field):
+def __raise_exception(operation, field):
     raise LdapException('userdao.' + operation + ' required field missing:' + field)
 
 

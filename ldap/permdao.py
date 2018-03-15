@@ -22,7 +22,7 @@ def read (entity):
 
 
 def search (entity):
-    validate(entity, "Permission Search")
+    __validate(entity, "Permission Search")
     conn = None            
     permList = []
     search_filter = '(&(objectClass=' + PERM_OC_NAME + ')'
@@ -43,14 +43,14 @@ def search (entity):
     else:        
         if total_entries > 0:
             for entry in response:
-                permList.append(unload(entry))
+                permList.append(__unload(entry))
     finally:
         if conn:        
             ldaphelper.close(conn)
     return permList
 
 
-def unload(entry):
+def __unload(entry):
     entity = Permission()
     entity.dn = ldaphelper.get_dn(entry)
     
@@ -70,14 +70,14 @@ def unload(entry):
     return entity
 
 
-def validate(entity, op):
+def __validate(entity, op):
     if entity.obj_name is None or len(entity.obj_name) == 0 :
-        raise_exception(op, OBJ_NM)
+        __raise_exception(op, OBJ_NM)
     if entity.op_name is None or len(entity.op_name) == 0 :
-        raise_exception(op, OP_NM)
+        __raise_exception(op, OP_NM)
 
                     
-def raise_exception(operation, field):
+def __raise_exception(operation, field):
     raise LdapException('permdao.' + operation + ' required field missing:' + field)
 
 
