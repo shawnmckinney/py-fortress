@@ -7,6 +7,7 @@ Created on Feb 24, 2018
 
 from util.validator import Validator
 from util.logger import logger
+from util.global_ids import CONSTRAINT_DATE_ERROR, SUCCESS
 
 class Date(Validator):
         
@@ -14,11 +15,11 @@ class Date(Validator):
         #logger.debug('name=' + constraint.name + ',len=' + str(len(constraint.begin_date)))
           
         if not constraint.begin_date or constraint.begin_date is None or not constraint.end_date or constraint.end_date is None:
-            return True        
+            return SUCCESS        
         elif constraint.begin_date == 'none' or constraint.end_date == 'none':
-            return True        
+            return SUCCESS        
         elif constraint.begin_date <= now.date <= constraint.end_date:
-            return True
+            return SUCCESS
         else:            
-            return False        
+            return CONSTRAINT_DATE_ERROR        
         

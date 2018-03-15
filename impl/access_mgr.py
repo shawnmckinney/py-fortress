@@ -13,8 +13,9 @@ from util.time import Time
 from util.timeout import TimeOut
 from util.current_date_time import CurrentDateTime
 from ldap import permdao, userdao, LdapException, NotFound, NotUnique
-from impl.security_exception import SecurityException
+from impl.fortress_error import FortressError
 from util.logger import logger
+from util.global_ids import SUCCESS
 
 validators = []
 validators.append(Date())
@@ -34,8 +35,8 @@ def create_session (user, is_trusted):
         
     entity = userdao.read(user)        
     result = __validate_constraint(entity.constraint)
-    if result is False:
-        raise SecurityException
+    if result is not SUCCESS:
+        raise FortressError ('User constraint validation failed uid=' + entity.uid, result)
     __validate_role_constraints(entity)
     session.user = entity    
     return session
@@ -43,17 +44,17 @@ def create_session (user, is_trusted):
 def __validate_role_constraints(user):
     for role_constraint in user.role_constraints:
         result = __validate_constraint(role_constraint)
-        if result is False:
+    if result is not SUCCESS:
             logger.debug('deactivate user-role: ' + user.uid + '.' + role_constraint.name)
             user.roles.remove(role_constraint.name)
             user.role_constraints.remove(role_constraint)
 
 
 def __validate_constraint(constraint):
-    result = True
+    result = SUCCESS
     for validator in validators:
         result = validator.validate(constraint, CurrentDateTime())
-        if result is False:
+        if result is not SUCCESS:
             logger.debug(validator.__class__.__name__ + ' validation failed:' + constraint.name )
             break
     return result

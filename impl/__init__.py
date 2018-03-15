@@ -1,1 +1,1 @@
-from impl.security_exception import SecurityException
+from impl.fortress_error import FortressError
