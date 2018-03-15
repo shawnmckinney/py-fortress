@@ -15,7 +15,7 @@ def read (entity):
     permList = search(entity)
     if permList is None or len(permList) == 0:
         raise NotFound()
-    elif len(permList > 1):
+    elif len(permList) > 1:
         raise NotUnique()
     else:
         return permList[0]
