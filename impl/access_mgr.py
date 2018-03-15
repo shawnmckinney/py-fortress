@@ -28,21 +28,26 @@ def create_session (user, is_trusted):
     session = Session()
     result = True
     if is_trusted is False:
-        result = userdao.authenticate(user)
+        # will raise exception if fails:
+        userdao.authenticate(user)
         session.is_authenticated = True
-    if result:
-        entity = userdao.read(user)
+        
+    entity = userdao.read(user)        
     result = validate_constraint(entity.constraint)
     if result is False:
         raise SecurityException
-    for role_constraint in entity.role_constraints:
-        result = validate_constraint(role_constraint)
-        if result is False:
-            logger.debug('deactivate user-role: ' + entity.uid + '.' + role_constraint.name)
-            entity.roles.remove(role_constraint.name)
-            entity.role_constraints.remove(role_constraint)
+    validate_role_constraints(entity)
     session.user = entity    
     return session
+
+def validate_role_constraints(user):
+    for role_constraint in user.role_constraints:
+        result = validate_constraint(role_constraint)
+        if result is False:
+            logger.debug('deactivate user-role: ' + user.uid + '.' + role_constraint.name)
+            user.roles.remove(role_constraint.name)
+            user.role_constraints.remove(role_constraint)
+
 
 def validate_constraint(constraint):
     result = True

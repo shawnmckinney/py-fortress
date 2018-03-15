@@ -8,7 +8,7 @@ import unittest
 from ldap import userdao, InvalidCredentials
 from impl import access_mgr
 from model import User, Permission
-from test.utils import print_user, print_perm, print_ln
+from test.utils import print_entity, print_ln
 
 
 class BasicTestSuite(unittest.TestCase):
@@ -28,7 +28,7 @@ class TestAccessMgr(unittest.TestCase):
             usr = User(uid = "jtsuser1")
             usr.password = 'passw0rd1'
             session = access_mgr.create_session(usr, False)
-            print_user(usr, "CreateSession")
+            print_entity(usr, "CreateSession")
         except Exception as e:
             self.fail('test_create_session failed, exception=' + str(e))
 
@@ -43,19 +43,17 @@ class TestAccessMgr(unittest.TestCase):
             usr = User(uid = "jts*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :
-                #print('test_create_sessions uid=' + entity.uid)
+                print_entity(entity, 'test_create_sessions index=' + str(idx) + ', uid=' + entity.uid)
                 entity.password = 'passw0rd' + str(idx+1)
-                session = access_mgr.create_session(entity, True)
-                if session is None:
-                    self.fail('test create sessions failed ' + entity.uid)
-                          
-        except InvalidCredentials:
-            self.fail('user bind invalid creds, user=' + entity.uid)
+                try:
+                    session = access_mgr.create_session(entity, False)
+                    if session is None:
+                        self.fail('test create sessions failed ' + entity.uid)
+                except InvalidCredentials:
+                    print_ln('user bind invalid creds, user=' + entity.uid)
+                    
         except Exception as e:
             self.fail('user create_session exception=' + str(e))
-
-
-
 
             
 def suite():

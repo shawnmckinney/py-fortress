@@ -18,7 +18,9 @@ def print_ln( ln, num=None ):
     print( tabs + ln )    
     logger.debug( ( tabs + ln ) )    
 
-def print_entity (entity, label, indent):
+def print_entity (entity, label, indent=None):
+    if indent is None:
+        indent = 1
     print_ln(label, indent-1)    
     for name in entity.__dict__:
         print_ln ("\t{0}: {1}".format(name,entity.__dict__[name]), indent)

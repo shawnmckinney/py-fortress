@@ -13,7 +13,7 @@ from util.time import Time
 from util.timeout import TimeOut
 from util.current_date_time import CurrentDateTime
 from model.constraint import Constraint
-from test.utils import print_ln, print_constraint
+from test.utils import print_ln, print_entity
 
 cons1 = [
     Constraint(
@@ -71,7 +71,7 @@ class TestConstraints(unittest.TestCase):
         for constraint in cons1:
             for validator in validators:
                 result = validator.validate(constraint, CurrentDateTime())
-                print_constraint( constraint, "Validate" + str(validator) )
+                print_entity (constraint, "Validate" + str(validator))
                 print_ln( 'result=' + str(result), 1 )
     
 
