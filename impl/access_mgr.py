@@ -15,7 +15,9 @@ from util.current_date_time import CurrentDateTime
 from ldap import permdao, userdao, LdapException, NotFound, NotUnique
 from impl.fortress_error import FortressError
 from util.logger import logger
+from util import global_ids
 from util.global_ids import SUCCESS
+
 
 validators = []
 validators.append(Date())
@@ -26,12 +28,13 @@ validators.append(Time())
 #validators.append(TimeOut())
 
 def create_session (user, is_trusted):
+    __validate_user(user)
     session = Session()
     if is_trusted is False:
         # failure throws exception:
         userdao.authenticate(user)
         session.is_authenticated = True
-        
+
     entity = userdao.read(user)    
     result = __validate_constraint(entity.constraint)
     if result is not SUCCESS:
@@ -41,7 +44,10 @@ def create_session (user, is_trusted):
     session.user = entity    
     return session
 
+
 def check_access (session, permission):
+    __validate(session)
+    __validate_perm(permission)    
     result = False
     entity = permdao.read(permission)
     __validate_role_constraints(session.user)
@@ -54,12 +60,63 @@ def check_access (session, permission):
 
 
 def is_user_in_role (session, role):
+    __validate(session)
     result = False
     __validate_role_constraints(session.user)
     if any ( s.lower() == role.lower() for s in session.user.roles ):
         result = True
                 
     return result
+
+
+def add_active_role (session, role):
+    __validate(session)    
+    if any ( s.lower() == role.lower() for s in session.user.roles ):
+        logger.warn ('User uid=' + session.user.uid + ', previously activated role=' + role)
+    
+    user = userdao.read(session.user)
+    for role_constraint in user.roles.role_constraints:
+        if role.lower == role_constraint.name:
+            session.user.role_constraints.append(role_constraint)
+            session.user.roles.append(role_constraint.name)
+            
+    __validate_role_constraints(session.user)
+
+
+def drop_active_role (session, role):
+    __validate(session)
+    for role_constraint in session.user.role_constraints:
+        if role.lower == role_constraint.name:
+            session.user.role_constraints.remove(role_constraint)
+            session.user.roles.remove(role_constraint.name)
+            found = True
+            
+    if not found:            
+        logger.warn ('User uid=' + session.user.uid + ', has not activated role=' + role)            
+    __validate_role_constraints(session.user)
+
+
+def __validate(session):
+    if session is None:
+        raise FortressError ('Session is None')
+    elif session.user is None:
+        raise FortressError ('Session has no user')
+
+
+def __validate_user(user):
+    if user is None:
+        raise FortressError ('User is None')
+    elif user.uid is None:
+        raise FortressError ('User has no uid')
+
+
+def __validate_perm(perm):
+    if perm is None:
+        raise FortressError ('Perm is None')
+    elif perm.obj_name is None:
+        raise FortressError ('Perm has no object name')
+    elif perm.op_name is None:
+        raise FortressError ('Perm has no op name')
 
 
 def __validate_role_constraints(user):
