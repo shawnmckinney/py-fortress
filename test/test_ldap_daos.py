@@ -8,7 +8,7 @@ Created on Feb 10, 2018
 import unittest
 from ldap import userdao, permdao, InvalidCredentials
 from model import User, Permission
-from test.utils import print_user, print_perm, print_ln
+from test.utils import print_user, print_ln, print_entity
 
 
 class BasicTestSuite(unittest.TestCase):
@@ -42,7 +42,7 @@ class TestDaos(unittest.TestCase):
             prm = Permission(obj_name = "TOB*", op_name = "TOP*")
             pList = permdao.search(prm)
             for idx, entity in enumerate(pList) :            
-                print_perm(entity, "Perm[" + str(idx+1) + "]:")
+                print_entity (entity, "Perm[" + str(idx+1) + "]:", 1)
         except Exception as e:
             self.fail('perm search failed, exception=' + str(e))
 
