@@ -50,6 +50,32 @@ def search (entity):
     return permList
 
 
+def search_on_roles (roles):
+    conn = None            
+    permList = []    
+    # '(&(objectClass=ftOperation)(|(ftUsers=jtsUser1)(ftRoles=oamROLE1)(ftRoles=oamROLE10)(ftRoles=oamROLE2)(ftRoles=oamROLE3)(ftRoles=oamROLE4)(ftRoles=oamROLE5)(ftRoles=oamROLE6)(ftRoles=oamROLE7)(ftRoles=oamROLE8)(ftRoles=oamROLE9)))'
+    search_filter = '(&(objectClass=' + PERM_OC_NAME + ')'
+    search_filter += '(|'
+    for role in roles:
+        search_filter += '(' + ROLES + '=' + role + ')'
+    search_filter += '))'                    
+    try:
+        conn = ldaphelper.open()
+        id = conn.search(search_base, search_filter, attributes=SEARCH_ATTRS)
+        response = ldaphelper.get_response(conn, id)         
+        total_entries = len(response)        
+    except Exception as e:
+        raise LdapException('Exception in permdao.search_on_roles=' + str(e))
+    else:        
+        if total_entries > 0:
+            for entry in response:
+                permList.append(__unload(entry))
+    finally:
+        if conn:        
+            ldaphelper.close(conn)
+    return permList
+
+
 def __unload(entry):
     entity = Permission()
     entity.dn = ldaphelper.get_dn(entry)

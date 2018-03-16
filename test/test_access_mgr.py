@@ -73,14 +73,33 @@ class TestAccessMgr(unittest.TestCase):
             print_entity(perm, "test_check_access result for perm=" + str(result))
 
         except Exception as e:
-            self.fail('test_create_session failed, exception=' + str(e))
+            self.fail('test_check_access failed, exception=' + str(e))
+
+                        
+            
+    def test_session_permissions(self):
+        """
+        Test the rbac authZ function.
+        """
+        print_ln('test_session_permissions')        
+        try:
+            usr = User(uid = "jtsuser1")
+            session = access_mgr.create_session(usr, True)
+            print_entity(session.user, "test_session_permissions user")
+            perms = access_mgr.session_permissions(session)
+            for perm in perms:
+                print_entity(perm, "test_session_permissions")
+
+        except Exception as e:
+            self.fail('test_session_permissions failed, exception=' + str(e))
 
                         
             
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestAccessMgr('test_create_sessions'))
-    suite.addTest(TestAccessMgr('test_check_access'))    
+    suite.addTest(TestAccessMgr('test_check_access'))  
+    suite.addTest(TestAccessMgr('test_session_permissions'))      
     return suite  
 
  

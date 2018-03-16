@@ -95,6 +95,19 @@ def drop_active_role (session, role):
     __validate_role_constraints(session.user)
 
 
+def session_permissions (session):
+    __validate(session)
+    __validate_role_constraints(session.user)    
+    __validate_roles(session.user)        
+    return permdao.search_on_roles(session.user.roles)
+
+
+def session_roles (session):
+    __validate(session)
+    __validate_role_constraints(session.user)
+    return session.role_constraints            
+
+
 def __activate_role(user, role_constraint):
     user.roles.append(role_constraint.name)
     user.role_constraints.append(role_constraint)
@@ -110,6 +123,11 @@ def __validate(session):
         raise FortressError ('Session is None')
     elif session.user is None:
         raise FortressError ('Session has no user')
+
+
+def __validate_roles(user):
+    if user.roles is None:
+        raise FortressError ('Session has no roles')
 
 
 def __validate_user(user):
