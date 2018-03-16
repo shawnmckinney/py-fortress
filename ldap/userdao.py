@@ -5,14 +5,12 @@ Created on Feb 10, 2018
 @copyright: 2018 - Symas Corporation
 '''
     
-from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 from model import User, Constraint
 from ldap import ldaphelper, LdapException, NotFound, NotUnique, InvalidCredentials
 from util import Config
 
 
 def read (entity):
-    userList = []
     userList = search(entity)
     if userList is None or len(userList) == 0:
         raise NotFound()

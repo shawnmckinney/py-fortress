@@ -4,15 +4,13 @@ Created on Mar 2, 2018
 @author: smckinn
 '''
 
-from model import Session, User, Permission, Constraint
-from util.validator import Validator
+from model import Session
 from util.date import Date
 from util.day import Day
 from util.lockdate import LockDate
 from util.time import Time
-from util.timeout import TimeOut
 from util.current_date_time import CurrentDateTime
-from ldap import permdao, userdao, LdapException, NotFound, NotUnique
+from ldap import permdao, userdao
 from impl.fortress_error import FortressError
 from util.logger import logger
 from util import global_ids
@@ -24,8 +22,6 @@ validators.append(Date())
 validators.append(Day())
 validators.append(LockDate())
 validators.append(Time())
-# TODO addme:
-#validators.append(TimeOut())
 
 def create_session (user, is_trusted):
     __validate_user(user)
