@@ -50,15 +50,19 @@ def search (entity):
     return permList
 
 
-def search_on_roles (roles):
+# assumes that roles contains at least one role name
+def search_on_roles (roles):    
     conn = None            
     permList = []    
-    # '(&(objectClass=ftOperation)(|(ftUsers=jtsUser1)(ftRoles=oamROLE1)(ftRoles=oamROLE10)(ftRoles=oamROLE2)(ftRoles=oamROLE3)(ftRoles=oamROLE4)(ftRoles=oamROLE5)(ftRoles=oamROLE6)(ftRoles=oamROLE7)(ftRoles=oamROLE8)(ftRoles=oamROLE9)))'
     search_filter = '(&(objectClass=' + PERM_OC_NAME + ')'
-    search_filter += '(|'
+    if len (roles) > 1:
+        search_filter += '(|'
+        end_filter = '))'
+    else:
+        end_filter = ')'
     for role in roles:
         search_filter += '(' + ROLES + '=' + role + ')'
-    search_filter += '))'                    
+    search_filter += end_filter                    
     try:
         conn = ldaphelper.open()
         id = conn.search(search_base, search_filter, attributes=SEARCH_ATTRS)
