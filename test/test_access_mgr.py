@@ -63,14 +63,14 @@ class TestAccessMgr(unittest.TestCase):
         try:
             usr = User(uid = "jtsuser1")
             session = access_mgr.create_session(usr, True)
-            print_entity(session.user, "Check Access")
+            print_entity(session.user, "test_check_access user")
             perm = Permission(
                 obj_name='TOB1_1',
                 op_name='TOP1_1',
                 obj_id='001'
                 )
             result = access_mgr.check_access(session, perm)
-            print_entity(perm, "Result=" + str(result))
+            print_entity(perm, "test_check_access result for perm=" + str(result))
 
         except Exception as e:
             self.fail('test_create_session failed, exception=' + str(e))

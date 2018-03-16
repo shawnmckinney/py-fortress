@@ -38,7 +38,7 @@ def create_session (user, is_trusted):
     entity = userdao.read(user)    
     result = __validate_constraint(entity.constraint)
     if result is not SUCCESS:
-        raise FortressError ('User constraint validation failed uid=' + entity.uid, result)
+        raise FortressError ('create_session constraint validation failed uid:' + entity.uid, result)
     
     __validate_role_constraints(entity)
     session.user = entity    
@@ -72,13 +72,12 @@ def is_user_in_role (session, role):
 def add_active_role (session, role):
     __validate(session)    
     if any ( s.lower() == role.lower() for s in session.user.roles ):
-        logger.warn ('User uid=' + session.user.uid + ', previously activated role=' + role)
+        logger.warn ('add_active_role uid=' + session.user.uid + ', previously activated role=' + role)
     
     user = userdao.read(session.user)
     for role_constraint in user.roles.role_constraints:
         if role.lower == role_constraint.name:
-            session.user.role_constraints.append(role_constraint)
-            session.user.roles.append(role_constraint.name)
+            __activate_role(session.user, role_constraint)
             
     __validate_role_constraints(session.user)
 
@@ -87,13 +86,23 @@ def drop_active_role (session, role):
     __validate(session)
     for role_constraint in session.user.role_constraints:
         if role.lower == role_constraint.name:
-            session.user.role_constraints.remove(role_constraint)
-            session.user.roles.remove(role_constraint.name)
+            __deactivate_role(session.user, role_constraint)
             found = True
             
     if not found:            
-        logger.warn ('User uid=' + session.user.uid + ', has not activated role=' + role)            
+        logger.warn ('drop_active_role uid=' + session.user.uid + ', has not activated role=' + role)
+                    
     __validate_role_constraints(session.user)
+
+
+def __activate_role(user, role_constraint):
+    user.roles.append(role_constraint.name)
+    user.role_constraints.append(role_constraint)
+
+
+def __deactivate_role(user, role_constraint):
+    user.roles.remove(role_constraint.name)
+    user.role_constraints.remove(role_constraint)
 
 
 def __validate(session):
@@ -123,9 +132,8 @@ def __validate_role_constraints(user):
     for role_constraint in user.role_constraints:
         result = __validate_constraint(role_constraint)
         if result is not SUCCESS:
-                logger.debug('deactivate user-role: ' + user.uid + '.' + role_constraint.name)
-                user.roles.remove(role_constraint.name)
-                user.role_constraints.remove(role_constraint)
+                logger.debug('validate_role_constraints deactivate user-role:' + user.uid + '.' + role_constraint.name)
+                __deactivate_role(user, role_constraint)                
 
 
 def __validate_constraint(constraint):
