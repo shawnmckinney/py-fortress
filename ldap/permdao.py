@@ -14,9 +14,9 @@ from util import Config
 def read (entity):
     permList = search(entity)
     if permList is None or len(permList) == 0:
-        raise NotFound()
+        raise NotFound("Perm Read not found, obj name=" + entity.obj_name + ', op name=' + entity.op_name)    
     elif len(permList) > 1:
-        raise NotUnique()
+        raise NotUnique("Perm Read not unique, obj name=" + entity.obj_name + ', op name=' + entity.op_name)
     else:
         return permList[0]
 
@@ -39,7 +39,7 @@ def search (entity):
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
-        raise LdapException('Exception in permdao.search=' + str(e))
+        raise LdapException('Perm search error=' + str(e))
     else:        
         if total_entries > 0:
             for entry in response:
@@ -69,7 +69,7 @@ def search_on_roles (roles):
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
-        raise LdapException('Exception in permdao.search_on_roles=' + str(e))
+        raise LdapException('Perm Search Roles error=' + str(e))
     else:        
         if total_entries > 0:
             for entry in response:

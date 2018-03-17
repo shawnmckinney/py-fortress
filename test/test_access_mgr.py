@@ -30,7 +30,7 @@ class TestAccessMgr(unittest.TestCase):
             session = access_mgr.create_session(usr, False)
             print_entity(usr, "CreateSession")
         except Exception as e:
-            self.fail('test_create_session failed, exception=' + str(e))
+            self.fail(str(e))
 
                         
     def test_create_sessions(self):
@@ -49,8 +49,8 @@ class TestAccessMgr(unittest.TestCase):
                     session = access_mgr.create_session(entity, False)
                     if session is None:
                         self.fail('test create sessions failed ' + entity.uid)
-                except InvalidCredentials:
-                    print_ln('user bind invalid creds, user=' + entity.uid)
+                except InvalidCredentials as e:
+                    print_ln(str(e))
                     
         except Exception as e:
             self.fail('user create_session exception=' + str(e))

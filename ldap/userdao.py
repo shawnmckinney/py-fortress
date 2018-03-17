@@ -13,9 +13,9 @@ from util import Config
 def read (entity):
     userList = search(entity)
     if userList is None or len(userList) == 0:
-        raise NotFound()
+        raise NotFound("User Read not found, uid=" + entity.uid)
     elif len(userList) > 1:
-        raise NotUnique()
+        raise NotUnique("User Read not unique, uid=" + entity.uid)
     else:
         return userList[0]
 
@@ -28,12 +28,12 @@ def authenticate (entity):
         conn = ldaphelper.open_user(UID + '=' + entity.uid + ',' + search_base, entity.password)
         result = conn.bind()
     except Exception as e:
-        raise LdapException('Exception in userdao.authenticate=' + str(e))
+        raise LdapException('User Authenticate error for uid=' + entity.uid + ', LDAP error=' + str(e))
     finally:
         if conn:        
             ldaphelper.close(conn)
     if result is False:
-        raise InvalidCredentials        
+        raise InvalidCredentials("User Authenticate invalid creds, uid=" + entity.uid)        
     return True
 
 
@@ -53,7 +53,7 @@ def search (entity):
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
-        raise LdapException('Exception in userdao.search=' + str(e))
+        raise LdapException('User Authenticate search LDAP error=' + str(e))    
     else:        
         if total_entries > 0:
             for entry in response:
