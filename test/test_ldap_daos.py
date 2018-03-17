@@ -7,8 +7,9 @@ Created on Feb 10, 2018
 
 import unittest
 from ldap import userdao, permdao, roledao, InvalidCredentials
-from model import User, Permission, Role
+from model import User, Permission, Role, Constraint
 from test.utils import print_user, print_role, print_ln, print_entity
+import role_test_data
 
 
 class BasicTestSuite(unittest.TestCase):
@@ -102,13 +103,57 @@ class TestDaos(unittest.TestCase):
             self.fail('role search failed, exception=' + str(e))
 
                         
+    def test_create_roles(self):
+        """
+        Test the role create
+        """
+        print_ln('test create roles')
+        rls = role_test_data.get_test_roles('py-test', 10)
+        for rle in rls:
+            try:                        
+                rle = roledao.create(rle)
+                print_role(rle, "Role Create")
+            except Exception as e:
+                self.fail('role create failed, exception=' + str(e))
+
+    def test_update_roles(self):
+        """
+        Test the role update
+        """
+        print_ln('test update roles')
+        rls = role_test_data.get_test_roles('py-test', 10)
+        for rle in rls:
+            rle.description += '-updated'
+            try:                        
+                rle = roledao.update(rle)
+                print_role(rle, "Role Update")
+            except Exception as e:
+                self.fail('role update failed, exception=' + str(e))
+
+    def test_delete_roles(self):
+        """
+        Test the role delete
+        """
+        print_ln('test delete roles')
+        rls = role_test_data.get_test_roles('py-test', 10)
+        for rle in rls:
+            try:                        
+                rle = roledao.delete(rle)
+                print_ln("Role Delete role=" + rle.name)
+            except Exception as e:
+                self.fail('role delete failed, exception=' + str(e))
+
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(TestDaos('test_search_users'))
-    suite.addTest(TestDaos('test_bind_users'))
-    suite.addTest(TestDaos('test_bind_users_negative'))               
-    suite.addTest(TestDaos('test_search_perms'))   
-    suite.addTest(TestDaos('test_search_roles'))     
+    #suite.addTest(TestDaos('test_search_users'))
+    #suite.addTest(TestDaos('test_bind_users'))
+    #suite.addTest(TestDaos('test_bind_users_negative'))               
+    #suite.addTest(TestDaos('test_search_perms'))   
+    #suite.addTest(TestDaos('test_search_roles'))
+    
+    suite.addTest(TestDaos('test_delete_roles'))    
+    suite.addTest(TestDaos('test_create_roles'))
+    suite.addTest(TestDaos('test_update_roles'))         
     return suite  
 
  

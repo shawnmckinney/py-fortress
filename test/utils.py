@@ -27,7 +27,8 @@ def print_entity (entity, label, indent=None):
 
 def print_user (entity, label):
         print_entity (entity, label, 1)
-        print_entity (entity.constraint, "User Constraint:", 2)
+        if entity.constraint is not None:
+            print_entity (entity.constraint, "User Constraint:", 2)
         for idx, constraint in enumerate(entity.role_constraints) :
             #print_constraint (constraint, "User-Role Constraint[" + str(idx+1) + "]:")
             print_entity (constraint, "User-Role Constraint[" + str(idx+1) + "]:", 2)
@@ -35,6 +36,7 @@ def print_user (entity, label):
         
 def print_role (entity, label):
         print_entity (entity, label, 1)
-        print_entity (entity.constraint, "Role Constraint:", 2)
+        if entity.constraint is not None:        
+            print_entity (entity.constraint, "Role Constraint:", 2)
         print_ln("*************** " + label + " *******************")
                 

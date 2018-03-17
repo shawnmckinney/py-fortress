@@ -5,9 +5,11 @@ Created on Mar 17, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
+import uuid
 from model import Role, Constraint
 from ldap import ldaphelper, LdapException, NotFound, NotUnique
-from util import Config
+from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
+from util import Config, global_ids
 
 
 def read (entity):
@@ -59,6 +61,79 @@ def __unload(entry):
     return entity
 
 
+def create ( entity ):
+    __validate(entity, 'Create Role')
+    try:
+        attrs = {}
+        attrs.update( {CN : entity.name} )
+        attrs.update( {ROLE_NAME : entity.name} )
+        # generate random id:
+        entity.internal_id = str(uuid.uuid4())
+        attrs.update( {INTERNAL_ID : entity.internal_id} )        
+
+        if entity.description is not None and len(entity.description) > 0 :        
+            attrs.update( {DESC : entity.description} )
+
+        if entity.props is not None and len(entity.props) > 0 :        
+            attrs.update( {PROPS : entity.props} )
+
+        if entity.constraint is not None :        
+            attrs.update( {CONSTRAINT : entity.constraint.get_raw()} )
+
+        conn = ldaphelper.open()        
+        id = conn.add(__get_dn(entity), ROLE_OCS, attrs)
+    except Exception as e:
+        raise LdapException('Role create error=' + str(e), global_ids.ROLE_ADD_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.OBJECT_ALREADY_EXISTS:
+            raise LdapException('Role create failed, already exists:' + entity.name, global_ids.ROLE_ADD_FAILED)             
+        elif result != 0:
+            raise LdapException('Role create failed result=' + str(result), global_ids.ROLE_ADD_FAILED)                    
+    return entity
+
+
+def update ( entity ):
+    __validate(entity, 'Update Role')
+    try:
+        attrs = {}
+        if entity.description is not None and len(entity.description) > 0 :        
+            attrs.update( {DESC : [(MODIFY_REPLACE, [entity.description])]} )
+
+        if entity.props is not None and len(entity.props) > 0 :        
+            attrs.update( {PROPS : [(MODIFY_REPLACE, [entity.props])]} )
+
+        if entity.constraint is not None :        
+            attrs.update( {CONSTRAINT : [(MODIFY_REPLACE, [entity.constraint.get_raw()])]} )
+
+        conn = ldaphelper.open()        
+        id = conn.modify(__get_dn(entity), attrs)        
+    except Exception as e:
+        raise LdapException('Role update error=' + str(e), global_ids.ROLE_UPDATE_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('Role update failed, not found:' + entity.name, global_ids.ROLE_UPDATE_FAILED)             
+        elif result != 0:
+            raise LdapException('Role update failed result=' + str(result), global_ids.ROLE_UPDATE_FAILED)                    
+    return entity
+
+
+def delete ( entity ):
+    __validate(entity, 'Delete Role')
+    try:
+        conn = ldaphelper.open()        
+        id = conn.delete(__get_dn(entity))
+    except Exception as e:
+        raise LdapException('Role delete error=' + str(e), global_ids.ROLE_DELETE_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('Role delete not found:' + entity.name, global_ids.ROLE_DELETE_FAILED)                    
+        elif result != 0:
+            raise LdapException('Role delete failed result=' + str(result), global_ids.ROLE_DELETE_FAILED)                    
+    return entity
+
 def __validate(entity, op):
     if entity.name is None or len(entity.name) == 0 :
         __raise_exception(op, ROLE_NAME)
@@ -68,13 +143,21 @@ def __raise_exception(operation, field):
     raise LdapException('roledao.' + operation + ' required field missing:' + field)
 
 
+def __get_dn(entity):
+    return CN + '=' + entity.name + "," + search_base
+
+
 ROLE_OC_NAME = 'ftRls'
+PROP_OC_NAME = 'ftProperties'
+ROLE_OCS = [ROLE_OC_NAME, PROP_OC_NAME]
 INTERNAL_ID = 'ftid'
 ROLE_NAME = 'ftRoleName'
 CONSTRAINT = 'ftCstr'
 PROPS = 'ftProps'
 DESC = 'description'
 CN = 'cn'
+
+
 
 
 SEARCH_ATTRS = [

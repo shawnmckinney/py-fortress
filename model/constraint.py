@@ -7,6 +7,8 @@ Created on Feb 16, 2018
 
 from util import Config
 
+DELIMITER = Config.get('schema')['raw_delimiter']
+
 class Constraint:    
     "Fortress Constraint"
     
@@ -26,7 +28,7 @@ class Constraint:
     
         self.raw = raw
         if self.raw is not None:
-            entity_constraint = self.raw.split(Config.get('schema')['raw_delimiter'])
+            entity_constraint = self.raw.split(DELIMITER)
             entity_constraint = [ val.strip() for val in entity_constraint ]
             if entity_constraint[0] is not None:
                 self.name=entity_constraint[0]
@@ -56,3 +58,33 @@ class Constraint:
             self.begin_lock_date = begin_lock_date
             self.end_lock_date = end_lock_date
             self.day_mask = day_mask
+            
+    def get_raw(self):
+        # oamT12SSD1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
+        raw = self.name + DELIMITER
+        if self.timeout is not None:
+            raw += str(self.timeout)
+        else:
+            raw += '0'
+        raw += DELIMITER
+        if self.begin_time is not None:
+            raw += self.begin_time
+        raw += DELIMITER
+        if self.end_time is not None:
+            raw += self.end_time
+        raw += DELIMITER
+        if self.begin_date is not None:
+            raw += self.begin_date
+        raw += DELIMITER
+        if self.end_date is not None:
+            raw += self.end_date
+        raw += DELIMITER
+        if self.begin_lock_date is not None:
+            raw += self.begin_lock_date
+        raw += DELIMITER
+        if self.end_lock_date is not None:
+            raw += self.end_lock_date
+        raw += DELIMITER
+        if self.day_mask is not None:
+            raw += self.day_mask     
+        return raw       
