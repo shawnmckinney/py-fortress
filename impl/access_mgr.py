@@ -85,15 +85,16 @@ def drop_active_role (session, role):
 
 def session_permissions (session):
     __validate(session)
-    __validate_role_constraints(session.user)    
-    __validate_roles(session.user)        
+    __validate_roles(session.user)    
+    __validate_role_constraints(session.user)            
     return permdao.search_on_roles(session.user.roles)
 
 
 def session_roles (session):
     __validate(session)
+    __validate_roles(session.user)    
     __validate_role_constraints(session.user)
-    return session.role_constraints            
+    return session.user.role_constraints            
 
 
 def __activate_role(user, role_constraint):

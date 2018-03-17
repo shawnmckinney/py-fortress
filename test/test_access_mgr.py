@@ -7,8 +7,8 @@ Created on Mar 2, 2018
 import unittest
 from ldap import userdao, InvalidCredentials
 from impl import access_mgr
-from model import User, Permission
-from test.utils import print_entity, print_ln
+from model import User
+from test.utils import print_ln
 
 
 class BasicTestSuite(unittest.TestCase):
@@ -19,20 +19,6 @@ class TestAccessMgr(unittest.TestCase):
     Test the access_mgr funcs
     """    
     
-    def test_create_session(self):
-        """
-        Test the user search by uid in ldap
-        """
-        print_ln('test search users by uid')        
-        try:
-            usr = User(uid = "jtsuser1")
-            usr.password = 'passw0rd1'
-            session = access_mgr.create_session(usr, False)
-            print_entity(usr, "CreateSession")
-        except Exception as e:
-            self.fail(str(e))
-
-                        
     def test_create_sessions(self):
         """
         Test the create_session method
@@ -43,10 +29,10 @@ class TestAccessMgr(unittest.TestCase):
             usr = User(uid = "jts*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :
-                print_entity(entity, 'test_create_sessions index=' + str(idx) + ', uid=' + entity.uid)
+                #print_entity(entity, 'test_create_sessions index=' + str(idx) + ', uid=' + entity.uid)
                 entity.password = 'passw0rd' + str(idx+1)
                 try:
-                    session = access_mgr.create_session(entity, False)
+                    session = access_mgr.create_session(entity, True)
                     if session is None:
                         self.fail('test create sessions failed ' + entity.uid)
                 except InvalidCredentials as e:
@@ -55,51 +41,60 @@ class TestAccessMgr(unittest.TestCase):
         except Exception as e:
             self.fail('user create_session exception=' + str(e))
 
-    def test_check_access(self):
+
+    def test_user_roles(self):
         """
-        Test the rbac authZ function.
+        Test the user_roles & is_user_in_role method
         """
-        print_ln('test_check_access')        
+        print_ln('test user_roles')        
         try:
-            usr = User(uid = "jtsuser1")
-            session = access_mgr.create_session(usr, True)
-            print_entity(session.user, "test_check_access user")
-            perm = Permission(
-                obj_name='TOB1_1',
-                op_name='TOP1_1',
-                obj_id='001'
-                )
-            result = access_mgr.check_access(session, perm)
-            print_entity(perm, "test_check_access result for perm=" + str(result))
-
+            usr = User(uid = "jts*")
+            #usr = User(uid = "jtsuser1")
+            uList = userdao.search(usr)
+            for idx, entity in enumerate(uList) :
+                #print_entity(entity, 'test_is_user_in_role index=' + str(idx) + ', uid=' + entity.uid)
+                session = access_mgr.create_session(entity, True)
+                if session is None:
+                    self.fail('test_user_roles failed ' + entity.uid)
+                    
+                if session.user.roles is not None and len(session.user.roles) > 0:                    
+                    roles = access_mgr.session_roles(session)
+                    for role in roles:
+                        result = access_mgr.is_user_in_role(session, role.name)
+                        if not result:
+                            self.fail('test_user_roles failed uid=' + entity.uid + ', role=' + role)                                                
         except Exception as e:
-            self.fail('test_check_access failed, exception=' + str(e))
+            self.fail('test_user_roles exception=' + str(e))
 
-                        
-            
+
     def test_session_permissions(self):
         """
-        Test the rbac authZ function.
+        Test the session_permissions & check_access method
         """
-        print_ln('test_session_permissions')        
+        print_ln('test session_permissions')        
         try:
-            usr = User(uid = "jtsuser1")
-            session = access_mgr.create_session(usr, True)
-            print_entity(session.user, "test_session_permissions user")
-            perms = access_mgr.session_permissions(session)
-            for perm in perms:
-                print_entity(perm, "test_session_permissions")
-
+            usr = User(uid = "jts*")
+            uList = userdao.search(usr)
+            for idx, entity in enumerate(uList) :
+                #print_entity(entity, 'test_is_user_in_role index=' + str(idx) + ', uid=' + entity.uid)
+                session = access_mgr.create_session(entity, True)
+                if session is None:
+                    self.fail('test_session_permissions failed ' + entity.uid)
+                if session.user.roles is not None and len(session.user.roles) > 0:                    
+                    perms = access_mgr.session_permissions(session)
+                    for perm in perms:
+                        result = access_mgr.check_access(session, perm)
+                        if not result:
+                            self.fail('test_session_permissions failed uid=' + entity.uid + ', perm obj name=' + perm.obj_name + ', op name=' + perm.op_name + ', obj id=' + perm.obj_id)                                                
         except Exception as e:
-            self.fail('test_session_permissions failed, exception=' + str(e))
+            self.fail('test_session_permissions exception=' + str(e))
 
-                        
-            
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestAccessMgr('test_create_sessions'))
-    suite.addTest(TestAccessMgr('test_check_access'))  
-    suite.addTest(TestAccessMgr('test_session_permissions'))      
+    suite.addTest(TestAccessMgr('test_user_roles'))    
+    suite.addTest(TestAccessMgr('test_session_permissions'))    
     return suite  
 
  
