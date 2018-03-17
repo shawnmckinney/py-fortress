@@ -31,7 +31,7 @@ def authenticate (entity):
         raise LdapException('User Authenticate error for uid=' + entity.uid + ', LDAP error=' + str(e))
     finally:
         if conn:        
-            ldaphelper.close(conn)
+            ldaphelper.close_user(conn)
     if result is False:
         raise InvalidCredentials("User Authenticate invalid creds, uid=" + entity.uid)        
     return True

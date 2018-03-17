@@ -65,17 +65,18 @@ def add_active_role (session, role):
     __validate(session)    
     if any ( s.lower() == role.lower() for s in session.user.roles ):
         raise FortressError ('add_active_role uid=' + session.user.uid + ', previously activated role=' + role, global_ids.ROLE_ALREADY_ACTIVATED_ERROR)
-    user = userdao.read(session.user)
-    for role_constraint in user.roles.role_constraints:
-        if role.lower == role_constraint.name:
+    user = userdao.read(session.user)        
+    for role_constraint in user.role_constraints:
+        if role.lower() == role_constraint.name.lower():
             __activate_role(session.user, role_constraint)
     __validate_role_constraints(session.user)
 
 
 def drop_active_role (session, role):
     __validate(session)
-    for role_constraint in session.user.role_constraints:
-        if role.lower == role_constraint.name:
+    found = False
+    for role_constraint in session.user.role_constraints:        
+        if role.lower() == role_constraint.name.lower():
             __deactivate_role(session.user, role_constraint)
             found = True            
     if not found:            

@@ -71,6 +71,11 @@ def _open_admin ():
 
 
 def close (conn):
+    pass
+    #conn.unbind()
+
+
+def close_user (conn):
     conn.unbind()
 
 
