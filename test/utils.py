@@ -5,7 +5,7 @@ Created on Feb 24, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from model import User, Permission
+from model import User, Permission, Role
 from util.logger import logger
 
 def print_ln( ln, num=None ):
@@ -33,3 +33,8 @@ def print_user (entity, label):
             print_entity (constraint, "User-Role Constraint[" + str(idx+1) + "]:", 2)
         print_ln("*************** " + label + " *******************")
         
+def print_role (entity, label):
+        print_entity (entity, label, 1)
+        print_entity (entity.constraint, "Role Constraint:", 2)
+        print_ln("*************** " + label + " *******************")
+                

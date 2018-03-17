@@ -6,9 +6,9 @@ Created on Feb 10, 2018
 '''
 
 import unittest
-from ldap import userdao, permdao, InvalidCredentials
-from model import User, Permission
-from test.utils import print_user, print_ln, print_entity
+from ldap import userdao, permdao, roledao, InvalidCredentials
+from model import User, Permission, Role
+from test.utils import print_user, print_role, print_ln, print_entity
 
 
 class BasicTestSuite(unittest.TestCase):
@@ -56,13 +56,14 @@ class TestDaos(unittest.TestCase):
             usr = User(uid = "jtsuser*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :
-                entity.password = 'passw0rd' + str(idx+1)      
-                result = userdao.authenticate(entity)
-                if result is False:
-                    self.fail('test bind failed ' + entity.uid)
+                entity.password = 'passw0rd' + str(idx+1)
+                
+                try:      
+                    userdao.authenticate(entity)
+                except InvalidCredentials as e:
+                    print_ln(str(e))
+                    #self.fail('user bind invalid creds, user=' + entity.uid)
                           
-        except InvalidCredentials:
-            self.fail('user bind invalid creds, user=' + entity.uid)
         except Exception as e:
             self.fail('user bind exception=' + str(e))
 
@@ -86,13 +87,28 @@ class TestDaos(unittest.TestCase):
         except Exception as e:
             self.fail('user bind failed, exception=' + str(e))
 
-            
+
+    def test_search_roles(self):
+        """
+        Test the role search by name in ldap
+        """
+        print_ln('test search roles by name')        
+        try:
+            rle = Role(name = "oam*")
+            rList = roledao.search(rle)
+            for idx, entity in enumerate(rList) :            
+                print_role(entity, "Role[" + str(idx+1) + "]:")
+        except Exception as e:
+            self.fail('role search failed, exception=' + str(e))
+
+                        
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestDaos('test_search_users'))
     suite.addTest(TestDaos('test_bind_users'))
     suite.addTest(TestDaos('test_bind_users_negative'))               
-    suite.addTest(TestDaos('test_search_perms'))    
+    suite.addTest(TestDaos('test_search_perms'))   
+    suite.addTest(TestDaos('test_search_roles'))     
     return suite  
 
  
