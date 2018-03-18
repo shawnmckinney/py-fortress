@@ -29,7 +29,7 @@ def add_user(user):
     user.props - multi-occurring name:value pairs
     user.pw_policy - slapd pwpolicy
 
-    standard iNetOrgPerson attrs:
+    standard iNetOrgPerson attrs, more info here: https://tools.ietf.org/html/rfc2798
     user.ou
     user.cn
     user.sn
@@ -45,7 +45,7 @@ def add_user(user):
     user.l
     user.physical_delivery_office_name
     user.postal_code
-    user.room_number\                                     
+    user.room_number                                     
     """    
     utils.validate_user(user)
     return userdao.create(user)
@@ -69,7 +69,7 @@ def update_user(user):
     user.props - multi-occurring name:value pairs
     user.pw_policy - slapd pwpolicy
 
-    standard iNetOrgPerson attrs:
+    standard iNetOrgPerson attrs, more info here: https://tools.ietf.org/html/rfc2798
     user.ou
     user.cn
     user.sn
@@ -85,7 +85,7 @@ def update_user(user):
     user.l
     user.physical_delivery_office_name
     user.postal_code
-    user.room_number\                                     
+    user.room_number                                     
     """    
     utils.validate_user(user)
     return userdao.create(user)
