@@ -3,7 +3,7 @@
  ![Under Construction](images/under-construction.png "py-fortress under construction")
 ...
 
-# OpenLDAP & Fortress QUICKSTART on DOCKER
+# py-fortress setup and test instructions
 
 -------------------------------------------------------------------------------
 ## Table of Contents
