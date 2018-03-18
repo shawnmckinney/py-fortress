@@ -134,6 +134,96 @@ def __unload_obj(entry):
     return entity
 
 
+def create ( entity ):
+    __validate(entity, 'Create Perm')
+    try:
+        attrs = {}
+        attrs.update( {OBJ_NM : entity.obj_name} )
+        attrs.update( {OP_NM : entity.op_name} )        
+        attrs.update( {global_ids.CN : entity.abstract_name} )
+                
+        # generate random id:
+        entity.internal_id = str(uuid.uuid4())
+        attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )
+        
+        if entity.obj_id is not None and len(entity.obj_id) > 0 :        
+            attrs.update( {OBJ_ID : entity.obj_id} )
+        
+        if entity.description is not None and len(entity.description) > 0 :        
+            attrs.update( {global_ids.DESC : entity.description} )
+
+        if entity.abstract_name is not None and len(entity.abstract_name) > 0 :        
+            attrs.update( {PERM_NAME : entity.abstract_name} )
+        
+        if entity.type is not None and len(entity.type) > 0 :        
+            attrs.update( {TYPE : entity.type} )
+            
+        if entity.props is not None and len(entity.props) > 0 :        
+            attrs.update( {global_ids.PROPS : entity.props} )
+        
+        if entity.users is not None and len(entity.users) > 0 :        
+            attrs.update( {USERS : entity.users} )
+        
+        if entity.roles is not None and len(entity.roles) > 0 :        
+            attrs.update( {ROLES : entity.roles} )
+        
+        conn = ldaphelper.open()        
+        id = conn.add(__get_dn(entity), PERM_OCS, attrs)
+    except Exception as e:
+        raise LdapException('Perm create error=' + str(e), global_ids.PERM_ADD_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.OBJECT_ALREADY_EXISTS:
+            raise LdapException('Perm create failed, already exists:' + entity.name, global_ids.PERM_ADD_FAILED)             
+        elif result != 0:
+            raise LdapException('Perm create failed result=' + str(result), global_ids.PERM_ADD_FAILED)                    
+    return entity
+
+
+def update ( entity ):
+    __validate(entity, 'Update Perm')
+    try:
+        attrs = {}
+        if entity.description is not None and len(entity.description) > 0 :        
+            attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )            
+        if entity.type is not None and len(entity.type) > 0 :        
+            attrs.update( {TYPE : [(MODIFY_REPLACE, [entity.type])]} )
+        if entity.props is not None and len(entity.props) > 0 :        
+            attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
+        if entity.users is not None and len(entity.users) > 0 :        
+            attrs.update( {USERS : [(MODIFY_REPLACE, entity.users)]} )        
+        if entity.roles is not None and len(entity.roles) > 0 :        
+            attrs.update( {ROLES : [(MODIFY_REPLACE, entity.roles)]} )
+        if len(attrs) > 0:            
+            conn = ldaphelper.open()                
+            id = conn.modify(__get_dn(entity), attrs)
+    except Exception as e:
+        raise LdapException('Perm update error=' + str(e), global_ids.PERM_UPDATE_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('Perm update failed, not found:' + entity.name, global_ids.PERM_UPDATE_FAILED)             
+        elif result != 0:
+            raise LdapException('Perm update failed result=' + str(result), global_ids.PERM_UPDATE_FAILED)                    
+    return entity
+
+
+def delete ( entity ):
+    __validate_obj(entity, 'Delete Perm')
+    try:
+        conn = ldaphelper.open()        
+        id = conn.delete(__get_dn(entity))
+    except Exception as e:
+        raise LdapException('Perm delete error=' + str(e), global_ids.PERM_DELETE_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('Perm delete not found:' + entity.name, global_ids.PERM_DELETE_FAILED)                    
+        elif result != 0:
+            raise LdapException('Perm delete failed result=' + str(result), global_ids.PERM_DELETE_FAILED)                    
+    return entity
+
+
 def create_obj ( entity ):
     __validate_obj(entity, 'Create PermObj')
     try:
@@ -226,6 +316,16 @@ def __raise_exception(operation, field):
 
 def __get_obj_dn(entity):
     return OBJ_NM + '=' + entity.obj_name + "," + search_base
+
+
+def __get_dn(entity):
+    dn = ''
+    if entity.obj_id is not None and len(entity.obj_id) > 0:
+        dn = OBJ_ID + '=' + entity.obj_id + '+' + OP_NM + '=' + entity.op_name + ',' + __get_obj_dn(entity)
+    else:
+        dn = OP_NM + '=' + entity.op_name + ',' + __get_obj_dn(entity)
+    return dn
+
 
 PERM_OC_NAME = 'ftOperation'
 PERM_OCS = [PERM_OC_NAME, global_ids.PROP_OC_NAME]

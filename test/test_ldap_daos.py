@@ -201,7 +201,7 @@ class TestDaos(unittest.TestCase):
         for obj in objs:
             try:                        
                 entity = permdao.create_obj(obj)
-                #print_entity(entity, "Perm Object Create")
+                print_ln("Create object=" + entity.obj_name)                
             except Exception as e:
                 self.fail('perm object create failed, exception=' + str(e))
 
@@ -217,6 +217,7 @@ class TestDaos(unittest.TestCase):
             obj.type += '-updated'                        
             try:                        
                 entity = permdao.update_obj(obj)
+                print_ln("Update object=" + entity.obj_name)                
             except Exception as e:
                 self.fail('object update failed, exception=' + str(e))
 
@@ -236,6 +237,51 @@ class TestDaos(unittest.TestCase):
             self.fail('perm obj delete failed, exception=' + str(e))
 
 
+    def test_create_perms(self):
+        """
+        Test the perm create
+        """
+        print_ln('test create perms')
+        perms = perm_test_data.get_test_perms('py-test', 10)
+        for perm in perms:
+            try:                        
+                entity = permdao.create(perm)
+                print_ln("Create perm obj=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)                
+            except Exception as e:
+                self.fail('perm create failed, exception=' + str(e))
+
+
+    def test_update_perms(self):
+        """
+        Test the perm update
+        """
+        print_ln('test update perms')
+        perms = perm_test_data.get_test_perms('py-test', 10)
+        for perm in perms:
+            perm.description += '-updated'
+            perm.type += '-updated'                        
+            try:                        
+                entity = permdao.update(perm)
+                print_ln("Update perm obj=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)                
+            except Exception as e:
+                self.fail('perm update failed, exception=' + str(e))
+
+
+    def test_delete_perms(self):
+        """
+        Test the perm delete
+        """
+        print_ln('test delete perms')
+        
+        try:
+            pList = permdao.search(Permission(obj_name='py-test*', op_name='*'))
+            for perm in pList:                       
+                entity = permdao.delete(perm)
+                print_ln("Delete perm obj=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id)
+        except Exception as e:
+            self.fail('perm delete failed, exception=' + str(e))
+
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestDaos('test_search_users'))
@@ -249,9 +295,12 @@ def suite():
     suite.addTest(TestDaos('test_delete_users'))
     suite.addTest(TestDaos('test_create_users'))
     suite.addTest(TestDaos('test_update_users'))
+    suite.addTest(TestDaos('test_delete_perms'))    
     suite.addTest(TestDaos('test_delete_objects'))
     suite.addTest(TestDaos('test_create_objects'))             
-    suite.addTest(TestDaos('test_update_objects'))    
+    suite.addTest(TestDaos('test_update_objects'))
+    suite.addTest(TestDaos('test_create_perms'))
+    suite.addTest(TestDaos('test_update_perms'))            
     return suite  
 
  
