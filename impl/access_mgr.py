@@ -15,6 +15,7 @@ from impl.fortress_error import FortressError
 from util.logger import logger
 from util import global_ids
 from util.global_ids import SUCCESS
+from impl import utils
 
 
 validators = []
@@ -24,7 +25,7 @@ validators.append(LockDate())
 validators.append(Time())
 
 def create_session (user, is_trusted):
-    __validate_user(user)
+    utils.validate_user(user)
     session = Session()
     if is_trusted is False:
         # failure throws exception:
@@ -41,7 +42,7 @@ def create_session (user, is_trusted):
 
 def check_access (session, permission):
     __validate(session)
-    __validate_perm(permission)    
+    utils.validate_perm(permission)    
     result = False
     entity = permdao.read(permission)
     __validate_role_constraints(session.user)
@@ -120,22 +121,6 @@ def __validate_roles(user):
         raise FortressError ('User roles is None')
     elif len(user.roles) < 1:
         raise FortressError ('User roles is Empty')
-
-
-def __validate_user(user):
-    if user is None:
-        raise FortressError ('User is None')
-    elif user.uid is None:
-        raise FortressError ('User uid is None')
-
-
-def __validate_perm(perm):
-    if perm is None:
-        raise FortressError ('Perm is None')
-    elif perm.obj_name is None:
-        raise FortressError ('Perm object name is None')
-    elif perm.op_name is None:
-        raise FortressError ('Perm op name is None')
 
 
 def __validate_role_constraints(user):

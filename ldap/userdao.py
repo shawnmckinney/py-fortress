@@ -47,7 +47,7 @@ def search (entity):
     if entity.uid is not None and len(entity.uid) > 0 :
         search_filter += '(' + UID + '=' + entity.uid + ')'
     if entity.ou is not None and len(entity.ou) > 0 :
-        search_filter += '(' + OU + '=' + entity.ou + ')'
+        search_filter += '(' + global_ids.OU + '=' + entity.ou + ')'
     search_filter += ')'           
     try:
         conn = ldaphelper.open()
