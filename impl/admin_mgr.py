@@ -9,64 +9,64 @@ from ldap import permdao, userdao, roledao
 from impl import utils
 
 
-def add_user(entity):
-    utils.validate_user(entity)
-    return userdao.create(entity)
+def add_user(user):
+    utils.validate_user(user)
+    return userdao.create(user)
 
     
-def update_user(entity):
-    utils.validate_user(entity)
-    return userdao.create(entity)
+def update_user(user):
+    utils.validate_user(user)
+    return userdao.create(user)
 
     
-def delete_user(entity):
-    utils.validate_user(entity)
-    return userdao.delete(entity)
+def delete_user(user):
+    utils.validate_user(user)
+    return userdao.delete(user)
 
             
-def add_role(entity):
-    utils.validate_role(entity)
-    return roledao.create(entity)
+def add_role(role):
+    utils.validate_role(role)
+    return roledao.create(role)
 
     
-def update_role(entity):
-    utils.validate_role(entity)
-    return roledao.create(entity)
+def update_role(role):
+    utils.validate_role(role)
+    return roledao.create(role)
 
     
-def delete_role(entity):
-    utils.validate_role(entity)
-    return roledao.delete(entity)
+def delete_role(role):
+    utils.validate_role(role)
+    return roledao.delete(role)
 
                         
-def add_perm(entity):
-    utils.validate_perm(entity)
-    return permdao.create(entity)
+def add_perm(perm):
+    utils.validate_perm(perm)
+    return permdao.create(perm)
 
     
-def update_perm(entity):
-    utils.validate_perm(entity)
-    return permdao.create(entity)
+def update_perm(perm):
+    utils.validate_perm(perm)
+    return permdao.create(perm)
 
     
-def delete_perm(entity):
-    utils.validate_perm(entity)
-    return permdao.delete(entity)
+def delete_perm(perm):
+    utils.validate_perm(perm)
+    return permdao.delete(perm)
 
                                                 
-def add_object(entity):
-    utils.validate_perm_obj(entity)
-    return permdao.create_obj(entity)
+def add_object(perm_obj):
+    utils.validate_perm_obj(perm_obj)
+    return permdao.create_obj(perm_obj)
 
     
-def update_object(entity):
-    utils.validate_perm_obj(entity)
-    return permdao.create_obj(entity)
+def update_object(perm_obj):
+    utils.validate_perm_obj(perm_obj)
+    return permdao.create_obj(perm_obj)
 
     
-def delete_object(entity):
-    utils.validate_perm_obj(entity)
-    return permdao.delete_obj(entity)
+def delete_object(perm_obj):
+    utils.validate_perm_obj(perm_obj)
+    return permdao.delete_obj(perm_obj)
 
 
 def assign(user, role):
