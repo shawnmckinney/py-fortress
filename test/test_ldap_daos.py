@@ -95,7 +95,7 @@ class TestDaos(unittest.TestCase):
         """
         print_ln('test search roles by name')        
         try:
-            rle = Role(name = "oam*")
+            rle = Role(name = 'oam*')
             rList = roledao.search(rle)
             for idx, entity in enumerate(rList) :            
                 print_role(entity, "Role[" + str(idx+1) + "]:")
@@ -116,6 +116,7 @@ class TestDaos(unittest.TestCase):
             except Exception as e:
                 self.fail('role create failed, exception=' + str(e))
 
+
     def test_update_roles(self):
         """
         Test the role update
@@ -130,27 +131,29 @@ class TestDaos(unittest.TestCase):
             except Exception as e:
                 self.fail('role update failed, exception=' + str(e))
 
+
     def test_delete_roles(self):
         """
         Test the role delete
         """
         print_ln('test delete roles')
-        rls = role_test_data.get_test_roles('py-test', 10)
-        for rle in rls:
-            try:                        
+        
+        try:
+            rList = roledao.search(Role(name='py-test*'))
+            for rle in rList:                       
                 rle = roledao.delete(rle)
                 print_ln("Role Delete role=" + rle.name)
-            except Exception as e:
-                self.fail('role delete failed, exception=' + str(e))
+        except Exception as e:
+            self.fail('role delete failed, exception=' + str(e))
+
 
 def suite():
     suite = unittest.TestSuite()
-    #suite.addTest(TestDaos('test_search_users'))
-    #suite.addTest(TestDaos('test_bind_users'))
-    #suite.addTest(TestDaos('test_bind_users_negative'))               
-    #suite.addTest(TestDaos('test_search_perms'))   
-    #suite.addTest(TestDaos('test_search_roles'))
-    
+    suite.addTest(TestDaos('test_search_users'))
+    suite.addTest(TestDaos('test_bind_users'))
+    suite.addTest(TestDaos('test_bind_users_negative'))               
+    suite.addTest(TestDaos('test_search_perms'))   
+    suite.addTest(TestDaos('test_search_roles'))
     suite.addTest(TestDaos('test_delete_roles'))    
     suite.addTest(TestDaos('test_create_roles'))
     suite.addTest(TestDaos('test_update_roles'))         

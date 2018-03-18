@@ -47,15 +47,12 @@ def search (entity):
 
 def __unload(entry):
     entity = Role()
-    entity.dn = ldaphelper.get_dn(entry)
-    
+    entity.dn = ldaphelper.get_dn(entry)    
     entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])
     entity.name = ldaphelper.get_attr_val(entry[ATTRIBUTES][ROLE_NAME])
     entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DESC])
-
     # Get the multi-occurring attrs:
     entity.props = ldaphelper.get_list(entry[ATTRIBUTES][PROPS])
-            
     # unload raw user constraint:
     entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][CONSTRAINT]))
     return entity
@@ -134,6 +131,7 @@ def delete ( entity ):
             raise LdapException('Role delete failed result=' + str(result), global_ids.ROLE_DELETE_FAILED)                    
     return entity
 
+
 def __validate(entity, op):
     if entity.name is None or len(entity.name) == 0 :
         __raise_exception(op, ROLE_NAME)
@@ -156,9 +154,6 @@ CONSTRAINT = 'ftCstr'
 PROPS = 'ftProps'
 DESC = 'description'
 CN = 'cn'
-
-
-
 
 SEARCH_ATTRS = [
     INTERNAL_ID, ROLE_NAME, CONSTRAINT, PROPS, DESC
