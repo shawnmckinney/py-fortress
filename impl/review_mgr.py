@@ -50,6 +50,28 @@ def find_perms(entity):
     utils.validate_perm(entity)
     return permdao.search(entity)
 
+
+def assigned_users(entity):
+    utils.validate_role(entity)
+    return roledao.get_members(entity)
+        
     
+def assigned_roles(entity):
+    utils.validate_user(entity)
+    usr = userdao.read(entity)
+    return usr.role_constraints
+
+
+def perm_roles(entity):
+    utils.validate_perm(entity)
+    perm = permdao.read(entity)
+    return perm.roles
+
+
+def role_perms(entity):
+    utils.validate_role(entity)
+    return permdao.search_on_roles([entity.name])
+
+
     
 

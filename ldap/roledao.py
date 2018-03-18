@@ -10,6 +10,7 @@ from model import Role, Constraint
 from ldap import ldaphelper, LdapException, NotFound, NotUnique
 from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
 from util import Config, global_ids
+from ldap import userdao
 
 
 def read (entity):
@@ -133,6 +134,72 @@ def delete ( entity ):
     return entity
 
 
+def add_member ( entity, uid ):    
+    __validate(entity, 'Add Member')
+    try:        
+        attrs = {}
+        if uid is not None and len(uid) > 0 :
+            user_dn = __get_user_dn(uid)            
+            attrs.update( {MEMBER : [(MODIFY_ADD, user_dn)]} )
+            conn = ldaphelper.open()        
+            id = conn.modify(__get_dn(entity), attrs)
+    except Exception as e:
+        raise LdapException('Add member error=' + str(e), global_ids.ROLE_USER_ASSIGN_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('Add member failed, not found, role=' +  entity.name + ', member dn=' + user_dn)             
+        elif result != 0:
+            raise LdapException('Add member failed result=' + str(result), global_ids.ROLE_USER_ASSIGN_FAILED)                    
+    return entity
+
+
+def remove_member ( entity, uid ):    
+    __validate(entity, 'Remove Member')
+    try:        
+        attrs = {}
+        if uid is not None and len(uid) > 0 :
+            user_dn = __get_user_dn(uid)
+            attrs.update( {MEMBER : [(MODIFY_DELETE, user_dn)]} )
+            conn = ldaphelper.open()        
+            id = conn.modify(__get_dn(entity), attrs)
+    except Exception as e:
+        raise LdapException('Remove member error=' + str(e), global_ids.ROLE_USER_DEASSIGN_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NO_SUCH_ATTRIBUTE:
+            raise LdapException('Remove member failed, not assigned, role=' +  entity.name + ', member dn=' + user_dn)             
+        elif result != 0:
+            raise LdapException('Remove member failed result=' + str(result), global_ids.ROLE_USER_DEASSIGN_FAILED)                    
+    return entity
+
+
+def get_members (entity):
+    __validate(entity, "Get Members")
+    conn = None            
+    uList = []
+    search_filter = '(&(objectClass=' + ROLE_OC_NAME + ')'
+    search_filter += '(' + ROLE_NAME + '=' + entity.name + '))'
+    try:
+        conn = ldaphelper.open()
+        id = conn.search(search_base, search_filter, attributes=[MEMBER])
+        response = ldaphelper.get_response(conn, id)         
+        total_entries = len(response)
+    except Exception as e:
+        raise LdapException('Get members search error=' + str(e))
+    else:
+        if total_entries == 0:
+            raise NotFound("Role not found, name=" + entity.name)    
+        elif total_entries > 1:
+            raise NotUnique("Role not unique, name=" + entity.name)        
+        member_dns = ldaphelper.get_list(response[0][ATTRIBUTES][MEMBER])
+        uList = __convert_list(member_dns)
+    finally:
+        if conn:        
+            ldaphelper.close(conn)
+    return uList
+
+
 def __validate(entity, op):
     if entity.name is None or len(entity.name) == 0 :
         __raise_exception(op, ROLE_NAME)
@@ -146,9 +213,31 @@ def __get_dn(entity):
     return global_ids.CN + '=' + entity.name + "," + search_base
 
 
+def __get_user_dn(uid):
+    # TODO: find a better way to do this:
+    return global_ids.UID + '=' + uid + ',' + userdao.search_base
+
+
+def __convert_list(list_dns):
+    list_uids = []
+    for member_dn in list_dns:
+        list_uids.append(__get_user_id(member_dn))
+    return list_uids
+
+def __get_user_id(user_dn):
+    uid = None    
+    values = user_dn.split(',')        
+    values = [ val.strip() for val in values ]
+    if values[0] is not None:
+        uid=values[0]
+    return uid[4:]
+    
+    
+
 ROLE_OC_NAME = 'ftRls'
 ROLE_OCS = [ROLE_OC_NAME, global_ids.PROP_OC_NAME]
 ROLE_NAME = 'ftRoleName'
+MEMBER = 'roleOccupant'
 
 SEARCH_ATTRS = [
     global_ids.INTERNAL_ID, ROLE_NAME, global_ids.CONSTRAINT, global_ids.PROPS, global_ids.DESC

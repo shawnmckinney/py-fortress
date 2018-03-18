@@ -45,7 +45,7 @@ def search (entity):
     userList = []
     search_filter = '(&(objectClass=' + USER_OC_NAME + ')'
     if entity.uid is not None and len(entity.uid) > 0 :
-        search_filter += '(' + UID + '=' + entity.uid + ')'
+        search_filter += '(' + global_ids.UID + '=' + entity.uid + ')'
     if entity.ou is not None and len(entity.ou) > 0 :
         search_filter += '(' + global_ids.OU + '=' + entity.ou + ')'
     search_filter += ')'           
@@ -69,7 +69,7 @@ def search (entity):
 def __unload(entry):
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
-    entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][UID])
+    entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.UID])
     entity.ou = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.OU])  
     entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])    
     entity.pw_policy = ldaphelper.get_attr_val(entry[ATTRIBUTES][PW_POLICY])
@@ -114,7 +114,7 @@ def create ( entity ):
     __validate(entity, 'Create User')
     try:
         attrs = {}
-        attrs.update( {UID : entity.uid} )
+        attrs.update( {global_ids.UID : entity.uid} )
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
         attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )        
@@ -304,7 +304,7 @@ def deassign ( entity, constraint ):
 
 def __validate(entity, op):
     if entity.uid is None or len(entity.uid) == 0 :
-        __raise_exception(op, UID)
+        __raise_exception(op, global_ids.UID)
 
                     
 def __raise_exception(operation, field):
@@ -312,14 +312,13 @@ def __raise_exception(operation, field):
 
 
 def __get_dn(entity):
-    return UID + '=' + entity.uid + ',' + search_base
+    return global_ids.UID + '=' + entity.uid + ',' + search_base
 
 
 USER_OC_NAME = 'inetOrgPerson'
 USER_ATTRS_OC_NAME = 'ftUserAttrs'
 USER_OCS = [USER_OC_NAME, USER_ATTRS_OC_NAME, global_ids.PROP_OC_NAME]
 
-UID = 'uid'
 PW = 'userPassword'
 ROLES = 'ftra'
 PW_POLICY = 'pwdPolicySubentry'
@@ -340,7 +339,7 @@ POSTAL_CODE = 'postalCode'
 RM_NUM = 'roomNumber'
 
 SEARCH_ATTRS = [
-    UID, global_ids.OU, global_ids.INTERNAL_ID, ROLES, ROLE_CONSTRAINTS, PW_POLICY, global_ids.CONSTRAINT,
+    global_ids.UID, global_ids.OU, global_ids.INTERNAL_ID, ROLES, ROLE_CONSTRAINTS, PW_POLICY, global_ids.CONSTRAINT,
     global_ids.CN, global_ids.SN, global_ids.DESC, DISPLAY_NAME, EMPLOYEE_TYPE,
     TITLE, TELEPHONE_NUMBER, MOBILE, MAIL, IS_RESET,
     LOCKED_TIME, IS_SYSTEM, global_ids.PROPS, DEPT_NUM,

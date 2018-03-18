@@ -258,7 +258,7 @@ def revoke ( entity, role ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NO_SUCH_ATTRIBUTE:
-            raise LdapException('Perm revoke failed, not found, obj name=' +  entity.obj_name + ', op_name=' + entity.op_name + ', op id=' + entity.obj_id + ', role='+ role.name, global_ids.PERM_ROLE_NOT_EXIST)            
+            raise LdapException('Perm revoke failed, not granted, obj name=' +  entity.obj_name + ', op_name=' + entity.op_name + ', op id=' + entity.obj_id + ', role='+ role.name, global_ids.PERM_ROLE_NOT_EXIST)            
         elif result != 0:
             raise LdapException('Perm revoke failed result=' + str(result), global_ids.PERM_REVOKE_FAILED)                    
     return entity

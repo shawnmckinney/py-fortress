@@ -76,14 +76,16 @@ def assign(user, role):
     utils.validate_user(user)
     utils.validate_role(role)
     entity = roledao.read(role)
-    return userdao.assign(user, entity.constraint)
+    userdao.assign(user, entity.constraint)
+    roledao.add_member(entity, user.uid)
 
                                                                                                 
 def deassign(user, role):
     utils.validate_user(user)
     utils.validate_role(role)
     entity = roledao.read(role)
-    return userdao.deassign(user, entity.constraint)
+    userdao.deassign(user, entity.constraint)
+    roledao.remove_member(entity, user.uid)
 
 
 def grant(perm, role):

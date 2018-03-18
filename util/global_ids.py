@@ -4,6 +4,8 @@ Created on Mar 15, 2018
 @author: smckinn
 @copyright: 2018 - Symas Corporation
 '''
+
+UID = 'uid'
 PROP_OC_NAME = 'ftProperties'
 OU = 'ou'
 INTERNAL_ID = 'ftid'
@@ -53,6 +55,8 @@ ROLE_UPDATE_FAILED = 5003
 ROLE_DELETE_FAILED = 5004
 ROLE_NM_NULL = 5005
 ROLE_NULL = 5007
+ROLE_USER_ASSIGN_FAILED = 5008
+ROLE_USER_DEASSIGN_FAILED = 5009
 
 
 PERM_ADD_FAILED = 3003
