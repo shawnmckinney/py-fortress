@@ -2,8 +2,20 @@
 Created on Mar 15, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
 PROP_OC_NAME = 'ftProperties'
+OU = 'ou'
+INTERNAL_ID = 'ftid'
+CN = 'cn'
+SN = 'sn'
+DN = 'dn'
+CONSTRAINT = 'ftCstr'
+DESC = 'description'
+PROPS = 'ftProps'
+CONSTRAINT = 'ftCstr'
+
+
 
 
 SUCCESS = 0

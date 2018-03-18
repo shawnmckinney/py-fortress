@@ -48,13 +48,13 @@ def search (entity):
 def __unload(entry):
     entity = Role()
     entity.dn = ldaphelper.get_dn(entry)    
-    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])
+    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])
     entity.name = ldaphelper.get_attr_val(entry[ATTRIBUTES][ROLE_NAME])
-    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DESC])
+    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.DESC])
     # Get the multi-occurring attrs:
-    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][PROPS])
+    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][global_ids.PROPS])
     # unload raw constraint:
-    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][CONSTRAINT]))
+    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.CONSTRAINT]))
     return entity
 
 
@@ -62,20 +62,20 @@ def create ( entity ):
     __validate(entity, 'Create Role')
     try:
         attrs = {}
-        attrs.update( {CN : entity.name} )
+        attrs.update( {global_ids.CN : entity.name} )
         attrs.update( {ROLE_NAME : entity.name} )
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
-        attrs.update( {INTERNAL_ID : entity.internal_id} )        
+        attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )        
 
         if entity.description is not None and len(entity.description) > 0 :        
-            attrs.update( {DESC : entity.description} )
+            attrs.update( {global_ids.DESC : entity.description} )
 
         if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {PROPS : entity.props} )
+            attrs.update( {global_ids.PROPS : entity.props} )
 
         if entity.constraint is not None :        
-            attrs.update( {CONSTRAINT : entity.constraint.get_raw()} )
+            attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
 
         conn = ldaphelper.open()        
         id = conn.add(__get_dn(entity), ROLE_OCS, attrs)
@@ -95,13 +95,13 @@ def update ( entity ):
     try:
         attrs = {}
         if entity.description is not None and len(entity.description) > 0 :        
-            attrs.update( {DESC : [(MODIFY_REPLACE, [entity.description])]} )
+            attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )
 
         if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {PROPS : [(MODIFY_REPLACE, [entity.props])]} )
+            attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, [entity.props])]} )
 
         if entity.constraint is not None :        
-            attrs.update( {CONSTRAINT : [(MODIFY_REPLACE, [entity.constraint.get_raw()])]} )
+            attrs.update( {global_ids.CONSTRAINT : [(MODIFY_REPLACE, [entity.constraint.get_raw()])]} )
 
         if len(attrs) > 0:
             conn = ldaphelper.open()        
@@ -143,20 +143,15 @@ def __raise_exception(operation, field):
 
 
 def __get_dn(entity):
-    return CN + '=' + entity.name + "," + search_base
+    return global_ids.CN + '=' + entity.name + "," + search_base
 
 
 ROLE_OC_NAME = 'ftRls'
 ROLE_OCS = [ROLE_OC_NAME, global_ids.PROP_OC_NAME]
-INTERNAL_ID = 'ftid'
 ROLE_NAME = 'ftRoleName'
-CONSTRAINT = 'ftCstr'
-PROPS = 'ftProps'
-DESC = 'description'
-CN = 'cn'
 
 SEARCH_ATTRS = [
-    INTERNAL_ID, ROLE_NAME, CONSTRAINT, PROPS, DESC
+    global_ids.INTERNAL_ID, ROLE_NAME, global_ids.CONSTRAINT, global_ids.PROPS, global_ids.DESC
      ]
 
 search_base = Config.get('dit')['roles']

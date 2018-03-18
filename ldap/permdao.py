@@ -8,7 +8,7 @@ Created on Feb 16, 2018
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 from model import Permission
 from ldap import ldaphelper, LdapException, NotFound, NotUnique
-from util import Config
+from util import Config, global_ids
 
 
 def read (entity):
@@ -84,18 +84,18 @@ def __unload(entry):
     entity = Permission()
     entity.dn = ldaphelper.get_dn(entry)
     
-    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])
+    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])
     entity.obj_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_ID])
     entity.obj_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_NM])
     entity.op_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][OP_NM])
     entity.abstract_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][PERM_NAME])
     entity.type = ldaphelper.get_attr_val(entry[ATTRIBUTES][TYPE])
-    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DESC])
+    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.DESC])
 
     # Get the multi-occurring attrs:
     entity.users = ldaphelper.get_list(entry[ATTRIBUTES][USERS])    
     entity.roles = ldaphelper.get_list(entry[ATTRIBUTES][ROLES])
-    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][PROPS])
+    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][global_ids.PROPS])
             
     return entity
 
@@ -112,7 +112,6 @@ def __raise_exception(operation, field):
 
 
 PERM_OC_NAME = 'ftOperation'
-INTERNAL_ID = 'ftid'
 ROLES = 'ftRoles'
 OBJ_ID = 'ftObjId'
 OBJ_NM = 'ftObjNm'
@@ -120,12 +119,10 @@ OP_NM = 'ftOpNm'
 PERM_NAME = 'ftPermName'
 USERS = 'ftUsers'
 TYPE = 'ftType'
-PROPS = 'ftProps'
-DESC = 'description'
 
 SEARCH_ATTRS = [
-    INTERNAL_ID, OBJ_NM, OP_NM, PERM_NAME, OBJ_ID, ROLES,
-     USERS, TYPE, PROPS, DESC
+    global_ids.INTERNAL_ID, OBJ_NM, OP_NM, PERM_NAME, OBJ_ID, ROLES,
+     USERS, TYPE, global_ids.PROPS, global_ids.DESC
      ]
 
 search_base = Config.get('dit')['perms']

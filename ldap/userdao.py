@@ -70,12 +70,12 @@ def __unload(entry):
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
     entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][UID])
-    entity.ou = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][OU])  
-    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][INTERNAL_ID])    
+    entity.ou = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.OU])  
+    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])    
     entity.pw_policy = ldaphelper.get_attr_val(entry[ATTRIBUTES][PW_POLICY])
-    entity.cn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][CN])
-    entity.sn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][SN])
-    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DESCRIPTION])
+    entity.cn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.CN])
+    entity.sn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.SN])
+    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.DESC])
     entity.display_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][DISPLAY_NAME])
     entity.employee_type = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][EMPLOYEE_TYPE])
     entity.title = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][TITLE])
@@ -91,14 +91,14 @@ def __unload(entry):
     entity.locked_time = ldaphelper.get_attr_object(entry[ATTRIBUTES][LOCKED_TIME])
 
     # Get the multi-occurring attrs:
-    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][PROPS])    
+    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][global_ids.PROPS])    
     entity.phones = ldaphelper.get_list(entry[ATTRIBUTES][TELEPHONE_NUMBER])
     entity.mobiles = ldaphelper.get_list(entry[ATTRIBUTES][MOBILE])
     entity.emails = ldaphelper.get_list(entry[ATTRIBUTES][MAIL])
     entity.roles = ldaphelper.get_list(entry[ATTRIBUTES][ROLES])
     
     # unload raw user constraint:
-    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][CONSTRAINT]))
+    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.CONSTRAINT]))
     
     # now, unload raw user-role constraints:    
     rcsRaw = ldaphelper.get_list(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
@@ -117,22 +117,22 @@ def create ( entity ):
         attrs.update( {UID : entity.uid} )
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
-        attrs.update( {INTERNAL_ID : entity.internal_id} )        
+        attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )        
         # cn is req'd for iNetOrgPerson, if caller did not set, use uid value
         if entity.cn is None or len(entity.cn) == 0 :
             entity.cn = entity.uid
-        attrs.update( {CN : entity.cn} )
+        attrs.update( {global_ids.CN : entity.cn} )
         # likewise sn is req'd for iNetOrgPerson, if caller did not set, use uid value
         if entity.sn is None or len(entity.sn) == 0 :
             entity.sn = entity.uid
-        attrs.update( {SN : entity.sn} )
+        attrs.update( {global_ids.SN : entity.sn} )
                 
         if entity.password is not None and len(entity.password) > 0 :                
             attrs.update( {PW : entity.password} )
         if entity.description is not None and len(entity.description) > 0 :        
-            attrs.update( {DESCRIPTION : entity.description} )
+            attrs.update( {global_ids.DESC : entity.description} )
         if entity.ou is not None and len(entity.ou) > 0 :        
-            attrs.update( {OU : entity.ou} )
+            attrs.update( {global_ids.OU : entity.ou} )
         if entity.display_name is not None and len(entity.display_name) > 0 :        
             attrs.update( {DISPLAY_NAME : entity.display_name} )
         if entity.employee_type is not None and len(entity.employee_type) > 0 :        
@@ -148,7 +148,7 @@ def create ( entity ):
         if entity.system is not None :        
             attrs.update( {IS_SYSTEM : entity.system} )
         if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {PROPS : entity.props} )
+            attrs.update( {global_ids.PROPS : entity.props} )
         if entity.department_number is not None and len(entity.department_number) > 0 :        
             attrs.update( {DEPT_NUM : entity.department_number} )
         if entity.l is not None and len(entity.l) > 0 :        
@@ -160,7 +160,7 @@ def create ( entity ):
         if entity.room_number is not None and len(entity.room_number) > 0 :        
             attrs.update( {RM_NUM : entity.room_number} )            
         if entity.constraint is not None :        
-            attrs.update( {CONSTRAINT : entity.constraint.get_raw()} )
+            attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
         if entity.pw_policy is not None and len(entity.pw_policy) > 0 :        
             attrs.update( {PW_POLICY : entity.pw_policy} )
             
@@ -191,15 +191,15 @@ def update ( entity ):
     try:
         attrs = {}                
         if entity.cn is not None or len(entity.cn) > 0 :
-            attrs.update( {CN : [(MODIFY_REPLACE, [entity.cn])]} )
+            attrs.update( {global_ids.CN : [(MODIFY_REPLACE, [entity.cn])]} )
         if entity.sn is not None or len(entity.sn) > 0 :
-            attrs.update( {SN : [(MODIFY_REPLACE, [entity.sn])]} )
+            attrs.update( {global_ids.SN : [(MODIFY_REPLACE, [entity.sn])]} )
         if entity.password is not None and len(entity.password) > 0 :                
             attrs.update( {PW : [(MODIFY_REPLACE, [entity.password])]} )
         if entity.description is not None and len(entity.description) > 0 :        
-            attrs.update( {DESCRIPTION : [(MODIFY_REPLACE, [entity.description])]} )
+            attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )
         if entity.ou is not None and len(entity.ou) > 0 :        
-            attrs.update( {OU : [(MODIFY_REPLACE, [entity.ou])]} )
+            attrs.update( {global_ids.OU : [(MODIFY_REPLACE, [entity.ou])]} )
         if entity.display_name is not None and len(entity.display_name) > 0 :        
             attrs.update( {DISPLAY_NAME : [(MODIFY_REPLACE, [entity.display_name])]} )
         if entity.employee_type is not None and len(entity.employee_type) > 0 :        
@@ -215,7 +215,7 @@ def update ( entity ):
         if entity.system is not None :        
             attrs.update( {IS_SYSTEM : [(MODIFY_REPLACE, entity.system)]} )
         if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {PROPS : [(MODIFY_REPLACE, entity.props)]} )
+            attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
         if entity.department_number is not None and len(entity.department_number) > 0 :        
             attrs.update( {DEPT_NUM : [(MODIFY_REPLACE, entity.department_number)]} )
         if entity.l is not None and len(entity.l) > 0 :        
@@ -227,7 +227,7 @@ def update ( entity ):
         if entity.room_number is not None and len(entity.room_number) > 0 :        
             attrs.update( {RM_NUM : [(MODIFY_REPLACE, entity.room_number)]} )            
         if entity.constraint is not None :        
-            attrs.update( {CONSTRAINT : [(MODIFY_REPLACE, entity.constraint.get_raw())]} )
+            attrs.update( {global_ids.CONSTRAINT : [(MODIFY_REPLACE, entity.constraint.get_raw())]} )
         if entity.pw_policy is not None and len(entity.pw_policy) > 0 :        
             attrs.update( {PW_POLICY : [(MODIFY_REPLACE, entity.pw_policy)]} )
         if len(attrs) > 0:            
@@ -278,17 +278,10 @@ USER_ATTRS_OC_NAME = 'ftUserAttrs'
 USER_OCS = [USER_OC_NAME, USER_ATTRS_OC_NAME, global_ids.PROP_OC_NAME]
 
 UID = 'uid'
-OU = 'ou'
 PW = 'userPassword'
-INTERNAL_ID = 'ftid'
 ROLES = 'ftra'
 PW_POLICY = 'pwdPolicySubentry'
-CN = 'cn'
-SN = 'sn'
-DN = 'dn'
-CONSTRAINT = 'ftCstr'
 ROLE_CONSTRAINTS = 'ftRC'
-DESCRIPTION = 'description'
 DISPLAY_NAME = 'displayName'
 EMPLOYEE_TYPE = 'employeeType'
 TITLE = 'title'
@@ -298,7 +291,6 @@ MAIL = 'mail'
 IS_RESET = 'pwdReset'
 LOCKED_TIME = 'pwdAccountLockedTime'
 IS_SYSTEM = 'ftSystem'
-PROPS = 'ftProps'
 DEPT_NUM = 'departmentNumber'
 LOCATION = 'l'
 PHYSICAL_OFFICE_NM = 'physicalDeliveryOfficeName'
@@ -306,10 +298,10 @@ POSTAL_CODE = 'postalCode'
 RM_NUM = 'roomNumber'
 
 SEARCH_ATTRS = [
-    UID, OU, INTERNAL_ID, ROLES, ROLE_CONSTRAINTS, PW_POLICY, CONSTRAINT,
-    CN, SN, DESCRIPTION, DISPLAY_NAME, EMPLOYEE_TYPE,
+    UID, global_ids.OU, global_ids.INTERNAL_ID, ROLES, ROLE_CONSTRAINTS, PW_POLICY, global_ids.CONSTRAINT,
+    global_ids.CN, global_ids.SN, global_ids.DESC, DISPLAY_NAME, EMPLOYEE_TYPE,
     TITLE, TELEPHONE_NUMBER, MOBILE, MAIL, IS_RESET,
-    LOCKED_TIME, IS_SYSTEM, PROPS, DEPT_NUM,
+    LOCKED_TIME, IS_SYSTEM, global_ids.PROPS, DEPT_NUM,
     PHYSICAL_OFFICE_NM, POSTAL_CODE, RM_NUM, LOCATION
     ]
 

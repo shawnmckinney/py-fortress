@@ -2,6 +2,7 @@
 Created on Mar 17, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
 
 from model import Role, Constraint
