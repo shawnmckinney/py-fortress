@@ -7,9 +7,9 @@ Created on Feb 10, 2018
 
 import unittest
 from ldap import userdao, permdao, roledao, InvalidCredentials
-from model import User, Permission, Role, Constraint
+from model import User, Permission, Role, Constraint, PermObj
 from test.utils import print_user, print_role, print_ln, print_entity
-import user_test_data, role_test_data
+import user_test_data, role_test_data, perm_test_data
 
 
 class BasicTestSuite(unittest.TestCase):
@@ -187,9 +187,53 @@ class TestDaos(unittest.TestCase):
             uList = userdao.search(User(uid='py-test*'))
             for usr in uList:                       
                 entity = userdao.delete(usr)
-                print_ln("Role Delete user=" + entity.uid)
+                print_ln("Delete user=" + entity.uid)
         except Exception as e:
             self.fail('user delete failed, exception=' + str(e))
+
+
+    def test_create_objects(self):
+        """
+        Test the object create
+        """
+        print_ln('test create objects')
+        objs = perm_test_data.get_test_objs('py-test', 10)
+        for obj in objs:
+            try:                        
+                entity = permdao.create_obj(obj)
+                #print_entity(entity, "Perm Object Create")
+            except Exception as e:
+                self.fail('perm object create failed, exception=' + str(e))
+
+
+    def test_update_objects(self):
+        """
+        Test the object update
+        """
+        print_ln('test update objects')
+        objs = perm_test_data.get_test_objs('py-test', 10)
+        for obj in objs:
+            obj.description += '-updated'
+            obj.type += '-updated'                        
+            try:                        
+                entity = permdao.update_obj(obj)
+            except Exception as e:
+                self.fail('object update failed, exception=' + str(e))
+
+
+    def test_delete_objects(self):
+        """
+        Test the object delete
+        """
+        print_ln('test delete objects')
+        
+        try:
+            oList = permdao.search_objs(PermObj(obj_name='py-test*'))
+            for obj in oList:                       
+                entity = permdao.delete_obj(obj)
+                print_ln("Delete object=" + obj.obj_name)
+        except Exception as e:
+            self.fail('perm obj delete failed, exception=' + str(e))
 
 
 def suite():
@@ -204,7 +248,10 @@ def suite():
     suite.addTest(TestDaos('test_update_roles'))
     suite.addTest(TestDaos('test_delete_users'))
     suite.addTest(TestDaos('test_create_users'))
-    suite.addTest(TestDaos('test_update_users'))             
+    suite.addTest(TestDaos('test_update_users'))
+    suite.addTest(TestDaos('test_delete_objects'))
+    suite.addTest(TestDaos('test_create_objects'))             
+    suite.addTest(TestDaos('test_update_objects'))    
     return suite  
 
  
