@@ -33,8 +33,6 @@ class TestAccessMgr(unittest.TestCase):
             uList = userdao.search(usr)
             loop_cnt = len(uList)
             for idx, entity in enumerate(uList) :
-                #progbar(idx, loop_cnt, 20)
-                
                 if idx % 10 == 0:
                     sys.stdout.write('.')
                     sys.stdout.flush()
