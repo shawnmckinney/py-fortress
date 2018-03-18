@@ -260,6 +260,48 @@ def delete ( entity ):
     return entity
 
 
+def assign ( entity, constraint ):
+    __validate(entity, 'Assign')
+    try:
+        attrs = {}
+        if constraint is not None:
+            attrs.update( {ROLE_CONSTRAINTS : [(MODIFY_ADD, constraint.get_raw())]} )
+            attrs.update( {ROLES : [(MODIFY_ADD, constraint.name)]} )                                     
+        if len(attrs) > 0:            
+            conn = ldaphelper.open()                
+            id = conn.modify(__get_dn(entity), attrs)
+    except Exception as e:
+        raise LdapException('User assign error=' + str(e), global_ids.URLE_ASSIGN_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('User assign failed, not found:' + entity.name, global_ids.USER_NOT_FOUND)             
+        elif result != 0:
+            raise LdapException('User assign failed result=' + str(result), global_ids.URLE_ASSIGN_FAILED)                    
+    return entity
+
+
+def deassign ( entity, constraint ):
+    __validate(entity, 'Deassign')
+    try:
+        attrs = {}
+        if constraint is not None:
+            attrs.update( {ROLE_CONSTRAINTS : [(MODIFY_DELETE, constraint.get_raw())]} )
+            attrs.update( {ROLES : [(MODIFY_DELETE, constraint.name)]} )                                     
+        if len(attrs) > 0:            
+            conn = ldaphelper.open()                
+            id = conn.modify(__get_dn(entity), attrs)
+    except Exception as e:
+        raise LdapException('User deassign error=' + str(e), global_ids.URLE_DEASSIGN_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('User deassign failed, not found:' + entity.name, global_ids.USER_NOT_FOUND)             
+        elif result != 0:
+            raise LdapException('User deassign failed result=' + str(result), global_ids.URLE_DEASSIGN_FAILED)                    
+    return entity
+
+
 def __validate(entity, op):
     if entity.uid is None or len(entity.uid) == 0 :
         __raise_exception(op, UID)

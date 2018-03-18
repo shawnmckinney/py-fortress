@@ -6,7 +6,7 @@ Created on Feb 16, 2018
 '''
 
 import uuid    
-from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
+from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
 from model import Permission, PermObj
 from ldap import ldaphelper, LdapException, NotFound, NotUnique
 from util import Config, global_ids
@@ -145,28 +145,20 @@ def create ( entity ):
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
         attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )
-        
         if entity.obj_id is not None and len(entity.obj_id) > 0 :        
             attrs.update( {OBJ_ID : entity.obj_id} )
-        
         if entity.description is not None and len(entity.description) > 0 :        
             attrs.update( {global_ids.DESC : entity.description} )
-
         if entity.abstract_name is not None and len(entity.abstract_name) > 0 :        
             attrs.update( {PERM_NAME : entity.abstract_name} )
-        
         if entity.type is not None and len(entity.type) > 0 :        
             attrs.update( {TYPE : entity.type} )
-            
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : entity.props} )
-        
         if entity.users is not None and len(entity.users) > 0 :        
-            attrs.update( {USERS : entity.users} )
-        
+            attrs.update( {USERS : entity.users} )        
         if entity.roles is not None and len(entity.roles) > 0 :        
             attrs.update( {ROLES : entity.roles} )
-        
         conn = ldaphelper.open()        
         id = conn.add(__get_dn(entity), PERM_OCS, attrs)
     except Exception as e:
@@ -221,6 +213,44 @@ def delete ( entity ):
             raise LdapException('Perm delete not found:' + entity.name, global_ids.PERM_DELETE_FAILED)                    
         elif result != 0:
             raise LdapException('Perm delete failed result=' + str(result), global_ids.PERM_DELETE_FAILED)                    
+    return entity
+
+
+def grant ( entity, role ):
+    __validate(entity, 'Grant Perm')
+    try:
+        attrs = {}
+        if role is not None:
+            attrs.update( {ROLES : [(MODIFY_ADD, role.name)]} )                                     
+            conn = ldaphelper.open()                
+            id = conn.modify(__get_dn(entity), attrs)
+    except Exception as e:
+        raise LdapException('Perm grant error=' + str(e), global_ids.PERM_GRANT_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('Perm grant failed, not found, obj name=' +  entity.obj_name + ', op_name=' + entity.op_name + ', op id=' + entity.obj_id + ', role='+ role.name, global_ids.PERM_OP_NOT_FOUND)             
+        elif result != 0:
+            raise LdapException('Perm grant failed result=' + str(result), global_ids.PERM_GRANT_FAILED)                    
+    return entity
+
+
+def revoke ( entity, role ):
+    __validate(entity, 'Revoke Perm')
+    try:
+        attrs = {}
+        if role is not None:
+            attrs.update( {ROLES : [(MODIFY_DELETE, role.name)]} )                                     
+            conn = ldaphelper.open()                
+            id = conn.modify(__get_dn(entity), attrs)
+    except Exception as e:
+        raise LdapException('Perm revoke error=' + str(e), global_ids.PERM_REVOKE_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NO_SUCH_ATTRIBUTE:
+            raise LdapException('Perm revoke failed, not found, obj name=' +  entity.obj_name + ', op_name=' + entity.op_name + ', op id=' + entity.obj_id + ', role='+ role.name, global_ids.PERM_ROLE_NOT_EXIST)            
+        elif result != 0:
+            raise LdapException('Perm revoke failed result=' + str(result), global_ids.PERM_REVOKE_FAILED)                    
     return entity
 
 
