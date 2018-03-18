@@ -25,6 +25,22 @@ validators.append(LockDate())
 validators.append(Time())
 
 def create_session (user, is_trusted):
+    """
+    Perform user authentication User.password and role activations.
+    This method must be called once per user prior to calling other methods within this module. 
+    The successful result is Session that contains target user's RBAC User.roles.
+    
+    This API will...
+
+    * authenticate user password if trusted == false.
+    * evaluate temporal Constraint(s) on User and UserRoles.
+    * process selective role activations into User RBAC Session User.roles.
+    * return a Session containing Session.user, Session.user.roles
+    
+    required parameters:
+    user.uid - maps to INetOrgPerson uid
+    is_trusted - boolean, if 'True', authentication is skipped (password not checked)     
+    """    
     __validate_user(user)
     session = Session()
     if is_trusted is False:
@@ -41,6 +57,21 @@ def create_session (user, is_trusted):
 
 
 def check_access (session, perm):
+    """
+    Perform user RBAC authorization. 
+    This function returns a Boolean value meaning whether the subject of a given session is allowed or not to perform a given operation on a given object. 
+    The function is valid if and only if the session is a valid Fortress session, the object is a member of the OBJS data set, and the operation is a member of the OPS data set. 
+    The session's subject has the permission to perform the operation on that object if and only if that permission is assigned to (at least) one of the session's active roles. 
+    This implementation will verify the roles or userId correspond to the subject's active roles are registered in the object's access control list.
+    
+    required parameters:
+    session - as returned from create_session api
+    perm.obj_name - maps to already existing perm object    
+    perm.op_name - maps to already existing op name    
+        
+    optional parameters:
+    perm.obj_id    
+    """        
     __validate(session)
     __validate_perm(perm)    
     result = False
@@ -54,6 +85,12 @@ def check_access (session, perm):
 
 
 def is_user_in_role (session, role):
+    """
+    
+    required parameters:
+    session - as returned from create_session api    
+    role.name - maps to existing role     
+    """        
     __validate(session)
     result = False
     __validate_role_constraints(session.user)
@@ -63,6 +100,13 @@ def is_user_in_role (session, role):
 
 
 def add_active_role (session, role):
+    """
+    This function adds a role as an active role of a session whose owner is a given user. 
+    
+    required parameters:
+    session - as returned from create_session api    
+    role.name - maps to existing role     
+    """    
     __validate(session)    
     if any ( s.lower() == role.lower() for s in session.user.roles ):
         raise FortressError ('add_active_role uid=' + session.user.uid + ', previously activated role=' + role, global_ids.ROLE_ALREADY_ACTIVATED_ERROR)
@@ -74,6 +118,15 @@ def add_active_role (session, role):
 
 
 def drop_active_role (session, role):
+    """
+    This function deletes a role from the active role set of a session owned by a given user. 
+    The function is valid if and only if the user is a member of the USERS data set, the session object contains a valid Fortress session, 
+    the session is owned by the user, and the role is an active role of that session.
+    
+    required parameters:
+    session - as returned from create_session api    
+    role.name - maps to existing role     
+    """    
     __validate(session)
     found = False
     for role_constraint in session.user.role_constraints:        
@@ -86,6 +139,13 @@ def drop_active_role (session, role):
 
 
 def session_perms (session):
+    """
+    This function returns the permissions of the session, i.e., the permissions assigned to its authorized roles. 
+    The function is valid if and only if the session is a valid Fortress session.
+
+    required parameters:    
+    session - as returned from create_session api    
+    """    
     __validate(session)
     __validate_roles(session.user)    
     __validate_role_constraints(session.user)            
@@ -93,6 +153,12 @@ def session_perms (session):
 
 
 def session_roles (session):
+    """
+    This function returns the active roles associated with a session. The function is valid if and only if the session is a valid Fortress session.
+
+    required parameters:        
+    session - as returned from create_session api    
+    """    
     __validate(session)
     __validate_roles(session.user)    
     __validate_role_constraints(session.user)
