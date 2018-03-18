@@ -66,6 +66,36 @@ def search (entity):
     return userList
 
 
+# assumes that roles contains at least one role name
+def search_on_roles (roles):    
+    conn = None            
+    userList = []    
+    search_filter = '(&(objectClass=' + USER_OC_NAME + ')'
+    if len (roles) > 1:
+        search_filter += '(|'
+        end_filter = '))'
+    else:
+        end_filter = ')'
+    for role in roles:
+        search_filter += '(' + ROLES + '=' + role + ')'
+    search_filter += end_filter                    
+    try:
+        conn = ldaphelper.open()
+        id = conn.search(search_base, search_filter, attributes=SEARCH_ATTRS)
+        response = ldaphelper.get_response(conn, id)         
+        total_entries = len(response)        
+    except Exception as e:
+        raise LdapException('User Search Roles error=' + str(e))
+    else:        
+        if total_entries > 0:
+            for entry in response:
+                userList.append(__unload(entry))
+    finally:
+        if conn:        
+            ldaphelper.close(conn)
+    return userList
+
+
 def __unload(entry):
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
@@ -163,15 +193,6 @@ def create ( entity ):
             attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
         if entity.pw_policy is not None and len(entity.pw_policy) > 0 :        
             attrs.update( {PW_POLICY : entity.pw_policy} )
-            
-#         if entity.role_constraints is not None and len(entity.role_constraints) > 0:
-#             role_constraints_raw = []
-#             entity.roles = []
-#             for role_constraint in entity.role_constraints:
-#                 role_constraints_raw.append(role_constraint.get_raw())
-#                 entity.roles.append(role_constraint.name)                            
-#             attrs.update( {ROLE_CONSTRAINTS : role_constraints_raw} )
-#             attrs.update( {ROLES : entity.roles} )
             
         conn = ldaphelper.open()        
         id = conn.add(__get_dn(entity), USER_OCS, attrs)
