@@ -6,10 +6,8 @@ Created on Mar 18, 2018
 '''
 
 from ldap import permdao, userdao, roledao
-from impl.fortress_error import FortressError
-from util.logger import logger
-from util import global_ids
 from impl import utils
+
 
 def read_user(entity):
     utils.validate_user(entity)
@@ -83,5 +81,3 @@ def perm_users(entity):
     utils.validate_perm(entity)
     perm = permdao.read(entity)
     return userdao.search_on_roles(perm.roles)
-
-
