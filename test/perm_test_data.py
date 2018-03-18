@@ -5,7 +5,7 @@ Created on Mar 17, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from model import PermObj, Permission
+from model import PermObj, Perm
 from enum import Enum
 
 
@@ -37,7 +37,7 @@ def get_test_perms(name, total):
     
 def __create_test_perm(name, number, op):    
     label = name + '-' + str(number)
-    return Permission(
+    return Perm(
         obj_name=label,
         op_name=op, 
         obj_id=str(number),

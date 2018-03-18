@@ -7,7 +7,7 @@ Created on Feb 16, 2018
 
 import uuid    
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
-from model import Permission, PermObj
+from model import Perm, PermObj
 from ldap import ldaphelper, LdapException, NotFound, NotUnique
 from util import Config, global_ids
 
@@ -23,7 +23,7 @@ def read (entity):
 
 
 def search (entity):
-    __validate(entity, "Permission Search")
+    __validate(entity, "Perm Search")
     conn = None            
     permList = []
     search_filter = '(&(objectClass=' + PERM_OC_NAME + ')'
@@ -115,7 +115,7 @@ def search_on_roles (roles):
 
 
 def __unload(entry):
-    entity = Permission()
+    entity = Perm()
     entity.dn = ldaphelper.get_dn(entry)
     
     entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])

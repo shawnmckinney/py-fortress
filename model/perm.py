@@ -5,8 +5,8 @@ Created on Feb 16, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-class Permission:    
-    "Fortress Permission"
+class Perm:    
+    "Fortress Perm"
     def __init__(
             self,
             obj_name=None,

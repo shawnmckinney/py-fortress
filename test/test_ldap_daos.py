@@ -7,7 +7,7 @@ Created on Feb 10, 2018
 
 import unittest
 from ldap import userdao, permdao, roledao, InvalidCredentials
-from model import User, Permission, Role, Constraint, PermObj
+from model import User, Perm, Role, Constraint, PermObj
 from test.utils import print_user, print_role, print_ln, print_entity
 import user_test_data, role_test_data, perm_test_data
 
@@ -40,7 +40,7 @@ class TestDaos(unittest.TestCase):
         """
         print_ln('test search perms by objNm')        
         try:
-            prm = Permission(obj_name = "TOB*", op_name = "TOP*")
+            prm = Perm(obj_name = "TOB*", op_name = "TOP*")
             pList = permdao.search(prm)
             for idx, entity in enumerate(pList) :            
                 print_entity (entity, "Perm[" + str(idx+1) + "]:", 1)
@@ -274,7 +274,7 @@ class TestDaos(unittest.TestCase):
         print_ln('test delete perms')
         
         try:
-            pList = permdao.search(Permission(obj_name='py-test*', op_name='*'))
+            pList = permdao.search(Perm(obj_name='py-test*', op_name='*'))
             for perm in pList:                       
                 entity = permdao.delete(perm)
                 print_ln("Delete perm obj=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id)

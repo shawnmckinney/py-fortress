@@ -7,7 +7,7 @@ Created on Mar 18, 2018
 
 import unittest
 from impl import review_mgr
-from model import User, Role, Permission, PermObj
+from model import User, Role, Perm, PermObj
 from test.utils import print_user, print_role, print_ln, print_entity
 import user_test_data, role_test_data, perm_test_data
 
@@ -62,9 +62,9 @@ class TestReivewMgr(unittest.TestCase):
         print_ln('test_perm_roles')
         
         try:
-            pList = review_mgr.find_perms(Permission(obj_name='py-obj*', op_name='*'))                                    
+            pList = review_mgr.find_perms(Perm(obj_name='py-obj*', op_name='*'))                                    
             for perm in pList:                       
-                print_ln("Role Permission obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id)
+                print_ln("Role Perm obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id)
                 rList = review_mgr.perm_roles(perm)
                 for role in rList:
                     print_ln("Assigned role=" + role, 1)
@@ -113,9 +113,9 @@ class TestReivewMgr(unittest.TestCase):
         print_ln('test_perm_users')
         
         try:
-            pList = review_mgr.find_perms(Permission(obj_name='py-obj*', op_name='*'))                                    
+            pList = review_mgr.find_perms(Perm(obj_name='py-obj*', op_name='*'))                                    
             for perm in pList:                       
-                print_ln("Permission obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id)
+                print_ln("Perm obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id)
                 uList = review_mgr.perm_users(perm)
                 for user in uList:
                     print_ln("Assigned user=" + user.uid, 1)

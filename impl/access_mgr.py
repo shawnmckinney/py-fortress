@@ -40,11 +40,11 @@ def create_session (user, is_trusted):
     return session
 
 
-def check_access (session, permission):
+def check_access (session, perm):
     __validate(session)
-    __validate_perm(permission)    
+    __validate_perm(perm)    
     result = False
-    entity = permdao.read(permission)
+    entity = permdao.read(perm)
     __validate_role_constraints(session.user)
     for role in session.user.roles:
         if any ( s.lower() == role.lower() for s in entity.roles ):        
@@ -85,7 +85,7 @@ def drop_active_role (session, role):
     __validate_role_constraints(session.user)
 
 
-def session_permissions (session):
+def session_perms (session):
     __validate(session)
     __validate_roles(session.user)    
     __validate_role_constraints(session.user)            

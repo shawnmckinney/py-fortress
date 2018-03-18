@@ -5,7 +5,7 @@ Created on Feb 24, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from model import User, Permission, Role
+from model import User, Perm, Role
 from util.logger import logger
 
 def print_ln( ln, num=None ):

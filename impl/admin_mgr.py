@@ -39,17 +39,17 @@ def delete_role(entity):
     return roledao.delete(entity)
 
                         
-def add_permission(entity):
+def add_perm(entity):
     utils.validate_perm(entity)
     return permdao.create(entity)
 
     
-def update_permission(entity):
+def update_perm(entity):
     utils.validate_perm(entity)
     return permdao.create(entity)
 
     
-def delete_permission(entity):
+def delete_perm(entity):
     utils.validate_perm(entity)
     return permdao.delete(entity)
 

@@ -7,7 +7,7 @@ Created on Mar 18, 2018
 
 import unittest
 from impl import admin_mgr, review_mgr
-from model import User, Role, Permission, PermObj
+from model import User, Role, Perm, PermObj
 from test.utils import print_user, print_role, print_ln, print_entity
 import user_test_data, role_test_data, perm_test_data
 
@@ -116,8 +116,8 @@ class TestAdminMgr(unittest.TestCase):
         perms = perm_test_data.get_test_perms('py-obj', 10)
         for perm in perms:
             try:                        
-                entity = admin_mgr.add_permission(perm)
-                print_ln("Add Permission obj name=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)                                
+                entity = admin_mgr.add_perm(perm)
+                print_ln("Add Perm obj name=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)                                
             except Exception as e:
                 self.fail('test_add_perm failed, exception=' + str(e))
 
@@ -129,10 +129,10 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_delete_perm')
         
         try:
-            pList = review_mgr.find_perms(Permission(obj_name='py-obj*', op_name='*'))                                    
+            pList = review_mgr.find_perms(Perm(obj_name='py-obj*', op_name='*'))                                    
             for perm in pList:                       
-                entity = admin_mgr.delete_permission(perm)
-                print_ln("Delete Permission obj name=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)
+                entity = admin_mgr.delete_perm(perm)
+                print_ln("Delete Perm obj name=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)
         except Exception as e:
             self.fail('test_delete_perm failed, exception=' + str(e))
 
@@ -182,7 +182,7 @@ class TestAdminMgr(unittest.TestCase):
             for rle in rles:
                 try:                        
                     admin_mgr.grant(perm, rle)
-                    print_ln("Grant Permission obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id + ', Role=' + rle.name)                                
+                    print_ln("Grant Perm obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id + ', Role=' + rle.name)                                
                 except Exception as e:
                     self.fail('test_grant failed, exception=' + str(e))
 
@@ -194,12 +194,12 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_revoke')
         
         try:
-            pList = review_mgr.find_perms(Permission(obj_name='py-obj*', op_name='*'))            
+            pList = review_mgr.find_perms(Perm(obj_name='py-obj*', op_name='*'))            
             rles = role_test_data.get_test_roles('py-role', 10)                                    
             for perm in pList:                       
                 for rle in rles:
                     admin_mgr.revoke(perm, rle)
-                    print_ln("Revoke Permission obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id + ', Role=' + rle.name)                                
+                    print_ln("Revoke Perm obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id + ', Role=' + rle.name)                                
         except Exception as e:
             pass
             #self.fail('test_revoke failed, exception=' + str(e))

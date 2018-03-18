@@ -139,9 +139,9 @@ class TestAccessMgr(unittest.TestCase):
 
     def test_session_permissions(self):
         """
-        Test the session_permissions & check_access method
+        Test the session_perms & check_access method
         """
-        print_ln('test session_permissions')        
+        print_ln('test session_perms')        
         try:
             usr = User(uid = "py-user*")
             uList = review_mgr.find_users(usr)                        
@@ -155,7 +155,7 @@ class TestAccessMgr(unittest.TestCase):
                 if session is None:
                     self.fail('test_session_permissions failed ' + entity.uid)
                 if session.user.roles is not None and len(session.user.roles) > 0:                    
-                    perms = access_mgr.session_permissions(session)
+                    perms = access_mgr.session_perms(session)
                     for idx2, perm in enumerate(perms):
                         if idx2 % 10 == 0:
                             sys.stdout.write('`')
