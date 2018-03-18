@@ -6,8 +6,8 @@ Created on Mar 2, 2018
 '''
 
 import unittest
-from ldap import userdao, InvalidCredentials
-from impl import access_mgr
+from ldap import InvalidCredentials
+from impl import access_mgr, review_mgr
 from model import User
 from test.utils import print_ln
 import sys
@@ -30,7 +30,7 @@ class TestAccessMgr(unittest.TestCase):
                                              
         try:
             usr = User(uid = "py-user*")    
-            uList = userdao.search(usr)
+            uList = review_mgr.find_users(usr)            
             loop_cnt = len(uList)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
@@ -55,7 +55,7 @@ class TestAccessMgr(unittest.TestCase):
         print_ln('test user_roles')        
         try:
             usr = User(uid = "py-user*")
-            uList = userdao.search(usr)
+            uList = review_mgr.find_users(usr)                        
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('.')
@@ -83,7 +83,7 @@ class TestAccessMgr(unittest.TestCase):
         print_ln('test active_roles')        
         try:
             usr = User(uid = "py-user*")
-            uList = userdao.search(usr)
+            uList = review_mgr.find_users(usr)                        
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('.')
@@ -144,7 +144,7 @@ class TestAccessMgr(unittest.TestCase):
         print_ln('test session_permissions')        
         try:
             usr = User(uid = "py-user*")
-            uList = userdao.search(usr)
+            uList = review_mgr.find_users(usr)                        
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('.')

@@ -6,8 +6,7 @@ Created on Mar 18, 2018
 '''
 
 import unittest
-from impl import admin_mgr
-from ldap import userdao, permdao, roledao
+from impl import admin_mgr, review_mgr
 from model import User, Role, Permission, PermObj
 from test.utils import print_user, print_role, print_ln, print_entity
 import user_test_data, role_test_data, perm_test_data
@@ -43,7 +42,7 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_delete_user')
         
         try:
-            uList = userdao.search(User(uid='py-user*'))
+            uList = review_mgr.find_users(User(uid='py-user*'))            
             for usr in uList:                       
                 entity = admin_mgr.delete_user(usr)
                 print_ln("Delete user=" + entity.uid)
@@ -72,7 +71,7 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_delete_role')
         
         try:
-            rList = roledao.search(Role(name='py-role*'))
+            rList = review_mgr.find_roles(Role(name='py-role*'))            
             for rle in rList:                       
                 entity = admin_mgr.delete_role(rle)
                 print_ln("Delete role=" + entity.name)
@@ -101,7 +100,7 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_delete_object')
         
         try:
-            oList = permdao.search_objs(PermObj(obj_name='py-obj*'))            
+            oList = review_mgr.find_objects(PermObj(obj_name='py-obj*'))                        
             for obj in oList:                       
                 entity = admin_mgr.delete_object(obj)
                 print_ln("Delete Object=" + entity.obj_name)
@@ -130,7 +129,7 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_delete_perm')
         
         try:
-            pList = permdao.search(Permission(obj_name='py-obj*', op_name='*'))                        
+            pList = review_mgr.find_perms(Permission(obj_name='py-obj*', op_name='*'))                                    
             for perm in pList:                       
                 entity = admin_mgr.delete_permission(perm)
                 print_ln("Delete Permission obj name=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)
@@ -161,7 +160,7 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_deassign_user')
         
         try:
-            uList = userdao.search(User(uid='py-user*'))
+            uList = review_mgr.find_users(User(uid='py-user*'))            
             rles = role_test_data.get_test_roles('py-role', 10)                
             for usr in uList:
                 for rle in rles:                                       
@@ -195,7 +194,7 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_revoke')
         
         try:
-            pList = permdao.search(Permission(obj_name='py-obj*', op_name='*'))
+            pList = review_mgr.find_perms(Permission(obj_name='py-obj*', op_name='*'))            
             rles = role_test_data.get_test_roles('py-role', 10)                                    
             for perm in pList:                       
                 for rle in rles:

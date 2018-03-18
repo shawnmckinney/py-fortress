@@ -51,6 +51,16 @@ def search (entity):
     return permList
 
 
+def read_obj (entity):
+    objList = search_objs(entity)
+    if objList is None or len(objList) == 0:
+        raise NotFound("PermObj Read not found, obj name=" + entity.obj_name)    
+    elif len(objList) > 1:
+        raise NotUnique("PermObj Read not unique, obj name=" + entity.obj_name)
+    else:
+        return objList[0]
+
+
 def search_objs (entity):
     __validate_obj(entity, "PermObj Search")
     conn = None            
