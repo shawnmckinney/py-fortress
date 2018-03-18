@@ -5,9 +5,11 @@ Created on Feb 10, 2018
 @copyright: 2018 - Symas Corporation
 '''
     
+import uuid    
 from model import User, Constraint
 from ldap import ldaphelper, LdapException, NotFound, NotUnique, InvalidCredentials
-from util import Config
+from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
+from util import Config, global_ids
 
 
 def read (entity):
@@ -25,7 +27,7 @@ def authenticate (entity):
     conn = None
     result = False            
     try:        
-        conn = ldaphelper.open_user(UID + '=' + entity.uid + ',' + search_base, entity.password)
+        conn = ldaphelper.open_user(__get_dn(entity), entity.password)
         result = conn.bind()
     except Exception as e:
         raise LdapException('User Authenticate error for uid=' + entity.uid + ', LDAP error=' + str(e))
@@ -108,6 +110,156 @@ def __unload(entry):
     return entity
 
 
+def create ( entity ):
+    __validate(entity, 'Create User')
+    try:
+        attrs = {}
+        attrs.update( {UID : entity.uid} )
+        # generate random id:
+        entity.internal_id = str(uuid.uuid4())
+        attrs.update( {INTERNAL_ID : entity.internal_id} )        
+        # cn is req'd for iNetOrgPerson, if caller did not set, use uid value
+        if entity.cn is None or len(entity.cn) == 0 :
+            entity.cn = entity.uid
+        attrs.update( {CN : entity.cn} )
+        # likewise sn is req'd for iNetOrgPerson, if caller did not set, use uid value
+        if entity.sn is None or len(entity.sn) == 0 :
+            entity.sn = entity.uid
+        attrs.update( {SN : entity.sn} )
+                
+        if entity.password is not None and len(entity.password) > 0 :                
+            attrs.update( {PW : entity.password} )
+        if entity.description is not None and len(entity.description) > 0 :        
+            attrs.update( {DESCRIPTION : entity.description} )
+        if entity.ou is not None and len(entity.ou) > 0 :        
+            attrs.update( {OU : entity.ou} )
+        if entity.display_name is not None and len(entity.display_name) > 0 :        
+            attrs.update( {DISPLAY_NAME : entity.display_name} )
+        if entity.employee_type is not None and len(entity.employee_type) > 0 :        
+            attrs.update( {EMPLOYEE_TYPE : entity.employee_type} )
+        if entity.title is not None and len(entity.title) > 0 :        
+            attrs.update( {TITLE : entity.title} )
+        if entity.phones is not None and len(entity.phones) > 0 :        
+            attrs.update( {TELEPHONE_NUMBER : entity.phones} )
+        if entity.mobiles is not None and len(entity.mobiles) > 0 :        
+            attrs.update( {MOBILE : entity.mobiles} )
+        if entity.emails is not None and len(entity.emails) > 0 :        
+            attrs.update( {MAIL : entity.emails} )
+        if entity.system is not None :        
+            attrs.update( {IS_SYSTEM : entity.system} )
+        if entity.props is not None and len(entity.props) > 0 :        
+            attrs.update( {PROPS : entity.props} )
+        if entity.department_number is not None and len(entity.department_number) > 0 :        
+            attrs.update( {DEPT_NUM : entity.department_number} )
+        if entity.l is not None and len(entity.l) > 0 :        
+            attrs.update( {LOCATION : entity.l} )
+        if entity.physical_delivery_office_name is not None and len(entity.physical_delivery_office_name) > 0 :        
+            attrs.update( {PHYSICAL_OFFICE_NM : entity.physical_delivery_office_name} )
+        if entity.postal_code is not None and len(entity.postal_code) > 0 :        
+            attrs.update( {POSTAL_CODE : entity.postal_code} )
+        if entity.room_number is not None and len(entity.room_number) > 0 :        
+            attrs.update( {RM_NUM : entity.room_number} )            
+        if entity.constraint is not None :        
+            attrs.update( {CONSTRAINT : entity.constraint.get_raw()} )
+        if entity.pw_policy is not None and len(entity.pw_policy) > 0 :        
+            attrs.update( {PW_POLICY : entity.pw_policy} )
+            
+#         if entity.role_constraints is not None and len(entity.role_constraints) > 0:
+#             role_constraints_raw = []
+#             entity.roles = []
+#             for role_constraint in entity.role_constraints:
+#                 role_constraints_raw.append(role_constraint.get_raw())
+#                 entity.roles.append(role_constraint.name)                            
+#             attrs.update( {ROLE_CONSTRAINTS : role_constraints_raw} )
+#             attrs.update( {ROLES : entity.roles} )
+            
+        conn = ldaphelper.open()        
+        id = conn.add(__get_dn(entity), USER_OCS, attrs)
+    except Exception as e:
+        raise LdapException('User create error=' + str(e), global_ids.USER_ADD_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.OBJECT_ALREADY_EXISTS:
+            raise LdapException('User create failed, already exists:' + entity.name, global_ids.USER_ADD_FAILED)             
+        elif result != 0:
+            raise LdapException('User create failed result=' + str(result), global_ids.USER_ADD_FAILED)                    
+    return entity
+
+
+def update ( entity ):
+    __validate(entity, 'Update User')
+    try:
+        attrs = {}                
+        if entity.cn is not None or len(entity.cn) > 0 :
+            attrs.update( {CN : [(MODIFY_REPLACE, [entity.cn])]} )
+        if entity.sn is not None or len(entity.sn) > 0 :
+            attrs.update( {SN : [(MODIFY_REPLACE, [entity.sn])]} )
+        if entity.password is not None and len(entity.password) > 0 :                
+            attrs.update( {PW : [(MODIFY_REPLACE, [entity.password])]} )
+        if entity.description is not None and len(entity.description) > 0 :        
+            attrs.update( {DESCRIPTION : [(MODIFY_REPLACE, [entity.description])]} )
+        if entity.ou is not None and len(entity.ou) > 0 :        
+            attrs.update( {OU : [(MODIFY_REPLACE, [entity.ou])]} )
+        if entity.display_name is not None and len(entity.display_name) > 0 :        
+            attrs.update( {DISPLAY_NAME : [(MODIFY_REPLACE, [entity.display_name])]} )
+        if entity.employee_type is not None and len(entity.employee_type) > 0 :        
+            attrs.update( {EMPLOYEE_TYPE : [(MODIFY_REPLACE, entity.employee_type)]} )
+        if entity.title is not None and len(entity.title) > 0 :        
+            attrs.update( {TITLE : [(MODIFY_REPLACE, [entity.title])]} )
+        if entity.phones is not None and len(entity.phones) > 0 :        
+            attrs.update( {TELEPHONE_NUMBER : [(MODIFY_REPLACE, entity.phones)]} )           
+        if entity.mobiles is not None and len(entity.mobiles) > 0 :        
+            attrs.update( {MOBILE : [(MODIFY_REPLACE, entity.mobiles)]} )
+        if entity.emails is not None and len(entity.emails) > 0 :        
+            attrs.update( {MAIL : [(MODIFY_REPLACE, entity.emails)]} )
+        if entity.system is not None :        
+            attrs.update( {IS_SYSTEM : [(MODIFY_REPLACE, entity.system)]} )
+        if entity.props is not None and len(entity.props) > 0 :        
+            attrs.update( {PROPS : [(MODIFY_REPLACE, entity.props)]} )
+        if entity.department_number is not None and len(entity.department_number) > 0 :        
+            attrs.update( {DEPT_NUM : [(MODIFY_REPLACE, entity.department_number)]} )
+        if entity.l is not None and len(entity.l) > 0 :        
+            attrs.update( {LOCATION : [(MODIFY_REPLACE, entity.l)]} )
+        if entity.physical_delivery_office_name is not None and len(entity.physical_delivery_office_name) > 0 :        
+            attrs.update( {PHYSICAL_OFFICE_NM : [(MODIFY_REPLACE, entity.physical_delivery_office_name)]} )
+        if entity.postal_code is not None and len(entity.postal_code) > 0 :        
+            attrs.update( {POSTAL_CODE : [(MODIFY_REPLACE, entity.postal_code)]} )
+        if entity.room_number is not None and len(entity.room_number) > 0 :        
+            attrs.update( {RM_NUM : [(MODIFY_REPLACE, entity.room_number)]} )            
+        if entity.constraint is not None :        
+            attrs.update( {CONSTRAINT : [(MODIFY_REPLACE, entity.constraint.get_raw())]} )
+        if entity.pw_policy is not None and len(entity.pw_policy) > 0 :        
+            attrs.update( {PW_POLICY : [(MODIFY_REPLACE, entity.pw_policy)]} )
+        if len(attrs) > 0:            
+            conn = ldaphelper.open()                
+            id = conn.modify(__get_dn(entity), attrs)
+    except Exception as e:
+        raise LdapException('User update error=' + str(e), global_ids.USER_UPDATE_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('User update failed, not found:' + entity.name, global_ids.USER_UPDATE_FAILED)             
+        elif result != 0:
+            raise LdapException('User update failed result=' + str(result), global_ids.USER_UPDATE_FAILED)                    
+    return entity
+
+
+def delete ( entity ):
+    __validate(entity, 'Delete User')
+    try:
+        conn = ldaphelper.open()        
+        id = conn.delete(__get_dn(entity))
+    except Exception as e:
+        raise LdapException('User delete error=' + str(e), global_ids.USER_DELETE_FAILED)
+    else:
+        result = ldaphelper.get_result(conn, id)
+        if result == global_ids.NOT_FOUND:
+            raise LdapException('User delete not found:' + entity.name, global_ids.USER_DELETE_FAILED)                    
+        elif result != 0:
+            raise LdapException('User delete failed result=' + str(result), global_ids.USER_DELETE_FAILED)                    
+    return entity
+
+
 def __validate(entity, op):
     if entity.uid is None or len(entity.uid) == 0 :
         __raise_exception(op, UID)
@@ -117,10 +269,17 @@ def __raise_exception(operation, field):
     raise LdapException('userdao.' + operation + ' required field missing:' + field)
 
 
+def __get_dn(entity):
+    return UID + '=' + entity.uid + ',' + search_base
+
+
 USER_OC_NAME = 'inetOrgPerson'
+USER_ATTRS_OC_NAME = 'ftUserAttrs'
+USER_OCS = [USER_OC_NAME, USER_ATTRS_OC_NAME, global_ids.PROP_OC_NAME]
+
 UID = 'uid'
 OU = 'ou'
-PW = 'pw'
+PW = 'userPassword'
 INTERNAL_ID = 'ftid'
 ROLES = 'ftra'
 PW_POLICY = 'pwdPolicySubentry'

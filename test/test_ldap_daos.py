@@ -9,7 +9,7 @@ import unittest
 from ldap import userdao, permdao, roledao, InvalidCredentials
 from model import User, Permission, Role, Constraint
 from test.utils import print_user, print_role, print_ln, print_entity
-import role_test_data
+import user_test_data, role_test_data
 
 
 class BasicTestSuite(unittest.TestCase):
@@ -57,8 +57,7 @@ class TestDaos(unittest.TestCase):
             usr = User(uid = "jtsuser*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :
-                entity.password = 'passw0rd' + str(idx+1)
-                
+                entity.password = 'passw0rd' + str(idx+1)                
                 try:      
                     userdao.authenticate(entity)
                 except InvalidCredentials as e:
@@ -147,6 +146,52 @@ class TestDaos(unittest.TestCase):
             self.fail('role delete failed, exception=' + str(e))
 
 
+    def test_create_users(self):
+        """
+        Test the user create
+        """
+        print_ln('test create users')
+        usrs = user_test_data.get_test_users('py-test', 10)
+        for usr in usrs:
+            try:                        
+                entity = userdao.create(usr)
+                print_user(entity, "User Create")
+            except Exception as e:
+                self.fail('user create failed, exception=' + str(e))
+
+
+    def test_update_users(self):
+        """
+        Test the user update
+        """
+        print_ln('test update users')
+        usrs = user_test_data.get_test_users('py-test', 10)
+        for usr in usrs:
+            usr.description += '-updated'
+            usr.cn += '-updated'
+            usr.sn += '-updated'                        
+            try:                        
+                entity = userdao.update(usr)
+                print_user(entity, "User Update")
+            except Exception as e:
+                self.fail('user update failed, exception=' + str(e))
+
+
+    def test_delete_users(self):
+        """
+        Test the user delete
+        """
+        print_ln('test delete users')
+        
+        try:
+            uList = userdao.search(User(uid='py-test*'))
+            for usr in uList:                       
+                entity = userdao.delete(usr)
+                print_ln("Role Delete user=" + entity.uid)
+        except Exception as e:
+            self.fail('user delete failed, exception=' + str(e))
+
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestDaos('test_search_users'))
@@ -156,7 +201,10 @@ def suite():
     suite.addTest(TestDaos('test_search_roles'))
     suite.addTest(TestDaos('test_delete_roles'))    
     suite.addTest(TestDaos('test_create_roles'))
-    suite.addTest(TestDaos('test_update_roles'))         
+    suite.addTest(TestDaos('test_update_roles'))
+    suite.addTest(TestDaos('test_delete_users'))
+    suite.addTest(TestDaos('test_create_users'))
+    suite.addTest(TestDaos('test_update_users'))             
     return suite  
 
  

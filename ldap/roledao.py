@@ -53,7 +53,7 @@ def __unload(entry):
     entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DESC])
     # Get the multi-occurring attrs:
     entity.props = ldaphelper.get_list(entry[ATTRIBUTES][PROPS])
-    # unload raw user constraint:
+    # unload raw constraint:
     entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][CONSTRAINT]))
     return entity
 
@@ -103,8 +103,9 @@ def update ( entity ):
         if entity.constraint is not None :        
             attrs.update( {CONSTRAINT : [(MODIFY_REPLACE, [entity.constraint.get_raw()])]} )
 
-        conn = ldaphelper.open()        
-        id = conn.modify(__get_dn(entity), attrs)        
+        if len(attrs) > 0:
+            conn = ldaphelper.open()        
+            id = conn.modify(__get_dn(entity), attrs)        
     except Exception as e:
         raise LdapException('Role update error=' + str(e), global_ids.ROLE_UPDATE_FAILED)
     else:
@@ -146,8 +147,7 @@ def __get_dn(entity):
 
 
 ROLE_OC_NAME = 'ftRls'
-PROP_OC_NAME = 'ftProperties'
-ROLE_OCS = [ROLE_OC_NAME, PROP_OC_NAME]
+ROLE_OCS = [ROLE_OC_NAME, global_ids.PROP_OC_NAME]
 INTERNAL_ID = 'ftid'
 ROLE_NAME = 'ftRoleName'
 CONSTRAINT = 'ftCstr'
