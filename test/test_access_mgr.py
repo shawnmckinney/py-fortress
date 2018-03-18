@@ -29,8 +29,7 @@ class TestAccessMgr(unittest.TestCase):
         print_ln('test create sessions')
                                              
         try:
-            #usr = User(uid = "jtsuser*")
-            usr = User(uid = "jts*")    
+            usr = User(uid = "py-user*")    
             uList = userdao.search(usr)
             loop_cnt = len(uList)
             for idx, entity in enumerate(uList) :
@@ -39,10 +38,9 @@ class TestAccessMgr(unittest.TestCase):
                 if idx % 10 == 0:
                     sys.stdout.write('.')
                     sys.stdout.flush()
-                #print_entity(entity, 'test_create_sessions index=' + str(idx) + ', uid=' + entity.uid)
-                entity.password = 'passw0rd' + str(idx+1)
+                entity.password = 'password'
                 try:
-                    session = access_mgr.create_session(entity, True)
+                    session = access_mgr.create_session(entity, False)
                     if session is None:
                         self.fail('test create sessions failed ' + entity.uid)
                 except InvalidCredentials as e:
@@ -58,15 +56,14 @@ class TestAccessMgr(unittest.TestCase):
         """
         print_ln('test user_roles')        
         try:
-            usr = User(uid = "jts*")
-            #usr = User(uid = "jtsuser1")
+            usr = User(uid = "py-user*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('.')
-                    sys.stdout.flush()                
-                #print_entity(entity, 'test_is_user_in_role index=' + str(idx) + ', uid=' + entity.uid)
-                session = access_mgr.create_session(entity, True)
+                    sys.stdout.flush()           
+                entity.password = 'password'     
+                session = access_mgr.create_session(entity, False)
                 if session is None:
                     self.fail('test_user_roles failed ' + entity.uid)
                     
@@ -87,15 +84,15 @@ class TestAccessMgr(unittest.TestCase):
         """
         print_ln('test active_roles')        
         try:
-            usr = User(uid = "jts*")
+            usr = User(uid = "py-user*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('.')
                     sys.stdout.flush()                    
                 
-                #print_entity(entity, 'test_is_user_in_role index=' + str(idx) + ', uid=' + entity.uid)
-                session = access_mgr.create_session(entity, True)
+                entity.password = 'password'
+                session = access_mgr.create_session(entity, False)
                 if session is None:
                     self.fail('test_active_roles failed ' + entity.uid)
                     
@@ -148,14 +145,15 @@ class TestAccessMgr(unittest.TestCase):
         """
         print_ln('test session_permissions')        
         try:
-            usr = User(uid = "jts*")
+            usr = User(uid = "py-user*")
             uList = userdao.search(usr)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('.')
                     sys.stdout.flush()
-                                    
-                session = access_mgr.create_session(entity, True)
+
+                entity.password = 'password'                                    
+                session = access_mgr.create_session(entity, False)
                 if session is None:
                     self.fail('test_session_permissions failed ' + entity.uid)
                 if session.user.roles is not None and len(session.user.roles) > 0:                    
