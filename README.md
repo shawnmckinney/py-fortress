@@ -19,7 +19,7 @@ ________________________________________________________________________________
  ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
  
 ### About py-fortress
- * Security access control APIs for *Python3* compliant with *ANSI INCITS 359* Role-Based Access Control, *RBAC0*, aka *Core RBAC*.
+ * Compliant with *ANSI INCITS 359* Role-Based Access Control, *RBAC0*, aka *Core RBAC*.
  * Data stored within an LDAPv3 directory server
  * Includes Python APIs to manage and interrogate the security policy data.
  * Compatible with [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema) 
