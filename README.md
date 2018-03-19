@@ -20,7 +20,7 @@ ________________________________________________________________________________
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, *RBAC0*, aka *Core RBAC*.
  * Data stored within an LDAPv3 directory server
  * Includes Python APIs to manage and interrogate the security policy data.
- * Compatible with [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema) 
+ * Compatible with [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
 
 ### About Role-Based Access Control
 
@@ -46,7 +46,7 @@ Links to the Python RBAC modules containing inline docs describing their use.
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
 
 ### Related Projects
- * [Apache Fortresss](http://directory.apache.org/fortress)
+ * [Apache Fortress](http://directory.apache.org/fortress)
 ___________________________________________________________________________________
 ## SECTION 2. Prerequisites
 
