@@ -7,7 +7,7 @@ Created on Feb 24, 2018
 
 from util.validator import Validator
 from util.logger import logger
-from util.global_ids import CONSTRAINT_DATE_ERROR, SUCCESS
+from util.global_ids import ACTV_FAILED_DATE, SUCCESS
 
 class Date(Validator):
         
@@ -21,5 +21,5 @@ class Date(Validator):
         elif constraint.begin_date <= now.date <= constraint.end_date:
             return SUCCESS
         else:            
-            return CONSTRAINT_DATE_ERROR        
+            return ACTV_FAILED_DATE        
         

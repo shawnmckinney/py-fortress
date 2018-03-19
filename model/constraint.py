@@ -27,7 +27,11 @@ class Constraint:
             ):
     
         self.raw = raw
-        if self.raw is not None:
+        # If ldap entity doesn't have constraint, this happens:
+        if self.raw is not None and not self.raw:
+            pass
+        # If ldap entity has constraint:        
+        elif self.raw is not None:
             entity_constraint = self.raw.split(DELIMITER)
             entity_constraint = [ val.strip() for val in entity_constraint ]
             if entity_constraint[0] is not None:
@@ -47,7 +51,8 @@ class Constraint:
             if entity_constraint[7] is not None:
                 self.end_lock_date=entity_constraint[7]
             if entity_constraint[8] is not None:
-                self.day_mask=entity_constraint[8]            
+                self.day_mask=entity_constraint[8]
+        # if going the other way, from caller to ldap, this will occur:                            
         else:
             self.name = name
             self.timeout = timeout
@@ -60,6 +65,8 @@ class Constraint:
             self.day_mask = day_mask
             
     def get_raw(self):
+        # Raw format: name$timeout$begin_time$end_time$begin_date$end_date$begin_lock_date$end_lock_date$day_mask
+        # Example:
         # oamT12SSD1$30$0000$0000$20090101$21000101$20500101$20500115$1234567
         raw = self.name + DELIMITER
         if self.timeout is not None:

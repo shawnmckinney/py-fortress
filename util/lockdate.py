@@ -7,7 +7,7 @@ Created on Feb 24, 2018
 
 from util.validator import Validator
 from util.logger import logger
-from util.global_ids import CONSTRAINT_LOCKDATE_ERROR, SUCCESS
+from util.global_ids import ACTV_FAILED_LOCK, SUCCESS
 
 class LockDate(Validator):
         
@@ -17,7 +17,7 @@ class LockDate(Validator):
         elif constraint.begin_lock_date == 'none' or constraint.end_lock_date == 'none':
             return SUCCESS                
         elif constraint.begin_lock_date <= now.date <= constraint.end_lock_date:
-            return CONSTRAINT_LOCKDATE_ERROR
+            return ACTV_FAILED_LOCK
         else:
             return SUCCESS        
         

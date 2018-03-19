@@ -7,7 +7,7 @@ Created on Feb 24, 2018
 
 from util.validator import Validator
 from util.logger import logger
-from util.global_ids import CONSTRAINT_TIME_ERROR, SUCCESS
+from util.global_ids import ACTV_FAILED_TIME, SUCCESS
 
 class Time(Validator):
         
@@ -19,4 +19,4 @@ class Time(Validator):
         elif constraint.begin_time <= now.time <= constraint.end_time:
             return SUCCESS
         else:
-            return CONSTRAINT_TIME_ERROR        
+            return ACTV_FAILED_TIME        

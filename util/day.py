@@ -7,7 +7,7 @@ Created on Feb 24, 2018
 
 from util.validator import Validator
 from util.logger import logger
-from util.global_ids import CONSTRAINT_DAY_ERROR, SUCCESS
+from util.global_ids import ACTV_FAILED_DAY, SUCCESS
 
 class Day(Validator):
         
@@ -17,6 +17,6 @@ class Day(Validator):
         if now.day_of_week in constraint.day_mask:
             return SUCCESS
         else:
-            return CONSTRAINT_DAY_ERROR        
+            return ACTV_FAILED_DAY        
         
         
