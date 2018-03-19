@@ -24,13 +24,13 @@ ________________________________________________________________________________
 
 ### About Role-Based Access Control
 
- ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
- 
+[Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
+
 Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
 API to add, update, delete identity data and perform identity and access control decisions during runtime operations
 
-[Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
-
+ ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
+ 
 The RBAC functional specification (contained within the above link) describes administrative operations for the creation and maintenance of RBAC element sets and relations; 
 administrative review functions for performing administrative queries; and system functions for creating and managing RBAC attributes on 
 user sessions and making access control decisions.
