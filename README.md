@@ -68,23 +68,22 @@ ________________________________________________________________________________
 
 2. Run the docker container:
 
-       a. apacheds
-       ```
-       CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
-       CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
-       echo $CONTAINER_PORT
-       ```
- 
-       b. slapd
- 
-       ```
-       CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
-       CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
-       echo $CONTAINER_PORT
-       ```
+    a. apacheds
+    ```
+    CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
+    CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
+    echo $CONTAINER_PORT
+    ```
+       
+    b. slapd 
+    ```
+    CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
+    CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
+    echo $CONTAINER_PORT
+    ```
 
-       *note: make note of the port as it's needed later
-       *depending on your docker setup may need to run as root or sudo priv's.
+    *note: make note of the port as it's needed later
+    *depending on your docker setup may need to run as root or sudo priv's.
 
 3. Prepare directory server to use py-fortress by initializing the directory information tree:
 
