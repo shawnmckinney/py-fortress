@@ -31,12 +31,11 @@ administrative review functions for performing administrative queries; and syste
 user sessions and making access control decisions.
 
 ### About the py-fortress RBAC APIs
+Click on the links that follow to browse the python modules with RBAC apis, view the code and inline doc describing how they work.*
+ * [access_mgr](impl/access_mgr.py): This performs runtime access control operations on objects that are provisioned RBAC entities that reside in LDAP directory.
  * [admin_mgr](impl/admin_mgr.py): This performs administrative functions to provision Fortress RBAC entities into the LDAP directory. 
  * [review_mgr](impl/review_mgr.py): The administrative review functions on already provisioned Fortress RBAC entities that reside in LDAP directory. 
- * [access_mgr](impl/access_mgr.py): This performs runtime access control operations on objects that are provisioned RBAC entities that reside in LDAP directory.
- 
- *Click on above links to browse the RBAC apis and view the code doc on how they work.*
- 
+  
 ### More on RBAC
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)    
@@ -48,9 +47,9 @@ Minimum hardware requirements:
  * 4GB RAM
 
 Minimum software requirements:
- * Centos or Debian Machine
- * docker-engine
- * python3
+ * Linux machine
+ * docker-engine installed
+ * Python3 installed
 ___________________________________________________________________________________
 ## SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
 
