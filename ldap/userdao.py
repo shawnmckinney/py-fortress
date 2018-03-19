@@ -44,9 +44,9 @@ def search (entity):
     conn = None            
     userList = []
     search_filter = '(&(objectClass=' + USER_OC_NAME + ')'
-    if entity.uid is not None and len(entity.uid) > 0 :
+    if entity.uid:
         search_filter += '(' + global_ids.UID + '=' + entity.uid + ')'
-    if entity.ou is not None and len(entity.ou) > 0 :
+    if entity.ou:
         search_filter += '(' + global_ids.OU + '=' + entity.ou + ')'
     search_filter += ')'           
     try:
@@ -149,50 +149,57 @@ def create ( entity ):
         entity.internal_id = str(uuid.uuid4())
         attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )        
         # cn is req'd for iNetOrgPerson, if caller did not set, use uid value
-        if entity.cn is None or len(entity.cn) == 0 :
+        if not entity.cn:
             entity.cn = entity.uid
         attrs.update( {global_ids.CN : entity.cn} )
         # likewise sn is req'd for iNetOrgPerson, if caller did not set, use uid value
-        if entity.sn is None or len(entity.sn) == 0 :
+        if not entity.sn:
             entity.sn = entity.uid
         attrs.update( {global_ids.SN : entity.sn} )
-                
-        if entity.password is not None and len(entity.password) > 0 :                
+              
+        # strings:  
+        if entity.password:                
             attrs.update( {PW : entity.password} )
-        if entity.description is not None and len(entity.description) > 0 :        
+        if entity.description:        
             attrs.update( {global_ids.DESC : entity.description} )
-        if entity.ou is not None and len(entity.ou) > 0 :        
+        if entity.ou :        
             attrs.update( {global_ids.OU : entity.ou} )
-        if entity.display_name is not None and len(entity.display_name) > 0 :        
+        if entity.display_name:        
             attrs.update( {DISPLAY_NAME : entity.display_name} )
-        if entity.employee_type is not None and len(entity.employee_type) > 0 :        
+        if entity.employee_type:        
             attrs.update( {EMPLOYEE_TYPE : entity.employee_type} )
-        if entity.title is not None and len(entity.title) > 0 :        
+        if entity.title:        
             attrs.update( {TITLE : entity.title} )
+        if entity.department_number:        
+            attrs.update( {DEPT_NUM : entity.department_number} )
+        if entity.l:        
+            attrs.update( {LOCATION : entity.l} )
+        if entity.physical_delivery_office_name:        
+            attrs.update( {PHYSICAL_OFFICE_NM : entity.physical_delivery_office_name} )
+        if entity.postal_code:        
+            attrs.update( {POSTAL_CODE : entity.postal_code} )
+        if entity.room_number:        
+            attrs.update( {RM_NUM : entity.room_number} )                        
+        if entity.pw_policy:        
+            attrs.update( {PW_POLICY : entity.pw_policy} )
+
+        # boolean:
+        if entity.system is not None :        
+            attrs.update( {IS_SYSTEM : entity.system} )
+            
+        # list of strings:
         if entity.phones is not None and len(entity.phones) > 0 :        
             attrs.update( {TELEPHONE_NUMBER : entity.phones} )
         if entity.mobiles is not None and len(entity.mobiles) > 0 :        
             attrs.update( {MOBILE : entity.mobiles} )
         if entity.emails is not None and len(entity.emails) > 0 :        
-            attrs.update( {MAIL : entity.emails} )
-        if entity.system is not None :        
-            attrs.update( {IS_SYSTEM : entity.system} )
+            attrs.update( {MAIL : entity.emails} )            
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : entity.props} )
-        if entity.department_number is not None and len(entity.department_number) > 0 :        
-            attrs.update( {DEPT_NUM : entity.department_number} )
-        if entity.l is not None and len(entity.l) > 0 :        
-            attrs.update( {LOCATION : entity.l} )
-        if entity.physical_delivery_office_name is not None and len(entity.physical_delivery_office_name) > 0 :        
-            attrs.update( {PHYSICAL_OFFICE_NM : entity.physical_delivery_office_name} )
-        if entity.postal_code is not None and len(entity.postal_code) > 0 :        
-            attrs.update( {POSTAL_CODE : entity.postal_code} )
-        if entity.room_number is not None and len(entity.room_number) > 0 :        
-            attrs.update( {RM_NUM : entity.room_number} )            
-        if entity.constraint is not None :        
+
+        # list of delimited strings:
+        if entity.constraint:        
             attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
-        if entity.pw_policy is not None and len(entity.pw_policy) > 0 :        
-            attrs.update( {PW_POLICY : entity.pw_policy} )
             
         conn = ldaphelper.open()        
         id = conn.add(__get_dn(entity), USER_OCS, attrs)
@@ -210,23 +217,38 @@ def create ( entity ):
 def update ( entity ):
     __validate(entity, 'Update User')
     try:
-        attrs = {}                
-        if entity.cn is not None or len(entity.cn) > 0 :
+        attrs = {}
+        # strings:                
+        if entity.cn:
             attrs.update( {global_ids.CN : [(MODIFY_REPLACE, [entity.cn])]} )
-        if entity.sn is not None or len(entity.sn) > 0 :
+        if entity.sn:
             attrs.update( {global_ids.SN : [(MODIFY_REPLACE, [entity.sn])]} )
-        if entity.password is not None and len(entity.password) > 0 :                
+        if entity.password:                
             attrs.update( {PW : [(MODIFY_REPLACE, [entity.password])]} )
-        if entity.description is not None and len(entity.description) > 0 :        
+        if entity.description:        
             attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )
-        if entity.ou is not None and len(entity.ou) > 0 :        
+        if entity.ou:        
             attrs.update( {global_ids.OU : [(MODIFY_REPLACE, [entity.ou])]} )
-        if entity.display_name is not None and len(entity.display_name) > 0 :        
+        if entity.display_name:        
             attrs.update( {DISPLAY_NAME : [(MODIFY_REPLACE, [entity.display_name])]} )
-        if entity.employee_type is not None and len(entity.employee_type) > 0 :        
+        if entity.employee_type:        
             attrs.update( {EMPLOYEE_TYPE : [(MODIFY_REPLACE, entity.employee_type)]} )
-        if entity.title is not None and len(entity.title) > 0 :        
+        if entity.title:        
             attrs.update( {TITLE : [(MODIFY_REPLACE, [entity.title])]} )
+        if entity.department_number:        
+            attrs.update( {DEPT_NUM : [(MODIFY_REPLACE, entity.department_number)]} )
+        if entity.l:        
+            attrs.update( {LOCATION : [(MODIFY_REPLACE, entity.l)]} )
+        if entity.physical_delivery_office_name:        
+            attrs.update( {PHYSICAL_OFFICE_NM : [(MODIFY_REPLACE, entity.physical_delivery_office_name)]} )
+        if entity.postal_code:        
+            attrs.update( {POSTAL_CODE : [(MODIFY_REPLACE, entity.postal_code)]} )
+        if entity.room_number:        
+            attrs.update( {RM_NUM : [(MODIFY_REPLACE, entity.room_number)]} )      
+        if entity.pw_policy:        
+            attrs.update( {PW_POLICY : [(MODIFY_REPLACE, entity.pw_policy)]} )
+            
+        # list of strings:
         if entity.phones is not None and len(entity.phones) > 0 :        
             attrs.update( {TELEPHONE_NUMBER : [(MODIFY_REPLACE, entity.phones)]} )           
         if entity.mobiles is not None and len(entity.mobiles) > 0 :        
@@ -235,22 +257,15 @@ def update ( entity ):
             attrs.update( {MAIL : [(MODIFY_REPLACE, entity.emails)]} )
         if entity.system is not None :        
             attrs.update( {IS_SYSTEM : [(MODIFY_REPLACE, entity.system)]} )
-        if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
-        if entity.department_number is not None and len(entity.department_number) > 0 :        
-            attrs.update( {DEPT_NUM : [(MODIFY_REPLACE, entity.department_number)]} )
-        if entity.l is not None and len(entity.l) > 0 :        
-            attrs.update( {LOCATION : [(MODIFY_REPLACE, entity.l)]} )
-        if entity.physical_delivery_office_name is not None and len(entity.physical_delivery_office_name) > 0 :        
-            attrs.update( {PHYSICAL_OFFICE_NM : [(MODIFY_REPLACE, entity.physical_delivery_office_name)]} )
-        if entity.postal_code is not None and len(entity.postal_code) > 0 :        
-            attrs.update( {POSTAL_CODE : [(MODIFY_REPLACE, entity.postal_code)]} )
-        if entity.room_number is not None and len(entity.room_number) > 0 :        
-            attrs.update( {RM_NUM : [(MODIFY_REPLACE, entity.room_number)]} )            
+
+        # list of delimited strings::
         if entity.constraint is not None :        
             attrs.update( {global_ids.CONSTRAINT : [(MODIFY_REPLACE, entity.constraint.get_raw())]} )
-        if entity.pw_policy is not None and len(entity.pw_policy) > 0 :        
-            attrs.update( {PW_POLICY : [(MODIFY_REPLACE, entity.pw_policy)]} )
+            
+        # boolean:
+        if entity.props is not None and len(entity.props) > 0 :        
+            attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
+            
         if len(attrs) > 0:            
             conn = ldaphelper.open()                
             id = conn.modify(__get_dn(entity), attrs)

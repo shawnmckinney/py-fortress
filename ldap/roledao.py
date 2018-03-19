@@ -69,15 +69,15 @@ def create ( entity ):
         entity.internal_id = str(uuid.uuid4())
         attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )        
 
-        if entity.description is not None and len(entity.description) > 0 :        
+        # string:
+        if entity.description:        
             attrs.update( {global_ids.DESC : entity.description} )
-
+        # list of strings
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : entity.props} )
-
+        # list of comma delimited strings:
         if entity.constraint is not None :        
             attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
-
         conn = ldaphelper.open()        
         id = conn.add(__get_dn(entity), ROLE_OCS, attrs)
     except Exception as e:
@@ -95,15 +95,14 @@ def update ( entity ):
     __validate(entity, 'Update Role')
     try:
         attrs = {}
-        if entity.description is not None and len(entity.description) > 0 :        
+        if entity.description:        
             attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )
-
+        # list of srings:
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, [entity.props])]} )
-
+        # list of comma delimited strings:
         if entity.constraint is not None :        
             attrs.update( {global_ids.CONSTRAINT : [(MODIFY_REPLACE, [entity.constraint.get_raw()])]} )
-
         if len(attrs) > 0:
             conn = ldaphelper.open()        
             id = conn.modify(__get_dn(entity), attrs)        
@@ -138,7 +137,7 @@ def add_member ( entity, uid ):
     __validate(entity, 'Add Member')
     try:        
         attrs = {}
-        if uid is not None and len(uid) > 0 :
+        if uid:
             user_dn = __get_user_dn(uid)            
             attrs.update( {MEMBER : [(MODIFY_ADD, user_dn)]} )
             conn = ldaphelper.open()        
@@ -158,7 +157,7 @@ def remove_member ( entity, uid ):
     __validate(entity, 'Remove Member')
     try:        
         attrs = {}
-        if uid is not None and len(uid) > 0 :
+        if uid:
             user_dn = __get_user_dn(uid)
             attrs.update( {MEMBER : [(MODIFY_DELETE, user_dn)]} )
             conn = ldaphelper.open()        

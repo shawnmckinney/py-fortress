@@ -27,11 +27,11 @@ def search (entity):
     conn = None            
     permList = []
     search_filter = '(&(objectClass=' + PERM_OC_NAME + ')'
-    if entity.obj_name is not None and len(entity.obj_name) > 0 :
+    if entity.obj_name:
         search_filter += '(' + OBJ_NM + '=' + entity.obj_name + ')'
-    if entity.op_name is not None and len(entity.op_name) > 0 :
+    if entity.op_name:
         search_filter += '(' + OP_NM + '=' + entity.op_name + ')'
-    if entity.obj_id is not None and len(entity.obj_id) > 0 :
+    if entity.obj_id:
         search_filter += '(' + OBJ_ID + '=' + entity.obj_id + ')'
     search_filter += ')'           
     try:
@@ -155,16 +155,17 @@ def create ( entity ):
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
         attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )
-        if entity.obj_id is not None and len(entity.obj_id) > 0 :        
+        if entity.obj_id:        
             attrs.update( {OBJ_ID : entity.obj_id} )
-        if entity.description is not None and len(entity.description) > 0 :        
+        if entity.description:        
             attrs.update( {global_ids.DESC : entity.description} )
-        if entity.abstract_name is not None and len(entity.abstract_name) > 0 :        
+        if entity.abstract_name:        
             attrs.update( {PERM_NAME : entity.abstract_name} )
-        if entity.type is not None and len(entity.type) > 0 :        
+        if entity.type:        
             attrs.update( {TYPE : entity.type} )
+        # list of strings:
         if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {global_ids.PROPS : entity.props} )
+            attrs.update( {global_ids.PROPS : entity.props} )            
         if entity.users is not None and len(entity.users) > 0 :        
             attrs.update( {USERS : entity.users} )        
         if entity.roles is not None and len(entity.roles) > 0 :        
@@ -186,10 +187,11 @@ def update ( entity ):
     __validate(entity, 'Update Perm')
     try:
         attrs = {}
-        if entity.description is not None and len(entity.description) > 0 :        
+        if entity.description:        
             attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )            
-        if entity.type is not None and len(entity.type) > 0 :        
+        if entity.type:        
             attrs.update( {TYPE : [(MODIFY_REPLACE, [entity.type])]} )
+        # list of strings:
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
         if entity.users is not None and len(entity.users) > 0 :        
@@ -230,6 +232,7 @@ def grant ( entity, role ):
     __validate(entity, 'Grant Perm')
     try:
         attrs = {}
+        # constraint type:
         if role is not None:
             attrs.update( {ROLES : [(MODIFY_ADD, role.name)]} )                                     
             conn = ldaphelper.open()                
@@ -249,6 +252,7 @@ def revoke ( entity, role ):
     __validate(entity, 'Revoke Perm')
     try:
         attrs = {}
+        # constraint type:
         if role is not None:
             attrs.update( {ROLES : [(MODIFY_DELETE, role.name)]} )                                     
             conn = ldaphelper.open()                
@@ -271,18 +275,16 @@ def create_obj ( entity ):
         attrs.update( {OBJ_NM : entity.obj_name} )
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
-        attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )        
-        attrs.update( {global_ids.OU : entity.ou} )
-            
-        if entity.description is not None and len(entity.description) > 0 :        
+        attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )
+        if entity.ou:                
+            attrs.update( {global_ids.OU : entity.ou} )
+        if entity.description:        
             attrs.update( {global_ids.DESC : entity.description} )
-
-        if entity.type is not None and len(entity.type) > 0 :        
+        if entity.type:        
             attrs.update( {TYPE : entity.type} )
-            
+        # list of comma delimited strings:
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : entity.props} )
-
         conn = ldaphelper.open()        
         id = conn.add(__get_obj_dn(entity), PERM_OBJ_OCS, attrs)
     except Exception as e:
@@ -300,12 +302,13 @@ def update_obj ( entity ):
     __validate_obj(entity, 'Update PermObj')
     try:
         attrs = {}        
-        if entity.ou is not None and len(entity.ou) > 0 :        
+        if entity.ou:        
             attrs.update( {global_ids.OU : [(MODIFY_REPLACE, [entity.ou])]} )
-        if entity.description is not None and len(entity.description) > 0 :        
+        if entity.description:        
             attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )            
-        if entity.type is not None and len(entity.type) > 0 :        
+        if entity.type:        
             attrs.update( {TYPE : [(MODIFY_REPLACE, [entity.type])]} )
+        # list of comma delimited strings:
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
         if len(attrs) > 0:            
