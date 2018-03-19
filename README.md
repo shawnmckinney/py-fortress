@@ -6,8 +6,8 @@
  * Document Overview
  * SECTION 1. Introduction to RBAC and py-fortress 
  * SECTION 2. Prerequisites
- * SECTION 3. py-fortress Setup using ApacheDS or OpenLDAP Docker Image
- * SECTION 4. py-fortress Integration Test
+ * SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
+ * SECTION 4. Integration Test
  * SECTION 5. Docker Commands
 ___________________________________________________________________________________
 ## Document Overview
@@ -35,7 +35,7 @@ user sessions and making access control decisions.
  
  *Click on above links to browse the RBAC apis and view the code doc on how they work.*
  
-### more on RBAC
+### More on RBAC
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)    
 ___________________________________________________________________________________
@@ -49,9 +49,8 @@ Minimum software requirements:
  * Centos or Debian Machine
  * docker-engine
  * python3
-
 ___________________________________________________________________________________
-## SECTION 3. py-fortress Setup using ApacheDS or OpenLDAP Docker Image
+## SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
 
 1. Pull the docker image:
 
@@ -97,9 +96,8 @@ ________________________________________________________________________________
  ```
  
  *note: use the port *-p* from earlier step
-
 __________________________________________________________________________________
-## SECTION 4. py-fortress Integration Tests
+## SECTION 4. Integration Tests
 
 1. Prepare py-fortress to use the directory server running inside docker container:
 
@@ -146,7 +144,6 @@ ________________________________________________________________________________
  ```
  python3 test/test_review_mgr.py 
  ```
- 
 ____________________________________________________________________________________
 ## SECTION 5. Docker Commands
 
@@ -200,6 +197,5 @@ Here are some common commands needed to manage the Docker image.
  docker stop $CONTAINER_ID
  docker rm $CONTAINER_ID
  ```
-
-____________________________________________________________________________________
+_________________________________________________________________________________
 #### END OF README
