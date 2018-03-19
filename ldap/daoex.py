@@ -5,14 +5,16 @@ Created on Feb 11, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-class LdapException(Exception):
-    pass
+from util.fortress_error import FortressError
 
-class NotFound(LdapException):
-    pass
+class LdapException(FortressError):
+ pass
 
-class NotUnique(LdapException):
-    pass
+class NotFound(FortressError):
+ pass
 
-class InvalidCredentials(LdapException):
-    pass
+class NotUnique(FortressError):
+ pass
+
+class InvalidCredentials(FortressError):
+ pass

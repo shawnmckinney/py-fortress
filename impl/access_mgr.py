@@ -12,7 +12,7 @@ from util.lockdate import LockDate
 from util.time import Time
 from util.current_date_time import CurrentDateTime
 from ldap import permdao, userdao
-from impl.fortress_error import FortressError
+from util.fortress_error import FortressError
 from util.logger import logger
 from util import global_ids
 from util.global_ids import SUCCESS
@@ -50,7 +50,7 @@ def create_session (user, is_trusted):
     entity = userdao.read(user)    
     result = __validate_constraint(entity.constraint)
     if result is not SUCCESS:
-        raise FortressError ('create_session constraint validation failed uid:' + entity.uid, result)
+        raise FortressError (msg='create_session constraint validation failed uid:' + entity.uid, id=result)
     __validate_role_constraints(entity)
     session.user = entity    
     return session
@@ -109,7 +109,7 @@ def add_active_role (session, role):
     """    
     __validate(session)    
     if any ( s.lower() == role.lower() for s in session.user.roles ):
-        raise FortressError ('add_active_role uid=' + session.user.uid + ', previously activated role=' + role, global_ids.ROLE_ALREADY_ACTIVATED_ERROR)
+        raise FortressError (msg='add_active_role uid=' + session.user.uid + ', previously activated role=' + role, id=global_ids.ROLE_ALREADY_ACTIVATED_ERROR)
     user = userdao.read(session.user)        
     for role_constraint in user.role_constraints:
         if role.lower() == role_constraint.name.lower():
@@ -134,7 +134,7 @@ def drop_active_role (session, role):
             __deactivate_role(session.user, role_constraint)
             found = True            
     if not found:            
-        raise FortressError ('drop_active_role uid=' + session.user.uid + ', has not activated role=' + role, global_ids.ROLE_NOT_ACTIVATED_ERROR)
+        raise FortressError (msg='drop_active_role uid=' + session.user.uid + ', has not activated role=' + role, id=global_ids.ROLE_NOT_ACTIVATED_ERROR)
     __validate_role_constraints(session.user)
 
 

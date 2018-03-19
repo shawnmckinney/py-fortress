@@ -5,7 +5,7 @@ Created on Mar 18, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from impl.fortress_error import FortressError
+from util.fortress_error import FortressError
 from util import global_ids
 
 

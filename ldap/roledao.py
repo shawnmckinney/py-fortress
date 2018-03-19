@@ -7,18 +7,18 @@ Created on Mar 17, 2018
 
 import uuid
 from model import Role, Constraint
-from ldap import ldaphelper, LdapException, NotFound, NotUnique
+from ldap import ldaphelper, NotFound, NotUnique
 from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
 from util import Config, global_ids
 from ldap import userdao
-
+from util.fortress_error import FortressError
 
 def read (entity):
     roleList = search(entity)
     if roleList is None or len(roleList) == 0:
-        raise NotFound("Role Read not found, name=" + entity.name)    
+        raise NotFound(msg="Role Read not found, name=" + entity.name, id=global_ids.ROLE_NOT_FOUND)    
     elif len(roleList) > 1:
-        raise NotUnique("Role Read not unique, name=" + entity.name)
+        raise NotUnique(msg="Role Read not unique, name=" + entity.name, id=global_ids.ROLE_READ_FAILED)
     else:
         return roleList[0]
 
@@ -35,7 +35,7 @@ def search (entity):
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
-        raise LdapException('Role search error=' + str(e))
+        raise FortressError(msg='Role search error=' + str(e), id=global_ids.ROLE_SEARCH_FAILED)
     else:        
         if total_entries > 0:
             for entry in response:
@@ -81,13 +81,13 @@ def create ( entity ):
         conn = ldaphelper.open()        
         id = conn.add(__get_dn(entity), ROLE_OCS, attrs)
     except Exception as e:
-        raise LdapException('Role create error=' + str(e), global_ids.ROLE_ADD_FAILED)
+        raise FortressError(msg='Role create error=' + str(e), id=global_ids.ROLE_ADD_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise LdapException('Role create failed, already exists:' + entity.name, global_ids.ROLE_ADD_FAILED)             
+            raise NotUnique(msg='Role create failed, already exists:' + entity.name, id=global_ids.ROLE_ADD_FAILED)             
         elif result != 0:
-            raise LdapException('Role create failed result=' + str(result), global_ids.ROLE_ADD_FAILED)                    
+            raise FortressError(msg='Role create failed result=' + str(result), id=global_ids.ROLE_ADD_FAILED)                    
     return entity
 
 
@@ -107,13 +107,13 @@ def update ( entity ):
             conn = ldaphelper.open()        
             id = conn.modify(__get_dn(entity), attrs)        
     except Exception as e:
-        raise LdapException('Role update error=' + str(e), global_ids.ROLE_UPDATE_FAILED)
+        raise FortressError(msg='Role update error=' + str(e), id=global_ids.ROLE_UPDATE_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise LdapException('Role update failed, not found:' + entity.name, global_ids.ROLE_UPDATE_FAILED)             
+            raise NotFound(msg='Role update failed, not found:' + entity.name, id=global_ids.ROLE_NOT_FOUND)             
         elif result != 0:
-            raise LdapException('Role update failed result=' + str(result), global_ids.ROLE_UPDATE_FAILED)                    
+            raise FortressError('Role update failed result=' + str(result), global_ids.ROLE_UPDATE_FAILED)                    
     return entity
 
 
@@ -123,13 +123,13 @@ def delete ( entity ):
         conn = ldaphelper.open()        
         id = conn.delete(__get_dn(entity))
     except Exception as e:
-        raise LdapException('Role delete error=' + str(e), global_ids.ROLE_DELETE_FAILED)
+        raise FortressError(msg='Role delete error=' + str(e), id=global_ids.ROLE_DELETE_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise LdapException('Role delete not found:' + entity.name, global_ids.ROLE_DELETE_FAILED)                    
+            raise NotFound(msg='Role delete not found:' + entity.name, id=global_ids.ROLE_NOT_FOUND)                    
         elif result != 0:
-            raise LdapException('Role delete failed result=' + str(result), global_ids.ROLE_DELETE_FAILED)                    
+            raise FortressError(msg='Role delete failed result=' + str(result), id=global_ids.ROLE_DELETE_FAILED)                    
     return entity
 
 
@@ -143,13 +143,13 @@ def add_member ( entity, uid ):
             conn = ldaphelper.open()        
             id = conn.modify(__get_dn(entity), attrs)
     except Exception as e:
-        raise LdapException('Add member error=' + str(e), global_ids.ROLE_USER_ASSIGN_FAILED)
+        raise FortressError(msg='Add member error=' + str(e), id=global_ids.ROLE_USER_ASSIGN_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise LdapException('Add member failed, not found, role=' +  entity.name + ', member dn=' + user_dn)             
+            raise NotFound(msg='Add member failed, not found, role=' +  entity.name + ', member dn=' + user_dn, id=global_ids.ROLE_NOT_FOUND)             
         elif result != 0:
-            raise LdapException('Add member failed result=' + str(result), global_ids.ROLE_USER_ASSIGN_FAILED)                    
+            raise FortressError(msg='Add member failed result=' + str(result), id=global_ids.ROLE_USER_ASSIGN_FAILED)                    
     return entity
 
 
@@ -163,13 +163,13 @@ def remove_member ( entity, uid ):
             conn = ldaphelper.open()        
             id = conn.modify(__get_dn(entity), attrs)
     except Exception as e:
-        raise LdapException('Remove member error=' + str(e), global_ids.ROLE_USER_DEASSIGN_FAILED)
+        raise FortressError(msg='Remove member error=' + str(e), id=global_ids.ROLE_REMOVE_OCCUPANT_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NO_SUCH_ATTRIBUTE:
-            raise LdapException('Remove member failed, not assigned, role=' +  entity.name + ', member dn=' + user_dn)             
+            raise FortressError(msg='Remove member failed, not assigned, role=' +  entity.name + ', member dn=' + user_dn, id=global_ids.URLE_ASSIGN_NOT_EXIST)             
         elif result != 0:
-            raise LdapException('Remove member failed result=' + str(result), global_ids.ROLE_USER_DEASSIGN_FAILED)                    
+            raise FortressError(msg='Remove member failed result=' + str(result), id=global_ids.ROLE_REMOVE_OCCUPANT_FAILED)                    
     return entity
 
 
@@ -185,12 +185,12 @@ def get_members (entity):
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)
     except Exception as e:
-        raise LdapException('Get members search error=' + str(e))
+        raise FortressError(msg='Get members search error=' + str(e), id=global_ids.ROLE_OCCUPANT_SEARCH_FAILED)
     else:
         if total_entries == 0:
-            raise NotFound("Role not found, name=" + entity.name)    
+            raise NotFound(msg="Role not found, name=" + entity.name, id=global_ids.ROLE_NOT_FOUND)    
         elif total_entries > 1:
-            raise NotUnique("Role not unique, name=" + entity.name)        
+            raise NotUnique(msg="Role not unique, name=" + entity.name, id=global_ids.ROLE_SEARCH_FAILED)        
         member_dns = ldaphelper.get_list(response[0][ATTRIBUTES][MEMBER])
         uList = __convert_list(member_dns)
     finally:
@@ -200,12 +200,12 @@ def get_members (entity):
 
 
 def __validate(entity, op):
-    if entity.name is None or len(entity.name) == 0 :
-        __raise_exception(op, ROLE_NAME)
+    if not entity.name:
+        __raise_exception(op, ROLE_NAME, global_ids.ROLE_NM_NULL)
 
                     
-def __raise_exception(operation, field):
-    raise LdapException('roledao.' + operation + ' required field missing:' + field)
+def __raise_exception(operation, field, id):
+    raise FortressError(msg='roledao.' + operation + ' required field missing:' + field, id=id)
 
 
 def __get_dn(entity):

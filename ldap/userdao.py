@@ -7,17 +7,18 @@ Created on Feb 10, 2018
     
 import uuid    
 from model import User, Constraint
-from ldap import ldaphelper, LdapException, NotFound, NotUnique, InvalidCredentials
+from ldap import ldaphelper, NotFound, NotUnique, InvalidCredentials
 from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
 from util import Config, global_ids
+from util.fortress_error import FortressError
 
 
 def read (entity):
     userList = search(entity)
     if userList is None or len(userList) == 0:
-        raise NotFound("User Read not found, uid=" + entity.uid)
+        raise NotFound(msg="User Read not found, uid=" + entity.uid, id=global_ids.USER_NOT_FOUND)
     elif len(userList) > 1:
-        raise NotUnique("User Read not unique, uid=" + entity.uid)
+        raise NotUnique(msg="User Read not unique, uid=" + entity.uid, id=global_ids.USER_READ_FAILED)
     else:
         return userList[0]
 
@@ -30,12 +31,12 @@ def authenticate (entity):
         conn = ldaphelper.open_user(__get_dn(entity), entity.password)
         result = conn.bind()
     except Exception as e:
-        raise LdapException('User Authenticate error for uid=' + entity.uid + ', LDAP error=' + str(e))
+        raise FortressError(msg='User Authenticate error for uid=' + entity.uid + ', LDAP error=' + str(e), id=global_ids.USER_PW_CHK_FAILED)
     finally:
         if conn:        
             ldaphelper.close_user(conn)
     if result is False:
-        raise InvalidCredentials("User Authenticate invalid creds, uid=" + entity.uid)        
+        raise InvalidCredentials(msg="User Authenticate invalid creds, uid=" + entity.uid, id=global_ids.USER_PW_INVLD)        
     return True
 
 
@@ -55,7 +56,7 @@ def search (entity):
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
-        raise LdapException('User Authenticate search LDAP error=' + str(e))    
+        raise FortressError(msg='User Search error=' + str(e))    
     else:        
         if total_entries > 0:
             for entry in response:
@@ -85,7 +86,7 @@ def search_on_roles (roles):
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
-        raise LdapException('User Search Roles error=' + str(e))
+        raise FortressError(msg='User Search Roles error=' + str(e), id=global_ids.URLE_SEARCH_FAILED)
     else:        
         if total_entries > 0:
             for entry in response:
@@ -204,13 +205,13 @@ def create ( entity ):
         conn = ldaphelper.open()        
         id = conn.add(__get_dn(entity), USER_OCS, attrs)
     except Exception as e:
-        raise LdapException('User create error=' + str(e), global_ids.USER_ADD_FAILED)
+        raise FortressError(msg='User create error=' + str(e), id=global_ids.USER_ADD_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise LdapException('User create failed, already exists:' + entity.name, global_ids.USER_ADD_FAILED)             
+            raise NotUnique(msg='User create failed, already exists:' + entity.name, id=global_ids.USER_ADD_FAILED)             
         elif result != 0:
-            raise LdapException('User create failed result=' + str(result), global_ids.USER_ADD_FAILED)                    
+            raise FortressError(msg='User create failed result=' + str(result), id=global_ids.USER_ADD_FAILED)                    
     return entity
 
 
@@ -270,13 +271,13 @@ def update ( entity ):
             conn = ldaphelper.open()                
             id = conn.modify(__get_dn(entity), attrs)
     except Exception as e:
-        raise LdapException('User update error=' + str(e), global_ids.USER_UPDATE_FAILED)
+        raise FortressError(msg='User update error=' + str(e), id=global_ids.USER_UPDATE_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise LdapException('User update failed, not found:' + entity.name, global_ids.USER_UPDATE_FAILED)             
+            raise NotFound(msg='User update failed, not found:' + entity.name, id=global_ids.USER_UPDATE_FAILED)             
         elif result != 0:
-            raise LdapException('User update failed result=' + str(result), global_ids.USER_UPDATE_FAILED)                    
+            raise FortressError(msg='User update failed result=' + str(result), id=global_ids.USER_UPDATE_FAILED)                    
     return entity
 
 
@@ -286,13 +287,13 @@ def delete ( entity ):
         conn = ldaphelper.open()        
         id = conn.delete(__get_dn(entity))
     except Exception as e:
-        raise LdapException('User delete error=' + str(e), global_ids.USER_DELETE_FAILED)
+        raise FortressError(msg='User delete error=' + str(e), id=global_ids.USER_DELETE_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise LdapException('User delete not found:' + entity.name, global_ids.USER_DELETE_FAILED)                    
+            raise FortressError(msg='User delete not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)                    
         elif result != 0:
-            raise LdapException('User delete failed result=' + str(result), global_ids.USER_DELETE_FAILED)                    
+            raise FortressError(msg='User delete failed result=' + str(result), id=global_ids.USER_DELETE_FAILED)                    
     return entity
 
 
@@ -307,13 +308,13 @@ def assign ( entity, constraint ):
             conn = ldaphelper.open()                
             id = conn.modify(__get_dn(entity), attrs)
     except Exception as e:
-        raise LdapException('User assign error=' + str(e), global_ids.URLE_ASSIGN_FAILED)
+        raise FortressError(msg='User assign error=' + str(e), id=global_ids.URLE_ASSIGN_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise LdapException('User assign failed, not found:' + entity.name, global_ids.USER_NOT_FOUND)             
+            raise NotFound(msg='User assign failed, not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)             
         elif result != 0:
-            raise LdapException('User assign failed result=' + str(result), global_ids.URLE_ASSIGN_FAILED)                    
+            raise FortressError(msg='User assign failed result=' + str(result), id=global_ids.URLE_ASSIGN_FAILED)                    
     return entity
 
 
@@ -328,23 +329,23 @@ def deassign ( entity, constraint ):
             conn = ldaphelper.open()                
             id = conn.modify(__get_dn(entity), attrs)
     except Exception as e:
-        raise LdapException('User deassign error=' + str(e), global_ids.URLE_DEASSIGN_FAILED)
+        raise FortressError(msg='User deassign error=' + str(e), id=global_ids.URLE_DEASSIGN_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise LdapException('User deassign failed, not found:' + entity.name, global_ids.USER_NOT_FOUND)             
+            raise NotFound(msg='User deassign failed, not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)             
         elif result != 0:
-            raise LdapException('User deassign failed result=' + str(result), global_ids.URLE_DEASSIGN_FAILED)                    
+            raise FortressError(msg='User deassign failed result=' + str(result), id=global_ids.URLE_DEASSIGN_FAILED)                    
     return entity
 
 
 def __validate(entity, op):
     if entity.uid is None or len(entity.uid) == 0 :
-        __raise_exception(op, global_ids.UID)
+        __raise_exception(op, global_ids.UID, global_ids.USER_ID_NULL)
 
                     
-def __raise_exception(operation, field):
-    raise LdapException('userdao.' + operation + ' required field missing:' + field)
+def __raise_exception(operation, field, id):
+    raise FortressError(msg='userdao.' + operation + ' required field missing:' + field, id=id)
 
 
 def __get_dn(entity):
