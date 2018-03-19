@@ -19,26 +19,34 @@ ________________________________________________________________________________
  ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
  
 ### About py-fortress
-This *Python3* library is compliant with *ANSI INCITS 359* Role-Based Access Control, *RBAC0*, aka *Core RBAC*.
+ * Security access control APIs for *Python3* compliant with *ANSI INCITS 359* Role-Based Access Control, *RBAC0*, aka *Core RBAC*.
+ * Data stored within an LDAPv3 directory server
+ * Includes Python APIs to manage and interrogate the security policy data.
+ * Compatible with [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema) 
+
+### About Role-Based Access Control
+
 Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
 API to add, update, delete identity data and perform identity and access control decisions during runtime operations
 
 [Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
 
-### About RBAC
 The RBAC functional specification (contained within the above link) describes administrative operations for the creation and maintenance of RBAC element sets and relations; 
 administrative review functions for performing administrative queries; and system functions for creating and managing RBAC attributes on 
 user sessions and making access control decisions.
 
-### About the py-fortress RBAC APIs
-Click on the links that follow to browse the python modules with RBAC apis, view the code and inline doc describing how they work.*
+### About the APIs
+Click on the links that follow to browse the python modules with RBAC apis, view the code and inline doc describing how they work.
  * [access_mgr](impl/access_mgr.py): This performs runtime access control operations on objects that are provisioned RBAC entities that reside in LDAP directory.
  * [admin_mgr](impl/admin_mgr.py): This performs administrative functions to provision Fortress RBAC entities into the LDAP directory. 
  * [review_mgr](impl/review_mgr.py): The administrative review functions on already provisioned Fortress RBAC entities that reside in LDAP directory. 
   
 ### More on RBAC
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
- * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)    
+ * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
+
+### Other RBAC projects
+ * [Apache Fortresss(http://directory.apache.org/fortress)
 ___________________________________________________________________________________
 ## SECTION 2. Prerequisites
 
