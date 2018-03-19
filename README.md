@@ -45,7 +45,7 @@ Links to the Python RBAC modules containing inline docs describing their use.
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
 
-### Other RBAC projects
+### Related Projects
  * [Apache Fortresss](http://directory.apache.org/fortress)
 ___________________________________________________________________________________
 ## SECTION 2. Prerequisites
