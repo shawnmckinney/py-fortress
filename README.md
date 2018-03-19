@@ -82,8 +82,8 @@ ________________________________________________________________________________
     echo $CONTAINER_PORT
     ```
 
-    *note: make note of the port as it's needed later
-    *depending on your docker setup may need to run as root or sudo priv's.
+    * make note of the port, it's needed later
+    * depending on your docker setup may need to run as root or sudo priv's.
 
 3. Prepare directory server to use py-fortress by initializing the directory information tree:
 
@@ -97,7 +97,7 @@ ________________________________________________________________________________
     ldapmodify -h localhost -p 32770 -D cn=Manager,dc=example,dc=com -w secret -a -f test/py-fortress-dit.ldif 
     ```
  
-    *note: use the port *-p* from earlier step
+    * use the port *-p* from earlier
 __________________________________________________________________________________
 ## SECTION 4. Integration Tests
 
@@ -123,7 +123,7 @@ ________________________________________________________________________________
     "password": "secret"                
     ```
   
-    *note: use the port from earlier step
+    * Use the port from earlier
  
 3. Save and exit
 
