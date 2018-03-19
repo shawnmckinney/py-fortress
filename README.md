@@ -36,10 +36,10 @@ administrative review functions for performing administrative queries; and syste
 user sessions and making access control decisions.
 
 ### About the APIs
-Click on the links that follow to browse the python modules with RBAC apis, view the code and inline doc describing how they work.
- * [access_mgr](impl/access_mgr.py): This performs runtime access control operations on objects that are provisioned RBAC entities that reside in LDAP directory.
- * [admin_mgr](impl/admin_mgr.py): This performs administrative functions to provision Fortress RBAC entities into the LDAP directory. 
- * [review_mgr](impl/review_mgr.py): The administrative review functions on already provisioned Fortress RBAC entities that reside in LDAP directory. 
+Links to python modules containing RBAC apis.  The inline docs describes how to use.
+ * [access_mgr](impl/access_mgr.py): performs runtime access control operations
+ * [admin_mgr](impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
+ * [review_mgr](impl/review_mgr.py): administrative review functions on the RBAC entities. 
   
 ### More on RBAC
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
