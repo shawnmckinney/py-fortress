@@ -1,4 +1,4 @@
-# py-fortress setup and test instructions
+# Role-Based Access Control API for Python
 
 -------------------------------------------------------------------------------
 ## Table of Contents
