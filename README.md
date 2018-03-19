@@ -19,16 +19,18 @@ ________________________________________________________________________________
  ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
  
 ### About py-fortress
-py-fortress is compliant with ANSI INCITS 359 Role-Based Access Control, RBAC0 - Core.
+This compoent is compliant with ANSI INCITS 359 Role-Based Access Control, level 0, also referred to as *Core RBAC*.
 Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
 API to add, update, delete identity data and perform identity and access control decisions during runtime operations
 
+[Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
+
 ### About RBAC
-The RBAC Functional specification describes administrative operations for the creation and maintenance of RBAC element sets and relations; 
+The RBAC Functional specification (referred to in the link above) describes administrative operations for the creation and maintenance of RBAC element sets and relations; 
 administrative review functions for performing administrative queries; and system functions for creating and managing RBAC attributes on 
 user sessions and making access control decisions.
 
-### About the RBAC APIs of py-fortress
+### About the py-fortress RBAC APIs
  * [admin_mgr](impl/admin_mgr.py): This performs administrative functions to provision Fortress RBAC entities into the LDAP directory. 
  * [review_mgr](impl/review_mgr.py): The administrative review functions on already provisioned Fortress RBAC entities that reside in LDAP directory. 
  * [access_mgr](impl/access_mgr.py): This performs runtime access control operations on objects that are provisioned RBAC entities that reside in LDAP directory.
