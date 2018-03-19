@@ -68,63 +68,63 @@ ________________________________________________________________________________
 
 2. Run the docker container:
 
-    a. apacheds
-    ```
-    CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
-    CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
-    echo $CONTAINER_PORT
-    ```
+       a. apacheds
+       ```
+       CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
+       CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
+       echo $CONTAINER_PORT
+       ```
  
-    b. slapd
+       b. slapd
  
-    ```
-    CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
-    CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
-    echo $CONTAINER_PORT
-    ```
+       ```
+       CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
+       CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
+       echo $CONTAINER_PORT
+       ```
 
-    *note: make note of the port as it's needed later
-    *depending on your docker setup may need to run as root or sudo priv's.
+       *note: make note of the port as it's needed later
+       *depending on your docker setup may need to run as root or sudo priv's.
 
 3. Prepare directory server to use py-fortress by initializing the directory information tree:
 
- a. apacheds
- ```
- ldapmodify -h localhost -p 32770 -D uid=admin,ou=system -w secret -a -f test/py-fortress-dit.ldif 
- ```
+    a. apacheds
+    ```
+    ldapmodify -h localhost -p 32770 -D uid=admin,ou=system -w secret -a -f test/py-fortress-dit.ldif 
+    ```
 
- b. slapd
- ```
- ldapmodify -h localhost -p 32770 -D cn=Manager,dc=example,dc=com -w secret -a -f test/py-fortress-dit.ldif 
- ```
+    b. slapd
+    ```
+    ldapmodify -h localhost -p 32770 -D cn=Manager,dc=example,dc=com -w secret -a -f test/py-fortress-dit.ldif 
+    ```
  
- *note: use the port *-p* from earlier step
+    *note: use the port *-p* from earlier step
 __________________________________________________________________________________
 ## SECTION 4. Integration Tests
 
 1. Prepare py-fortress to use the directory server running inside docker container:
 
- ```
- vi test/py-fortress-cfg.json
- ```
+    ```
+    vi test/py-fortress-cfg.json
+    ```
 
 2. Update the connection parameters:
 
- a. apacheds:
- ```
+    a. apacheds:
+    ```
     "port": 32770,
     "dn": "uid=admin,ou=system",
     "password": "secret"                
- ```
+    ```
  
- b. slapd:
- ```
+    b. slapd:
+    ```
     "port": 32770,
     "dn": "cn=Manager,dc=example,dc=com",
     "password": "secret"                
- ```
+    ```
   
- *note: use the port from earlier step
+    *note: use the port from earlier step
  
 3. Save and exit
 
@@ -132,21 +132,21 @@ ________________________________________________________________________________
 
 5. Run the admin mgr tests:
 
- ```
- python3 test/test_admin_mgr.py 
- ```
+    ```
+    python3 test/test_admin_mgr.py 
+    ```
 
 6. Run the access mgr tests:
 
- ```
- python3 test/test_access_mgr.py 
- ```
+    ```
+    python3 test/test_access_mgr.py 
+    ```
  
 7. Run the review mgr tests:
 
- ```
- python3 test/test_review_mgr.py 
- ```
+    ```
+    python3 test/test_review_mgr.py 
+    ```
 ____________________________________________________________________________________
 ## SECTION 5. Docker Commands
 
