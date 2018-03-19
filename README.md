@@ -16,8 +16,6 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 1. Introduction to RBAC and py-fortress
 
- ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
- 
 ### About py-fortress
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, *RBAC0*, aka *Core RBAC*.
  * Data stored within an LDAPv3 directory server
@@ -26,6 +24,8 @@ ________________________________________________________________________________
 
 ### About Role-Based Access Control
 
+ ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
+ 
 Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
 API to add, update, delete identity data and perform identity and access control decisions during runtime operations
 
