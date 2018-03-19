@@ -36,7 +36,7 @@ administrative review functions for performing administrative queries; and syste
 user sessions and making access control decisions.
 
 ### About the APIs
-Links to python modules containing RBAC apis.  The inline docs describes how to use.
+Links to the Python RBAC modules containing inline docs describing their use.
  * [access_mgr](impl/access_mgr.py): performs runtime access control operations
  * [admin_mgr](impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
  * [review_mgr](impl/review_mgr.py): administrative review functions on the RBAC entities. 
@@ -46,7 +46,7 @@ Links to python modules containing RBAC apis.  The inline docs describes how to 
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
 
 ### Other RBAC projects
- * [Apache Fortresss(http://directory.apache.org/fortress)
+ * [Apache Fortresss](http://directory.apache.org/fortress)
 ___________________________________________________________________________________
 ## SECTION 2. Prerequisites
 
