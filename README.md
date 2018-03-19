@@ -4,7 +4,7 @@
 ## Table of Contents
 
  * Document Overview
- * SECTION 1. Introduction to RBAC and py-fortress 
+ * SECTION 1. Introduction 
  * SECTION 2. Prerequisites
  * SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
  * SECTION 4. Integration Test
@@ -14,7 +14,7 @@ ________________________________________________________________________________
 
  * This document contains instructions to install py-fortress using either ApacheDS or OpenLDAP Docker image.
 ___________________________________________________________________________________
-## SECTION 1. Introduction to RBAC and py-fortress
+## SECTION 1. Introduction
 
 ### About py-fortress
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, *RBAC0*, aka *Core RBAC*.
