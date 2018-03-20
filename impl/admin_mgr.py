@@ -336,9 +336,9 @@ def assign(user, role):
     utils.validate_user(user)
     utils.validate_role(role)
     entity = roledao.read(role)
-    # LDAP doesn't do well with sub-string indexes which is why the role assignments is stored using two multi-occurring attributes, 'roles' and 'role_constraints'.
-    # the first is set of role names (only), and will be indexed for fast search.
-    # the second is a set of delimited strings containing the role name (again) plus its associated temporal values. 
+    # LDAP doesn't do well with sub-string indexes which is why the role assignments are stored within two separate multi-occurring attributes on the user entry -- roles' and 'role_constraints'.
+    # The first, is a set of role names (only), and will be indexed for fast search.
+    # the second, is a set of delimited strings containing the role name (once again) plus its associated temporal values. 
     userdao.assign(user, entity.constraint)
     
     # Fortress user-role assignments also keep member association on the role itself. 
