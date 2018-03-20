@@ -10,6 +10,7 @@ from impl import utils
 from util import global_ids
 from util.fortress_error import FortressError
 from model import Perm, User, Role
+from util.logger import logger
 
 def add_user(user):
     """
@@ -104,14 +105,20 @@ def delete_user(user):
     user.uid - maps to INetOrgPerson uid     
     """    
     utils.validate_user(user)
-    # first remove user's role memberships:
+    # get the user's role assignments from its entry.
     out_user = userdao.read(user)
-    for role in out_user.roles:
+    # it's needed to remove the user membership from associated role entries.    
+    for role_nm in out_user.roles:
         try:
-            roledao.remove_member(Role(name=role), user.uid)
+            roledao.remove_member(Role(name=role_nm), user.uid)
+            logger.info('admin_mgr.delete_user:' + user.uid + ', removed as member of role:' + role_nm)
         except FortressError as e:
             if e.id != global_ids.URLE_ASSIGN_NOT_EXIST:
                 raise FortressError(msg=e.msg, id=e.id)
+            else:
+                logger.warn('admin_mgr.delete_user:' + user.uid + ', is not occupant of role:' + role_nm)
+            
+    # now remove the user entry:
     return userdao.delete(user)
 
             
@@ -171,14 +178,26 @@ def delete_role(role):
     role.name - maps to INetOrgPerson uid     
     """    
     utils.validate_role(role)
+    
     # if role has members, deassign all.
     members, constraint = roledao.get_members_constraint (role)
     for member in members:
         try:
             userdao.deassign(User(uid=member), constraint)
+            logger.info('admin_mgr.delete_role:' + role.name + ', remove assign for user:' + member)
         except FortressError as e:
             if e.id != global_ids.URLE_ASSIGN_NOT_EXIST:
                 raise FortressError(msg=e.msg, id=e.id)
+            else:
+                logger.warn('admin_mgr.delete_role:' + role.name + ', assign not exist for user:' + member)
+            
+    # if role is assigned to perms (i.e. granted), remove them as well.
+    perms = permdao.search_on_roles([role.name])
+    for perm in perms:
+        permdao.revoke(perm, role)
+        logger.info('admin_mgr.delete_role:' + role.name + ', remove grant for perm obj_name:' + perm.obj_name + ', op_name:' + perm.op_name)
+    
+    # now remove the role entry.                
     return roledao.delete(role)
 
                         
@@ -283,12 +302,20 @@ def delete_object(perm_obj):
     try:
         permdao.delete_obj(perm_obj)
     except FortressError as e:
+        # if entry has children.
         if e.id == global_ids.PERM_OBJECT_DELETE_FAILED_NONLEAF:
+            logger.warn('admin_mgr.delete_object non-leaf, obj_name:' + perm_obj.obj_name)            
+            # remove all of them.
             pList = permdao.search(Perm(obj_name=perm_obj.obj_name, op_name='*'))
             for perm in pList:
                 permdao.delete(perm)
+                logger.warn('admin_mgr.delete_object child obj_name:' + perm.obj_name + ', op_name:' + perm.op_name)
+                
+            # now try to remove this node once again
             permdao.delete_obj(perm_obj)
+            logger.warn('admin_mgr.delete_object success after retry, obj_name:' + perm.obj_name)
         else:
+            # can't handle this error so rethrow.
             raise FortressError(msg=e.msg, id=e.id)
     return
 
@@ -309,7 +336,15 @@ def assign(user, role):
     utils.validate_user(user)
     utils.validate_role(role)
     entity = roledao.read(role)
+    # LDAP doesn't do well with sub-string indexes which is why role assignments are stored across two attributes on the user.
+    # role - contains name only and will be indexed.
+    # role constraint contains name and delimited set of strings containing temporal values. 
     userdao.assign(user, entity.constraint)
+    
+    # Fortress user-role assignments also keep member association on the role itself. 
+    # The rationale for these assignments also stored on role is two-fold:
+    # 1. works with traditional LDAP group-based authZ mechanisms
+    # 2. makes role-users search query more efficient, as its stored on single entry.     
     roledao.add_member(entity, user.uid)
 
                                                                                                 
@@ -328,16 +363,22 @@ def deassign(user, role):
     """    
     utils.validate_user(user)
     utils.validate_role(role)
-    entity = roledao.read(role)
-    userdao.deassign(user, entity.constraint)
-    try:
-        roledao.remove_member(entity, user.uid)
-    except FortressError as e:
-        if e.id != global_ids.URLE_ASSIGN_NOT_EXIST:
-            raise FortressError(msg=e.msg, id=e.id)
-    
-
-
+    out_user = userdao.read(user)
+    for constraint in out_user.role_constraints:
+        if constraint.name == role.name:
+            found = True
+            userdao.deassign(user, constraint)
+            try:
+                roledao.remove_member(role, user.uid)
+            except FortressError as e:
+                if e.id != global_ids.URLE_ASSIGN_NOT_EXIST:
+                    raise FortressError(msg=e.msg, id=e.id)
+                else:
+                    logger.warn('admin_mgr.deassign remove member failed because not occupant. user:' + user.uid + ', role:' + role.name)
+    if not found:
+        raise FortressError(msg='Role deassign failed constraint now found', id=global_ids.URLE_DEASSIGN_FAILED)
+        
+            
 def grant(perm, role):
     """
     This method will add permission operation to an existing permission object which resides under ou=Permissions,ou=RBAC,dc=yourHostName,dc=com container in directory information tree. 

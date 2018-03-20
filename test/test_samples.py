@@ -230,24 +230,24 @@ class TestSamples(unittest.TestCase):
 
 
 def suite():
-    suite = unittest.TestSuite()        
+    suite = unittest.TestSuite()
+    
+    # Teardown:        
     suite.addTest(TestSamples('test_delete_user'))
     suite.addTest(TestSamples('test_revoke_perm'))        
     suite.addTest(TestSamples('test_delete_perm'))        
     suite.addTest(TestSamples('test_delete_obj'))
     suite.addTest(TestSamples('test_delete_role'))
         
+    # Buildup:
     suite.addTest(TestSamples('test_add_obj'))
     suite.addTest(TestSamples('test_add_perm'))
     suite.addTest(TestSamples('test_add_role'))    
     suite.addTest(TestSamples('test_grant_perm'))
     suite.addTest(TestSamples('test_add_user'))    
     suite.addTest(TestSamples('test_assign_user'))
-    
-        
-#     suite.addTest(TestSamples(''))
-            
 
+    # Interrogate:
     suite.addTest(TestSamples('test_read_role'))    
     suite.addTest(TestSamples('test_read_obj'))
     suite.addTest(TestSamples('test_read_perm'))
