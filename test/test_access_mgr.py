@@ -42,10 +42,10 @@ class TestAccessMgr(unittest.TestCase):
                     if session is None:
                         self.fail('test create sessions failed ' + entity.uid)
                 except InvalidCredentials as e:
-                    print_ln(str(e))                    
+                    print_ln(e.msg)                    
             print()
         except Exception as e:
-            self.fail('user create_session exception=' + str(e))
+            self.fail('user create_session exception=' + e.msg)
 
 
     def test_user_roles(self):
@@ -73,7 +73,7 @@ class TestAccessMgr(unittest.TestCase):
                             self.fail('test_user_roles failed uid=' + entity.uid + ', role=' + role)
             print()                                                                            
         except Exception as e:
-            self.fail('test_user_roles exception=' + str(e))
+            self.fail('test_user_roles exception=' + e.msg)
 
 
     def test_active_roles(self):
@@ -134,7 +134,7 @@ class TestAccessMgr(unittest.TestCase):
                             
             print()                                                                            
         except Exception as e:
-            self.fail('test_active_roles exception=' + str(e))
+            self.fail('test_active_roles exception=' + e.msg)
 
 
     def test_session_permissions(self):
@@ -166,7 +166,7 @@ class TestAccessMgr(unittest.TestCase):
                             self.fail('test_session_permissions failed uid=' + entity.uid + ', perm obj name=' + perm.obj_name + ', op name=' + perm.op_name + ', obj id=' + perm.obj_id)                                                
             print()
         except Exception as e:
-            self.fail('test_session_permissions exception=' + str(e))
+            self.fail('test_session_permissions exception=' + e.msg)
 
 
 def suite():

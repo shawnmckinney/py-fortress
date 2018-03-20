@@ -32,7 +32,7 @@ class TestAdminMgr(unittest.TestCase):
                 entity = admin_mgr.add_user(usr)
                 print_user(entity, "Add User")
             except Exception as e:
-                self.fail('test_add_user failed, exception=' + str(e))
+                self.fail('test_add_user failed, exception=' + e.msg)
 
 
     def test_delete_user(self):
@@ -42,12 +42,13 @@ class TestAdminMgr(unittest.TestCase):
         print_ln('test_delete_user')
         
         try:
+            # TODO: search for roles assigned to user and remove the occupant
             uList = review_mgr.find_users(User(uid='py-user*'))            
             for usr in uList:                       
                 entity = admin_mgr.delete_user(usr)
                 print_ln("Delete user=" + entity.uid)
         except Exception as e:
-            self.fail('test_delete_user failed, exception=' + str(e))
+            self.fail('test_delete_user failed, exception=' + e.msg)
 
 
     def test_add_role(self):
@@ -61,7 +62,7 @@ class TestAdminMgr(unittest.TestCase):
                 entity = admin_mgr.add_role(rle)
                 print_role(entity, "Add Role")
             except Exception as e:
-                self.fail('test_add_role failed, exception=' + str(e))
+                self.fail('test_add_role failed, exception=' + e.msg)
 
 
     def test_delete_role(self):
@@ -76,7 +77,7 @@ class TestAdminMgr(unittest.TestCase):
                 entity = admin_mgr.delete_role(rle)
                 print_ln("Delete role=" + entity.name)
         except Exception as e:
-            self.fail('test_delete_role failed, exception=' + str(e))
+            self.fail('test_delete_role failed, exception=' + e.msg)
 
 
     def test_add_object(self):
@@ -90,7 +91,7 @@ class TestAdminMgr(unittest.TestCase):
                 entity = admin_mgr.add_object(obj)
                 print_ln("Add Object=" + entity.obj_name)                
             except Exception as e:
-                self.fail('test_add_object failed, exception=' + str(e))
+                self.fail('test_add_object failed, exception=' + e.msg)
 
 
     def test_delete_object(self):
@@ -102,10 +103,10 @@ class TestAdminMgr(unittest.TestCase):
         try:
             oList = review_mgr.find_objects(PermObj(obj_name='py-obj*'))                        
             for obj in oList:                       
-                entity = admin_mgr.delete_object(obj)
-                print_ln("Delete Object=" + entity.obj_name)
+                admin_mgr.delete_object(obj)
+                print_ln("Delete Object=" + obj.obj_name)
         except Exception as e:
-            self.fail('test_delete_object failed, exception=' + str(e))
+            self.fail('test_delete_object failed, exception=' + e.msg)
 
 
     def test_add_perm(self):
@@ -119,7 +120,7 @@ class TestAdminMgr(unittest.TestCase):
                 entity = admin_mgr.add_perm(perm)
                 print_ln("Add Perm obj name=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)                                
             except Exception as e:
-                self.fail('test_add_perm failed, exception=' + str(e))
+                self.fail('test_add_perm failed, exception=' + e.msg)
 
 
     def test_delete_perm(self):
@@ -134,7 +135,7 @@ class TestAdminMgr(unittest.TestCase):
                 entity = admin_mgr.delete_perm(perm)
                 print_ln("Delete Perm obj name=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)
         except Exception as e:
-            self.fail('test_delete_perm failed, exception=' + str(e))
+            self.fail('test_delete_perm failed, exception=' + e.msg)
 
 
     def test_assign_user(self):
@@ -150,7 +151,7 @@ class TestAdminMgr(unittest.TestCase):
                     admin_mgr.assign(usr, rle)
                     print_ln("Assign User=" + usr.uid + ', Role=' + rle.name)
                 except Exception as e:
-                    self.fail('test_assign_user failed, exception=' + str(e))
+                    self.fail('test_assign_user failed, exception=' + e.msg)
 
 
     def test_deassign_user(self):
@@ -168,7 +169,7 @@ class TestAdminMgr(unittest.TestCase):
                     print_ln("Deassign User=" + entity.uid + ', Role=' + rle.name)
         except Exception as e:
             pass
-            #self.fail('test_deassign_user failed, exception=' + str(e))
+            #self.fail('test_deassign_user failed, exception=' + e.msg)
 
 
     def test_grant(self):
@@ -184,7 +185,7 @@ class TestAdminMgr(unittest.TestCase):
                     admin_mgr.grant(perm, rle)
                     print_ln("Grant Perm obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id + ', Role=' + rle.name)                                
                 except Exception as e:
-                    self.fail('test_grant failed, exception=' + str(e))
+                    self.fail('test_grant failed, exception=' + e.msg)
 
 
     def test_revoke(self):
@@ -202,7 +203,7 @@ class TestAdminMgr(unittest.TestCase):
                     print_ln("Revoke Perm obj name=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id + ', Role=' + rle.name)                                
         except Exception as e:
             pass
-            #self.fail('test_revoke failed, exception=' + str(e))
+            #self.fail('test_revoke failed, exception=' + e.msg)
 
 
 def suite():

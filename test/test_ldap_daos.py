@@ -31,7 +31,7 @@ class TestDaos(unittest.TestCase):
             for idx, entity in enumerate(uList) :            
                 print_user(entity, "User[" + str(idx+1) + "]:")
         except Exception as e:
-            self.fail('user search failed, exception=' + str(e))
+            self.fail('user search failed, exception=' + e.msg)
 
             
     def test_search_perms(self):
@@ -45,7 +45,7 @@ class TestDaos(unittest.TestCase):
             for idx, entity in enumerate(pList) :            
                 print_entity (entity, "Perm[" + str(idx+1) + "]:", 1)
         except Exception as e:
-            self.fail('perm search failed, exception=' + str(e))
+            self.fail('perm search failed, exception=' + e.msg)
 
             
     def test_bind_users(self):
@@ -61,11 +61,11 @@ class TestDaos(unittest.TestCase):
                 try:      
                     userdao.authenticate(entity)
                 except InvalidCredentials as e:
-                    print_ln(str(e))
+                    print_ln(e.msg)
                     #self.fail('user bind invalid creds, user=' + entity.uid)
                           
         except Exception as e:
-            self.fail('user bind exception=' + str(e))
+            self.fail('user bind exception=' + e.msg)
 
 
     def test_bind_users_negative(self):
@@ -85,7 +85,7 @@ class TestDaos(unittest.TestCase):
                     pass
                          
         except Exception as e:
-            self.fail('user bind failed, exception=' + str(e))
+            self.fail('user bind failed, exception=' + e.msg)
 
 
     def test_search_roles(self):
@@ -99,7 +99,7 @@ class TestDaos(unittest.TestCase):
             for idx, entity in enumerate(rList) :            
                 print_role(entity, "Role[" + str(idx+1) + "]:")
         except Exception as e:
-            self.fail('role search failed, exception=' + str(e))
+            self.fail('role search failed, exception=' + e.msg)
 
                         
     def test_create_roles(self):
@@ -113,7 +113,7 @@ class TestDaos(unittest.TestCase):
                 rle = roledao.create(rle)
                 print_role(rle, "Role Create")
             except Exception as e:
-                self.fail('role create failed, exception=' + str(e))
+                self.fail('role create failed, exception=' + e.msg)
 
 
     def test_update_roles(self):
@@ -128,7 +128,7 @@ class TestDaos(unittest.TestCase):
                 rle = roledao.update(rle)
                 print_role(rle, "Role Update")
             except Exception as e:
-                self.fail('role update failed, exception=' + str(e))
+                self.fail('role update failed, exception=' + e.msg)
 
 
     def test_delete_roles(self):
@@ -143,7 +143,7 @@ class TestDaos(unittest.TestCase):
                 rle = roledao.delete(rle)
                 print_ln("Role Delete role=" + rle.name)
         except Exception as e:
-            self.fail('role delete failed, exception=' + str(e))
+            self.fail('role delete failed, exception=' + e.msg)
 
 
     def test_create_users(self):
@@ -157,7 +157,7 @@ class TestDaos(unittest.TestCase):
                 entity = userdao.create(usr)
                 print_user(entity, "User Create")
             except Exception as e:
-                self.fail('user create failed, exception=' + str(e))
+                self.fail('user create failed, exception=' + e.msg)
 
 
     def test_update_users(self):
@@ -174,7 +174,7 @@ class TestDaos(unittest.TestCase):
                 entity = userdao.update(usr)
                 print_user(entity, "User Update")
             except Exception as e:
-                self.fail('user update failed, exception=' + str(e))
+                self.fail('user update failed, exception=' + e.msg)
 
 
     def test_delete_users(self):
@@ -189,7 +189,7 @@ class TestDaos(unittest.TestCase):
                 entity = userdao.delete(usr)
                 print_ln("Delete user=" + entity.uid)
         except Exception as e:
-            self.fail('user delete failed, exception=' + str(e))
+            self.fail('user delete failed, exception=' + e.msg)
 
 
     def test_create_objects(self):
@@ -203,7 +203,7 @@ class TestDaos(unittest.TestCase):
                 entity = permdao.create_obj(obj)
                 print_ln("Create object=" + entity.obj_name)                
             except Exception as e:
-                self.fail('perm object create failed, exception=' + str(e))
+                self.fail('perm object create failed, exception=' + e.msg)
 
 
     def test_update_objects(self):
@@ -219,7 +219,7 @@ class TestDaos(unittest.TestCase):
                 entity = permdao.update_obj(obj)
                 print_ln("Update object=" + entity.obj_name)                
             except Exception as e:
-                self.fail('object update failed, exception=' + str(e))
+                self.fail('object update failed, exception=' + e.msg)
 
 
     def test_delete_objects(self):
@@ -234,7 +234,7 @@ class TestDaos(unittest.TestCase):
                 entity = permdao.delete_obj(obj)
                 print_ln("Delete object=" + obj.obj_name)
         except Exception as e:
-            self.fail('perm obj delete failed, exception=' + str(e))
+            self.fail('perm obj delete failed, exception=' + e.msg)
 
 
     def test_create_perms(self):
@@ -248,7 +248,7 @@ class TestDaos(unittest.TestCase):
                 entity = permdao.create(perm)
                 print_ln("Create perm obj=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)                
             except Exception as e:
-                self.fail('perm create failed, exception=' + str(e))
+                self.fail('perm create failed, exception=' + e.msg)
 
 
     def test_update_perms(self):
@@ -264,7 +264,7 @@ class TestDaos(unittest.TestCase):
                 entity = permdao.update(perm)
                 print_ln("Update perm obj=" + entity.obj_name + ', op=' + entity.op_name + ', id=' + entity.obj_id)                
             except Exception as e:
-                self.fail('perm update failed, exception=' + str(e))
+                self.fail('perm update failed, exception=' + e.msg)
 
 
     def test_delete_perms(self):
@@ -279,7 +279,7 @@ class TestDaos(unittest.TestCase):
                 entity = permdao.delete(perm)
                 print_ln("Delete perm obj=" + perm.obj_name + ', op=' + perm.op_name + ', id=' + perm.obj_id)
         except Exception as e:
-            self.fail('perm delete failed, exception=' + str(e))
+            self.fail('perm delete failed, exception=' + e.msg)
 
 
 def suite():

@@ -209,7 +209,7 @@ def create ( entity ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='User create failed, already exists:' + entity.name, id=global_ids.USER_ADD_FAILED)             
+            raise NotUnique(msg='User create failed, already exists:' + entity.uid, id=global_ids.USER_ADD_FAILED)             
         elif result != 0:
             raise FortressError(msg='User create failed result=' + str(result), id=global_ids.USER_ADD_FAILED)                    
     return entity
@@ -333,7 +333,9 @@ def deassign ( entity, constraint ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='User deassign failed, not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)             
+            raise NotFound(msg='User deassign failed, not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)
+        elif result == global_ids.NO_SUCH_ATTRIBUTE:
+            raise FortressError(msg='User deassign failed, no such attribute=' + constraint.name, id=global_ids.URLE_ASSIGN_NOT_EXIST)                     
         elif result != 0:
             raise FortressError(msg='User deassign failed result=' + str(result), id=global_ids.URLE_DEASSIGN_FAILED)                    
     return entity

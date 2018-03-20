@@ -76,8 +76,11 @@ def create ( entity ):
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : entity.props} )
         # list of comma delimited strings:
-        if entity.constraint is not None :        
-            attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
+        if entity.constraint is None:
+            entity.constraint = Constraint(name=entity.name)
+        #if entity.constraint is not None:        
+        attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
+            
         conn = ldaphelper.open()        
         id = conn.add(__get_dn(entity), ROLE_OCS, attrs)
     except Exception as e:
@@ -199,6 +202,33 @@ def get_members (entity):
     return uList
 
 
+def get_members_constraint (entity):
+    __validate(entity, "Get Members")
+    conn = None            
+    mList = []
+    search_filter = '(&(objectClass=' + ROLE_OC_NAME + ')'
+    search_filter += '(' + ROLE_NAME + '=' + entity.name + '))'
+    try:
+        conn = ldaphelper.open()
+        id = conn.search(search_base, search_filter, attributes=[MEMBER, global_ids.CONSTRAINT])
+        response = ldaphelper.get_response(conn, id)         
+        total_entries = len(response)
+    except Exception as e:
+        raise FortressError(msg='Get members search error=' + str(e), id=global_ids.ROLE_OCCUPANT_SEARCH_FAILED)
+    else:
+        if total_entries == 0:
+            raise NotFound(msg="Role not found, name=" + entity.name, id=global_ids.ROLE_NOT_FOUND)    
+        elif total_entries > 1:
+            raise NotUnique(msg="Role not unique, name=" + entity.name, id=global_ids.ROLE_SEARCH_FAILED)        
+        member_dns = ldaphelper.get_list(response[0][ATTRIBUTES][MEMBER])
+        constraint = Constraint(ldaphelper.get_attr_val(response[0][ATTRIBUTES][global_ids.CONSTRAINT]))        
+        mList = __convert_list(member_dns)
+    finally:
+        if conn:        
+            ldaphelper.close(conn)
+    return [mList, constraint]
+
+
 def __validate(entity, op):
     if not entity.name:
         __raise_exception(op, ROLE_NAME, global_ids.ROLE_NM_NULL)
@@ -223,14 +253,14 @@ def __convert_list(list_dns):
         list_uids.append(__get_user_id(member_dn))
     return list_uids
 
+
 def __get_user_id(user_dn):
     uid = None    
     values = user_dn.split(',')        
     values = [ val.strip() for val in values ]
     if values[0] is not None:
         uid=values[0]
-    return uid[4:]
-    
+    return uid[4:]    
     
 
 ROLE_OC_NAME = 'ftRls'

@@ -273,8 +273,6 @@ def revoke ( entity, role ):
                                 +  entity.obj_name 
                                 + ', op_name=' 
                                 + entity.op_name 
-                                + ', op id=' 
-                                + entity.obj_id 
                                 + ', role='
                                 + role.name, 
                                 id=global_ids.PERM_ROLE_NOT_EXIST)            
@@ -352,7 +350,9 @@ def delete_obj ( entity ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='PermObj delete not found:' + entity.obj_name, id=global_ids.PERM_OBJ_NOT_FOUND)                    
+            raise NotFound(msg='PermObj delete not found:' + entity.obj_name, id=global_ids.PERM_OBJ_NOT_FOUND)
+        elif result == global_ids.NOT_ALLOWED_ON_NONLEAF:
+            raise FortressError(msg='PermObj has children.', id=global_ids.PERM_OBJECT_DELETE_FAILED_NONLEAF)                                
         elif result != 0:
             raise FortressError(msg='PermObj delete failed result=' + str(result), id=global_ids.PERM_DELETE_FAILED)                    
     return entity

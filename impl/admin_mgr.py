@@ -7,7 +7,9 @@ Created on Mar 18, 2018
 
 from ldap import permdao, userdao, roledao
 from impl import utils
-
+from util import global_ids
+from util.fortress_error import FortressError
+from model import Perm, User, Role
 
 def add_user(user):
     """
@@ -102,6 +104,14 @@ def delete_user(user):
     user.uid - maps to INetOrgPerson uid     
     """    
     utils.validate_user(user)
+    # first remove user's role memberships:
+    out_user = userdao.read(user)
+    for role in out_user.roles:
+        try:
+            roledao.remove_member(Role(name=role), user.uid)
+        except FortressError as e:
+            if e.id != global_ids.URLE_ASSIGN_NOT_EXIST:
+                raise FortressError(msg=e.msg, id=e.id)
     return userdao.delete(user)
 
             
@@ -161,6 +171,14 @@ def delete_role(role):
     role.name - maps to INetOrgPerson uid     
     """    
     utils.validate_role(role)
+    # if role has members, deassign all.
+    members, constraint = roledao.get_members_constraint (role)
+    for member in members:
+        try:
+            userdao.deassign(User(uid=member), constraint)
+        except FortressError as e:
+            if e.id != global_ids.URLE_ASSIGN_NOT_EXIST:
+                raise FortressError(msg=e.msg, id=e.id)
     return roledao.delete(role)
 
                         
@@ -262,7 +280,17 @@ def delete_object(perm_obj):
     perm.obj_name - maps to existing perm object.        
     """    
     utils.validate_perm_obj(perm_obj)
-    return permdao.delete_obj(perm_obj)
+    try:
+        permdao.delete_obj(perm_obj)
+    except FortressError as e:
+        if e.id == global_ids.PERM_OBJECT_DELETE_FAILED_NONLEAF:
+            pList = permdao.search(Perm(obj_name=perm_obj.obj_name, op_name='*'))
+            for perm in pList:
+                permdao.delete(perm)
+            permdao.delete_obj(perm_obj)
+        else:
+            raise FortressError(msg=e.msg, id=e.id)
+    return
 
 
 def assign(user, role):
@@ -302,7 +330,12 @@ def deassign(user, role):
     utils.validate_role(role)
     entity = roledao.read(role)
     userdao.deassign(user, entity.constraint)
-    roledao.remove_member(entity, user.uid)
+    try:
+        roledao.remove_member(entity, user.uid)
+    except FortressError as e:
+        if e.id != global_ids.URLE_ASSIGN_NOT_EXIST:
+            raise FortressError(msg=e.msg, id=e.id)
+    
 
 
 def grant(perm, role):

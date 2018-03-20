@@ -35,7 +35,7 @@ class TestReivewMgr(unittest.TestCase):
                 for user in uList:                       
                     print_ln("Assigned user=" + user, 1)
         except Exception as e:
-            self.fail('test_assigned_users failed, exception=' + str(e))
+            self.fail('test_assigned_users failed, exception=' + e.msg)
 
 
     def test_assigned_roles(self):
@@ -52,7 +52,7 @@ class TestReivewMgr(unittest.TestCase):
                 for role in rList:                       
                     print_entity(role, "Assigned role", 1)
         except Exception as e:
-            self.fail('test_assigned_roles failed, exception=' + str(e))
+            self.fail('test_assigned_roles failed, exception=' + e.msg)
 
 
     def test_perm_roles(self):
@@ -69,7 +69,7 @@ class TestReivewMgr(unittest.TestCase):
                 for role in rList:
                     print_ln("Assigned role=" + role, 1)
         except Exception as e:
-            self.fail('test_perm_roles failed, exception=' + str(e))
+            self.fail('test_perm_roles failed, exception=' + e.msg)
 
 
     def test_role_perms(self):
@@ -86,7 +86,7 @@ class TestReivewMgr(unittest.TestCase):
                 for perm in pList:
                     print_ln("Assigned perm obj name=" + perm.obj_name + ', op name=' + perm.op_name + ', obj id=' + perm.obj_id, 1)
         except Exception as e:
-            self.fail('test_role_perms failed, exception=' + str(e))
+            self.fail('test_role_perms failed, exception=' + e.msg)
 
 
     def test_user_perms(self):
@@ -103,7 +103,7 @@ class TestReivewMgr(unittest.TestCase):
                 for perm in pList:                       
                     print_ln("Assigned perm obj name=" + perm.obj_name + ', op name=' + perm.op_name + ', obj id=' + perm.obj_id, 1)                    
         except Exception as e:
-            self.fail('test_user_perms failed, exception=' + str(e))
+            self.fail('test_user_perms failed, exception=' + e.msg)
 
 
     def test_perm_users(self):
@@ -120,7 +120,7 @@ class TestReivewMgr(unittest.TestCase):
                 for user in uList:
                     print_ln("Assigned user=" + user.uid, 1)
         except Exception as e:
-            self.fail('test_perm_users failed, exception=' + str(e))
+            self.fail('test_perm_users failed, exception=' + e.msg)
 
 
 def suite():
