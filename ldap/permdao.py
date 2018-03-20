@@ -150,7 +150,8 @@ def create ( entity ):
     try:
         attrs = {}
         attrs.update( {OBJ_NM : entity.obj_name} )
-        attrs.update( {OP_NM : entity.op_name} )        
+        attrs.update( {OP_NM : entity.op_name} )
+        entity.abstract_name = entity.obj_name + '.' + entity.op_name        
         attrs.update( {global_ids.CN : entity.abstract_name} )
                 
         # generate random id:
@@ -178,7 +179,7 @@ def create ( entity ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='Perm create failed, already exists:' + entity.name, id=global_ids.PERM_ADD_FAILED)             
+            raise NotUnique(msg='Perm create failed, already exists:' + entity.obj_name, id=global_ids.PERM_ADD_FAILED)             
         elif result != 0:
             raise FortressError(msg='Perm create failed result=' + str(result), id=global_ids.PERM_ADD_FAILED)                    
     return entity
@@ -207,7 +208,7 @@ def update ( entity ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='Perm update failed, not found:' + entity.name, id=global_ids.PERM_UPDATE_FAILED)             
+            raise NotFound(msg='Perm update failed, not found:' + entity.obj_name, id=global_ids.PERM_OP_NOT_FOUND)             
         elif result != 0:
             raise FortressError(msg='Perm update failed result=' + str(result), id=global_ids.PERM_UPDATE_FAILED)                    
     return entity
@@ -223,7 +224,7 @@ def delete ( entity ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='Perm delete not found:' + entity.name, id=global_ids.PERM_DELETE_FAILED)                    
+            raise NotFound(msg='Perm delete not found:' + entity.obj_name, id=global_ids.PERM_OP_NOT_FOUND)                    
         elif result != 0:
             raise FortressError(msg='Perm delete failed result=' + str(result), id=global_ids.PERM_DELETE_FAILED)                    
     return entity
@@ -290,8 +291,10 @@ def create_obj ( entity ):
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
         attrs.update( {global_ids.INTERNAL_ID : entity.internal_id} )
-        if entity.ou:                
-            attrs.update( {global_ids.OU : entity.ou} )
+        # ou is req'd for organizationalUnit object class, if caller did not set, use obj name.
+        if not entity.ou:
+            entity.ou = entity.obj_name
+        attrs.update( {global_ids.OU : entity.ou} )
         if entity.description:        
             attrs.update( {global_ids.DESC : entity.description} )
         if entity.type:        
@@ -306,7 +309,7 @@ def create_obj ( entity ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='PermObj create failed, already exists:' + entity.name, id=global_ids.PERM_DUPLICATE)             
+            raise NotUnique(msg='PermObj create failed, already exists:' + entity.obj_name, id=global_ids.PERM_DUPLICATE)             
         elif result != 0:
             raise FortressError(msg='PermObj create failed result=' + str(result), id=global_ids.PERM_ADD_FAILED)                    
     return entity
@@ -333,7 +336,7 @@ def update_obj ( entity ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='PermObj update failed, not found:' + entity.name, id=global_ids.PERM_OBJ_NOT_FOUND)             
+            raise NotFound(msg='PermObj update failed, not found:' + entity.obj_name, id=global_ids.PERM_OBJ_NOT_FOUND)             
         elif result != 0:
             raise FortressError(msg='PermObj update failed result=' + str(result), id=global_ids.PERM_UPDATE_FAILED)                    
     return entity
@@ -349,7 +352,7 @@ def delete_obj ( entity ):
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='PermObj delete not found:' + entity.name, id=global_ids.PERM_OBJ_NOT_FOUND)                    
+            raise NotFound(msg='PermObj delete not found:' + entity.obj_name, id=global_ids.PERM_OBJ_NOT_FOUND)                    
         elif result != 0:
             raise FortressError(msg='PermObj delete failed result=' + str(result), id=global_ids.PERM_DELETE_FAILED)                    
     return entity
