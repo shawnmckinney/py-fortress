@@ -336,9 +336,9 @@ def assign(user, role):
     utils.validate_user(user)
     utils.validate_role(role)
     entity = roledao.read(role)
-    # LDAP doesn't do well with sub-string indexes which is why role assignments are stored across two attributes on the user.
-    # role - contains name only and will be indexed.
-    # role constraint contains name and delimited set of strings containing temporal values. 
+    # LDAP doesn't do well with sub-string indexes which is why the role assignments is stored using two multi-occurring attributes, 'roles' and 'role_constraints'.
+    # the first is set of role names (only), and will be indexed for fast search.
+    # the second is a set of delimited strings containing the role name (again) plus its associated temporal values. 
     userdao.assign(user, entity.constraint)
     
     # Fortress user-role assignments also keep member association on the role itself. 
@@ -376,7 +376,7 @@ def deassign(user, role):
                 else:
                     logger.warn('admin_mgr.deassign remove member failed because not occupant. user:' + user.uid + ', role:' + role.name)
     if not found:
-        raise FortressError(msg='Role deassign failed constraint now found', id=global_ids.URLE_DEASSIGN_FAILED)
+        raise FortressError(msg='Role deassign failed constraint not found', id=global_ids.URLE_DEASSIGN_FAILED)
         
             
 def grant(perm, role):
