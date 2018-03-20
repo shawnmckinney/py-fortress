@@ -8,7 +8,8 @@
  * SECTION 2. Prerequisites
  * SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
  * SECTION 4. Integration Test
- * SECTION 5. Docker Commands
+ * SECTION 5. Simple Test Samples 
+ * SECTION 6. Docker Commands
 ___________________________________________________________________________________
 ## Document Overview
 
@@ -153,8 +154,19 @@ ________________________________________________________________________________
     ```
     python3 test/test_review_mgr.py 
     ```
+__________________________________________________________________________________
+## SECTION 5. Simple Test Samples
+
+The [test_samples](test/test_samples.py) module has simple tests.  
+ 
+1. Run the samples:
+    ```
+    python3 test/test_samples.py 
+    ```
+
+2. View the samples to learn how the APIs work.
 ____________________________________________________________________________________
-## SECTION 5. Docker Commands
+## SECTION 6. Docker Commands
 
 Here are some common commands needed to manage the Docker image.
 
