@@ -92,20 +92,6 @@ ________________________________________________________________________________
 
     * make note of the port, it's needed later
     * depending on your docker setup may need to run as root or sudo priv's.
-
-3. Prepare directory server to use py-fortress by initializing the directory information tree:
-
-    a. apacheds
-    ```
-    ldapmodify -h localhost -p $CONTAINER_PORT -D uid=admin,ou=system -w secret -a -f test/py-fortress-dit.ldif 
-    ```
-
-    b. slapd
-    ```
-    ldapmodify -h localhost -p $CONTAINER_PORT -D cn=Manager,dc=example,dc=com -w secret -a -f test/py-fortress-dit.ldif 
-    ```
- 
-    * use the port *-p* from earlier
 __________________________________________________________________________________
 ## SECTION 4. Integration Tests
 
@@ -145,19 +131,30 @@ ________________________________________________________________________________
     cd test
     ```
 
-5. Run the admin mgr tests:
+5. This program prepare the Directory Information Tree (DIT) by creating four nodes for policy storage:
+    * Suffix (dc=example,dc=com)
+    * People (ou=People,dc=example,dc=com)
+    * Roles (ou=Roles,...)
+    * Permissions (ou=Perms,...):
+    ```
+    python3 test_dit_dao.py 
+    ```
+    
+    *The suffix and container distinguished names (dn) parameters are required here:* **[py-fortress-cfg](test/py-fortress-cfg.json)** 
+    
+6. Run the admin mgr tests:
 
     ```
     python3 test_admin_mgr.py 
     ```
 
-6. Run the access mgr tests:
+7. Run the access mgr tests:
 
     ```
     python3 test_access_mgr.py 
     ```
  
-7. Run the review mgr tests:
+8. Run the review mgr tests:
 
     ```
     python3 test_review_mgr.py 

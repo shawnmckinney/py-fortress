@@ -3,24 +3,10 @@
     "level": "INFO",
     "file_name": "fortress"
   },
-  "ldap-ads": {
-    "host": "localhost",
-    "port": 32771,
-    "timeout": 1,
-    "pool_name": "fort-conns", 
-    "pool_size": 5, 
-    "pool_lifetime": 600, 
-    "pool_keepalive": 30, 
-    "debug": false,
-    "use_ssl": false,
-    "ldap3_log_level": "ERROR",
-    "method": "simple",
-    "dn": "uid=admin,ou=system",
-    "password": "secret"                
-  },
+
   "ldap": {
     "host": "localhost",
-    "port": 32772,
+    "port": 32768,
     "timeout": 1,
     "pool_name": "fort-conns",
     "pool_size": 5,
@@ -36,9 +22,8 @@
   "dit": {
     "suffix": "dc=example,dc=com",
     "users": "ou=People,dc=example,dc=com",
-    "roles": "ou=Roles, ou=RBAC, dc=example,dc=com",
-    "perms": "ou=Permissions, ou=RBAC, dc=example,dc=com",
-    "constraints": "ou=RBAC, dc=example,dc=com"
+    "roles": "ou=Roles,dc=example,dc=com",
+    "perms": "ou=Perms,dc=example,dc=com"
   },
   "schema": {
     "raw_delimiter": "$"
