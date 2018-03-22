@@ -125,7 +125,6 @@ ________________________________________________________________________________
     ```
     echo $CONTAINER_PORT
     python3 test/edit-config.py
-    
     ```
     
     or just set the port by manally.
