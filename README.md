@@ -52,13 +52,14 @@ ________________________________________________________________________________
 ## SECTION 2. Prerequisites
 
 Minimum hardware requirements:
- * 2 Cores
- * 4GB RAM
+ * 1 Core
+ * 1 GB RAM
 
 Minimum software requirements:
  * Linux machine
- * docker-engine installed
- * Python3 installed
+ * git
+ * docker engine
+ * Python3 and virtualenv (venv) or system install of the ldap3 python module
 ___________________________________________________________________________________
 ## SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
 
@@ -69,7 +70,7 @@ ________________________________________________________________________________
     docker pull apachedirectory/apacheds-for-apache-fortress-tests
     ```
 
-    b. slapd
+    b. openldap
     ```
     docker pull apachedirectory/openldap-for-apache-fortress-tests
     ```
@@ -83,7 +84,7 @@ ________________________________________________________________________________
     echo $CONTAINER_PORT
     ```
        
-    b. slapd 
+    b. openldap 
     ```
     export CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
     export CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
@@ -95,34 +96,51 @@ ________________________________________________________________________________
 __________________________________________________________________________________
 ## SECTION 4. Integration Tests
 
-1. Prepare py-fortress to use the directory server running inside docker container:
+1. Clone py-fortress
+    ```
+    git clone https://github.com/shawnmckinney/py-fortress.git
+    ```
+
+2. Prepare it to use the directory server running inside docker container:
 
     This uses the `$CONTAINER_PORT` from above to edit the port automatically:
-
     ```
     python3 test/edit-config.py
     ```
 
-2. Update the connection parameters, if needed:
-
+ * This program auto updates the ldap listener port in the config file: [py-fortress-cfg](test/py-fortress-cfg.json)
+ If you get this error:
+ ```
+ File "test/edit-config.py", line 10, in <module>
+   config['ldap']['port'] = int(environ['CONTAINER_PORT'])
+ File "/usr/lib64/python3.6/os.py", line 669, in __getitem__
+   raise KeyError(key) from None
+ KeyError: 'CONTAINER_PORT'
+ ```
+    rerun this command and try again.  
+    ```
+    echo $CONTAINER_PORT
+    ```
+ or just set the port by manally editing config file.
+  
+3. Update the connection parameters:
     ```
     vi test/py-fortress-cfg.json
     ```
 
-    a. apacheds:
+    a. to use apacheds:
     ```
     "dn": "uid=admin,ou=system",
     ```
     
-    b. slapd:
+    b. or openldap:
     ```
     "dn": "cn=Manager,dc=example,dc=com",
     ```
 
-3. Save and exit
+4. Save and exit
 
-4. Prepare your terminal for execution of python3.  From the main dir of the git repo:
-
+5. Prepare your terminal for execution of python3.  From the main dir of the git repo:
     ```
     pyvenv env
     . env/bin/activate
@@ -130,8 +148,8 @@ ________________________________________________________________________________
     export PYTHONPATH=$(pwd)
     cd test
     ```
-
-5. This program prepare the Directory Information Tree (DIT) by creating four nodes for policy storage:
+    
+6. This program prepares the Directory Information Tree (DIT) by creating four nodes for policy storage:
     * Suffix (dc=example,dc=com)
     * People (ou=People,dc=example,dc=com)
     * Roles (ou=Roles,dc=example,dc=com)
@@ -142,17 +160,17 @@ ________________________________________________________________________________
     
     *The suffix and container distinguished names (dn) parameters are required here:* **[py-fortress-cfg](test/py-fortress-cfg.json)** 
     
-6. Run the admin mgr tests:
+7. Run the admin mgr tests:
     ```
     python3 test_admin_mgr.py 
     ```
 
-7. Run the access mgr tests:
+8. Run the access mgr tests:
     ```
     python3 test_access_mgr.py 
     ```
  
-8. Run the review mgr tests:
+9. Run the review mgr tests:
     ```
     python3 test_review_mgr.py 
     ```
@@ -195,7 +213,7 @@ Here are some common commands needed to manage the Docker image.
  echo $CONTAINER_PORT
  ```
  
- b. slapd
+ b. openldap
  ```
  CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
  CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
