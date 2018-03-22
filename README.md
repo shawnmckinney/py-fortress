@@ -124,11 +124,13 @@ ________________________________________________________________________________
      
     ```
     echo $CONTAINER_PORT
+    python3 test/edit-config.py
+    
     ```
     
-    or just set the port by manally editing config file.
+    or just set the port by manally.
   
-3. Edit congig file:
+3. Now edit config file:
     ```
     vi test/py-fortress-cfg.json
     ```
