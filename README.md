@@ -78,15 +78,15 @@ ________________________________________________________________________________
 
     a. apacheds
     ```
-    CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
-    CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
+    export CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
+    export CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
     echo $CONTAINER_PORT
     ```
        
     b. slapd 
     ```
-    CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
-    CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
+    export CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
+    export CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
     echo $CONTAINER_PORT
     ```
 
@@ -97,12 +97,12 @@ ________________________________________________________________________________
 
     a. apacheds
     ```
-    ldapmodify -h localhost -p 32770 -D uid=admin,ou=system -w secret -a -f test/py-fortress-dit.ldif 
+    ldapmodify -h localhost -p $CONTAINER_PORT -D uid=admin,ou=system -w secret -a -f test/py-fortress-dit.ldif 
     ```
 
     b. slapd
     ```
-    ldapmodify -h localhost -p 32770 -D cn=Manager,dc=example,dc=com -w secret -a -f test/py-fortress-dit.ldif 
+    ldapmodify -h localhost -p $CONTAINER_PORT -D cn=Manager,dc=example,dc=com -w secret -a -f test/py-fortress-dit.ldif 
     ```
  
     * use the port *-p* from earlier
@@ -111,48 +111,56 @@ ________________________________________________________________________________
 
 1. Prepare py-fortress to use the directory server running inside docker container:
 
+    This uses the `$CONTAINER_PORT` from above to edit the port automatically:
+
+    ```
+    python3 test/edit-config.py
+    ```
+
+2. Update the connection parameters, if needed:
+
     ```
     vi test/py-fortress-cfg.json
     ```
 
-2. Update the connection parameters:
-
     a. apacheds:
     ```
-    "port": 32770,
     "dn": "uid=admin,ou=system",
-    "password": "secret"                
     ```
- 
+    
     b. slapd:
     ```
-    "port": 32770,
     "dn": "cn=Manager,dc=example,dc=com",
-    "password": "secret"                
     ```
-  
-    * Use the port from earlier
- 
+
 3. Save and exit
 
-4. Prepare your terminal for execution of python3.
+4. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+
+    ```
+    pyvenv env
+    . env/bin/activate
+    pip3 install ldap3
+    export PYTHONPATH=$(pwd)
+    cd test
+    ```
 
 5. Run the admin mgr tests:
 
     ```
-    python3 test/test_admin_mgr.py 
+    python3 test_admin_mgr.py 
     ```
 
 6. Run the access mgr tests:
 
     ```
-    python3 test/test_access_mgr.py 
+    python3 test_access_mgr.py 
     ```
  
 7. Run the review mgr tests:
 
     ```
-    python3 test/test_review_mgr.py 
+    python3 test_review_mgr.py 
     ```
 __________________________________________________________________________________
 ## SECTION 5. Simple Test Samples
@@ -161,7 +169,7 @@ The [test_samples](test/test_samples.py) module has simple tests.
  
 1. Run the samples:
     ```
-    python3 test/test_samples.py 
+    python3 test_samples.py 
     ```
 
 2. View the samples to learn how the APIs work.
