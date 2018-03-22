@@ -134,8 +134,8 @@ ________________________________________________________________________________
 5. This program prepare the Directory Information Tree (DIT) by creating four nodes for policy storage:
     * Suffix (dc=example,dc=com)
     * People (ou=People,dc=example,dc=com)
-    * Roles (ou=Roles,...)
-    * Permissions (ou=Perms,...):
+    * Roles (ou=Roles,dc=example,dc=com)
+    * Permissions (ou=Perms,dc=example,dc=com)
     ```
     python3 test_dit_dao.py 
     ```
@@ -143,19 +143,16 @@ ________________________________________________________________________________
     *The suffix and container distinguished names (dn) parameters are required here:* **[py-fortress-cfg](test/py-fortress-cfg.json)** 
     
 6. Run the admin mgr tests:
-
     ```
     python3 test_admin_mgr.py 
     ```
 
 7. Run the access mgr tests:
-
     ```
     python3 test_access_mgr.py 
     ```
  
 8. Run the review mgr tests:
-
     ```
     python3 test_review_mgr.py 
     ```
