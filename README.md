@@ -108,20 +108,25 @@ ________________________________________________________________________________
     python3 test/edit-config.py
     ```
 
- * Above program auto updates the ldap listener port in the config file: [py-fortress-cfg](test/py-fortress-cfg.json)
- If you get this error:
- ```
- File "test/edit-config.py", line 10, in <module>
-   config['ldap']['port'] = int(environ['CONTAINER_PORT'])
- File "/usr/lib64/python3.6/os.py", line 669, in __getitem__
-   raise KeyError(key) from None
- KeyError: 'CONTAINER_PORT'
- ```
-    rerun this command and try again.  
+    * Above program auto updates the ldap listener port in the config file: [py-fortress-cfg](test/py-fortress-cfg.json)
+    
+    If you get this error:
+    
+    ```
+    File "test/edit-config.py", line 10, in <module>
+    config['ldap']['port'] = int(environ['CONTAINER_PORT'])
+    File "/usr/lib64/python3.6/os.py", line 669, in __getitem__
+    raise KeyError(key) from None
+    KeyError: 'CONTAINER_PORT'
+    ```
+    
+    rerun this command and try again. 
+     
     ```
     echo $CONTAINER_PORT
     ```
- or just set the port by manally editing config file.
+    
+    or just set the port by manally editing config file.
   
 3. Edit congig file:
     ```
