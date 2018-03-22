@@ -212,12 +212,18 @@ def __validate_role_constraints(user):
                 logger.debug('validate_role_constraints deactivate user-role:' + user.uid + '.' + role_constraint.name)
                 __deactivate_role(user, role_constraint)                
 
+def __is_constraint(constraint):
+    is_valid = True
+    if constraint.raw is not None and not constraint.raw:
+        is_valid = False
+    return is_valid
 
 def __validate_constraint(constraint):
     result = SUCCESS
-    for validator in validators:
-        result = validator.validate(constraint, CurrentDateTime())
-        if result is not SUCCESS:
-            logger.debug(validator.__class__.__name__ + ' validation failed:' + constraint.name )
-            break
+    if __is_constraint(constraint):
+        for validator in validators:
+            result = validator.validate(constraint, CurrentDateTime())
+            if result is not SUCCESS:
+                logger.debug(validator.__class__.__name__ + ' validation failed:' + constraint.name )
+                break
     return result
