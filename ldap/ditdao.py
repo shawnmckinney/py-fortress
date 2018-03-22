@@ -5,9 +5,7 @@ Created on Mar 21, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from model import Role, Constraint
 from ldap import ldaphelper, NotFound, NotUnique
-from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
 from util import Config, global_ids
 from util.fortress_error import FortressError
 
@@ -82,6 +80,7 @@ def delete_suffix ():
 def __get_dn(name):
     return OU_NAME + '=' + name + ',' + __SUFX_DN
     
+    
 def __validate(name):
     if not name:
         raise FortressError(msg='OU name null', id=global_ids.CNTR_NAME_NULL)
@@ -98,7 +97,3 @@ O = 'o'
 OU_OC_NAME = 'organizationalUnit'
 OU_OCS = [OU_OC_NAME]
 OU_NAME = 'ou'
-
-
-search_base = Config.get('dit')['roles']
-ATTRIBUTES = 'attributes'
