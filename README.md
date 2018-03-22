@@ -63,7 +63,7 @@ Minimum software requirements:
 ___________________________________________________________________________________
 ## SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
 
-1. Pull the docker image:
+1. Pull the docker image (pick one):
 
     a. apacheds
     ```
@@ -75,7 +75,7 @@ ________________________________________________________________________________
     docker pull apachedirectory/openldap-for-apache-fortress-tests
     ```
 
-2. Run the docker container:
+2. Run the docker container (pick one):
 
     a. apacheds
     ```
@@ -101,14 +101,14 @@ ________________________________________________________________________________
     git clone https://github.com/shawnmckinney/py-fortress.git
     ```
 
-2. Prepare it to use the directory server running inside docker container:
+2. Prepare it to use the directory server running inside docker container
 
     This uses the `$CONTAINER_PORT` from above to edit the port automatically:
     ```
     python3 test/edit-config.py
     ```
 
- * This program auto updates the ldap listener port in the config file: [py-fortress-cfg](test/py-fortress-cfg.json)
+ * Above program auto updates the ldap listener port in the config file: [py-fortress-cfg](test/py-fortress-cfg.json)
  If you get this error:
  ```
  File "test/edit-config.py", line 10, in <module>
@@ -123,24 +123,25 @@ ________________________________________________________________________________
     ```
  or just set the port by manally editing config file.
   
-3. Update the connection parameters:
+3. Edit congig file:
     ```
     vi test/py-fortress-cfg.json
     ```
 
-    a. to use apacheds:
+4. Update the connection parameters (pick one):
+    a. apacheds:
     ```
     "dn": "uid=admin,ou=system",
     ```
     
-    b. or openldap:
+    b. openldap:
     ```
     "dn": "cn=Manager,dc=example,dc=com",
     ```
 
-4. Save and exit
+5. Save and exit
 
-5. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+6. Prepare your terminal for execution of python3.  From the main dir of the git repo:
     ```
     pyvenv env
     . env/bin/activate
@@ -149,7 +150,7 @@ ________________________________________________________________________________
     cd test
     ```
     
-6. This program prepares the Directory Information Tree (DIT) by creating four nodes for policy storage:
+7. This program prepares the Directory Information Tree (DIT) by creating four nodes for policy storage:
     * Suffix (dc=example,dc=com)
     * People (ou=People,dc=example,dc=com)
     * Roles (ou=Roles,dc=example,dc=com)
@@ -160,17 +161,17 @@ ________________________________________________________________________________
     
     *The suffix and container distinguished names (dn) parameters are required here:* **[py-fortress-cfg](test/py-fortress-cfg.json)** 
     
-7. Run the admin mgr tests:
+8. Run the admin mgr tests:
     ```
     python3 test_admin_mgr.py 
     ```
 
-8. Run the access mgr tests:
+9. Run the access mgr tests:
     ```
     python3 test_access_mgr.py 
     ```
  
-9. Run the review mgr tests:
+10. Run the review mgr tests:
     ```
     python3 test_review_mgr.py 
     ```
