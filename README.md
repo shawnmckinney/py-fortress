@@ -135,6 +135,7 @@ ________________________________________________________________________________
     ```
 
 4. Update the connection parameters (pick one):
+
     a. apacheds:
     ```
     "dn": "uid=admin,ou=system",
