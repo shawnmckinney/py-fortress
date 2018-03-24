@@ -12,7 +12,7 @@ The py-fortress CLI drives the [admin_mgr](impl/admin_mgr.py) APIs.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
- * Have a working py-fortress env setup by following instructions here: [README](./READEME.md)
+ * Have a working py-fortress env setup by following instructions here: [README](./README.md)
 ___________________________________________________________________________________
 ## SECTION 3. Run it
 
@@ -26,13 +26,14 @@ ________________________________________________________________________________
     ```
     python3 cli.py entity operation --[entity attribute set] 
     ```
-    - where entity is (pick one):
+    
+    where entity is (pick one):
     * user
     * role
     * object
     * perm
     
-    - operation is (pick one):
+    and the operation is (pick one):
     * add
     * mod
     * del
@@ -41,13 +42,13 @@ ________________________________________________________________________________
     * grant
     * revoke
     
-    - attributes contained within:
+    The args are '--' + names contained within the py-fortress entities:
     * [user](model/user.py)
     * [role](model/role.py)
     * [object](model/object.py)
     * [perm](model/pern.py)
     
-    These commands follow same rules as the [admin_mgr](impl/admin_mgr.py) APIs.  To understand usage including required arguments view its inline code doc.
+    These commands follow exact same rules as the [admin_mgr](impl/admin_mgr.py) APIs.  To understand usage, including required arguments, view its inline code doc.
     
 3. Examples
 
