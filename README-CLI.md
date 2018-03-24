@@ -48,22 +48,23 @@ ________________________________________________________________________________
     * [object](model/object.py)
     * [perm](model/pern.py)
     
-    These commands follow exact same rules as the [admin_mgr](impl/admin_mgr.py) APIs.  To understand usage, including required arguments, view its inline code doc.
+    * These commands follow exact same rules as the [admin_mgr](impl/admin_mgr.py) APIs.  To understand usage, including required arguments, view its inline code doc.
+    * The output will echo the arguments and output the result.
     
 3. Examples
 
     a. user add
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user add --uid 'py-user1' --password 'secret' --description 'added with py-fortress cli'
-    uid=py-user1
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user add --uid 'chorowitz' --password 'secret' --description 'added with py-fortress cli'
+    uid=chorowitz
     description=added with py-fortress cli
     process_user,add
     success
     ````
     b. user mod
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user mod --uid 'py-user1' --l 'my location' --ou 'my-ou' --department_number 123
-    uid=py-user1
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user mod --uid 'chorowitz' --l 'my location' --ou 'my-ou' --department_number 123
+    uid=chorowitz
     department_number=123
     l=my location
     ou=my-ou
@@ -72,31 +73,31 @@ ________________________________________________________________________________
     ````
     c. user del
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user del --uid 'py-user1'
-    uid=py-user1
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user del --uid 'chorowitz'
+    uid=chorowitz
     process_user,delete
     success    
     ````
     d. user assign
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user assign --uid 'cli-user1' --role 'account-mgr'
-    uid=cli-user1
-    role name=cli1
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user assign --uid 'chorowitz' --role 'account-mgr'
+    uid=chorowitz
+    role name=account-mgr
     process_user,assign
     success
     ````
     e. user deassign
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user deassign --uid 'cli-user1' --role 'account-mgr'
-    uid=cli-user1
-    role name=cli1
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user deassign --uid 'chorowitz' --role 'account-mgr'
+    uid=chorowitz
+    role name=account-mgr
     process_user,deassign
     success    
     ````
     f. role add
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role add --name 'account-mgr'
-    name=cli5
+    name=account-mgr
     process_role,add
     success
     ````
@@ -104,14 +105,14 @@ ________________________________________________________________________________
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role mod --name 'account-mgr' --description 'this desc is optional'
     description=cli test role
-    name=cli5
+    name=account-mgr
     process_role,mod
     success    
     ````
     h. role del
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role del --name 'account-mgr'
-    name=cli5
+    name=account-mgr
     process_role,delete
     success    
     ````
