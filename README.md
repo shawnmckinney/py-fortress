@@ -101,34 +101,6 @@ ________________________________________________________________________________
     git clone https://github.com/shawnmckinney/py-fortress.git
     ```
 
-2. Prepare it to use the directory server running inside docker container
-
-    This uses the `$CONTAINER_PORT` from above to edit the port automatically:
-    ```
-    python3 test/edit-config.py
-    ```
-
-    * Above program auto updates the ldap listener port in the config file: [py-fortress-cfg](test/py-fortress-cfg.json)
-    
-    If you get this error:
-    
-    ```
-    File "test/edit-config.py", line 10, in <module>
-    config['ldap']['port'] = int(environ['CONTAINER_PORT'])
-    File "/usr/lib64/python3.6/os.py", line 669, in __getitem__
-    raise KeyError(key) from None
-    KeyError: 'CONTAINER_PORT'
-    ```
-    
-    rerun this command and try again. 
-     
-    ```
-    echo $CONTAINER_PORT
-    python3 test/edit-config.py
-    ```
-    
-    or just set the port manally in following step.
-  
 2. Now edit config file:
     ```
     vi test/py-fortress-cfg.json
