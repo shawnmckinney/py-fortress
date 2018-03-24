@@ -50,6 +50,7 @@ ________________________________________________________________________________
     
     * These commands follow exact same rules as the [admin_mgr](impl/admin_mgr.py) APIs.  To understand usage, including required arguments, view its inline code doc.
     * The output will echo the arguments and result.
+    * user and perm entities require the *--role** arg for *assign*,*deassign*,*grant*, and *revoke* operations
     
 3. Examples
 
