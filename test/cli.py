@@ -40,6 +40,7 @@ def process(args):
     if result:
         print('success')
                         
+                        
 def load_entity (entity, args):
     for name in entity.__dict__:
         value = args.__dict__[name]

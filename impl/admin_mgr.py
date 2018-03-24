@@ -91,7 +91,7 @@ def update_user(user):
     user.room_number                                     
     """    
     utils.validate_user(user)
-    return userdao.create(user)
+    return userdao.update(user)
 
     
 def delete_user(user):
@@ -166,7 +166,7 @@ def update_role(role):
     role.constraint.dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be activated.
     """    
     utils.validate_role(role)
-    return roledao.create(role)
+    return roledao.update(role)
 
     
 def delete_role(role):
@@ -238,7 +238,7 @@ def update_perm(perm):
     perm.description - any safe text                
     """    
     utils.validate_perm(perm)
-    return permdao.create(perm)
+    return permdao.update(perm)
 
     
 def delete_perm(perm):
@@ -288,7 +288,7 @@ def update_object(perm_obj):
     perm_obj.props * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
     """    
     utils.validate_perm_obj(perm_obj)
-    return permdao.create_obj(perm_obj)
+    return permdao.update_obj(perm_obj)
 
     
 def delete_object(perm_obj):

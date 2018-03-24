@@ -315,6 +315,8 @@ def create_obj ( entity ):
 
 def update_obj ( entity ):
     __validate_obj(entity, 'Update PermObj')
+    conn = None
+    id = 0
     try:
         attrs = {}        
         if entity.ou:        
