@@ -293,7 +293,7 @@ def update_object(perm_obj):
     
 def delete_object(perm_obj):
     """
-    This method will remove permission object to perms container in directory. This method will also remove in associated permission objects that are attached to this object.
+    This method will remove permission object to perms container in directory. This method will also remove in associated permissions that are attached to this object.
     
     required parameters:
     perm.obj_name - maps to existing perm object.        
