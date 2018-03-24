@@ -14,7 +14,7 @@ ________________________________________________________________________________
 ## Document Overview
 
  * Contains instructions to test py-fortress using either an ApacheDS or OpenLDAP Docker image.
- * There are a variety of other ways of preparing an LDAP server for RBAC, but using a docker images is probably the easiest.
+ * There are a variety of other ways of preparing an LDAP server for RBAC, but using a docker image is probably the easiest.
  * For more options, refer to the Apache Fortress project.
 __________________________________________________________________________________
 ## SECTION 1. Introduction
@@ -159,7 +159,7 @@ ________________________________________________________________________________
     python3 test_dit_dao.py 
     ```
     
-    *This uses the values of suffix, user, roles and perm, i.e. their distinguished names (dn), from the config file.* 
+    *This uses the values of suffix, user, roles and perms, i.e. their distinguished names (dn), from the config file.* 
     
 __________________________________________________________________________________
 ## SECTION 5. Integration Tests
@@ -190,7 +190,7 @@ Another set of optional tests, these are simple thus for learning.  The source m
     python3 test_samples.py 
     ```
 
-2. View the samples to learn how the APIs work.
+2. View the samples and learn how the APIs may be used.
 ____________________________________________________________________________________
 ## SECTION 7. Docker Commands
 
