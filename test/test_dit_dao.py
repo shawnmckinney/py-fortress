@@ -89,15 +89,28 @@ class TestDitDao(unittest.TestCase):
             #self.fail(error)
 
 
+    def test_bootstrap(self):
+        """
+        Create the DIT based on the config
+        """
+        print_ln('test_bootstrap')
+        try:
+            ditdao.bootstrap()            
+            print('test_bootstrap success')                                
+        except Exception as e:
+            error = 'test_bootstrap errpr=' + e.msg
+            print(error)
+            #self.fail(error)
+
+
 def suite():
     suite = unittest.TestSuite()
-    
-    # Teardown:
-    suite.addTest(TestDitDao('test_del_containers'))
-    suite.addTest(TestDitDao('test_del_suffix'))
-    suite.addTest(TestDitDao('test_add_suffix'))
-    suite.addTest(TestDitDao('test_add_containers'))              
-      
+    suite.addTest(TestDitDao('test_bootstrap')) 
+       
+#     suite.addTest(TestDitDao('test_del_containers'))
+#     suite.addTest(TestDitDao('test_del_suffix'))
+#     suite.addTest(TestDitDao('test_add_suffix'))
+#     suite.addTest(TestDitDao('test_add_containers'))                    
     return suite  
 
  

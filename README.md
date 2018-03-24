@@ -1,15 +1,15 @@
 # Role-Based Access Control API for Python
-
 -------------------------------------------------------------------------------
 ## Table of Contents
 
  * Document Overview
  * SECTION 1. Introduction 
  * SECTION 2. Prerequisites
- * SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
- * SECTION 4. Integration Test
- * SECTION 5. Simple Test Samples 
- * SECTION 6. Docker Commands
+ * SECTION 3. Start using ApacheDS or OpenLDAP Docker Image
+ * SECTION 4. Setup Python Runtime and Configure py-fortress Usage
+ * SECTION 5. Integration Test
+ * SECTION 6. Simple Test Samples 
+ * SECTION 7. Docker Commands
 ___________________________________________________________________________________
 ## Document Overview
 
@@ -60,8 +60,8 @@ Minimum software requirements:
  * git
  * docker engine
  * Python3 and virtualenv (venv) or system install of the ldap3 python module
-___________________________________________________________________________________
-## SECTION 3. Setup using ApacheDS or OpenLDAP Docker Image
+________________________________________________________________________________
+## SECTION 3. Start using ApacheDS or OpenLDAP Docker Image
 
 1. Pull the docker image (pick one):
 
@@ -93,8 +93,8 @@ ________________________________________________________________________________
 
     * make note of the port, it's needed later
     * depending on your docker setup may need to run as root or sudo priv's.
-__________________________________________________________________________________
-## SECTION 4. Integration Tests
+________________________________________________________________________________
+## SECTION 4. Setup Python Runtime and Configure py-fortress Usage
 
 1. Clone py-fortress
     ```
@@ -129,13 +129,22 @@ ________________________________________________________________________________
     
     or just set the port manally in following step.
   
-3. Now edit config file:
+2. Now edit config file:
     ```
     vi test/py-fortress-cfg.json
     ```
 
+3. Set the LDAP Port
+    ```
+    ...
+    "ldap": {
+      ...
+      "port": 32778,
+    ...
+    ```
+    *use value obtained earler***
+        
 4. Update the connection parameters (pick one):
-
     a. apacheds:
     ```
     "dn": "uid=admin,ou=system",
@@ -146,9 +155,22 @@ ________________________________________________________________________________
     "dn": "cn=Manager,dc=example,dc=com",
     ```
 
-5. Save and exit
+5. Set the structure in DIT:
+    ```
+    ...
+    "dit": {
+       "suffix": "dc=example,dc=com",
+       "users": "ou=People,dc=example,dc=com",
+       "roles": "ou=Roles,dc=example,dc=com",
+       "perms": "ou=Perms,dc=example,dc=com"
+    },
+    ...    
+    ```
+    *if in doubt what these should be use the defaults*
+    
+6. Save and exit
 
-6. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+7. Prepare your terminal for execution of python3.  From the main dir of the git repo:
     ```
     pyvenv env
     . env/bin/activate
@@ -157,33 +179,34 @@ ________________________________________________________________________________
     cd test
     ```
     
-7. This program prepares the Directory Information Tree (DIT) by creating four nodes for policy storage:
-    * Suffix (dc=example,dc=com)
-    * People (ou=People,dc=example,dc=com)
-    * Roles (ou=Roles,dc=example,dc=com)
-    * Permissions (ou=Perms,dc=example,dc=com)
+8. Run the bootstrap pgm that creates the LDAP nodes structure - *DIT*
     ```
     python3 test_dit_dao.py 
     ```
     
-    *The suffix and container distinguished names (dn) parameters are required here:* **[py-fortress-cfg](test/py-fortress-cfg.json)** 
+    *This uses the values of suffix, user,roles and perm, i.e. their distinguished names (dn), from the config file.* 
     
-8. Run the admin mgr tests:
+__________________________________________________________________________________
+## SECTION 5. Integration Tests
+
+These steps are optional and verify everythings working correctly.
+
+1. Run the admin mgr tests:
     ```
     python3 test_admin_mgr.py 
     ```
 
-9. Run the access mgr tests:
+2. Run the access mgr tests:
     ```
     python3 test_access_mgr.py 
     ```
  
-10. Run the review mgr tests:
+3. Run the review mgr tests:
     ```
     python3 test_review_mgr.py 
     ```
 __________________________________________________________________________________
-## SECTION 5. Simple Test Samples
+## SECTION 6. Simple Test Samples
 
 The [test_samples](test/test_samples.py) module has simple tests.  
  
@@ -194,7 +217,7 @@ The [test_samples](test/test_samples.py) module has simple tests.
 
 2. View the samples to learn how the APIs work.
 ____________________________________________________________________________________
-## SECTION 6. Docker Commands
+## SECTION 7. Docker Commands
 
 Here are some common commands needed to manage the Docker image.
 

@@ -9,6 +9,7 @@ from ldap import ldaphelper, NotFound, NotUnique
 from util import Config, global_ids
 from util.fortress_error import FortressError
 
+
 def create_ou (name, desc=None):
     __validate(name) 
     try:
@@ -76,6 +77,17 @@ def delete_suffix ():
             raise FortressError(msg='Suffix delete failed, dn=' + __SUFX_DN + ', result=' + str(result), id=global_ids.SUFX_DELETE_FAILED)
 
 
+def bootstrap ():
+    suffix_nm = __get_rdn_name(__SUFX_DN)
+    create_suffix ( suffix_nm )
+    users_nm = __get_rdn_name(Config.get('dit')['users'])
+    create_ou (users_nm)
+    roles_nm = __get_rdn_name(Config.get('dit')['roles'])
+    create_ou (roles_nm)
+    perms_nm = __get_rdn_name(Config.get('dit')['perms'])
+    create_ou (perms_nm)
+    
+ 
 def __get_dn(name):
     return OU_NAME + '=' + name + ',' + __SUFX_DN
     
@@ -83,7 +95,17 @@ def __get_dn(name):
 def __validate(name):
     if not name:
         raise FortressError(msg='OU name null', id=global_ids.CNTR_NAME_NULL)
+
  
+def __get_rdn_name(dn):
+    name = None
+    values = dn.split(',')        
+    values = [ val.strip() for val in values ]
+    if values[0] is not None:
+        name=values[0]
+    return name[3:]  
+ 
+  
 # suffix:
 __SUFX_DN = Config.get('dit')['suffix']
 DC_OC_NAME = 'dcObject'
