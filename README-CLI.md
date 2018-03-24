@@ -456,8 +456,8 @@ ________________________________________________________________________________
     success
     ````
     
-5. Directory Information Tree (DIT) Examples:
- These operations are special because they control the DIT structure.
+5. Directory Information Tree (DIT) Examples.
+    These operations are special because they control the DIT structure.
  
     a. dit add (suffix)
     ````
@@ -472,6 +472,7 @@ ________________________________________________________________________________
     success
     ````
     *This op is not recursive meaning failure if child nodes lie below.*
+    
     c. dit add (container)
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py dit add --ou people
