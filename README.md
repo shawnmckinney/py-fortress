@@ -152,12 +152,12 @@ ________________________________________________________________________________
     cd test
     ```
     
-8. Run the bootstrap pgm that creates the LDAP nodes structure - *DIT*
+8. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
     ```
     python3 test_dit_dao.py 
     ```
     
-    *This uses the values of suffix, user,roles and perm, i.e. their distinguished names (dn), from the config file.* 
+    *This uses the values of suffix, user, roles and perm, i.e. their distinguished names (dn), from the config file.* 
     
 __________________________________________________________________________________
 ## SECTION 5. Integration Tests
