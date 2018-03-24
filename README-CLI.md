@@ -49,7 +49,7 @@ ________________________________________________________________________________
     * [perm](model/pern.py)
     
     * These commands follow exact same rules as the [admin_mgr](impl/admin_mgr.py) APIs.  To understand usage, including required arguments, view its inline code doc.
-    * The output will echo the arguments and output the result.
+    * The output will echo the arguments and result.
     
 3. Examples
 
