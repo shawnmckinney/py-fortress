@@ -195,9 +195,9 @@ ________________________________________________________________________________
     uid=chorowitz
     user read
     chorowitz
-        pw_policy: 
-        cn: chorowitz
         uid: chorowitz
+        dn: uid=chorowitz,ou=People,dc=example,dc=com  
+        roles: ['account-mgr']              
         ...
     *************** chorowitz *******************
     success
@@ -208,24 +208,28 @@ ________________________________________________________________________________
     uid=c
     user search
     c*:0
-        uid: cli-user1
-        dn: uid=cli-user1,ou=People,dc=example,dc=com
+        uid: canders
+        dn: uid=canders,ou=People,dc=example,dc=com
+        roles: ['csr', 'tester']                
         ...
     *************** c*:0 *******************
     c*:1
-        uid: cli-user2
-        dn: uid=cli-user2,ou=People,dc=example,dc=com
+        uid: cedwards
+        dn: uid=cedwards,ou=People,dc=example,dc=com
+        roles: ['manager', 'trainer']        
         ...
         
     *************** c*:1 *******************
     c*:2
-        uid: cli-user3
-        dn: uid=cli-user3,ou=People,dc=example,dc=com
+        uid: chandler
+        dn: uid=chandler,ou=People,dc=example,dc=com
+        roles: ['auditor']        
         ...
     *************** c*:2 *******************
     c*:3
         uid: chorowitz
         dn: uid=chorowitz,ou=People,dc=example,dc=com
+        roles: ['account-mgr']        
         ...
     *************** c*:3 *******************        
     success                                 
