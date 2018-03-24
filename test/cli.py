@@ -2,6 +2,7 @@
 Created on Mar 23, 2018
 
 @author: smckinn
+@copyright: 2018 - Symas Corporation
 '''
 import argparse
 from argparse import ArgumentError
@@ -120,7 +121,8 @@ def add_attrs (parser, entity):
         try:
             parser.add_argument('--' + name)
         except ArgumentError as e:
-            print('ArgumentError=' + str(e))
+            #ignore
+            pass
 
 
 parser = argparse.ArgumentParser(description='Process py-fortress commands.')
@@ -128,10 +130,8 @@ parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJEC
                     help='entity name')
 parser.add_argument('operation', metavar='operand', choices=[ADD, UPDATE, DELETE, ASSIGN, DEASSIGN, GRANT, REVOKE],
                     help='operation name')
-parser.add_argument('-u', '--uid', dest='uid',
-                    help='userid')
 parser.add_argument('-r', '--role', dest='role',
-                    help='role nm')
+                    help='role name')
 
 add_attrs (parser, Role())
 add_attrs (parser, User())
