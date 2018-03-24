@@ -23,7 +23,8 @@ def print_entity (entity, label, indent=None):
         indent = 1
     print_ln(label, indent-1)    
     for name in entity.__dict__:
-        print_ln ("\t{0}: {1}".format(name,entity.__dict__[name]), indent)
+        if name != 'password':
+            print_ln ("\t{0}: {1}".format(name,entity.__dict__[name]), indent)
 
 def print_user (entity, label):
         print_entity (entity, label, 1)
@@ -33,12 +34,13 @@ def print_user (entity, label):
         if entity.role_constraints is not None:
             for idx, constraint in enumerate(entity.role_constraints) :
                 #print_constraint (constraint, "User-Role Constraint[" + str(idx+1) + "]:")
-                print_entity (constraint, "User-Role Constraint[" + str(idx+1) + "]:", 2)
+                if constraint.name:
+                    print_entity (constraint, "User-Role Constraint[" + str(idx+1) + "]:", 2)
         print_ln("*************** " + label + " *******************")
         
 def print_role (entity, label):
         print_entity (entity, label, 1)
-        if entity.constraint is not None:        
+        if entity.constraint is not None and entity.constraint.name:        
             print_entity (entity.constraint, "Role Constraint:", 2)
         print_ln("*************** " + label + " *******************")
                 

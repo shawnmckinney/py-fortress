@@ -14,6 +14,7 @@ class Role:
             description=None,
             props=None,
             constraint=None,
+            members=None,
             dn=None
             ):
         self.name=name
@@ -22,3 +23,4 @@ class Role:
         self.props=props
         self.constraint=constraint
         self.dn=dn
+        self.members=members

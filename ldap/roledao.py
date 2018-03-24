@@ -54,6 +54,7 @@ def __unload(entry):
     entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.DESC])
     # Get the multi-occurring attrs:
     entity.props = ldaphelper.get_list(entry[ATTRIBUTES][global_ids.PROPS])
+    entity.members = ldaphelper.get_list(entry[ATTRIBUTES][MEMBER])    
     # unload raw constraint:
     entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.CONSTRAINT]))
     return entity
@@ -269,7 +270,7 @@ ROLE_NAME = 'ftRoleName'
 MEMBER = 'roleOccupant'
 
 SEARCH_ATTRS = [
-    global_ids.INTERNAL_ID, ROLE_NAME, global_ids.CONSTRAINT, global_ids.PROPS, global_ids.DESC
+    global_ids.INTERNAL_ID, ROLE_NAME, global_ids.CONSTRAINT, global_ids.PROPS, global_ids.DESC, MEMBER
      ]
 
 search_base = Config.get('dit')['roles']
