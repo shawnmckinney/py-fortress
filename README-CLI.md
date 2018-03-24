@@ -56,6 +56,7 @@ ________________________________________________________________________________
     * user and perm entities require the *--role* arg for *assign*, *deassign*, *grant*, and *revoke* operations
     
 3. AdminMgr Examples [admin_mgr](impl/admin_mgr.py):
+
     a. user add
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user add --uid 'chorowitz' --password 'secret' --description 'added with py-fortress cli'
@@ -187,6 +188,7 @@ ________________________________________________________________________________
     ````
     
 4. ReviewMgr Examples [review_mgr](impl/review_mgr.py):
+
     a. user read 
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user read --uid chorowitz
