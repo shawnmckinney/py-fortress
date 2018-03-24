@@ -111,10 +111,10 @@ ________________________________________________________________________________
     ...
     "ldap": {
       ...
-      "port": 32778,
+      "port": 32768,
     ...
     ```
-    *use value obtained earler***
+    *use value obtained earler*
         
 4. Update the connection parameters (pick one):
     a. apacheds:
