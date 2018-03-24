@@ -13,8 +13,10 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install py-fortress using either ApacheDS or OpenLDAP Docker image.
-___________________________________________________________________________________
+ * Contains instructions to test py-fortress using either an ApacheDS or OpenLDAP Docker image.
+ * There are a variety of other ways of preparing an LDAP server for RBAC, but using a docker images is probably the easiest.
+ * For more options, refer to the Apache Fortress project.
+__________________________________________________________________________________
 ## SECTION 1. Introduction
 
 ### About py-fortress
@@ -162,7 +164,7 @@ ________________________________________________________________________________
 __________________________________________________________________________________
 ## SECTION 5. Integration Tests
 
-These steps are optional and verify everythings working correctly.
+These steps are optional and verify the env is working correctly.
 
 1. Run the admin mgr tests:
     ```
@@ -181,7 +183,7 @@ These steps are optional and verify everythings working correctly.
 __________________________________________________________________________________
 ## SECTION 6. Simple Test Samples
 
-The [test_samples](test/test_samples.py) module has simple tests.  
+Another set of optional tests, these are simple thus for learning.  The source module is [test_samples](test/test_samples.py).  
  
 1. Run the samples:
     ```
