@@ -26,26 +26,31 @@ REVOKE = 'revoke'
 
 
 def process(args):
+    result = False
     if args.entity == USER:
-        process_user(args)
+        result = process_user(args)
     elif args.entity == ROLE:
-        process_role(args)        
+        result = process_role(args)        
     elif args.entity == PERM:
-        process_perm(args)                
+        result = process_perm(args)                
     elif args.entity == OBJECT:
-        process_object(args)
-        
+        result = process_object(args)
+    else:
+        print('process failed, invalid entity=' + args.entity)        
+    if result:
+        print('success')
                         
 def load_entity (entity, args):
     for name in entity.__dict__:
         value = args.__dict__[name]
         if value:
             entity.__dict__[name] = value
+            if name != 'password':
+                print(name + '=' + value)
     return entity
 
     
 def process_user(args):
-    print('process_user')    
     user = load_entity (User(), args)    
     if args.operation == ADD:
         print('process_user,add')
@@ -57,17 +62,21 @@ def process_user(args):
         print('process_user,delete')
         admin_mgr.delete_user(user)        
     elif args.operation == ASSIGN:
+        name = args.role        
+        print('role name=' + name)
         print('process_user,assign')
-        name = args.role
         admin_mgr.assign(user, Role(name=name))                
     elif args.operation == DEASSIGN:
+        name = args.role        
+        print('role name=' + name)        
         print('process_user,deassign')
-        name = args.role
-        admin_mgr.deassign(user, Role(name=name))                
-        
+        admin_mgr.deassign(user, Role(name=name))
+    else:
+        print('process_user failed, invalid operation=' + args.operation)
+        return False
+    return True                                
         
 def process_role(args):
-    print('process_role')    
     role = load_entity (Role(), args)    
     if args.operation == ADD:
         print('process_role,add')
@@ -78,10 +87,13 @@ def process_role(args):
     elif args.operation == DELETE:
         print('process_role,delete')
         admin_mgr.delete_role(role)        
+    else:
+        print('process_role failed, invalid operation=' + args.operation)
+        return False
+    return True                                
        
         
 def process_object(args):
-    print('process_object')
     object = load_entity (PermObj(), args)    
     if args.operation == ADD:
         print('process_object,add')
@@ -92,10 +104,13 @@ def process_object(args):
     elif args.operation == DELETE:
         print('process_object,delete')
         admin_mgr.delete_object(object)        
+    else:
+        print('process_object failed, invalid operation=' + args.operation)
+        return False
+    return True                                
         
         
 def process_perm(args):
-    print('process_perm')
     perm = load_entity (Perm(), args)        
     if args.operation == ADD:
         print('process_perm,add')
@@ -107,16 +122,22 @@ def process_perm(args):
         print('process_perm,delete')
         admin_mgr.delete_perm(perm)        
     elif args.operation == GRANT:
+        name = args.role        
+        print('role name=' + name)
         print('process_perm,grant')
-        name = args.role
         admin_mgr.grant(perm, Role(name=name))                        
     elif args.operation == REVOKE:
+        name = args.role        
         print('process_perm,revoke')
-        name = args.role
+        print('role name=' + name)
         admin_mgr.revoke(perm, Role(name=name))                        
+    else:
+        print('process_perm failed, invalid operation=' + args.operation)
+        return False
+    return True                                
         
         
-def add_attrs (parser, entity):
+def add_args (parser, entity):
     for name in entity.__dict__:
         try:
             parser.add_argument('--' + name)
@@ -133,9 +154,9 @@ parser.add_argument('operation', metavar='operand', choices=[ADD, UPDATE, DELETE
 parser.add_argument('-r', '--role', dest='role',
                     help='role name')
 
-add_attrs (parser, Role())
-add_attrs (parser, User())
-add_attrs (parser, Perm())    
+add_args (parser, Role())
+add_args (parser, User())
+add_args (parser, Perm())    
 args = parser.parse_args()
-print(args)
+#print(args)
 process(args)
