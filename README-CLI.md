@@ -55,7 +55,7 @@ ________________________________________________________________________________
     * The output will echo the arguments and result.
     * user and perm entities require the *--role* arg for *assign*, *deassign*, *grant*, and *revoke* operations
     
-3. AdminMgr Examples [admin_mgr](impl/admin_mgr.py):
+3. [AdminMgr](impl/admin_mgr.py) Examples:
 
     a. user add
     ````
@@ -187,7 +187,7 @@ ________________________________________________________________________________
     success    
     ````
     
-4. ReviewMgr Examples [review_mgr](impl/review_mgr.py):
+4. [ReviewMgr](impl/review_mgr.py) Examples:
 
     a. user read 
     ````
