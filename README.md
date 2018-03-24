@@ -127,7 +127,7 @@ ________________________________________________________________________________
     python3 test/edit-config.py
     ```
     
-    or just set the port by manally.
+    or just set the port manally in following step.
   
 3. Now edit config file:
     ```
