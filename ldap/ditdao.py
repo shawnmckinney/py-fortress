@@ -44,23 +44,22 @@ def delete_ou ( name ):
             raise FortressError(msg='OU delete failed result=' + str(result), id=global_ids.CNTR_DELETE_FAILED)
 
 
-def create_suffix ( name, desc=None ):
+def create_suffix ( name ):
+    dn = DC_NAME + '=' + name + ',' + DC_NAME + '=com'
     try:
         attrs = {}
         attrs.update( {DC_NAME : name} )
-        if not desc:
-            desc = 'py-fortress DIT Suffix'
-        attrs.update( {O : desc} )
+        attrs.update( {O : name} )
         conn = ldaphelper.open()        
-        id = conn.add(__SUFX_DN, SUFX_OCS, attrs)
+        id = conn.add(dn, SUFX_OCS, attrs)
     except Exception as e:
-        raise FortressError(msg='Suffix create dn=' + __SUFX_DN + ', error=' + str(e), id=global_ids.SUFX_CREATE_FAILED)
+        raise FortressError(msg='Suffix create dn=' + dn + ', error=' + str(e), id=global_ids.SUFX_CREATE_FAILED)
     else:
         result = ldaphelper.get_result(conn, id)
         if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='Suffix create failed, already exists:' + __SUFX_DN, id=global_ids.SUFX_ALREADY_EXISTS)             
+            raise NotUnique(msg='Suffix create failed, already exists:' + dn, id=global_ids.SUFX_ALREADY_EXISTS)             
         elif result != 0:
-            raise FortressError(msg='Suffix create dn=' + __SUFX_DN + ', result=' + str(e), id=global_ids.SUFX_CREATE_FAILED)
+            raise FortressError(msg='Suffix create failed, dn=' + dn + ', result=' + str(result), id=global_ids.SUFX_CREATE_FAILED)
 
 
 def delete_suffix ():

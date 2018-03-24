@@ -8,12 +8,15 @@ import argparse
 from argparse import ArgumentError
 from model import PermObj, Perm, User, Role
 from impl import admin_mgr, review_mgr
+from ldap import ditdao
 from test.utils import print_user, print_role, print_ln, print_entity
+from util.fortress_error import FortressError
 # entities =
 USER = 'user'
 ROLE = 'role'
 PERM = 'perm'
 OBJECT = 'object'
+DIT = 'dit'
 #operations =
 ADD = 'add'
 UPDATE = 'mod'
@@ -28,18 +31,23 @@ SEARCH = 'search'
 
 def process(args):
     result = False
-    if args.entity == USER:
-        result = process_user(args)
-    elif args.entity == ROLE:
-        result = process_role(args)        
-    elif args.entity == PERM:
-        result = process_perm(args)                
-    elif args.entity == OBJECT:
-        result = process_object(args)
-    else:
-        print('process failed, invalid entity=' + args.entity)        
-    if result:
-        print('success')
+    try:
+        if args.entity == USER:
+            result = process_user(args)
+        elif args.entity == ROLE:
+            result = process_role(args)        
+        elif args.entity == PERM:
+            result = process_perm(args)                
+        elif args.entity == OBJECT:
+            result = process_object(args)
+        elif args.entity == DIT:
+            result = process_dit(args)
+        else:
+            print('process failed, invalid entity=' + args.entity)        
+        if result:
+            print('success')
+    except FortressError as e:
+        print('FortressError id=' + str(e.id) +', ' + e.msg)
                         
                         
 def load_entity (entity, args):
@@ -52,6 +60,36 @@ def load_entity (entity, args):
     return entity
 
     
+def process_dit(args):
+    name = args.name
+    ou = args.ou
+    desc = args.description
+    msg = DIT
+    if name:
+        msg += ' name=' + name
+    if ou:
+        msg += ' ou=' + ou
+    print(msg)       
+    if args.operation == ADD:
+        if name:
+            ditdao.create_suffix(name)
+        elif ou:
+            ditdao.create_ou(ou, desc)
+        else:
+            print_ln('dit add requires either --name, to add a suffix, or --ou, to add a new container')                                 
+    elif args.operation == DELETE:
+        if name:
+            ditdao.delete_suffix(name)
+        elif ou:
+            ditdao.delete_ou(ou)
+        else:
+            print_ln('dit del requires either --name, to remove suffix  or --ou, to remove a container')                                 
+    else:
+        print('process_dit failed, invalid operation, only add and del allowed')
+        return False
+    return True                                
+        
+        
 def process_user(args):
     user = load_entity (User(), args)
     print(args.entity + ' ' + args.operation)    
@@ -198,7 +236,7 @@ def add_args (parser, entity):
 
 
 parser = argparse.ArgumentParser(description='Process py-fortress commands.')
-parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJECT], help='entity name')
+parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJECT, DIT], help='entity name')
 parser.add_argument('operation', metavar='operand', choices=[ADD, UPDATE, DELETE, ASSIGN, DEASSIGN, GRANT, REVOKE, READ, SEARCH], help='operation name')
 parser.add_argument('-r', '--role', dest='role', help='role name')
 add_args(parser, Role())
