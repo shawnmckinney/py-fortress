@@ -77,50 +77,44 @@ ________________________________________________________________________________
     process_user,delete
     success    
     ````
-
     d. user assign
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user assign --uid 'cli-user1' --role 'cli1'
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user assign --uid 'cli-user1' --role 'account-mgr'
     uid=cli-user1
     role name=cli1
     process_user,assign
     success
     ````
-
     e. user deassign
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user deassign --uid 'cli-user1' --role 'cli1'
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user deassign --uid 'cli-user1' --role 'account-mgr'
     uid=cli-user1
     role name=cli1
     process_user,deassign
     success    
     ````
-    
     f. role add
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role add --name 'cli5'
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role add --name 'account-mgr'
     name=cli5
     process_role,add
     success
     ````
-
     g. role mod
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role mod --name 'cli5' --description 'cli test role'
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role mod --name 'account-mgr' --description 'this desc is optional'
     description=cli test role
     name=cli5
     process_role,mod
     success    
     ````
-
     h. role del
     ````
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli.py role del --name 'cli5'
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role del --name 'account-mgr'
     name=cli5
     process_role,delete
     success    
     ````
-
     i. object add
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py object add --obj_name page456
@@ -128,7 +122,6 @@ ________________________________________________________________________________
     process_object,add
     success
     ````
-
     j. object mod
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py object mod --obj_name page456 --description 'optional arg' --ou 'another optional arg'
@@ -138,7 +131,6 @@ ________________________________________________________________________________
     process_object,update
     success
     ````
-
     k. object del
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py object del --obj_name page789
@@ -146,7 +138,6 @@ ________________________________________________________________________________
     process_object,delete
     success
     ````
-
     l. perm add
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm add --obj_name page456 --op_name read
@@ -155,7 +146,6 @@ ________________________________________________________________________________
     process_perm,add
     success
     ````
-
     m. perm mod
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm mod --obj_name page456 --op_name read --description 'useful for human readable perm name'
@@ -165,7 +155,6 @@ ________________________________________________________________________________
     process_perm,update
     success    
     ````
-
     n. perm del
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm del --obj_name page456 --op_name search
@@ -174,7 +163,6 @@ ________________________________________________________________________________
     process_perm,delete
     success
     ````
-
     o. perm grant
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name update --role account-mgr
@@ -184,7 +172,6 @@ ________________________________________________________________________________
     process_perm,grant
     success
     ````
-
     p. perm revoke
     ````
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm revoke --obj_name page456 --op_name update --role account-mgr
