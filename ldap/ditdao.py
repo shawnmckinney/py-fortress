@@ -18,8 +18,8 @@ def create_ou (name, desc=None):
         if not desc:
             desc = 'py-fortress Container ' + name
         attrs.update( {global_ids.DESC : desc} )
-        conn = ldaphelper.open()        
-        id = conn.add(__get_dn(name), OU_OCS, attrs)
+        conn = ldaphelper.open()  
+        id = conn.add(ldaphelper.get_container_dn(name), OU_OCS, attrs)
     except Exception as e:
         raise FortressError(msg='OU create error=' + str(e), id=global_ids.CNTR_CREATE_FAILED)
     else:
@@ -34,7 +34,7 @@ def delete_ou ( name ):
     __validate(name)   
     try:
         conn = ldaphelper.open()       
-        id = conn.delete(__get_dn(name))
+        id = conn.delete(ldaphelper.get_container_dn(name))
     except Exception as e:
         raise FortressError(msg='OU delete error=' + str(e), id=global_ids.CNTR_DELETE_FAILED)
     else:
@@ -77,7 +77,7 @@ def delete_suffix ():
             raise FortressError(msg='Suffix delete failed, dn=' + __SUFX_DN + ', result=' + str(result), id=global_ids.SUFX_DELETE_FAILED)
 
 
-def bootstrap ():
+def bootstrapx ():
     suffix_nm = __get_rdn_name(__SUFX_DN)
     create_suffix ( suffix_nm )
     users_nm = __get_rdn_name(Config.get('dit')['users'])
@@ -88,10 +88,14 @@ def bootstrap ():
     create_ou (perms_nm)
     
  
-def __get_dn(name):
-    return OU_NAME + '=' + name + ',' + __SUFX_DN
-    
-    
+def bootstrap ():
+    suffix_nm = __get_rdn_name(__SUFX_DN)
+    create_suffix ( suffix_nm )
+    create_ou ('users')
+    create_ou ('roles')
+    create_ou ('perms')    
+ 
+  
 def __validate(name):
     if not name:
         raise FortressError(msg='OU name null', id=global_ids.CNTR_NAME_NULL)

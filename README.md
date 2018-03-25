@@ -134,10 +134,10 @@ ________________________________________________________________________________
     ```
     ...
     "dit": {
-       "suffix": "dc=example,dc=com",
-       "users": "ou=People,dc=example,dc=com",
-       "roles": "ou=Roles,dc=example,dc=com",
-       "perms": "ou=Perms,dc=example,dc=com"
+        "suffix": "dc=example,dc=com",
+        "users": "People",
+        "roles": "Roles",
+        "perms": "Perms"
     },
     ...    
     ```

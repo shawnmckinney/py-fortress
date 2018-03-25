@@ -31,7 +31,7 @@ def search (entity):
     search_filter += '(' + ROLE_NAME + '=' + entity.name + '))'
     try:
         conn = ldaphelper.open()
-        id = conn.search(search_base, search_filter, attributes=SEARCH_ATTRS)
+        id = conn.search(__CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
@@ -185,7 +185,7 @@ def get_members (entity):
     search_filter += '(' + ROLE_NAME + '=' + entity.name + '))'
     try:
         conn = ldaphelper.open()
-        id = conn.search(search_base, search_filter, attributes=[MEMBER])
+        id = conn.search(__CONTAINER_DN, search_filter, attributes=[MEMBER])
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)
     except Exception as e:
@@ -211,7 +211,7 @@ def get_members_constraint (entity):
     search_filter += '(' + ROLE_NAME + '=' + entity.name + '))'
     try:
         conn = ldaphelper.open()
-        id = conn.search(search_base, search_filter, attributes=[MEMBER, global_ids.CONSTRAINT])
+        id = conn.search(__CONTAINER_DN, search_filter, attributes=[MEMBER, global_ids.CONSTRAINT])
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)
     except Exception as e:
@@ -240,12 +240,12 @@ def __raise_exception(operation, field, id):
 
 
 def __get_dn(entity):
-    return global_ids.CN + '=' + entity.name + "," + search_base
+    return global_ids.CN + '=' + entity.name + "," + __CONTAINER_DN
 
 
 def __get_user_dn(uid):
     # TODO: find a better way to do this:
-    return global_ids.UID + '=' + uid + ',' + userdao.search_base
+    return global_ids.UID + '=' + uid + ',' + userdao.CONTAINER_DN
 
 
 def __convert_list(list_dns):
@@ -273,5 +273,5 @@ SEARCH_ATTRS = [
     global_ids.INTERNAL_ID, ROLE_NAME, global_ids.CONSTRAINT, global_ids.PROPS, global_ids.DESC, MEMBER
      ]
 
-search_base = Config.get('dit')['roles']
+__CONTAINER_DN = ldaphelper.get_container_dn('roles')
 ATTRIBUTES = 'attributes'

@@ -52,7 +52,7 @@ def search (entity):
     search_filter += ')'           
     try:
         conn = ldaphelper.open()
-        id = conn.search(search_base, search_filter, attributes=SEARCH_ATTRS)
+        id = conn.search(CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
@@ -82,7 +82,7 @@ def search_on_roles (roles):
     search_filter += end_filter                    
     try:
         conn = ldaphelper.open()
-        id = conn.search(search_base, search_filter, attributes=SEARCH_ATTRS)
+        id = conn.search(CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
@@ -156,8 +156,7 @@ def create ( entity ):
         # likewise sn is req'd for iNetOrgPerson, if caller did not set, use uid value
         if not entity.sn:
             entity.sn = entity.uid
-        attrs.update( {global_ids.SN : entity.sn} )
-              
+        attrs.update( {global_ids.SN : entity.sn} )  
         # strings:  
         if entity.password:                
             attrs.update( {PW : entity.password} )
@@ -183,11 +182,9 @@ def create ( entity ):
             attrs.update( {RM_NUM : entity.room_number} )                        
         if entity.pw_policy:        
             attrs.update( {PW_POLICY : entity.pw_policy} )
-
         # boolean:
         if entity.system is not None :        
             attrs.update( {IS_SYSTEM : entity.system} )
-            
         # list of strings:
         if entity.phones is not None and len(entity.phones) > 0 :        
             attrs.update( {TELEPHONE_NUMBER : entity.phones} )
@@ -197,12 +194,11 @@ def create ( entity ):
             attrs.update( {MAIL : entity.emails} )            
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : entity.props} )
-
         # list of delimited strings:
         if entity.constraint:        
             attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
             
-        conn = ldaphelper.open()        
+        conn = ldaphelper.open()     
         id = conn.add(__get_dn(entity), USER_OCS, attrs)
     except Exception as e:
         raise FortressError(msg='User create error=' + str(e), id=global_ids.USER_ADD_FAILED)
@@ -351,7 +347,7 @@ def __raise_exception(operation, field, id):
 
 
 def __get_dn(entity):
-    return global_ids.UID + '=' + entity.uid + ',' + search_base
+    return global_ids.UID + '=' + entity.uid + ',' + CONTAINER_DN
 
 
 USER_OC_NAME = 'inetOrgPerson'
@@ -386,4 +382,4 @@ SEARCH_ATTRS = [
     ]
 
 ATTRIBUTES = 'attributes'
-search_base = Config.get('dit')['users']
+CONTAINER_DN = ldaphelper.get_container_dn('users')

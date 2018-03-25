@@ -13,6 +13,7 @@ from ldap import LdapException
 from ldap3.utils.log import set_library_log_activation_level
 set_library_log_activation_level(logging.CRITICAL)
 from ldap3.utils.log import set_library_log_detail_level, OFF, ERROR, BASIC, PROTOCOL, NETWORK, EXTENDED
+from util import global_ids
 
 # Open a connection for a particular user:
 def open_user (user_dn, password):
@@ -132,6 +133,9 @@ def get_result(conn, id):
 def get_dn(entry):
     return entry['dn']
 
+def get_container_dn(ou):
+    return global_ids.OU + '=' + Config.get('dit')[ou] + ',' + __SUFX_DN
+
 
 # Begin the Config section:
 Config.load('py-fortress-cfg.json')
@@ -172,3 +176,5 @@ set_library_log_detail_level(_ldap3_log_level)
 _srv1 = ldap3.Server(host=_ldap_host, port=_ldap_port, connect_timeout=_ldap_timeout, use_ssl=_ldap_use_ssl)
 _srv_pool = ldap3.ServerPool([_srv1], ldap3.ROUND_ROBIN, exhaust=True, active=True)
 _usr_pool = ldap3.ServerPool([_srv1], ldap3.ROUND_ROBIN, exhaust=True, active=True)
+
+__SUFX_DN = Config.get('dit')['suffix']

@@ -37,7 +37,7 @@ def search (entity):
     search_filter += ')'           
     try:
         conn = ldaphelper.open()
-        id = conn.search(search_base, search_filter, attributes=SEARCH_ATTRS)
+        id = conn.search(__CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
@@ -70,7 +70,7 @@ def search_objs (entity):
     search_filter += '(' + OBJ_NM + '=' + entity.obj_name + '))'           
     try:
         conn = ldaphelper.open()
-        id = conn.search(search_base, search_filter, attributes=SEARCH_OBJ_ATTRS)
+        id = conn.search(__CONTAINER_DN, search_filter, attributes=SEARCH_OBJ_ATTRS)
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
@@ -100,7 +100,7 @@ def search_on_roles (roles):
     search_filter += end_filter                    
     try:
         conn = ldaphelper.open()
-        id = conn.search(search_base, search_filter, attributes=SEARCH_ATTRS)
+        id = conn.search(__CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
         response = ldaphelper.get_response(conn, id)         
         total_entries = len(response)        
     except Exception as e:
@@ -377,7 +377,7 @@ def __raise_exception(operation, field, id):
 
 
 def __get_obj_dn(entity):
-    return OBJ_NM + '=' + entity.obj_name + "," + search_base
+    return OBJ_NM + '=' + entity.obj_name + "," + __CONTAINER_DN
 
 
 def __get_dn(entity):
@@ -411,5 +411,5 @@ SEARCH_OBJ_ATTRS = [
     global_ids.INTERNAL_ID, OBJ_NM, TYPE, global_ids.PROPS, global_ids.DESC, global_ids.OU
      ]
 
-search_base = Config.get('dit')['perms']
+__CONTAINER_DN = ldaphelper.get_container_dn('perms')
 ATTRIBUTES = 'attributes'
