@@ -16,7 +16,6 @@ USER = 'user'
 ROLE = 'role'
 PERM = 'perm'
 OBJECT = 'object'
-DIT = 'dit'
 #operations =
 ADD = 'add'
 UPDATE = 'mod'
@@ -40,8 +39,6 @@ def process(args):
             result = process_perm(args)                
         elif args.entity == OBJECT:
             result = process_object(args)
-        elif args.entity == DIT:
-            result = process_dit(args)
         else:
             print('process failed, invalid entity=' + args.entity)        
         if result:
@@ -60,36 +57,6 @@ def load_entity (entity, args):
     return entity
 
     
-def process_dit(args):
-    name = args.name
-    ou = args.ou
-    desc = args.description
-    msg = DIT
-    if name:
-        msg += ' name=' + name
-    if ou:
-        msg += ' ou=' + ou
-    print(msg)       
-    if args.operation == ADD:
-        if name:
-            ditdao.create_suffix(name)
-        elif ou:
-            ditdao.create_ou(ou, desc)
-        else:
-            print_ln('dit add requires either --name, to add a suffix, or --ou, to add a new container')                                 
-    elif args.operation == DELETE:
-        if name:
-            ditdao.delete_suffix(name)
-        elif ou:
-            ditdao.delete_ou(ou)
-        else:
-            print_ln('dit del requires either --name, to remove suffix  or --ou, to remove a container')                                 
-    else:
-        print('process_dit failed, invalid operation, only add and del allowed')
-        return False
-    return True                                
-        
-        
 def process_user(args):
     user = load_entity (User(), args)
     print(args.entity + ' ' + args.operation)    
@@ -236,7 +203,7 @@ def add_args (parser, entity):
 
 
 parser = argparse.ArgumentParser(description='Process py-fortress commands.')
-parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJECT, DIT], help='entity name')
+parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJECT], help='entity name')
 parser.add_argument('operation', metavar='operand', choices=[ADD, UPDATE, DELETE, ASSIGN, DEASSIGN, GRANT, REVOKE, READ, SEARCH], help='operation name')
 parser.add_argument('-r', '--role', dest='role', help='role name')
 add_args(parser, Role())

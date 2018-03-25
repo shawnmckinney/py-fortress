@@ -159,7 +159,7 @@ ________________________________________________________________________________
     python3 test_dit_dao.py 
     ```
     
-    *This uses the values of suffix, user, roles and perms, i.e. their distinguished names (dn), from the config file.* 
+    *This uses the values of suffix, user, roles and perms from the config file.* 
     
 __________________________________________________________________________________
 ## SECTION 5. Integration Tests

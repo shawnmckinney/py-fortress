@@ -77,23 +77,12 @@ def delete_suffix ():
             raise FortressError(msg='Suffix delete failed, dn=' + __SUFX_DN + ', result=' + str(result), id=global_ids.SUFX_DELETE_FAILED)
 
 
-def bootstrapx ():
-    suffix_nm = __get_rdn_name(__SUFX_DN)
-    create_suffix ( suffix_nm )
-    users_nm = __get_rdn_name(Config.get('dit')['users'])
-    create_ou (users_nm)
-    roles_nm = __get_rdn_name(Config.get('dit')['roles'])
-    create_ou (roles_nm)
-    perms_nm = __get_rdn_name(Config.get('dit')['perms'])
-    create_ou (perms_nm)
-    
- 
 def bootstrap ():
     suffix_nm = __get_rdn_name(__SUFX_DN)
     create_suffix ( suffix_nm )
-    create_ou ('users')
-    create_ou ('roles')
-    create_ou ('perms')    
+    create_ou (global_ids.USER_OU)
+    create_ou (global_ids.ROLE_OU)
+    create_ou (global_ids.PERM_OU)    
  
   
 def __validate(name):
@@ -111,7 +100,7 @@ def __get_rdn_name(dn):
  
   
 # suffix:
-__SUFX_DN = Config.get('dit')['suffix']
+__SUFX_DN = Config.get(global_ids.DIT)[global_ids.SUFFIX]
 DC_OC_NAME = 'dcObject'
 ORG_OC_NAME = 'organization'
 SUFX_OCS = [DC_OC_NAME, ORG_OC_NAME]

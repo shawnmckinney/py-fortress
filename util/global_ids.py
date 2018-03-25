@@ -5,6 +5,15 @@ Created on Mar 15, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
+# config attribute names
+ATTRIBUTES = 'attributes'
+USER_OU = 'users'
+ROLE_OU = 'roles'
+PERM_OU = 'perms'
+SUFFIX = 'suffix'
+DIT = 'dit'
+      
+
 UID = 'uid'
 PROP_OC_NAME = 'ftProperties'
 OU = 'ou'
@@ -17,20 +26,11 @@ DESC = 'description'
 PROPS = 'ftProps'
 CONSTRAINT = 'ftCstr'
 
-
-
-
 SUCCESS = 0
 OBJECT_ALREADY_EXISTS = 68
 NOT_FOUND = 32
 NO_SUCH_ATTRIBUTE = 16
 NOT_ALLOWED_ON_NONLEAF = 66
-
-# CONSTRAINT_TIME_ERROR = 1001
-# CONSTRAINT_DATE_ERROR = 1002
-# CONSTRAINT_LOCKDATE_ERROR = 1003
-# CONSTRAINT_DAY_ERROR = 1004
-# CONSTRAINT_TIMEOUT_ERROR = 1005
 
 ROLE_ALREADY_ACTIVATED_ERROR = 2001
 ROLE_NOT_ACTIVATED_ERROR = 2002

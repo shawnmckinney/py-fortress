@@ -49,14 +49,14 @@ def search (entity):
 def __unload(entry):
     entity = Role()
     entity.dn = ldaphelper.get_dn(entry)    
-    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])
-    entity.name = ldaphelper.get_attr_val(entry[ATTRIBUTES][ROLE_NAME])
-    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.DESC])
+    entity.internal_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.INTERNAL_ID])
+    entity.name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][ROLE_NAME])
+    entity.description = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.DESC])
     # Get the multi-occurring attrs:
-    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][global_ids.PROPS])
-    entity.members = ldaphelper.get_list(entry[ATTRIBUTES][MEMBER])    
+    entity.props = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][global_ids.PROPS])
+    entity.members = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][MEMBER])    
     # unload raw constraint:
-    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.CONSTRAINT]))
+    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.CONSTRAINT]))
     return entity
 
 
@@ -195,7 +195,7 @@ def get_members (entity):
             raise NotFound(msg="Role not found, name=" + entity.name, id=global_ids.ROLE_NOT_FOUND)    
         elif total_entries > 1:
             raise NotUnique(msg="Role not unique, name=" + entity.name, id=global_ids.ROLE_SEARCH_FAILED)        
-        member_dns = ldaphelper.get_list(response[0][ATTRIBUTES][MEMBER])
+        member_dns = ldaphelper.get_list(response[0][global_ids.ATTRIBUTES][MEMBER])
         uList = __convert_list(member_dns)
     finally:
         if conn:        
@@ -221,8 +221,8 @@ def get_members_constraint (entity):
             raise NotFound(msg="Role not found, name=" + entity.name, id=global_ids.ROLE_NOT_FOUND)    
         elif total_entries > 1:
             raise NotUnique(msg="Role not unique, name=" + entity.name, id=global_ids.ROLE_SEARCH_FAILED)        
-        member_dns = ldaphelper.get_list(response[0][ATTRIBUTES][MEMBER])
-        constraint = Constraint(ldaphelper.get_attr_val(response[0][ATTRIBUTES][global_ids.CONSTRAINT]))        
+        member_dns = ldaphelper.get_list(response[0][global_ids.ATTRIBUTES][MEMBER])
+        constraint = Constraint(ldaphelper.get_attr_val(response[0][global_ids.ATTRIBUTES][global_ids.CONSTRAINT]))        
         mList = __convert_list(member_dns)
     finally:
         if conn:        
@@ -273,5 +273,4 @@ SEARCH_ATTRS = [
     global_ids.INTERNAL_ID, ROLE_NAME, global_ids.CONSTRAINT, global_ids.PROPS, global_ids.DESC, MEMBER
      ]
 
-__CONTAINER_DN = ldaphelper.get_container_dn('roles')
-ATTRIBUTES = 'attributes'
+__CONTAINER_DN = ldaphelper.get_container_dn(global_ids.ROLE_OU)

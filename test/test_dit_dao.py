@@ -12,6 +12,7 @@ Created on Mar 18, 2018
 
 import unittest
 from ldap import ditdao
+from util import global_ids
 from test.utils import print_ln
 
 
@@ -32,9 +33,9 @@ class TestDitDao(unittest.TestCase):
         print_ln('test_add_containers')
         
         try:
-            ditdao.create_ou('People')
-            ditdao.create_ou('Roles')
-            ditdao.create_ou('Perms')            
+            ditdao.create_ou(global_ids.USER_OU)
+            ditdao.create_ou(global_ids.ROLE_OU)
+            ditdao.create_ou(global_ids.PERM_OU)            
             print('test_add_containers success')                                
         except Exception as e:
             error = 'test_add_containers errpr=' + e.msg
@@ -49,9 +50,9 @@ class TestDitDao(unittest.TestCase):
         print_ln('test_del_containers')
         
         try:
-            ditdao.delete_ou('People')
-            ditdao.delete_ou('Roles')
-            ditdao.delete_ou('Perms')            
+            ditdao.delete_ou(global_ids.USER_OU)
+            ditdao.delete_ou(global_ids.ROLE_OU)
+            ditdao.delete_ou(global_ids.PERM_OU)            
             print('test_del_containers success')                                
         except Exception as e:
             error = 'test_del_containers errpr=' + e.msg

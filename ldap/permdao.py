@@ -119,29 +119,29 @@ def __unload(entry):
     entity = Perm()
     entity.dn = ldaphelper.get_dn(entry)
     
-    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])
-    entity.obj_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_ID])
-    entity.obj_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_NM])
-    entity.op_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][OP_NM])
-    entity.abstract_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][PERM_NAME])
-    entity.type = ldaphelper.get_attr_val(entry[ATTRIBUTES][TYPE])
-    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.DESC])
+    entity.internal_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.INTERNAL_ID])
+    entity.obj_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][OBJ_ID])
+    entity.obj_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][OBJ_NM])
+    entity.op_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][OP_NM])
+    entity.abstract_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][PERM_NAME])
+    entity.type = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][TYPE])
+    entity.description = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.DESC])
     # Get the multi-occurring attrs:
-    entity.users = ldaphelper.get_list(entry[ATTRIBUTES][USERS])    
-    entity.roles = ldaphelper.get_list(entry[ATTRIBUTES][ROLES])
-    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][global_ids.PROPS])
+    entity.users = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][USERS])    
+    entity.roles = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][ROLES])
+    entity.props = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][global_ids.PROPS])
     return entity
 
 
 def __unload_obj(entry):
     entity = PermObj()
     entity.dn = ldaphelper.get_dn(entry)    
-    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])
-    entity.obj_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][OBJ_NM])
-    entity.type = ldaphelper.get_attr_val(entry[ATTRIBUTES][TYPE])
-    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.DESC])
-    entity.ou = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.OU])    
-    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][global_ids.PROPS])
+    entity.internal_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.INTERNAL_ID])
+    entity.obj_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][OBJ_NM])
+    entity.type = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][TYPE])
+    entity.description = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.DESC])
+    entity.ou = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.OU])    
+    entity.props = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][global_ids.PROPS])
     return entity
 
 
@@ -411,5 +411,4 @@ SEARCH_OBJ_ATTRS = [
     global_ids.INTERNAL_ID, OBJ_NM, TYPE, global_ids.PROPS, global_ids.DESC, global_ids.OU
      ]
 
-__CONTAINER_DN = ldaphelper.get_container_dn('perms')
-ATTRIBUTES = 'attributes'
+__CONTAINER_DN = ldaphelper.get_container_dn(global_ids.PERM_OU)

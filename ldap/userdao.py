@@ -100,39 +100,39 @@ def search_on_roles (roles):
 def __unload(entry):
     entity = User()
     entity.dn = ldaphelper.get_dn(entry)        
-    entity.uid = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.UID])
-    entity.ou = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.OU])  
-    entity.internal_id = ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.INTERNAL_ID])    
-    entity.pw_policy = ldaphelper.get_attr_val(entry[ATTRIBUTES][PW_POLICY])
-    entity.cn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.CN])
-    entity.sn = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.SN])
-    entity.description = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][global_ids.DESC])
-    entity.display_name = ldaphelper.get_attr_val(entry[ATTRIBUTES][DISPLAY_NAME])
-    entity.employee_type = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][EMPLOYEE_TYPE])
-    entity.title = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][TITLE])
-    entity.reset = ldaphelper.get_bool(entry[ATTRIBUTES][IS_RESET])
-    entity.system = ldaphelper.get_bool(entry[ATTRIBUTES][IS_SYSTEM])
-    entity.department_number = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][DEPT_NUM])
-    entity.l = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][LOCATION])
-    entity.physical_delivery_office_name = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][PHYSICAL_OFFICE_NM])
-    entity.postal_code = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][POSTAL_CODE])
-    entity.room_number = ldaphelper.get_one_attr_val(entry[ATTRIBUTES][RM_NUM])
+    entity.uid = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.UID])
+    entity.ou = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.OU])  
+    entity.internal_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.INTERNAL_ID])    
+    entity.pw_policy = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][PW_POLICY])
+    entity.cn = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.CN])
+    entity.sn = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.SN])
+    entity.description = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.DESC])
+    entity.display_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][DISPLAY_NAME])
+    entity.employee_type = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][EMPLOYEE_TYPE])
+    entity.title = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][TITLE])
+    entity.reset = ldaphelper.get_bool(entry[global_ids.ATTRIBUTES][IS_RESET])
+    entity.system = ldaphelper.get_bool(entry[global_ids.ATTRIBUTES][IS_SYSTEM])
+    entity.department_number = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][DEPT_NUM])
+    entity.l = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][LOCATION])
+    entity.physical_delivery_office_name = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][PHYSICAL_OFFICE_NM])
+    entity.postal_code = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][POSTAL_CODE])
+    entity.room_number = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][RM_NUM])
 
     # Get the attr as object:
-    entity.locked_time = ldaphelper.get_attr_object(entry[ATTRIBUTES][LOCKED_TIME])
+    entity.locked_time = ldaphelper.get_attr_object(entry[global_ids.ATTRIBUTES][LOCKED_TIME])
 
     # Get the multi-occurring attrs:
-    entity.props = ldaphelper.get_list(entry[ATTRIBUTES][global_ids.PROPS])    
-    entity.phones = ldaphelper.get_list(entry[ATTRIBUTES][TELEPHONE_NUMBER])
-    entity.mobiles = ldaphelper.get_list(entry[ATTRIBUTES][MOBILE])
-    entity.emails = ldaphelper.get_list(entry[ATTRIBUTES][MAIL])
-    entity.roles = ldaphelper.get_list(entry[ATTRIBUTES][ROLES])
+    entity.props = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][global_ids.PROPS])    
+    entity.phones = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][TELEPHONE_NUMBER])
+    entity.mobiles = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][MOBILE])
+    entity.emails = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][MAIL])
+    entity.roles = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][ROLES])
     
     # unload raw user constraint:
-    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[ATTRIBUTES][global_ids.CONSTRAINT]))
+    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.CONSTRAINT]))
     
     # now, unload raw user-role constraints:    
-    rcsRaw = ldaphelper.get_list(entry[ATTRIBUTES][ROLE_CONSTRAINTS])
+    rcsRaw = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][ROLE_CONSTRAINTS])
     if rcsRaw is not None :
         entity.role_constraints = []
         for rcRaw in rcsRaw :
@@ -381,5 +381,4 @@ SEARCH_ATTRS = [
     PHYSICAL_OFFICE_NM, POSTAL_CODE, RM_NUM, LOCATION
     ]
 
-ATTRIBUTES = 'attributes'
-CONTAINER_DN = ldaphelper.get_container_dn('users')
+CONTAINER_DN = ldaphelper.get_container_dn(global_ids.USER_OU)
