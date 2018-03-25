@@ -24,7 +24,6 @@ def read (entity):
 
 
 def search (entity):
-    __validate(entity, "Perm Search")
     conn = None            
     permList = []
     search_filter = '(&(objectClass=' + PERM_OC_NAME + ')'
@@ -63,7 +62,6 @@ def read_obj (entity):
 
 
 def search_objs (entity):
-    __validate_obj(entity, "PermObj Search")
     conn = None            
     permList = []
     search_filter = '(&(objectClass=' + PERM_OBJ_OC_NAME + ')'
@@ -146,7 +144,6 @@ def __unload_obj(entry):
 
 
 def create ( entity ):
-    __validate(entity, 'Create Perm')
     try:
         attrs = {}
         attrs.update( {OBJ_NM : entity.obj_name} )
@@ -186,7 +183,6 @@ def create ( entity ):
 
 
 def update ( entity ):
-    __validate(entity, 'Update Perm')
     try:
         attrs = {}
         if entity.description:        
@@ -215,7 +211,6 @@ def update ( entity ):
 
 
 def delete ( entity ):
-    __validate_obj(entity, 'Delete Perm')
     try:
         conn = ldaphelper.open()        
         id = conn.delete(__get_dn(entity))
@@ -231,7 +226,6 @@ def delete ( entity ):
 
 
 def grant ( entity, role ):
-    __validate(entity, 'Grant Perm')
     try:
         attrs = {}
         # constraint type:
@@ -256,7 +250,6 @@ def grant ( entity, role ):
 
 
 def revoke ( entity, role ):
-    __validate(entity, 'Revoke Perm')
     try:
         attrs = {}
         # constraint type:
@@ -282,7 +275,6 @@ def revoke ( entity, role ):
 
 
 def create_obj ( entity ):
-    __validate_obj(entity, 'Create PermObj')
     try:
         attrs = {}
         attrs.update( {OBJ_NM : entity.obj_name} )
@@ -314,7 +306,6 @@ def create_obj ( entity ):
 
 
 def update_obj ( entity ):
-    __validate_obj(entity, 'Update PermObj')
     conn = None
     id = 0
     try:
@@ -343,7 +334,6 @@ def update_obj ( entity ):
 
 
 def delete_obj ( entity ):
-    __validate_obj(entity, 'Delete PermObj')
     try:
         conn = ldaphelper.open()        
         id = conn.delete(__get_obj_dn(entity))
@@ -358,22 +348,6 @@ def delete_obj ( entity ):
         elif result != 0:
             raise FortressError(msg='PermObj delete failed result=' + str(result), id=global_ids.PERM_DELETE_FAILED)                    
     return entity
-
-
-def __validate(entity, op):
-    if not entity.obj_name:
-        __raise_exception(op, OBJ_NM, global_ids.PERM_OBJECT_NM_NULL)
-    if not entity.op_name:
-        __raise_exception(op, OP_NM, global_ids.PERM_OPERATION_NM_NULL)
-
-                    
-def __validate_obj(entity, op):
-    if not entity.obj_name:
-        __raise_exception(op, OBJ_NM, global_ids.PERM_OBJECT_NM_NULL)
-
-                    
-def __raise_exception(operation, field, id):
-    raise FortressError(msg='permdao.' + operation + ' required field missing:' + field, id=id)
 
 
 def __get_obj_dn(entity):

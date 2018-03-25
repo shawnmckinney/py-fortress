@@ -456,34 +456,4 @@ ________________________________________________________________________________
     success
     ````
     
-5. Directory Information Tree (DIT) Examples.
-    These operations are special because they control the DIT structure.
- 
-    a. dit add (suffix)
-    ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py dit add --name example
-    dit name=example
-    success
-    ````
-    b. dit del (suffix)
-    ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py dit del --name example
-    dit name=example
-    success
-    ````
-    *This op is not recursive meaning failure if child nodes lie below.*
-    
-    c. dit add (container)
-    ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py dit add --ou people
-    dit ou=people
-    success
-    ````
-    d. dit del (container)
-    ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py dit del --ou people
-    dit ou=people
-    success
-    ````
-    *This op is not recursive meaning failure if child nodes lie below.*    
 ### END OF README

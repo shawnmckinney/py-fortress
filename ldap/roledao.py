@@ -24,7 +24,6 @@ def read (entity):
 
 
 def search (entity):
-    __validate(entity, "Role Search")
     conn = None            
     roleList = []
     search_filter = '(&(objectClass=' + ROLE_OC_NAME + ')'
@@ -61,7 +60,6 @@ def __unload(entry):
 
 
 def create ( entity ):
-    __validate(entity, 'Create Role')
     try:
         attrs = {}
         attrs.update( {global_ids.CN : entity.name} )
@@ -96,7 +94,6 @@ def create ( entity ):
 
 
 def update ( entity ):
-    __validate(entity, 'Update Role')
     try:
         attrs = {}
         if entity.description:        
@@ -122,7 +119,6 @@ def update ( entity ):
 
 
 def delete ( entity ):
-    __validate(entity, 'Delete Role')
     try:
         conn = ldaphelper.open()        
         id = conn.delete(__get_dn(entity))
@@ -138,7 +134,6 @@ def delete ( entity ):
 
 
 def add_member ( entity, uid ):    
-    __validate(entity, 'Add Member')
     try:        
         attrs = {}
         if uid:
@@ -158,7 +153,6 @@ def add_member ( entity, uid ):
 
 
 def remove_member ( entity, uid ):    
-    __validate(entity, 'Remove Member')
     try:        
         attrs = {}
         if uid:
@@ -178,7 +172,6 @@ def remove_member ( entity, uid ):
 
 
 def get_members (entity):
-    __validate(entity, "Get Members")
     conn = None            
     uList = []
     search_filter = '(&(objectClass=' + ROLE_OC_NAME + ')'
@@ -204,7 +197,6 @@ def get_members (entity):
 
 
 def get_members_constraint (entity):
-    __validate(entity, "Get Members")
     conn = None            
     mList = []
     search_filter = '(&(objectClass=' + ROLE_OC_NAME + ')'
@@ -228,15 +220,6 @@ def get_members_constraint (entity):
         if conn:        
             ldaphelper.close(conn)
     return [mList, constraint]
-
-
-def __validate(entity, op):
-    if not entity.name:
-        __raise_exception(op, ROLE_NAME, global_ids.ROLE_NM_NULL)
-
-                    
-def __raise_exception(operation, field, id):
-    raise FortressError(msg='roledao.' + operation + ' required field missing:' + field, id=id)
 
 
 def __get_dn(entity):

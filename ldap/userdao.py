@@ -24,7 +24,6 @@ def read (entity):
 
 
 def authenticate (entity):
-    __validate(entity, "User Bind")
     conn = None
     result = False            
     try:        
@@ -41,7 +40,6 @@ def authenticate (entity):
 
 
 def search (entity):
-    __validate(entity, "User Search")
     conn = None            
     userList = []
     search_filter = '(&(objectClass=' + USER_OC_NAME + ')'
@@ -142,7 +140,6 @@ def __unload(entry):
 
 
 def create ( entity ):
-    __validate(entity, 'Create User')
     try:
         attrs = {}
         attrs.update( {global_ids.UID : entity.uid} )
@@ -212,7 +209,6 @@ def create ( entity ):
 
 
 def update ( entity ):
-    __validate(entity, 'Update User')
     try:
         attrs = {}
         # strings:                
@@ -278,7 +274,6 @@ def update ( entity ):
 
 
 def delete ( entity ):
-    __validate(entity, 'Delete User')
     try:
         conn = ldaphelper.open()        
         id = conn.delete(__get_dn(entity))
@@ -294,7 +289,6 @@ def delete ( entity ):
 
 
 def assign ( entity, constraint ):
-    __validate(entity, 'Assign')
     try:
         attrs = {}
         if constraint is not None:
@@ -315,7 +309,6 @@ def assign ( entity, constraint ):
 
 
 def deassign ( entity, constraint ):
-    __validate(entity, 'Deassign')
     try:
         attrs = {}
         if constraint is not None:
@@ -335,15 +328,6 @@ def deassign ( entity, constraint ):
         elif result != 0:
             raise FortressError(msg='User deassign failed result=' + str(result), id=global_ids.URLE_DEASSIGN_FAILED)                    
     return entity
-
-
-def __validate(entity, op):
-    if entity.uid is None or len(entity.uid) == 0 :
-        __raise_exception(op, global_ids.UID, global_ids.USER_ID_NULL)
-
-                    
-def __raise_exception(operation, field, id):
-    raise FortressError(msg='userdao.' + operation + ' required field missing:' + field, id=id)
 
 
 def __get_dn(entity):
