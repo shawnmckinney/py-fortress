@@ -34,21 +34,23 @@ API to add, update, delete identity data and perform identity and access control
 
  ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
  
-The RBAC functional specification (contained within the above link) describes administrative operations for the creation and maintenance of RBAC element sets and relations; 
-administrative review functions for performing administrative queries; and system functions for creating and managing RBAC attributes on 
-user sessions and making access control decisions.
+The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
+review functions for performing queries; and system functions for creating and managing sessions, and making access control decisions.
 
 ### About the APIs
-Links to the Python RBAC modules containing inline docs describing their use.
+Links to the Python RBAC modules:
  * [access_mgr](impl/access_mgr.py): performs runtime access control operations
  * [admin_mgr](impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
- * [review_mgr](impl/review_mgr.py): administrative review functions on the RBAC entities. 
+ * [review_mgr](impl/review_mgr.py): administrative review functions on the RBAC entities.
+ 
+ *The API docs are contained within the above links.* 
   
 ### More on RBAC
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
 
 ### Related Projects
+py-fortress is compatible with Apache Fortress by using the exact same data format.
  * [Apache Fortress](http://directory.apache.org/fortress)
 ___________________________________________________________________________________
 ## SECTION 2. Prerequisites
