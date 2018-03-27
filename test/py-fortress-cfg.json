@@ -1,7 +1,8 @@
 {
   "logger": {
     "level": "INFO",
-    "file_name": "fortress"
+    "file_name": "fortress",
+    "console_out": true
   },
 
   "ldap": {

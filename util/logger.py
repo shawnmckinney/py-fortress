@@ -19,6 +19,7 @@ def setup(ctr):
     now = datetime.datetime.now()
     name = Config.get(LOGGER)['file_name']
     handler = logging.FileHandler(
+    #handler = logging.StreamHandler(        
         name + '-' 
         + now.strftime("%Y-%m-%d") 
         + '.log')
@@ -26,7 +27,12 @@ def setup(ctr):
     handler.setFormatter(formatter)
     mlog = logging.getLogger( name )
     mlog.setLevel( level_ )
-    #mlog.addHandler(handler)
+    
+    if Config.get(LOGGER)['console_out']:
+        consoleHandler = logging.StreamHandler()
+        consoleHandler.setFormatter(formatter)
+        mlog.addHandler(consoleHandler)    
+
     return [mlog, handler]
 
 level_str_ = Config.get(LOGGER)['level']
@@ -46,6 +52,7 @@ is_log = False
 if is_log is False:
     logger, handler_ = setup(ctr)    
     is_log = True
+
     
 my_handlers = [handler_]
 logging.basicConfig(handlers=my_handlers, level=level_)

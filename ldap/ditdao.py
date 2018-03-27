@@ -8,6 +8,7 @@ Created on Mar 21, 2018
 from ldap import ldaphelper, NotFound, NotUnique
 from util import Config, global_ids
 from util.fortress_error import FortressError
+from util.logger import logger
 
 
 def create_ou (name, desc=None):
@@ -79,12 +80,24 @@ def delete_suffix ():
 
 def bootstrap ():
     suffix_nm = __get_rdn_name(__SUFX_DN)
-    create_suffix ( suffix_nm )
-    create_ou (global_ids.USER_OU)
-    create_ou (global_ids.ROLE_OU)
-    create_ou (global_ids.PERM_OU)    
+    try:
+        create_suffix ( suffix_nm )
+    except NotUnique:
+        logger.warn('create suffix failed, already present, name=' + suffix_nm)
+    try:
+        create_ou (global_ids.USER_OU)
+    except NotUnique:
+        logger.warn('create users container failed, already present')
+    try:
+        create_ou (global_ids.ROLE_OU)
+    except NotUnique:
+        logger.warn('create roles container failed, already present')
+    try:
+        create_ou (global_ids.PERM_OU)
+    except NotUnique:
+        logger.warn('create perms container failed, already present')    
  
-  
+ 
 def __validate(name):
     if not name:
         raise FortressError(msg='OU name null', id=global_ids.CNTR_NAME_NULL)
