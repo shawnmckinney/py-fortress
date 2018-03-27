@@ -141,7 +141,7 @@ ________________________________________________________________________________
     },
     ...    
     ```
-    *if in doubt what these should be use the defaults*
+    *if in doubt use the defaults*
     
 6. Save and exit
 
@@ -159,7 +159,7 @@ ________________________________________________________________________________
     python3 test_dit_dao.py 
     ```
     
-    *This uses the values of suffix, user, roles and perms from the config file.* 
+    *Locations for these nodes are set in the config file.* 
     
 __________________________________________________________________________________
 ## SECTION 5. Integration Tests
@@ -183,14 +183,14 @@ These steps are optional and verify the env is working correctly.
 __________________________________________________________________________________
 ## SECTION 6. Simple Test Samples
 
-Another set of optional tests, these are simple thus for learning.  The source module is [test_samples](test/test_samples.py).  
+Another optional test.  
  
 1. Run the samples:
     ```
     python3 test_samples.py 
     ```
 
-2. View the samples and learn how the APIs may be used.
+2. View the [test_samples](test/test_samples.py) and learn how RBAC APIs work.
 ____________________________________________________________________________________
 ## SECTION 7. Docker Commands
 
