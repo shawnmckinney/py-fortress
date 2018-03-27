@@ -13,14 +13,14 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * Contains instructions to test py-fortress using either an ApacheDS or OpenLDAP Docker image.
- * There are a variety of other ways of preparing an LDAP server for RBAC, but using a docker image is probably the easiest.
- * For more options, refer to the Apache Fortress project.
+ * Contains instructions to install and test py-fortress using an ApacheDS or OpenLDAP Docker image.
+ * Many ways of setting up an LDAP server, but using a docker image is probably the easiest.
+ * For more Ldap server options, refer to [Options for using Apache Fortress and LDAP](https://github.com/apache/directory-fortress-core/blob/master/README.md).
 __________________________________________________________________________________
 ## SECTION 1. Introduction
 
 ### About py-fortress
- * Compliant with *ANSI INCITS 359* Role-Based Access Control, *RBAC0*, aka *Core RBAC*.
+ * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
  * Data stored within an LDAPv3 directory server
  * Includes Python APIs to manage and interrogate the security policy data.
  * Compatible with [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
