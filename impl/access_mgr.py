@@ -39,7 +39,10 @@ def create_session (user, is_trusted):
     
     required parameters:
     user.uid - maps to INetOrgPerson uid
-    is_trusted - boolean, if 'True', authentication is skipped (password not checked)     
+    is_trusted - boolean, if 'True', authentication is skipped (password not checked)
+    
+    return:
+    Session     
     """    
     __validate_user(user)
     session = Session()
@@ -71,6 +74,9 @@ def check_access (session, perm):
         
     optional parameters:
     perm.obj_id    
+    
+    return:
+    boolean True if allowed; False otherwise     
     """        
     __validate(session)
     __validate_perm(perm)    
@@ -90,6 +96,9 @@ def is_user_in_role (session, role):
     required parameters:
     session - as returned from create_session api    
     role.name - maps to existing role     
+    
+    return:
+    boolean True if allowed; False otherwise         
     """        
     __validate(session)
     result = False
@@ -106,6 +115,9 @@ def add_active_role (session, role):
     required parameters:
     session - as returned from create_session api    
     role.name - maps to existing role     
+    
+    return:
+    None     
     """    
     __validate(session)    
     if any ( s.lower() == role.lower() for s in session.user.roles ):
@@ -126,6 +138,9 @@ def drop_active_role (session, role):
     required parameters:
     session - as returned from create_session api    
     role.name - maps to existing role     
+    
+    return:
+    None     
     """    
     __validate(session)
     found = False
@@ -145,6 +160,9 @@ def session_perms (session):
 
     required parameters:    
     session - as returned from create_session api    
+    
+    return:
+    Perm list     
     """    
     __validate(session)
     __validate_roles(session.user)    
@@ -158,6 +176,9 @@ def session_roles (session):
 
     required parameters:        
     session - as returned from create_session api    
+    
+    return:
+    Constraint list     
     """    
     __validate(session)
     __validate_roles(session.user)    
