@@ -1,5 +1,5 @@
 # py-fortress Command Line Interpreter (CLI) README 
-
+The Command Line Interpreter (CLI) drives the admin and review APIs,  allowing ad-hoc RBAC setup and interrogation.
 -------------------------------------------------------------------------------
 ## Table of Contents
  * SECTION 1. Introduction 
@@ -22,9 +22,9 @@ ________________________________________________________________________________
     cd test
     ```
     
-2. Run the CLI mgr tests:
+2. To run the CLI:
     ```
-    python3 cli.py entity operation --[entity attribute set] 
+    python3 cli.py entity operation --arg1 --arg2 ...  
     ```
     
     where entity is (pick one):
@@ -59,131 +59,131 @@ ________________________________________________________________________________
 
     a. user add
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user add --uid 'chorowitz' --password 'secret' --description 'added with py-fortress cli'
+    (env)~py-fortress/test$ python3 cli.py user add --uid 'chorowitz' --password 'secret' --description 'added with py-fortress cli'
     uid=chorowitz
     description=added with py-fortress cli
-    process_user,add
+    user add
     success
     ````
     b. user mod
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user mod --uid 'chorowitz' --l 'my location' --ou 'my-ou' --department_number 123
+    (env)~py-fortress/test$ python3 cli.py user mod --uid 'chorowitz' --l 'my location' --ou 'my-ou' --department_number 123
     uid=chorowitz
     department_number=123
     l=my location
     ou=my-ou
-    process_user,update
+    user mod
     success
     ````
     c. user del
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user del --uid 'chorowitz'
+    (env)~py-fortress/test$ python3 cli.py user del --uid 'chorowitz'
     uid=chorowitz
-    process_user,delete
+    user del
     success    
     ````
     d. user assign
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user assign --uid 'chorowitz' --role 'account-mgr'
+    (env)~py-fortress/test$ python3 cli.py user assign --uid 'chorowitz' --role 'account-mgr'
     uid=chorowitz
     role name=account-mgr
-    process_user,assign
+    user assign
     success
     ````
     e. user deassign
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user deassign --uid 'chorowitz' --role 'account-mgr'
+    (env)~py-fortress/test$ python3 cli.py user deassign --uid 'chorowitz' --role 'account-mgr'
     uid=chorowitz
     role name=account-mgr
-    process_user,deassign
+    user deassign
     success    
     ````
     f. role add
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role add --name 'account-mgr'
+    (env)~py-fortress/test$ python3 cli.py role add --name 'account-mgr'
     name=account-mgr
-    process_role,add
+    role add
     success
     ````
     g. role mod
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role mod --name 'account-mgr' --description 'this desc is optional'
+    (env)~py-fortress/test$ python3 cli.py role mod --name 'account-mgr' --description 'this desc is optional'
     description=cli test role
     name=account-mgr
-    process_role,mod
+    role mod
     success    
     ````
     h. role del
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role del --name 'account-mgr'
+    (env)~py-fortress/test$ python3 cli.py role del --name 'account-mgr'
     name=account-mgr
     process_role,delete
     success    
     ````
     i. object add
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py object add --obj_name page456
+    (env)~py-fortress/test$ python3 cli.py object add --obj_name page456
     obj_name=page456
-    process_object,add
+    object add
     success
     ````
     j. object mod
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py object mod --obj_name page456 --description 'optional arg' --ou 'another optional arg'
+    (env)~py-fortress/test$ python3 cli.py object mod --obj_name page456 --description 'optional arg' --ou 'another optional arg'
     obj_name=page456
     ou=another optional arg
     description=optional arg
-    process_object,update
+    object mod
     success
     ````
     k. object del
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py object del --obj_name page789
+    (env)~py-fortress/test$ python3 cli.py object del --obj_name page789
     obj_name=page789
-    process_object,delete
+    object del
     success
     ````
     l. perm add
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm add --obj_name page456 --op_name read
+    (env)~py-fortress/test$ python3 cli.py perm add --obj_name page456 --op_name read
     obj_name=page456
     op_name=read
-    process_perm,add
+    perm add
     success
     ````
     m. perm mod
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm mod --obj_name page456 --op_name read --description 'useful for human readable perm name'
+    (env)~py-fortress/test$ python3 cli.py perm mod --obj_name page456 --op_name read --description 'useful for human readable perm name'
     obj_name=page456
     op_name=read
     description=useful for human readable perm name
-    process_perm,update
+    perm mod
     success    
     ````
     n. perm del
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm del --obj_name page456 --op_name search
+    (env)~py-fortress/test$ python3 cli.py perm del --obj_name page456 --op_name search
     obj_name=page456
     op_name=search
-    process_perm,delete
+    perm del
     success
     ````
     o. perm grant
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name update --role account-mgr
+    (env)~py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name update --role account-mgr
     obj_name=page456
     op_name=update
     role name=account-mgr
-    process_perm,grant
+    perm grant
     success
     ````
     p. perm revoke
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm revoke --obj_name page456 --op_name update --role account-mgr
+    (env)~py-fortress/test$ python3 cli.py perm revoke --obj_name page456 --op_name update --role account-mgr
     obj_name=page456
     op_name=update
     role name=account-mgr
-    process_perm,revoke
+    perm revoke
     success    
     ````
     
@@ -191,7 +191,7 @@ ________________________________________________________________________________
 
     a. user read 
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user read --uid chorowitz
+    (env)~py-fortress/test$ python3 cli.py user read --uid chorowitz
     uid=chorowitz
     user read
     chorowitz
@@ -204,7 +204,7 @@ ________________________________________________________________________________
     ````
     b. user search 
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py user search --uid c
+    (env)~py-fortress/test$ python3 cli.py user search --uid c
     uid=c
     user search
     c*:0
@@ -236,7 +236,7 @@ ________________________________________________________________________________
     ````
     c. role read 
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role read --name account-mgr
+    (env)~py-fortress/test$ python3 cli.py role read --name account-mgr
     name=account-mgr
     role read
     account-mgr
@@ -263,7 +263,7 @@ ________________________________________________________________________________
     ````
     d. role search 
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py role search --name py-
+    (env)~py-fortress/test$ python3 cli.py role search --name py-
     name=py-
     role search
     py-*:0
@@ -295,7 +295,7 @@ ________________________________________________________________________________
     ````
     e. object read 
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py object read --obj_name page456
+    (env)~py-fortress/test$ python3 cli.py object read --obj_name page456
     obj_name=page456
     object read
     page456
@@ -310,7 +310,7 @@ ________________________________________________________________________________
     ````
     f. object search 
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py object search --obj_name page
+    (env)~py-fortress/test$ python3 cli.py object search --obj_name page
     obj_name=page
     object search
     page*:0
@@ -333,7 +333,7 @@ ________________________________________________________________________________
     ````
     g. perm read 
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm read --obj_name page456 --op_name read
+    (env)~py-fortress/test$ python3 cli.py perm read --obj_name page456 --op_name read
     op_name=read
     obj_name=page456
     perm read
@@ -353,7 +353,7 @@ ________________________________________________________________________________
     ````
     h. perm search
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm search --obj_name page
+    (env)~py-fortress/test$ python3 cli.py perm search --obj_name page
     obj_name=page
     perm search
     page*.*:0
@@ -396,7 +396,7 @@ ________________________________________________________________________________
     ````
     i. perm search (by role) 
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm search --role account-mgr
+    (env)~py-fortress/test$ python3 cli.py perm search --role account-mgr
     perm search
     account-mgr:0
         description: 
@@ -426,7 +426,7 @@ ________________________________________________________________________________
     ````
     j. perm search (by user)
     ````
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli.py perm search --uid chorowitz
+    (env)~py-fortress/test$ python3 cli.py perm search --uid chorowitz
     perm search
     chorowitz:0
         type: 
