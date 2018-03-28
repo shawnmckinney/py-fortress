@@ -48,8 +48,8 @@ ________________________________________________________________________________
     The args are '--' + names contained within the py-fortress entities:
     * [user](model/user.py)
     * [role](model/role.py)
-    * [object](model/object.py)
-    * [perm](model/pern.py)
+    * [object](model/perm_object.py)
+    * [perm](model/perm.py)
     
     Tips:
     * These commands follow exact same rules as the [admin_mgr](impl/admin_mgr.py) and [review_mgr](impl/review_mgr.py) APIs.  To understand usage, including required arguments, view its inline code doc.
