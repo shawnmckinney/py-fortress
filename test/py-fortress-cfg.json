@@ -20,6 +20,9 @@
     "dn": "cn=Manager,dc=example,dc=com",
     "password": "secret"
   },
+  "file": {
+    "filename": "data.json"
+  },
   "dit": {
     "suffix": "dc=example,dc=com",
     "users": "People",

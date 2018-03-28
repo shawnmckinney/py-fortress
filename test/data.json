@@ -1,0 +1,13 @@
+{
+    "users": [
+	{
+	    "uid": "testuser1",
+	    "dn": "uid=testuser1,ou=people,dc=example,dc=com",
+	    "cn": "test",
+	    "sn": "test",
+	    "description": "description",
+	    "roles": ["roles", "go", "here"],
+	    "userPassword": "secret"
+	}
+    ]
+}
