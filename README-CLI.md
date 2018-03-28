@@ -1,5 +1,6 @@
-# py-fortress Command Line Interpreter (CLI) README 
- The Command Line Interpreter (CLI) drives the admin and review APIs, for ad-hoc RBAC setup and interrogation.
+# py-fortress Command Line Interpreter (CLI) README
+ 
+This drives the admin and review APIs, for ad-hoc RBAC0 setup and interrogation.
 -------------------------------------------------------------------------------
 ## Table of Contents
  * SECTION 1. Introduction 
