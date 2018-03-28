@@ -1,6 +1,6 @@
 # py-fortress Command Line Interpreter (CLI) README 
  
-For ad-hoc RBAC0 administration and review..
+For RBAC0 administration and review..
 _____________________________________________________________________________
 ## Table of Contents
  * SECTION 1. Introduction 
