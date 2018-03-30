@@ -18,13 +18,14 @@ from util.logger import logger
 from util import global_ids
 from util.global_ids import SUCCESS
 
-
+# Initialize the constraint validators:
 validators = []
 validators.append(Date())
 validators.append(Day())
 validators.append(LockDate())
 validators.append(Time())
 validators.append(TimeOut())
+
 
 def create_session (user, is_trusted):
     """
@@ -95,7 +96,8 @@ def check_access (session, perm):
 
 def is_user_in_role (session, role):
     """
-    
+    This function returns a BOOLEAN value whether subject has the specified role contained within their session.
+         
     required parameters:
     session - as returned from create_session api    
     role.name - maps to existing role     
@@ -111,6 +113,7 @@ def is_user_in_role (session, role):
         result = True
     session.last_access = CurrentDateTime()
     return result
+
 
 def add_active_role (session, role):
     """
@@ -245,11 +248,13 @@ def __validate_role_constraints(session):
                 logger.debug('validate_role_constraints deactivate user-role:' + session.user.uid + '.' + role_constraint.name)
                 __deactivate_role(session.user, role_constraint)                
 
+
 def __is_constraint(constraint):
     is_valid = True
     if constraint.raw is not None and not constraint.raw:
         is_valid = False
     return is_valid
+
 
 def __validate_user_constraint(session, op):
     result = SUCCESS
@@ -260,6 +265,7 @@ def __validate_user_constraint(session, op):
                 logger.debug(validator.__class__.__name__ + ' validation failed:' + session.user.constraint.name )
                 raise FortressError (msg='create_session constraint validation failed uid:' + session.user.uid, id=result)
     return result
+
 
 def __validate_role_constraint(constraint, session):
     result = SUCCESS
