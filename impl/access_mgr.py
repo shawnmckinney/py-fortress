@@ -53,10 +53,10 @@ def create_session (user, is_trusted):
         userdao.authenticate(user)
         session.is_authenticated = True
     entity = userdao.read(user)
-    session.user = entity
-    session.last_access = CurrentDateTime()            
+    session.user = entity            
     __validate_user_constraint(session, 'create_session')
     __validate_role_constraints(session)
+    session.last_access = CurrentDateTime()
     return session
 
 
@@ -86,7 +86,7 @@ def check_access (session, perm):
     result = False
     entity = permdao.read(perm)
     for role in session.user.roles:
-        if any ( s.lower() == role.lower() for s in entity.roles ):        
+        if __is_role_found(role, entity.roles):        
             result = True
             break
     session.last_access = CurrentDateTime()
@@ -107,12 +107,10 @@ def is_user_in_role (session, role):
     __validate_user_constraint(session, 'is_user_in_role')    
     result = False
     __validate_role_constraints(session)
-    if any ( s.lower() == role.lower() for s in session.user.roles ):
+    if __is_role_found(role, session.user.roles):
         result = True
-        
     session.last_access = CurrentDateTime()
     return result
-
 
 def add_active_role (session, role):
     """
@@ -271,4 +269,11 @@ def __validate_role_constraint(constraint, session):
             if result is not SUCCESS:
                 logger.debug(validator.__class__.__name__ + ' validation failed:' + constraint.name )
                 break
+    return result
+
+
+def __is_role_found(role, roles):
+    result = False
+    if any ( s.lower() == role.lower() for s in roles ):        
+        result = True
     return result

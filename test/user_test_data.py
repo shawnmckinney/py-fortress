@@ -15,7 +15,7 @@ BEGIN_LOCK_DATE = NONE
 END_LOCK_DATE = NONE
 BEGIN_TIME = '0000'
 END_TIME = '0000'
-TIMEOUT = 0
+TIMEOUT = 15
 
 def get_test_users(name, total):
     usrs = []
