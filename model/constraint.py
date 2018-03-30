@@ -37,7 +37,7 @@ class Constraint:
             if entity_constraint[0] is not None:
                 self.name=entity_constraint[0]
             if entity_constraint[1] is not None:
-                self.timeout=entity_constraint[1]        
+                self.timeout=int(entity_constraint[1])        
             if entity_constraint[2] is not None:
                 self.begin_time=entity_constraint[2]
             if entity_constraint[3] is not None:

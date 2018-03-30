@@ -11,7 +11,7 @@ from util.global_ids import ACTV_FAILED_DATE, SUCCESS
 
 class Date(Validator):
         
-    def validate(self, constraint, now):      
+    def validate(self, constraint, now, session=None):      
         #logger.debug('name=' + constraint.name + ',len=' + str(len(constraint.begin_date)))
           
         if not constraint.begin_date or constraint.begin_date is None or not constraint.end_date or constraint.end_date is None:

@@ -23,3 +23,4 @@ class CurrentDateTime:
         self.date = self.year + self.month + self.day
         self.time = self.hour + self.minute
         self.day_of_week = str(now_.weekday()+1)
+        self.seconds = now_.timestamp()

@@ -11,5 +11,5 @@ import abc
 class Validator(object):
         
     @abc.abstractmethod
-    def validate(self, constraint, now):
+    def validate(self, constraint, now, session=None):
         pass

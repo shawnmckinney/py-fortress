@@ -5,27 +5,16 @@ Created on Mar 23, 2018
 @copyright: 2018 - Symas Corporation
 '''
 import argparse
-from argparse import ArgumentError
 from model import PermObj, Perm, User, Role
 from impl import admin_mgr, review_mgr
-from ldap import ditdao
 from test.utils import print_user, print_role, print_ln, print_entity
+from test.cli_utils import (
+    load_entity, add_args, USER, ROLE, PERM, OBJECT, ADD, 
+    UPDATE, DELETE, ASSIGN, DEASSIGN, READ, SEARCH, GRANT, REVOKE
+    )
+
 from util.fortress_error import FortressError
-# entities =
-USER = 'user'
-ROLE = 'role'
-PERM = 'perm'
-OBJECT = 'object'
-#operations =
-ADD = 'add'
-UPDATE = 'mod'
-DELETE = 'del'
-ASSIGN = 'assign'
-DEASSIGN = 'deassign'
-GRANT = 'grant'
-REVOKE = 'revoke'
-READ = 'read'
-SEARCH = 'search'
+
 
 
 def process(args):
@@ -47,16 +36,7 @@ def process(args):
         print('FortressError id=' + str(e.id) +', ' + e.msg)
                         
                         
-def load_entity (entity, args):
-    for name in entity.__dict__:
-        value = args.__dict__[name]
-        if value:
-            entity.__dict__[name] = value
-            if name != 'password':
-                print(name + '=' + value)
-    return entity
 
-    
 def process_user(args):
     user = load_entity (User(), args)
     print(args.entity + ' ' + args.operation)    
@@ -193,16 +173,7 @@ def process_perm(args):
     return True                                
         
         
-def add_args (parser, entity):
-    for name in entity.__dict__:
-        try:
-            parser.add_argument('--' + name)
-        except ArgumentError as e:
-            #ignore
-            pass
-
-
-parser = argparse.ArgumentParser(description='Process py-fortress commands.')
+parser = argparse.ArgumentParser(description='Process py-fortress admin and review commands.')
 parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJECT], help='entity name')
 parser.add_argument('operation', metavar='operand', choices=[ADD, UPDATE, DELETE, ASSIGN, DEASSIGN, GRANT, REVOKE, READ, SEARCH], help='operation name')
 parser.add_argument('-r', '--role', dest='role', help='role name')

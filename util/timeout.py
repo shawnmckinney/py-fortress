@@ -10,9 +10,16 @@ from util.logger import logger
 from util.global_ids import ACTV_FAILED_TIMEOUT, SUCCESS
 
 class TimeOut(Validator):
-        
-    def validate(self, constraint, now):
-        logger.debug('TimeOut.validate time=' + now.time + ', constraint timeout=' + constraint.timeout)
-        # Todo: until implemented, return False:
-        return ACTV_FAILED_TIMEOUT
-        
+    
+    def validate(self, constraint, now, session):
+        logger.debug('TimeOut.validate time=' + str(now.time) + ', last access=' + str(session.last_access) + ', constraint timeout=' + str(constraint.timeout))
+        rc = ACTV_FAILED_TIMEOUT
+        last_time = session.last_access.seconds
+        if last_time == 0 or constraint.timeout == 0:
+            rc = SUCCESS
+        else:
+            elapsed_time = now.seconds - last_time;
+            time_limit = constraint.timeout * 60
+            if elapsed_time < time_limit  or constraint.timeout == 0:
+                rc = SUCCESS
+        return rc       
