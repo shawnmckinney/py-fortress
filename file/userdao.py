@@ -4,6 +4,7 @@ from util import Config, global_ids
 from util.fortress_error import FortressError
 from os import listdir
 from json import load,dump
+import re
 
 def read (entity):
     userList = search(entity)
@@ -35,6 +36,11 @@ attrs = {
 #objname opname objid desc roles
 
 
+def __make_wild_re (wild):
+    r = re.escape(wild).replace(r'\*','.*').replace(r'\?','.')
+    return "^{}$".format(r)
+
+
 def search (entity):
     __validate(entity, "User Search")
     matches = list()
@@ -43,15 +49,18 @@ def search (entity):
         for attr in attrs["search"]["user"]:
             av = getattr(entity, attr, None)
             uv = u.get(attr, '')
-            if av is not None and av == uv:
+            if av and uv and re.fullmatch(__make_wild_re(av), uv):
                 matched = True
         for attr in attrs["search_multi"]["user"]:
             avs = getattr(entity, attr, [])
             if avs is None:
                 avs = []
             uvs = u.get(attr, [])
-            if not all(map(lambda av: av in uvs, avs)):
-                matched = False
+            for av in avs:
+                av_re = re.compile(__make_wild_re(av))
+                if not any(map(lambda uv: av_re.fullmatch(uv) is not None, uvs)):
+                    matched = False
+                    break
         if matched:
             matches.append(u)
     return map(lambda e:__unload(e), matches)

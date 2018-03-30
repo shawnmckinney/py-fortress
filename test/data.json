@@ -8,6 +8,24 @@
 	    "description": "description",
 	    "roles": ["roles", "go", "here"],
 	    "userPassword": "secret"
+	},
+	{
+	    "uid": "testuser2",
+	    "dn": "uid=testuser2,ou=people,dc=example,dc=com",
+	    "cn": "test",
+	    "sn": "test",
+	    "description": "description",
+	    "roles": ["roles", "go", "here"],
+	    "userPassword": "secret"
+	},
+	{
+	    "uid": "foouser1",
+	    "dn": "uid=foouser1,ou=people,dc=example,dc=com",
+	    "cn": "foo",
+	    "sn": "test",
+	    "description": "description",
+	    "roles": ["roles", "go", "here"],
+	    "userPassword": "secret"
 	}
     ]
 }
