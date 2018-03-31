@@ -6,7 +6,6 @@ ______________________________________________________________________________
 
  * Have a working py-fortress env setup by following instructions here: [README](./README.md)
  * Understanding of argument passing rules described here: [README-CLI](./README-CLI.md)
- 
 ___________________________________________________________________________________
 ## Run it
 
@@ -39,7 +38,6 @@ ________________________________________________________________________________
    * The session is 'pickled' (serialized) and stored on the file system in executable folder.
    * Call the auth operation first, subsequent ops will use and refresh the session.
    * Constraints on user and roles are enforced.  For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
-
 ___________________________________________________________________________________   
 ## Setup Test Data With CLI.py ([AdminMgr](impl/admin_mgr.py))
 
@@ -164,9 +162,7 @@ ________________________________________________________________________________
     perm grant
     success
     ```
-
-
-___________________________________________________________________________________
+________________________________________________________________________________
 ## Perform [AccessMgr](impl/access_mgr.py) Commands
 
    1. **auth** - access_mgr.create_session - authenticate, activate roles:
@@ -177,6 +173,8 @@ ________________________________________________________________________________
     auth
     success
     ```
+    __Now the session has been pickled in on file system in current directory.__
+    
    2. **show** - output user session contents to stdout:
    
     ```
@@ -269,7 +267,7 @@ ________________________________________________________________________________
     check
     success
     ```
-   _The user has account-mgr activated so unless timeout validation failed this will succeed._
+   __The user has account-mgr activated so unless timeout validation failed this will succeed.__
    
    5. **check** - access_mgr.check_access - pemission page456.remove:
    
@@ -356,7 +354,7 @@ ________________________________________________________________________________
     check
     success
     ```
-   __Now the user should be allowed to resume audit activities._
+   __Now the user should be allowed to resume audit activities.__
                 
    10. **check** - access_mgr.check_access - pemission page456.read:
    
