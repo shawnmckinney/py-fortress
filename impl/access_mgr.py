@@ -121,11 +121,13 @@ def add_active_role (session, role):
     __validate(session) 
     __validate_user_constraint(session, 'add_active_role')   
     if any ( s.lower() == role.lower() for s in session.user.roles ):
-        raise FortressError (msg='add_active_role uid=' + session.user.uid + ', previously activated role=' + role, id=global_ids.ROLE_ALREADY_ACTIVATED_ERROR)
+        raise FortressError (msg='add_active_role uid=' + session.user.uid + ', previously activated role=' + role, id=global_ids.URLE_ALREADY_ACTIVE)
     user = userdao.read(session.user)        
-    for role_constraint in user.role_constraints:
-        if role.lower() == role_constraint.name.lower():
-            __activate_role(session.user, role_constraint)
+    constraint = __find_role_constraint(role, user.role_constraints)
+    if constraint is not None:
+       __activate_role(session.user, constraint)
+    else:
+        raise FortressError (msg='add_active_role uid=' + session.user.uid + ', has not been assigned role=' + role, id=global_ids.URLE_ASSIGN_NOT_EXIST)    
     __validate_role_constraints(session)
     __refresh(session)
 
@@ -145,13 +147,11 @@ def drop_active_role (session, role):
     """    
     __validate(session)
     __validate_user_constraint(session, 'drop_active_role')
-    found = False
-    for role_constraint in session.user.role_constraints:        
-        if role.lower() == role_constraint.name.lower():
-            __deactivate_role(session.user, role_constraint)
-            found = True            
-    if not found:            
-        raise FortressError (msg='drop_active_role uid=' + session.user.uid + ', has not activated role=' + role, id=global_ids.ROLE_NOT_ACTIVATED_ERROR)
+    constraint = __find_role_constraint(role, session.user.role_constraints)
+    if constraint is not None:
+        __deactivate_role(session.user, constraint)
+    else:
+        raise FortressError (msg='drop_active_role uid=' + session.user.uid + ', has not activated role=' + role, id=global_ids.URLE_NOT_ACTIVE)
     __validate_role_constraints(session)
     __refresh(session)
 
@@ -278,6 +278,14 @@ def __is_role_found(role, roles):
     result = False
     if any ( s.lower() == role.lower() for s in roles ):        
         result = True
+    return result
+
+
+def __find_role_constraint(role, role_constraints):
+    result = None    
+    for role_constraint in role_constraints:
+        if role.lower() == role_constraint.name.lower():
+            result = role_constraint
     return result
 
 
