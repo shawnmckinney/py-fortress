@@ -54,9 +54,9 @@ ________________________________________________________________________________
 
 ### Argument Format
    * Consists of two dashes ‘- -‘ plus the attribute name and value pair, with a space between them.    
-   ```
+   ````
    --attribute_name value
-   ```
+   ````
 
    * if an attribute value contains white space,  enclose in single ‘ ‘ or double tics ” “.    
    ```
@@ -74,108 +74,108 @@ ________________________________________________________________________________
 ### Arguments as Lists
    * list of string values, separated by whitespace
    
-#### The following arguments are lists:
-   * phones: 
-   
+#### The following arguments are lists
+
+    *phones* 
     ```
     --phones '+33 401 851 4679' '1-212-251-1111' '(028) 9024 6609'
     ```
 
-   * mobiles:
-   
+    *mobiles*
     ```
     --mobiles ' 017x-1234567' '+44 020 7234 3456' '1-212-650-9632'
     ```
    
-   * emails:
-   
+    *emails*
     ```
     --emails  'f.lst@somewhere.com' 'myaccount@gmail.com' 'myworkaccount@company.com'
     ```
 
-   * props:
-   
+    *props*
     ```
     --props  'name1:value1', 'name2:value2', 'name3:value3'
     ```
+    
     _Each value contains a name:value pair._
 
 ### Arguments as Constraint
-   * Both the user and role entity support adding temporal [constraint](model/constraint.py)
+
+Both the user and role entity support adding temporal [constraint](model/constraint.py)
    
 #### The following arguments comprise constraint:
-   * name: label for user, i.e uid
-   
+
+    *name* : label for user, i.e uid
     ```
     --name foo3   
     ```
+    
     _For user, this can be any safe text.  For role, it must already be passed in, with the role's name._
    
-   * timeout: 99 - set the integer timeout that contains max time (in minutes) that entity may remain inactive.
-   
+    *timeout* : 99 - set the integer timeout that contains max time (in minutes) that entity may remain inactive.
     ```
     --timeout 30
     ```
+    
     _30 minutes_
    
-   * begin_time: HHMM - determines begin hour entity may be activated.
-   
+    *begin_time* : HHMM - determines begin hour entity may be activated.
     ```
     --begin_time 0900
     ```
+    
     _9:00 am_
    
-   * end_time: HHMM - determines end hour when entity is no longer allowed to activate.
-   
+    *end_time* : HHMM - determines end hour when entity is no longer allowed to activate.
     ```
     --end_time 2359
     ```
+    
     _11:59 pm_
    
-   * begin_date: YYYYMMDD - determines date when entity may be activated.
-   
+    *begin_date* : YYYYMMDD - determines date when entity may be activated.
     ```
     --begin_date 20150101
     ```
+    
     _Jan 1, 2015_
    
-   * end_date: YYMMDD - indicates latest date entity may be activated.
-   
+    *end_date* : YYMMDD - indicates latest date entity may be activated.
     ```
     --end_date 20191231
     ```
+    
     _Dec 31, 2019_
    
-   * begin_lock_date: YYYYMMDD - determines beginning of enforced inactive status
-   
+    *begin_lock_date* : YYYYMMDD - determines beginning of enforced inactive status
     ```
     --begin_lock_date 20180602
     ```
+    
     _Jun 2, 2018_
    
-   * end_lock_date: YYMMDD - determines end of enforced inactive status.
-   
+    *end_lock_date* : YYMMDD - determines end of enforced inactive status.
     ```
     --end_lock_date 20180610
     ```
+    
     _Jun 10, 2018_
    
-   * day_mask: 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week entity may be activated.
-   
+    *day_mask* : 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week entity may be activated.
     ```
     --day_mask 1357   
     ``` 
+    
     _Mon, Wed, Fri, Sun_
 
-   * all together:
-   
+   *all together*
     ```
     user mod --uid someuser --name anysafetext --timeout 30 --begin_time 0900 --end_time 2359 --begin_date 20150101 --end_date 20191231 --begin_lock_date 20180602 --end_lock_date 20180610 --day_mask 1357
     ```
+    
     _Constraints are optional and may be applied to user and role entities on add and mod operations_
    
+### A Few Tips More
 
-### A Few Tips More:
    * These commands have a one-to-one mapping to the admin and review APIs.  For example, the perm grant command maps to the admin_mgr.grant function and perm search –uid calls review_mgr.user_perms.
    * The description of the commands, including required arguments, can be inferred via the api doc inline to the admin_mgr and review_mgr modules.
    * The program output echos the inputted arguments and the results.
