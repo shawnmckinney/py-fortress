@@ -262,7 +262,7 @@ ________________________________________________________________________________
 3. **check** - access_mgr.check_access - pemission page456.read:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
+    (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
     obj_name=page456
     check
@@ -273,7 +273,7 @@ ________________________________________________________________________________
 4. **check** - access_mgr.check_access - pemission page456.edit:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name edit
+    (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name edit
     op_name=edit
     obj_name=page456
     check
@@ -284,7 +284,7 @@ ________________________________________________________________________________
 5. **check** - access_mgr.check_access - pemission page456.remove:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name remove
+    (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name remove
     op_name=remove
     obj_name=page456
     check
@@ -295,7 +295,7 @@ ________________________________________________________________________________
 6. **perms** - access_mgr.session_perms:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py get
+    (env)~py-fortress/test$ python3 cli_test_auth.py get
     perms
     page456.read:0
         description: 
@@ -340,7 +340,7 @@ ________________________________________________________________________________
 7. **del** - access_mgr.drop_active_role - auditor:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py del --role auditor
+    (env)~py-fortress/test$ cli_test_auth.py del --role auditor
     del
     success
     ```
@@ -349,7 +349,7 @@ ________________________________________________________________________________
 8. **roles** - access_mgr.session_roles:
    
     ```
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py roles
+    (env)~py-fortress/test$ python3 cli_test_auth.py roles
     roles
     account-mgr:0
         begin_time: 
@@ -369,7 +369,7 @@ ________________________________________________________________________________
 9. **check** - access_mgr.check_access - perm page456.read:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
+    (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
     obj_name=page456
     check
@@ -380,7 +380,7 @@ ________________________________________________________________________________
 10. **add** - access_mgr.add_active_role - auditor:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py add --role auditor
+    (env)~py-fortress/test$ python3 cli_test_auth.py add --role auditor
     op_name=read
     obj_name=page456
     check
@@ -391,7 +391,7 @@ ________________________________________________________________________________
 11. **roles** - access_mgr.session_roles:
    
     ```
-    (env)~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py roles
+    (env)~py-fortress/test$ python3 cli_test_auth.py roles
     roles
     account-mgr:0
         begin_time: 
@@ -422,7 +422,7 @@ ________________________________________________________________________________
 12. **check** - access_mgr.check_access - perm page456.read:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
+    (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
     obj_name=page456
     check
@@ -437,7 +437,7 @@ ________________________________________________________________________________
 14. **check** - access_mgr.check_access - perm page456.read:
    
     ```
-    (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
+    (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
     obj_name=page456
     check
