@@ -376,9 +376,10 @@ ________________________________________________________________________________
     check
     success
     ```
-   _The auditor role activated once again so user can do auditor things again._
-                    
+   _The auditor role activated once again so user can do auditor things again._                    
+
 11. Wait 5 minutes before performing the next step.
+   _Allow enough time for auditor role timeout to occur._
    
 12. **check** - access_mgr.check_access - pemission page456.read:
    
