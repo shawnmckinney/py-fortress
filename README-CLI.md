@@ -147,6 +147,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
    **all together**
    
     user mod --uid someuser --name anysafetext --timeout 30 --begin_time 0900 --end_time 2359 --begin_date 20150101 --end_date 20191231 --begin_lock_date 20180602 --end_lock_date 20180610 --day_mask 1357
+    role add --name manager --description 'manager works 8-5, M-F' --timeout 10 --begin_time 0800 --end_time 1700 --begin_date 20100101 --end_date none --day_mask 12345
    _Constraints are optional and may be applied to user and role entities on add and mod operations_
    
 ### A Few Tips More
