@@ -42,7 +42,9 @@ ________________________________________________________________________________
 _______________________________________________________________________________   
 ## Setup Test Data With ([AdminMgr](impl/admin_mgr.py)) CLI
 
-To setup RBAC test data there's another utility, introduced here: [README-CLI.md](./README-CLI.md).  
+This section requires another utility, [README-CLI.md](./README-CLI.md), to insert the RBAC test policy that will be tested later.
+
+From the Python3 runtime, enter the following commands:  
 
 1. **user add**
    
@@ -178,6 +180,8 @@ To setup RBAC test data there's another utility, introduced here: [README-CLI.md
     ```
 ________________________________________________________________________________
 ## Perform [AccessMgr](impl/access_mgr.py) Commands
+
+From the Python3 runtime, enter the following commands:
 
 1. **auth** - access_mgr.create_session - authenticate, activate roles:
    
