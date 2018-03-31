@@ -173,7 +173,7 @@ ________________________________________________________________________________
     auth
     success
     ```
-    __Now the session has been pickled in on file system in current directory.__
+    _Now the session has been pickled in on file system in current directory._
     
    2. **show** - output user session contents to stdout:
    
@@ -245,7 +245,7 @@ ________________________________________________________________________________
     *************** user *******************    
     success
     ```
-   __Display the contents of session.__
+   _Display the contents of session._
    
    3. **check** - access_mgr.check_access - pemission page456.read:
    
@@ -256,7 +256,7 @@ ________________________________________________________________________________
     check
     success
     ```
-   __The user has auditor activated so unless timeout validation failed this will succeed.__
+   _The user has auditor activated so unless timeout validation failed this will succeed._
    
    4. **check** - access_mgr.check_access - pemission page456.edit:
    
@@ -267,7 +267,7 @@ ________________________________________________________________________________
     check
     success
     ```
-   __The user has account-mgr activated so unless timeout validation failed this will succeed.__
+   _The user has account-mgr activated so unless timeout validation failed this will succeed._
    
    5. **check** - access_mgr.check_access - pemission page456.remove:
    
@@ -278,7 +278,7 @@ ________________________________________________________________________________
     check
     success
     ```
-   __The user has account-mgr activated so unless timeout validation failed this will succeed.__
+   _The user has account-mgr activated so unless timeout validation failed this will succeed._
    
    6. **get** - access_mgr.session_perms:
    
@@ -323,7 +323,7 @@ ________________________________________________________________________________
         op_name: remove
     success
     ```
-   __Display all perms allowed for activated roles.__
+   _Display all perms allowed for activated roles._
     
    7. **del** - access_mgr.drop_active_role - auditor:
    
@@ -332,7 +332,7 @@ ________________________________________________________________________________
     del
     success
     ```
-   __RBAC distinguishes between assigned and activated roles.__
+   _RBAC distinguishes between assigned and activated roles._
         
    8. **check** - access_mgr.check_access - pemission page456.read:
    
@@ -343,7 +343,7 @@ ________________________________________________________________________________
     check
     failed
     ```
-   __The auditor role deactivated so even though it's assigned user cannot perform as auditor.__
+   _The auditor role deactivated so even though it's assigned user cannot perform as auditor._
             
    9. **add** - access_mgr.add_active_role - auditor:
    
@@ -354,7 +354,7 @@ ________________________________________________________________________________
     check
     success
     ```
-   __Now the user should be allowed to resume audit activities.__
+   _Now the user should be allowed to resume audit activities._
                 
    10. **check** - access_mgr.check_access - pemission page456.read:
    
@@ -365,7 +365,7 @@ ________________________________________________________________________________
     check
     success
     ```
-   __The auditor role activated once again so user can do auditor things again.__
+   _The auditor role activated once again so user can do auditor things again._
                     
    11. Wait 5 minutes before performing the next step.
    
@@ -377,7 +377,7 @@ ________________________________________________________________________________
     check
     success
     ```
-   __Because the auditor role has timeout constraint set to 5 (minutes), role has been deactivated automatically from the session.__                
+   _Because the auditor role has timeout constraint set to 5 (minutes), role has been deactivated automatically from the session._                
     
     
 ### END OF README
