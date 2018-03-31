@@ -40,7 +40,9 @@ ________________________________________________________________________________
    * Call the auth operation first, subsequent ops will use and refresh the session.
    * Constraints on user and roles are enforced. For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
 _______________________________________________________________________________   
-## Setup Test Data With CLI.py ([AdminMgr](impl/admin_mgr.py))
+## Setup Test Data With cli.py ([AdminMgr](impl/admin_mgr.py))
+
+To setup RBAC test data there's another utility, cli.py, that was introduced here: [README-CLI.md](./README-CLI.md).  
 
 1. **user add**
    
