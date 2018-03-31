@@ -34,7 +34,7 @@ def load_entity (entity, args):
         if value:
             entity.__dict__[name] = value
             if name != 'password':
-                print(name + '=' + value)
+                print(name + '=' + str(value))
     return entity
 
 def add_args (parser, entity):

@@ -37,12 +37,14 @@ def process_user(args):
     user = load_entity(User(), args)
     print(args.entity + ' ' + args.operation)    
     if args.operation == ADD:
-        constraint = load_entity(Constraint(), args)
-        user.constraint = constraint
+        if args.name is not None:
+            constraint = load_entity(Constraint(), args)
+            user.constraint = constraint
         admin_mgr.add_user(user)
     elif args.operation == UPDATE:
-        constraint = load_entity(Constraint(), args)
-        user.constraint = constraint
+        if args.name is not None:        
+            constraint = load_entity(Constraint(), args)
+            user.constraint = constraint
         admin_mgr.update_user(user)        
     elif args.operation == DELETE:
         admin_mgr.delete_user(user)        
@@ -181,6 +183,12 @@ parser = argparse.ArgumentParser(description='Process py-fortress admin and revi
 parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJECT], help='entity name')
 parser.add_argument('operation', metavar='operand', choices=[ADD, UPDATE, DELETE, ASSIGN, DEASSIGN, GRANT, REVOKE, READ, SEARCH], help='operation name')
 parser.add_argument('-r', '--role', dest='role', help='role name')
+parser.add_argument('--phones', nargs="*", default=[])
+parser.add_argument('--mobiles', nargs="*", default=[])
+parser.add_argument('--emails', nargs="*", default=[])
+parser.add_argument('--props', nargs="*", default=[])
+
+
 add_args(parser, Role())
 add_args(parser, User())
 add_args(parser, Perm())    

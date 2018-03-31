@@ -28,13 +28,13 @@ ________________________________________________________________________________
     python3 cli.py entity operation --arg1 --arg2 ...  
     ```
     
-    where entity is (pick one):
+    ###Where entity is (pick one):
     * user
     * role
     * object
     * perm
     
-    and the operation is (pick one):
+    ###The operation is (pick one):
     * add
     * mod
     * del
@@ -45,17 +45,60 @@ ________________________________________________________________________________
     * read
     * search
     
-    The args are '--' + names contained within the py-fortress entities:
+    ###The args are '--' + names contained within the py-fortress entities:
     * [user](model/user.py)
     * [role](model/role.py)
     * [object](model/perm_object.py)
     * [perm](model/perm.py)
     * [constraint](model/constraint.py)
     
-    Tips:
-    * These commands follow exact same rules as the [admin_mgr](impl/admin_mgr.py) and [review_mgr](impl/review_mgr.py) APIs.  To understand usage, including required arguments, view its inline code doc.
-    * The output will echo the arguments and result.
-    * user and perm entities require the *--role* arg for *assign*, *deassign*, *grant*, and *revoke* operations
+    ###Argument Format
+    * Consists of two dashes ‘- -‘ plus the attribute name and value pair, with a space between them.    
+    ```
+    --attribute_name value
+    ```
+
+    * if an attribute value contains white space,  enclose in single ‘ ‘ or double tics ” “.    
+    ```
+    --attribute_name 'some value' --attribute_name2 "still more values"
+    ```
+
+    For example, a perm grant:
+    ```
+    $ python3 cli.py perm grant --obj_name myobj --op_name add --role 'my role'
+    ```
+
+    This command invokes Python’s runtime with the program name, cli.py, followed by an entity type, operation name and multiple name-value pairs.
+
+    The above used –role is the only argument that isn’t an entity attribute name.  It’s used on user assign, deassign, perm grant, revoke operations.
+    
+    ###Arguments as Lists
+    * list of string values, separated by whitespace
+    * The arguments are processed as lists:
+        * phones: 
+        ```
+        --phones '401-151-9879' '1-212-251-1111' '650-463-2681'
+        ```
+        
+        * mobiles:
+        ```
+        --mobiles '401-851-4779' '501-251-7449' '650-963-7681'
+        ```
+        
+        * emails:
+        ```
+        --emails  'f.lst@somewhere.com' 'myaccount@gmail.com' 'myworkaccount@company.com'
+        ```
+        
+        * props - each value contains a name:value pair:
+        ```
+        --props  'name1:value1', 'name2:value2', 'name3:value3'
+        ```
+
+    ###A Few Tips More:
+        These commands have a one-to-one mapping to the admin and review APIs.  For example, the perm grant command maps to the admin_mgr.grant function and perm search –uid calls review_mgr.user_perms.
+        The description of the commands, including required arguments, can be inferred via the api doc inline to the admin_mgr and review_mgr modules.
+        The program output echos the inputted arguments and the results.
     
 3. [AdminMgr](impl/admin_mgr.py) Examples:
 
