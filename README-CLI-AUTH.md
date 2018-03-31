@@ -163,7 +163,7 @@ ________________________________________________________________________________
     success
     ```
     
-12. **perm grant** - page456.edit, auditor 
+12. **perm grant** - page456.read, auditor 
    
     ```
     (env)~py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name read --role auditor
