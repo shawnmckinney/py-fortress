@@ -24,7 +24,8 @@ ________________________________________________________________________________
 [AccessMgr](impl/access_mgr.py)
    * auth : maps to access_mgr.create_session
    * check : maps to access_mgr.check_access
-   * get : maps to access_mgr.session_perms
+   * roles : maps to access_mgr.session_roles   
+   * perms : maps to access_mgr.session_perms
    * show : displays contents of session to stdout
    * add : maps to access_mgr.add_active_role
    * del : maps to access_mgr.drop_active_role
@@ -291,11 +292,11 @@ ________________________________________________________________________________
     ```
    _The user has account-mgr activated so unless timeout validation failed this will succeed._
    
-6. **get** - access_mgr.session_perms:
+6. **perms** - access_mgr.session_perms:
    
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py get
-    get
+    perms
     page456.read:0
         description: 
         abstract_name: page456.read
@@ -345,7 +346,27 @@ ________________________________________________________________________________
     ```
    _RBAC distinguishes between assigned and activated roles._
         
-8. **check** - access_mgr.check_access - pemission page456.read:
+8. **roles** - access_mgr.session_roles:
+   
+    ```
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py roles
+    roles
+    account-mgr:0
+        begin_time: 
+        raw: account-mgr$30$$$20180101$none$$$1234567
+        begin_lock_date: 
+        end_date: none
+        name: account-mgr
+        end_time: 
+        timeout: 30
+        day_mask: 1234567
+        begin_date: 20180101
+        end_lock_date: 
+    success    
+    ```
+   _Notice the audit role is no longer active._
+        
+9. **check** - access_mgr.check_access - perm page456.read:
    
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
@@ -356,7 +377,7 @@ ________________________________________________________________________________
     ```
    _The auditor role deactivated so even though it's assigned user cannot perform as auditor._
             
-9. **add** - access_mgr.add_active_role - auditor:
+10. **add** - access_mgr.add_active_role - auditor:
    
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py add --role auditor
@@ -367,7 +388,38 @@ ________________________________________________________________________________
     ```
    _Now the user should be allowed to resume audit activities._
                 
-10. **check** - access_mgr.check_access - pemission page456.read:
+11. **roles** - access_mgr.session_roles:
+   
+    ```
+    (env)~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py roles
+    roles
+    account-mgr:0
+        begin_time: 
+        raw: account-mgr$30$$$20180101$none$$$1234567
+        begin_lock_date: 
+        end_date: none
+        name: account-mgr
+        end_time: 
+        timeout: 30
+        day_mask: 1234567
+        begin_date: 20180101
+        end_lock_date: 
+    auditor:1
+        end_date: none
+        day_mask: 1234567
+        raw: auditor$5$$$20180101$none$$$1234567
+        begin_date: 20180101
+        end_lock_date: 
+        timeout: 5
+        begin_time: 
+        name: auditor
+        end_time: 
+        begin_lock_date:     success
+    success            
+    ```
+   _Notice the audit role has been activated once again._
+        
+12. **check** - access_mgr.check_access - perm page456.read:
    
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
@@ -378,11 +430,11 @@ ________________________________________________________________________________
     ```
    _The auditor role activated once again so user can do auditor things again._
                        
-11. Wait 5 minutes before performing the next step. 
+13. Wait 5 minutes before performing the next step. 
 
-   _Allow enough time for auditor role timeout to occur before moving to the next step._
+   _Allow enough time for auditor role timeout to occur before moving to the next step.  Now, if you run the roles command, the auditor role will once again be missing._
                           
-12. **check** - access_mgr.check_access - pemission page456.read:
+14. **check** - access_mgr.check_access - perm page456.read:
    
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
@@ -391,7 +443,7 @@ ________________________________________________________________________________
     check
     failed
     ```
-   _Because the auditor role has timeout constraint set to 5 (minutes), role has been deactivated automatically from the session._                
+   _Because the auditor role has timeout constraint set to 5 (minutes), role has been deactivated automatically from the session._              
     
     
 ### END OF README

@@ -25,7 +25,8 @@ SEARCH = 'search'
 
 AUTH = 'auth'
 CHCK = 'check'
-GET = 'get'
+ROLES = 'roles'
+PERMS = 'perms'
 SHOW = 'show'
 
 def load_entity (entity, args):

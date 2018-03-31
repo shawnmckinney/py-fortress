@@ -18,7 +18,7 @@ from impl import access_mgr
 from util.fortress_error import FortressError
 from test.utils import print_user, print_entity
 from test.cli_utils import (
-    load_entity, add_args, ADD, DELETE, AUTH, CHCK, GET, SHOW
+    load_entity, add_args, ADD, DELETE, AUTH, CHCK, ROLES, PERMS, SHOW
     )
 
 OUT_SESS_FILE = "sess.pickle"
@@ -36,7 +36,13 @@ def process(args):
         elif args.operation == CHCK:
             sess = un_pickle()
             result = access_mgr.check_access(sess, perm)
-        elif args.operation == GET:   
+        elif args.operation == ROLES:   
+            sess = un_pickle()         
+            roles = access_mgr.session_roles(sess)
+            for idx, role in enumerate(roles):
+                print_entity(role, role.name + ':' + str(idx))
+            result = True
+        elif args.operation == PERMS:   
             sess = un_pickle()         
             perms = access_mgr.session_perms(sess)
             for idx, perm in enumerate(perms):
@@ -79,7 +85,7 @@ def un_pickle():
     
 program_name = 'Process py-fortress access_mgr commands.'
 parser = argparse.ArgumentParser(description=program_name)        
-parser.add_argument('operation', metavar='operand', choices=[AUTH,CHCK,GET,ADD,DELETE,SHOW], help='operation name')
+parser.add_argument('operation', metavar='operand', choices=[AUTH,CHCK,ROLES,PERMS,ADD,DELETE,SHOW], help='operation name')
 parser.add_argument('-r', '--role', dest='role', help='role name')
 add_args(parser, User())
 add_args(parser, Perm())    
