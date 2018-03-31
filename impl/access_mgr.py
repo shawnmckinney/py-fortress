@@ -239,7 +239,7 @@ def __validate_perm(perm):
 
 def __validate_role_constraints(session):
     for role_constraint in session.user.role_constraints:
-        result = __validate_role_constraint(role_constraint, session)
+        result = __validate_role_constraint(session, role_constraint)
         if result is not SUCCESS:
                 logger.debug('validate_role_constraints deactivate user-role:' + session.user.uid + '.' + role_constraint.name)
                 __deactivate_role(session.user, role_constraint)                
@@ -263,7 +263,7 @@ def __validate_user_constraint(session, op):
     return result
 
 
-def __validate_role_constraint(constraint, session):
+def __validate_role_constraint(session, constraint):
     result = SUCCESS
     if __is_constraint(constraint):
         for validator in validators:
