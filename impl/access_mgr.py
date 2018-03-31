@@ -18,14 +18,6 @@ from util.logger import logger
 from util import global_ids
 from util.global_ids import SUCCESS
 
-# Initialize the constraint validators:
-validators = []
-validators.append(Date())
-validators.append(Day())
-validators.append(LockDate())
-validators.append(Time())
-validators.append(TimeOut())
-
 
 def create_session (user, is_trusted):
     """
@@ -57,7 +49,7 @@ def create_session (user, is_trusted):
     session.user = entity            
     __validate_user_constraint(session, 'create_session')
     __validate_role_constraints(session)
-    session.last_access = CurrentDateTime()
+    __refresh(session)
     return session
 
 
@@ -90,7 +82,7 @@ def check_access (session, perm):
         if __is_role_found(role, entity.roles):        
             result = True
             break
-    session.last_access = CurrentDateTime()
+    __refresh(session)
     return result
 
 
@@ -111,7 +103,7 @@ def is_user_in_role (session, role):
     __validate_role_constraints(session)
     if __is_role_found(role, session.user.roles):
         result = True
-    session.last_access = CurrentDateTime()
+    __refresh(session)
     return result
 
 
@@ -135,7 +127,7 @@ def add_active_role (session, role):
         if role.lower() == role_constraint.name.lower():
             __activate_role(session.user, role_constraint)
     __validate_role_constraints(session)
-    session.last_access = CurrentDateTime()
+    __refresh(session)
 
 
 def drop_active_role (session, role):
@@ -161,7 +153,25 @@ def drop_active_role (session, role):
     if not found:            
         raise FortressError (msg='drop_active_role uid=' + session.user.uid + ', has not activated role=' + role, id=global_ids.ROLE_NOT_ACTIVATED_ERROR)
     __validate_role_constraints(session)
-    session.last_access = CurrentDateTime()
+    __refresh(session)
+
+
+def session_roles (session):
+    """
+    This function returns the active roles associated with a session. The function is valid if and only if the session is a valid Fortress session.
+
+    required parameters:        
+    session - as returned from create_session api    
+    
+    return:
+    Constraint list     
+    """    
+    __validate(session)
+    __validate_user_constraint(session, 'session_roles')
+    __validate_roles(session.user)    
+    __validate_role_constraints(session)
+    __refresh(session)
+    return session.user.role_constraints            
 
 
 def session_perms (session):
@@ -179,26 +189,8 @@ def session_perms (session):
     __validate_user_constraint(session, 'session_perms')
     __validate_roles(session.user)    
     __validate_role_constraints(session)
-    session.last_access = CurrentDateTime()            
+    __refresh(session)            
     return permdao.search_on_roles(session.user.roles)
-
-
-def session_roles (session):
-    """
-    This function returns the active roles associated with a session. The function is valid if and only if the session is a valid Fortress session.
-
-    required parameters:        
-    session - as returned from create_session api    
-    
-    return:
-    Constraint list     
-    """    
-    __validate(session)
-    __validate_user_constraint(session, 'session_roles')
-    __validate_roles(session.user)    
-    __validate_role_constraints(session)
-    session.last_access = CurrentDateTime()
-    return session.user.role_constraints            
 
 
 def __activate_role(user, role_constraint):
@@ -209,6 +201,10 @@ def __activate_role(user, role_constraint):
 def __deactivate_role(user, role_constraint):
     user.roles.remove(role_constraint.name)
     user.role_constraints.remove(role_constraint)
+
+
+def __refresh(session):
+    session.last_access = CurrentDateTime()            
 
 
 def __validate(session):
@@ -283,3 +279,12 @@ def __is_role_found(role, roles):
     if any ( s.lower() == role.lower() for s in roles ):        
         result = True
     return result
+
+
+# Initialize the constraint validators:
+validators = []
+validators.append(Date())
+validators.append(Day())
+validators.append(LockDate())
+validators.append(Time())
+validators.append(TimeOut())
