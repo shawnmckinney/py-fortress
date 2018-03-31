@@ -43,6 +43,7 @@ ________________________________________________________________________________
 ### Setup Test Data With CLI.py ([AdminMgr](impl/admin_mgr.py))
 
    1. **user add**
+   
     ```
     (env)~py-fortress/test$ python3 cli.py user add --uid chorowitz --password 'secret' --timeout 30 --begin_date 20180101 --end_date none --day_mask 1234567 --description 'for testing only'
     uid=chorowitz
@@ -56,6 +57,7 @@ ________________________________________________________________________________
     success
     ```
    2. **role add** - account-mgr
+   
     ```
     (env)~py-fortress/test$ python3 cli.py role add --name 'account-mgr' --timeout 30 --begin_date 20180101 --end_date none --day_mask 1234567
     name=account-mgr
@@ -67,6 +69,7 @@ ________________________________________________________________________________
     success
     ```
    3. **role add** - auditor
+   
     ```
     (env)~py-fortress/test$ python3 cli.py role add --name 'auditor' --timeout 5 --begin_date 20180101 --end_date none --day_mask 1234567
     name=auditor
@@ -78,6 +81,7 @@ ________________________________________________________________________________
     success
     ```
    4. **user assign** - account-mgr
+   
     ```
     (env)~py-fortress/test$ python3 cli.py user assign --uid 'chorowitz' --role 'account-mgr'
     uid=chorowitz
@@ -86,6 +90,7 @@ ________________________________________________________________________________
     success
     ```
    5. **user assign** - auditor
+   
     ```
     (env)~py-fortress/test$ python3 cli.py user assign --uid 'chorowitz' --role 'auditor'
     uid=chorowitz
@@ -94,6 +99,7 @@ ________________________________________________________________________________
     success
     ```
    6. **object add** - page456
+   
     ```
     (env)~py-fortress/test$ python3 cli.py object add --obj_name page456
     obj_name=page456
@@ -101,6 +107,7 @@ ________________________________________________________________________________
     success
     ```
    7. **perm add** - page456.read
+   
     ```
     (env)~py-fortress/test$ python3 cli.py perm add --obj_name page456 --op_name read
     obj_name=page456
@@ -109,6 +116,7 @@ ________________________________________________________________________________
     success
     ```
    8. **perm add** - page456.edit
+   
     ```
     (env)~py-fortress/test$ python3 cli.py perm add --obj_name page456 --op_name edit
     obj_name=page456
@@ -117,6 +125,7 @@ ________________________________________________________________________________
     success
     ```
    9. **perm add** - page456.remove
+   
     ```
     (env)~py-fortress/test$ python3 cli.py perm add --obj_name page456 --op_name remove
     obj_name=page456
@@ -125,6 +134,7 @@ ________________________________________________________________________________
     success
     ```
    10. **perm grant** - page456.edit, account-mgr
+   
     ```
     (env)~py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name edit --role account-mgr
     obj_name=page456
@@ -134,6 +144,7 @@ ________________________________________________________________________________
     success
     ```
    11. **perm grant** - page456.remove, account-mgr
+   
     ```
     (env)~py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name remove --role account-mgr
     obj_name=page456
@@ -143,6 +154,7 @@ ________________________________________________________________________________
     success
     ```
    12. **perm grant** - page456.edit, auditor 
+   
     ```
     (env)~py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name read --role auditor
     obj_name=page456
@@ -156,6 +168,7 @@ ________________________________________________________________________________
 ### Perform [AccessMgr](impl/access_mgr.py) Commands
 
    1. **auth** - access_mgr.create_session - authenticate, activate roles:
+   
     ```
     (env)~py-fortress/test$ python3 cli_test_auth.py auth --uid 'chorowitz' --password 'secret'
     uid=chorowitz
@@ -163,6 +176,7 @@ ________________________________________________________________________________
     success
     ```
    2. **show** - output user session contents to stdout:
+   
     ```
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py show
     show
@@ -234,6 +248,7 @@ ________________________________________________________________________________
    __Display the contents of session.__
    
    3. **check** - access_mgr.check_access - pemission page456.read:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
@@ -244,6 +259,7 @@ ________________________________________________________________________________
    __The user has auditor activated so unless timeout validation failed this will succeed.__
    
    4. **check** - access_mgr.check_access - pemission page456.edit:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name edit
     op_name=edit
@@ -254,6 +270,7 @@ ________________________________________________________________________________
    _The user has account-mgr activated so unless timeout validation failed this will succeed._
    
    5. **check** - access_mgr.check_access - pemission page456.remove:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name remove
     op_name=remove
@@ -264,6 +281,7 @@ ________________________________________________________________________________
    __The user has account-mgr activated so unless timeout validation failed this will succeed.__
    
    6. **get** - access_mgr.session_perms:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py get
     get
@@ -308,6 +326,7 @@ ________________________________________________________________________________
    __Display all perms allowed for activated roles.__
     
    7. **del** - access_mgr.drop_active_role - auditor:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py del --role auditor
     del
@@ -316,6 +335,7 @@ ________________________________________________________________________________
    __RBAC distinguishes between assigned and activated roles.__
         
    8. **check** - access_mgr.check_access - pemission page456.read:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
@@ -326,6 +346,7 @@ ________________________________________________________________________________
    __The auditor role deactivated so even though it's assigned user cannot perform as auditor.__
             
    9. **add** - access_mgr.add_active_role - auditor:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py add --role auditor
     op_name=read
@@ -336,6 +357,7 @@ ________________________________________________________________________________
    __Now the user should be allowed to resume audit activities._
                 
    10. **check** - access_mgr.check_access - pemission page456.read:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
@@ -345,8 +367,10 @@ ________________________________________________________________________________
     ```
    __The auditor role activated once again so user can do auditor things again.__
                     
-   11. Wait 5 minutes before repeating this command:    
+   11. Wait 5 minutes before performing the next step.
+   
    12. **check** - access_mgr.check_access - pemission page456.read:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
