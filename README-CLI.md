@@ -28,13 +28,13 @@ ________________________________________________________________________________
     python3 cli.py entity operation --arg1 --arg2 ...  
     ```
     
-    ###Where entity is (pick one):
+### Where entity is (pick one):
     * user
     * role
     * object
     * perm
     
-    ###The operation is (pick one):
+### The operation is (pick one):
     * add
     * mod
     * del
@@ -45,14 +45,14 @@ ________________________________________________________________________________
     * read
     * search
     
-###The args are '--' + names contained within the py-fortress entities:
+### The args are '--' + names contained within the py-fortress entities:
     * [user](model/user.py)
     * [role](model/role.py)
     * [object](model/perm_object.py)
     * [perm](model/perm.py)
     * [constraint](model/constraint.py)
     
-###Argument Format
+### Argument Format
     * Consists of two dashes ‘- -‘ plus the attribute name and value pair, with a space between them.    
     ```
     --attribute_name value
@@ -72,28 +72,29 @@ ________________________________________________________________________________
 
     The above used –role is the only argument that isn’t an entity attribute name.  It’s used on user assign, deassign, perm grant, revoke operations.
     
-###Arguments as Lists
+### Arguments as Lists
     * list of string values, separated by whitespace
-    * The following arguments are lists:
-        * phones: 
-        ```
-        --phones '401-151-9879' '1-212-251-1111' '650-463-2681'
-        ```
-        
-        * mobiles:
-        ```
-        --mobiles '401-851-4779' '501-251-7449' '650-963-7681'
-        ```
-        
-        * emails:
-        ```
-        --emails  'f.lst@somewhere.com' 'myaccount@gmail.com' 'myworkaccount@company.com'
-        ```
-        
-        * props - each value contains a name:value pair:
-        ```
-        --props  'name1:value1', 'name2:value2', 'name3:value3'
-        ```
+    
+#### The following arguments are lists:
+    * phones: 
+    ```
+    --phones '401-151-9879' '1-212-251-1111' '650-463-2681'
+    ```
+    
+    * mobiles:
+    ```
+    --mobiles '401-851-4779' '501-251-7449' '650-963-7681'
+    ```
+    
+    * emails:
+    ```
+    --emails  'f.lst@somewhere.com' 'myaccount@gmail.com' 'myworkaccount@company.com'
+    ```
+    
+    * props - each value contains a name:value pair:
+    ```
+    --props  'name1:value1', 'name2:value2', 'name3:value3'
+    ```
 
 ###A Few Tips More:
         These commands have a one-to-one mapping to the admin and review APIs.  For example, the perm grant command maps to the admin_mgr.grant function and perm search –uid calls review_mgr.user_perms.
