@@ -46,6 +46,7 @@ ________________________________________________________________________________
     * search
     
 ### The args are '--' + names contained within the py-fortress entities:
+
     * [user](model/user.py)
     * [role](model/role.py)
     * [object](model/perm_object.py)
@@ -53,6 +54,7 @@ ________________________________________________________________________________
     * [constraint](model/constraint.py)
     
 ### Argument Format
+
     * Consists of two dashes ‘- -‘ plus the attribute name and value pair, with a space between them.    
     ```
     --attribute_name value
@@ -68,14 +70,14 @@ ________________________________________________________________________________
     $ python3 cli.py perm grant --obj_name myobj --op_name add --role 'my role'
     ```
 
-    This command invokes Python’s runtime with the program name, cli.py, followed by an entity type, operation name and multiple name-value pairs.
-
-    The above used –role is the only argument that isn’t an entity attribute name.  It’s used on user assign, deassign, perm grant, revoke operations.
+    * This command invokes Python’s runtime with the program name, cli.py, followed by an entity type, operation name and multiple name-value pairs.
+    * The above used *–role* is the only argument that isn’t an entity attribute name.  It’s used on user assign, deassign, perm grant, revoke operations.
     
 ### Arguments as Lists
     * list of string values, separated by whitespace
     
 #### The following arguments are lists:
+
     * phones: 
     ```
     --phones '401-151-9879' '1-212-251-1111' '650-463-2681'
@@ -97,9 +99,9 @@ ________________________________________________________________________________
     ```
 
 ###A Few Tips More:
-        These commands have a one-to-one mapping to the admin and review APIs.  For example, the perm grant command maps to the admin_mgr.grant function and perm search –uid calls review_mgr.user_perms.
-        The description of the commands, including required arguments, can be inferred via the api doc inline to the admin_mgr and review_mgr modules.
-        The program output echos the inputted arguments and the results.
+    * These commands have a one-to-one mapping to the admin and review APIs.  For example, the perm grant command maps to the admin_mgr.grant function and perm search –uid calls review_mgr.user_perms.
+    * The description of the commands, including required arguments, can be inferred via the api doc inline to the admin_mgr and review_mgr modules.
+    * The program output echos the inputted arguments and the results.
     
 3. [AdminMgr](impl/admin_mgr.py) Examples:
 
