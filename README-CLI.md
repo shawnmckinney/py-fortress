@@ -114,25 +114,25 @@ ________________________________________________________________________________
    ```
    30 seconds
    
-   * begin_time: HHMM - determines begin hour role may be activated in user's session.
+   * begin_time: HHMM - determines begin hour entity may be activated.
    ```
    --begin_time 0900
    ```
    9:00 am
    
-   * end_time: HHMM - determines end hour when user is no longer allowed to sign on.
+   * end_time: HHMM - determines end hour when entity is no longer allowed to activate.
    ```
    --end_time 2359
    ```
    11:59 pm
    
-   * begin_date: YYYYMMDD - determines date when role may be activated.
+   * begin_date: YYYYMMDD - determines date when entity may be activated.
    ```
    --begin_date 20150101
    ```
    Jan 1, 2015
    
-   * end_date: YYMMDD - indicates latest date role may be activated.
+   * end_date: YYMMDD - indicates latest date entity may be activated.
    ```
    --end_date 20191231
    ```
@@ -150,7 +150,7 @@ ________________________________________________________________________________
    ```
    Jun 10, 2018
    
-   * day_mask: 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be activated.
+   * day_mask: 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week entity may be activated.
    ```
    --day_mask 1357   
    ``` 
