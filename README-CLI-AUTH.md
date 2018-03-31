@@ -39,8 +39,9 @@ ________________________________________________________________________________
    * The session is 'pickled' (serialized) and stored on the file system in executable folder.
    * Call the auth operation first, subsequent ops will use and refresh the session.
    * Constraints on user and roles are enforced.  For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
-   
-### Setup Test Data With CLI.py ([AdminMgr](impl/admin_mgr.py))
+
+___________________________________________________________________________________   
+## Setup Test Data With CLI.py ([AdminMgr](impl/admin_mgr.py))
 
    1. **user add**
    
@@ -165,7 +166,8 @@ ________________________________________________________________________________
     ```
 
 
-### Perform [AccessMgr](impl/access_mgr.py) Commands
+___________________________________________________________________________________
+## Perform [AccessMgr](impl/access_mgr.py) Commands
 
    1. **auth** - access_mgr.create_session - authenticate, activate roles:
    
@@ -370,7 +372,6 @@ ________________________________________________________________________________
    11. Wait 5 minutes before performing the next step.
    
    12. **check** - access_mgr.check_access - pemission page456.read:
-   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
