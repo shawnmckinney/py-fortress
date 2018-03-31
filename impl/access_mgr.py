@@ -258,7 +258,7 @@ def __validate_user_constraint(session, op):
         for validator in validators:
             result = validator.validate(session.user.constraint, CurrentDateTime(), session)
             if result is not SUCCESS:
-                logger.debug(validator.__class__.__name__ + ' validation failed:' + session.user.constraint.name + ', result=' + result)
+                logger.debug(validator.__class__.__name__ + ' validation failed:' + session.user.constraint.name + ', result=' + str(result))
                 raise FortressError (msg=op + ' constraint validation failed uid:' + session.user.uid, id=result)
     return result
 
@@ -269,7 +269,7 @@ def __validate_role_constraint(session, constraint):
         for validator in validators:
             result = validator.validate(constraint, CurrentDateTime(), session)
             if result is not SUCCESS:
-                logger.debug(validator.__class__.__name__ + ' validation failed:' + constraint.name + ', uid=' + session.user.uid + ', result=' + result )
+                logger.debug(validator.__class__.__name__ + ' validation failed:' + constraint.name + ', uid=' + session.user.uid + ', result=' + str(result))
                 break
     return result
 
