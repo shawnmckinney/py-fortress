@@ -370,6 +370,7 @@ ________________________________________________________________________________
    11. Wait 5 minutes before performing the next step.
    
    12. **check** - access_mgr.check_access - pemission page456.read:
+   
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
     op_name=read
