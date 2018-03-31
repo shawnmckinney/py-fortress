@@ -35,9 +35,7 @@ ________________________________________________________________________________
    * [perm](model/perm.py) - e.g. --obj_name, --op_name
     
 ### Tips
-
-   * These commands have a one-to-one mapping to the access APIs.  For example, the auth command maps to the access_mgr.create_session function and check calls access_mgr.check_access.
-   * The description of the commands, including required arguments, can be inferred via the api doc inline to the access_mgr module.
+   * The description of the commands, i.e. required and optional arguments, can be inferred via the api doc inline to the access_mgr module.
    * The session is 'pickled' (serialized) and stored on the file system in executable folder.
    * Call the auth operation first, subsequent ops will use and refresh the session.
    * Constraints on user and roles are enforced.  For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
