@@ -376,7 +376,8 @@ ________________________________________________________________________________
     check
     success
     ```
-   _The auditor role activated once again so user can do auditor things again._                    
+   _The auditor role activated once again so user can do auditor things again._
+                       
 
 11. Wait 5 minutes before performing the next step.
 
