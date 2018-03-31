@@ -435,11 +435,12 @@ From the Python3 runtime, enter the following commands:
     check
     success
     ```
-   _Because the auditor role was reactivated, the user may resume auditor activities._
+    
+    _Because the auditor role was reactivated, the user may resume auditor activities._
                        
 13. Wait 5 minutes before performing the next step. 
 
-   _Allow enough time for auditor role timeout to occur before moving to the next step.  Now, if you run the roles command, the auditor role will once again be missing._
+    _Allow enough time for auditor role timeout to occur before moving to the next step.  Now, if you run the roles command, the auditor role will once again be missing._
                           
 14. **check** - access_mgr.check_access - perm page456.read:
    
@@ -450,7 +451,8 @@ From the Python3 runtime, enter the following commands:
     check
     failed
     ```
-   _Because the auditor role has timeout constraint set to 5 (minutes), role has been deactivated automatically from the session._              
+    
+    _Because the auditor role has timeout constraint set to 5 (minutes), role has been deactivated automatically from the session._              
     
     
 ### END OF README
