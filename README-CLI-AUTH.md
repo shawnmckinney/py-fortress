@@ -46,7 +46,7 @@ This section requires another utility, [README-CLI.md](./README-CLI.md), to inse
 
 From the Python3 runtime, enter the following commands:  
 
-1. **user add**
+1. **user add** - chorowitz
    
     ```
     (env)~py-fortress/test$ python3 cli.py user add --uid chorowitz --password 'secret' --timeout 30 --begin_date 20180101 --end_date none --day_mask 1234567 --description 'for testing only'
@@ -87,7 +87,7 @@ From the Python3 runtime, enter the following commands:
     success
     ```
     
-4. **user assign** - account-mgr
+4. **user assign** - chorowitz to role account-mgr
    
     ```
     (env)~py-fortress/test$ python3 cli.py user assign --uid 'chorowitz' --role 'account-mgr'
@@ -97,7 +97,7 @@ From the Python3 runtime, enter the following commands:
     success
     ```
     
-5. **user assign** - auditor
+5. **user assign** - chorowitz to role auditor
    
     ```
     (env)~py-fortress/test$ python3 cli.py user assign --uid 'chorowitz' --role 'auditor'
@@ -146,7 +146,7 @@ From the Python3 runtime, enter the following commands:
     success
     ```
     
-10. **perm grant** - page456.edit, account-mgr
+10. **perm grant** - page456.edit to role account-mgr
    
     ```
     (env)~py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name edit --role account-mgr
@@ -157,7 +157,7 @@ From the Python3 runtime, enter the following commands:
     success
     ```
     
-11. **perm grant** - page456.remove, account-mgr
+11. **perm grant** - page456.remove to role account-mgr
    
     ```
     (env)~py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name remove --role account-mgr
@@ -168,7 +168,7 @@ From the Python3 runtime, enter the following commands:
     success
     ```
     
-12. **perm grant** - page456.read, auditor 
+12. **perm grant** - page456.read to role auditor 
    
     ```
     (env)~py-fortress/test$ python3 cli.py perm grant --obj_name page456 --op_name read --role auditor
