@@ -381,7 +381,7 @@ From the Python3 runtime, enter the following commands:
     check
     failed
     ```
-   _The auditor role deactivated so even though it's assigned user cannot perform as auditor._
+   _Although the auditor has been assigned to the user, it's been deactivated from the session so user cannot perform as auditor._
             
 10. **add** - access_mgr.add_active_role - auditor:
    
@@ -423,7 +423,7 @@ From the Python3 runtime, enter the following commands:
         begin_lock_date:     success
     success            
     ```
-   _Notice the audit role has been activated once again._
+   _Notice the audit role has been reactivated into the session._
         
 12. **check** - access_mgr.check_access - perm page456.read:
    
@@ -434,7 +434,7 @@ From the Python3 runtime, enter the following commands:
     check
     success
     ```
-   _The auditor role activated once again so user can do auditor things again._
+   _Because the auditor role was reactivated, the user may resume auditor activities._
                        
 13. Wait 5 minutes before performing the next step. 
 
