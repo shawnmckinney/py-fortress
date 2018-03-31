@@ -392,7 +392,7 @@ From the Python3 runtime, enter the following commands:
     check
     success
     ```
-   _Now the user should be allowed to resume audit activities._
+   _Now the user may resume audit activities._
                 
 11. **roles** - access_mgr.session_roles:
    
