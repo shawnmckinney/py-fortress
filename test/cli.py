@@ -5,17 +5,14 @@ Created on Mar 23, 2018
 @copyright: 2018 - Symas Corporation
 '''
 import argparse
-from model import PermObj, Perm, User, Role
+from model import PermObj, Perm, User, Role, Constraint
 from impl import admin_mgr, review_mgr
 from test.utils import print_user, print_role, print_ln, print_entity
+from util.fortress_error import FortressError
 from test.cli_utils import (
     load_entity, add_args, USER, ROLE, PERM, OBJECT, ADD, 
     UPDATE, DELETE, ASSIGN, DEASSIGN, READ, SEARCH, GRANT, REVOKE
     )
-
-from util.fortress_error import FortressError
-
-
 
 def process(args):
     result = False
@@ -33,16 +30,19 @@ def process(args):
         if result:
             print('success')
     except FortressError as e:
-        print('FortressError id=' + str(e.id) +', ' + e.msg)
-                        
+        print('FortressError id=' + str(e.id) +', ' + e.msg)                        
                         
 
 def process_user(args):
-    user = load_entity (User(), args)
+    user = load_entity(User(), args)
     print(args.entity + ' ' + args.operation)    
     if args.operation == ADD:
+        constraint = load_entity(Constraint(), args)
+        user.constraint = constraint
         admin_mgr.add_user(user)
     elif args.operation == UPDATE:
+        constraint = load_entity(Constraint(), args)
+        user.constraint = constraint
         admin_mgr.update_user(user)        
     elif args.operation == DELETE:
         admin_mgr.delete_user(user)        
@@ -72,11 +72,15 @@ def process_user(args):
 
         
 def process_role(args):
-    role = load_entity (Role(), args)
+    role = load_entity(Role(), args)
     print(args.entity + ' ' + args.operation)        
     if args.operation == ADD:
+        constraint = load_entity(Constraint(), args)
+        role.constraint = constraint
         admin_mgr.add_role(role)        
     elif args.operation == UPDATE:
+        constraint = load_entity(Constraint(), args)
+        role.constraint = constraint
         admin_mgr.update_role(role)        
     elif args.operation == DELETE:
         admin_mgr.delete_role(role)
@@ -181,5 +185,6 @@ add_args(parser, Role())
 add_args(parser, User())
 add_args(parser, Perm())    
 add_args(parser, PermObj())
+add_args(parser, Constraint())
 args = parser.parse_args()
 process(args)

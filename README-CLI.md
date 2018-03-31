@@ -50,6 +50,7 @@ ________________________________________________________________________________
     * [role](model/role.py)
     * [object](model/perm_object.py)
     * [perm](model/perm.py)
+    * [constraint](model/constraint.py)
     
     Tips:
     * These commands follow exact same rules as the [admin_mgr](impl/admin_mgr.py) and [review_mgr](impl/review_mgr.py) APIs.  To understand usage, including required arguments, view its inline code doc.
