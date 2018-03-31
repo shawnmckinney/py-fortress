@@ -392,7 +392,8 @@ From the Python3 runtime, enter the following commands:
     check
     success
     ```
-   _Now the user may resume audit activities._
+    
+    _Now the user may resume audit activities._
                 
 11. **roles** - access_mgr.session_roles:
    
@@ -423,7 +424,7 @@ From the Python3 runtime, enter the following commands:
         begin_lock_date:     success
     success            
     ```
-   _Notice the audit role has been reactivated into the session._
+    _Notice the audit role has been reactivated into the session._
         
 12. **check** - access_mgr.check_access - perm page456.read:
    
