@@ -376,7 +376,7 @@ ________________________________________________________________________________
     op_name=read
     obj_name=page456
     check
-    success
+    failed
     ```
    _Because the auditor role has timeout constraint set to 5 (minutes), role has been deactivated automatically from the session._                
     
