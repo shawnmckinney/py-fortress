@@ -1,4 +1,4 @@
-# py-fortress Command Line Interpreter (CLI) README AUTHENTICATION and AUTHOTIZATION
+# Command Line Interpreter (CLI) README for AUTHENTICATION and AUTHOTIZATION testing
  
 For RBAC0 system management testing.
 _____________________________________________________________________________
