@@ -108,11 +108,11 @@ ________________________________________________________________________________
    --name foo3   
    ```
    For user, this can be any safe text.  For role, it must already be passed in, with the role's name.
-   * timeout: 99 - set the integer timeout that contains max time (in seconds) that entity may remain inactive.
+   * timeout: 99 - set the integer timeout that contains max time (in minutes) that entity may remain inactive.
    ```
    --timeout 30
    ```
-   30 seconds
+   30 minutes
    
    * begin_time: HHMM - determines begin hour entity may be activated.
    ```

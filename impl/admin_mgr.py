@@ -21,18 +21,19 @@ def add_user(user):
     user.uid - maps to INetOrgPerson uid
          
     optional parameters Temporal constraints may be associated with ftUserAttrs aux object class based on:
-    user.role_constraints.beginDate - YYYYMMDD - determines date when role may be activated.
-    user.role_constraints.endDate - YYMMDD - indicates latest date role may be activated.
-    user.role_constraints.beginLockDate - YYYYMMDD - determines beginning of enforced inactive status
-    user.role_constraints.endLockDate - YYMMDD - determines end of enforced inactive status.
-    user.role_constraints.beginTime - HHMM - determines begin hour role may be activated in user's session.
-    user.role_constraints - HHMM - determines end hour role may be activated in user's session.*
-    user.role_constraints - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be activated.
-
+    user.constraint.name - just a label, i.e. uid
+    user.constraint.timeout - 99 - set the integer timeout that contains max time (in minutes) that entity may remain inactive.    
+    user.constraint.begin_date - YYYYMMDD - determines date when user may be activated.
+    user.constraint.end_date - YYMMDD - indicates latest date user may be activated.
+    user.constraint.begin_lock_date - YYYYMMDD - determines beginning of enforced inactive status
+    user.constraint.end_lock_date - YYMMDD - determines end of enforced inactive status.
+    user.constraint.begin_time - HHMM - determines begin hour user may be activated.
+    user.constraint.end_time -  user.role.constraints.end_time -  HHMM - determines end hour user may be activated.
+    user.constraint.day_mask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week user may be activated.
     user.props - multi-occurring name:value pairs
     user.pw_policy - slapd pwpolicy
-
-    standard iNetOrgPerson attrs, more info here: https://tools.ietf.org/html/rfc2798
+    
+    standard iNetOrgPerson attrs, more info here: https://tools.ietf.org/html/rfc2798:
     user.ou
     user.cn
     user.sn
@@ -61,17 +62,17 @@ def update_user(user):
     required parameters:
     user.uid - maps to INetOrgPerson uid     
     optional parameters Temporal constraints may be associated with ftUserAttrs aux object class based on:
-    user.role_constraints.beginDate - YYYYMMDD - determines date when role may be activated.
-    user.role_constraints.endDate - YYMMDD - indicates latest date role may be activated.
-    user.role_constraints.beginLockDate - YYYYMMDD - determines beginning of enforced inactive status
-    user.role_constraints.endLockDate - YYMMDD - determines end of enforced inactive status.
-    user.role_constraints.beginTime - HHMM - determines begin hour role may be activated in user's session.
-    user.role_constraints - HHMM - determines end hour role may be activated in user's session.*
-    user.role_constraints - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be activated.
-
+    user.constraint.name - just a label, i.e. uid
+    user.constraint.timeout - 99 - set the integer timeout that contains max time (in minutes) that entity may remain inactive.    
+    user.constraint.begin_date - YYYYMMDD - determines date when user may be activated.
+    user.constraint.end_date - YYMMDD - indicates latest date user may be activated.
+    user.constraint.begin_lock_date - YYYYMMDD - determines beginning of enforced inactive status
+    user.constraint.end_lock_date - YYMMDD - determines end of enforced inactive status.
+    user.constraint.begin_time - HHMM - determines begin hour user may be activated.
+    user.constraint.end_time -  user.role.constraints.end_time -  HHMM - determines end hour user may be activated.
+    user.constraint.day_mask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week user may be activated.
     user.props - multi-occurring name:value pairs
     user.pw_policy - slapd pwpolicy
-
     standard iNetOrgPerson attrs, more info here: https://tools.ietf.org/html/rfc2798
     user.ou
     user.cn
@@ -133,7 +134,8 @@ def add_role(role):
     optional parameters Temporal constraints may be associated with ftUserAttrs aux object class based on:
     role.props - multi-occurring name:value pairs
     role.description
-    
+
+    role.constraint.timeout - 99 - set the integer timeout that contains max time (in minutes) that entity may remain inactive.        
     role.constraint.beginDate - YYYYMMDD - determines date when role may be activated.
     role.constraint.endDate - YYMMDD - indicates latest date role may be activated.
     role.constraint.beginLockDate - YYYYMMDD - determines beginning of enforced inactive status
@@ -157,6 +159,7 @@ def update_role(role):
     role.props - multi-occurring name:value pairs
     role.description
     
+    role.constraint.timeout - 99 - set the integer timeout that contains max time (in minutes) that entity may remain inactive.    
     role.constraint.beginDate - YYYYMMDD - determines date when role may be activated.
     role.constraint.endDate - YYMMDD - indicates latest date role may be activated.
     role.constraint.beginLockDate - YYYYMMDD - determines beginning of enforced inactive status
