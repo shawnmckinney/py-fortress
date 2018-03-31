@@ -243,7 +243,7 @@ ________________________________________________________________________________
     ```
    __The user has auditor activated so unless timeout validation failed this will succeed.__
    
-  d. **check** - access_mgr.check_access - pemission page456.edit:
+   d. **check** - access_mgr.check_access - pemission page456.edit:
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name edit
     op_name=edit
@@ -251,9 +251,9 @@ ________________________________________________________________________________
     check
     success
     ```
-   __The user has account-mgr activated so unless timeout validation failed this will succeed.__
+   _The user has account-mgr activated so unless timeout validation failed this will succeed._
    
-  e. **check** - access_mgr.check_access - pemission page456.remove:
+   e. **check** - access_mgr.check_access - pemission page456.remove:
     ```
     (env) smckinn@ubuntu:~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name remove
     op_name=remove
