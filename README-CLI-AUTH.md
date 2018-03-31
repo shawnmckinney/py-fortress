@@ -343,14 +343,14 @@ From the Python3 runtime, enter the following commands:
     ```
    _Display all perms allowed for activated roles._
     
-7. **del** - access_mgr.drop_active_role - auditor:
+7. **del** - access_mgr.drop_active_role - deactivate auditor role:
    
     ```
     (env)~py-fortress/test$ cli_test_auth.py del --role auditor
     del
     success
     ```
-   _RBAC distinguishes between assigned and activated roles._
+   _RBAC distinguishes between assigned and activated roles_
         
 8. **roles** - access_mgr.session_roles:
    
@@ -370,7 +370,7 @@ From the Python3 runtime, enter the following commands:
         end_lock_date: 
     success    
     ```
-   _Notice the audit role is no longer active._
+   _Notice the auditor role is not displayed because it is no longer activated._
         
 9. **check** - access_mgr.check_access - perm page456.read:
    
@@ -381,7 +381,7 @@ From the Python3 runtime, enter the following commands:
     check
     failed
     ```
-   _Although the auditor has been assigned to the user, it's been deactivated from the session so user cannot perform as auditor._
+   _Although the auditor role has been assigned to the user, it's been deactivated from the session so user cannot perform as one._
             
 10. **add** - access_mgr.add_active_role - auditor:
    
@@ -393,7 +393,7 @@ From the Python3 runtime, enter the following commands:
     success
     ```
     
-    _Now the user may resume audit activities._
+    _Now the user resumes auditor activities._
                 
 11. **roles** - access_mgr.session_roles:
    
