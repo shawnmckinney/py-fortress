@@ -34,12 +34,12 @@ ________________________________________________________________________________
    * [user](model/user.py) - e.g. --uid, --password
    * [perm](model/perm.py) - e.g. --obj_name, --op_name
     
-### Tips
+### Command Usage Tips
    * The description of the commands, i.e. required and optional arguments, can be inferred via the api doc inline to the access_mgr module.
-   * The session is 'pickled' (serialized) and stored on the file system in executable folder as a convenience for testing this CLI.
+   * This program 'pickles' (serializes) the RBAC session to a file called sess.pickle, and places in the executable folder.  This simulates an RBAC runtime to test these commands.
    * Call the auth operation first, subsequent ops will use and refresh the session.
-   * Constraints on user and roles are enforced.  For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
-___________________________________________________________________________________   
+   * Constraints on user and roles are enforced. For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
+_______________________________________________________________________________   
 ## Setup Test Data With CLI.py ([AdminMgr](impl/admin_mgr.py))
 
 1. **user add**
