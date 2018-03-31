@@ -1,4 +1,4 @@
-# Command Line Interpreter (CLI) README for RBAC0 SYSTEM Testing
+# Guide to Command Line Interpreter (CLI) for RBAC0 SYSTEM Testing
  
 This document describes commands to run the py-fortress cli-test-auth.py program which test drives these [access_mgr](impl/access_mgr.py) APIs.
 ______________________________________________________________________________
