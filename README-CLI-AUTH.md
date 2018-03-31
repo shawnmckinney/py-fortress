@@ -30,13 +30,16 @@ ________________________________________________________________________________
     python3 cli-test-auth.py operation --arg1 --arg2 ...  
     ```
     
-### The operation is (pick one):
-   * auth
-   * check
-   * get
-   * show
-   * add
-   * del
+### The operation maps to (pick one):
+[AccessMgr](impl/access_mgr.py)
+   * auth : maps to access_mgr.create_session
+   * check : maps to access_mgr.check_access
+   * get : maps to access_mgr.session_perms
+   * show : displays contents of session to stdout
+   * add : maps to access_mgr.add_active_role
+   * del : maps to access_mgr.drop_active_role
+   
+   
 
 ### The args are '--' + names contained within these py-fortress entities:
    * [user](model/user.py)
@@ -88,7 +91,7 @@ ________________________________________________________________________________
     success
     ```
    d. **user assign** - account-mgr
-    ````
+    ```
     (env)~py-fortress/test$ python3 cli.py user assign --uid 'chorowitz' --role 'account-mgr'
     uid=chorowitz
     role name=account-mgr
