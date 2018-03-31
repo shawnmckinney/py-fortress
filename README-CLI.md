@@ -99,7 +99,64 @@ ________________________________________________________________________________
    --props  'name1:value1', 'name2:value2', 'name3:value3'
    ```
 
-###A Few Tips More:
+### Arguments as Constraint
+   * Both the user and role entity support adding temporal [constraint](model/constraint.py)
+   
+#### The following arguments comprise constraint:
+   * name: label for user, i.e uid
+   ```
+   --name foo3   
+   ```
+   For user, this can be any safe text.  For role, it must already be passed in, with the role's name.
+   * timeout: 99 - set the integer timeout that contains max time (in seconds) that entity may remain inactive.
+   ```
+   --timeout 30
+   ```
+   30 seconds
+   
+   * begin_time: HHMM - determines begin hour role may be activated in user's session.
+   ```
+   --begin_time 0900
+   ```
+   9:00 am
+   
+   * end_time: HHMM - determines end hour when user is no longer allowed to sign on.
+   ```
+   --end_time 2359
+   ```
+   11:59 pm
+   
+   * begin_date: YYYYMMDD - determines date when role may be activated.
+   ```
+   --begin_date 20150101
+   ```
+   Jan 1, 2015
+   
+   * end_date: YYMMDD - indicates latest date role may be activated.
+   ```
+   --end_date 20191231
+   ```
+   Dec 31, 2019
+   
+   * begin_lock_date: YYYYMMDD - determines beginning of enforced inactive status
+   ```
+   --begin_lock_date 20180602
+   ```
+   Jun 2, 2018
+   
+   * end_lock_date: YYMMDD - determines end of enforced inactive status.
+   ```
+   --end_lock_date 20180610
+   ```
+   Jun 10, 2018
+   
+   * day_mask: 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be activated.
+   ```
+   --day_mask 1357   
+   ``` 
+   Mon, Wed, Fri, Sun
+
+### A Few Tips More:
    * These commands have a one-to-one mapping to the admin and review APIs.  For example, the perm grant command maps to the admin_mgr.grant function and perm search –uid calls review_mgr.user_perms.
    * The description of the commands, including required arguments, can be inferred via the api doc inline to the admin_mgr and review_mgr modules.
    * The program output echos the inputted arguments and the results.
