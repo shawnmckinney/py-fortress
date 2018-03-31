@@ -1,23 +1,14 @@
-# Command Line Interpreter (CLI) README for AUTHENTICATION and AUTHOTIZATION testing
+# Command Line Interpreter (CLI) README for RBAC AUTHENTICATION and AUTHOTIZATION Testing
  
-For RBAC0 system management testing.
-_____________________________________________________________________________
-## Table of Contents
- * SECTION 1. Introduction 
- * SECTION 2. Prerequisites
- * SECTION 3. Run it
-___________________________________________________________________________________
-## SECTION 1. Introduction
-
-Describe commands contained within CLI program cli-test-auth.py which test drive the [access_mgr](impl/access_mgr.py) APIs.
+This document describes commands to run the py-fortress cli-test-auth.py program which test drives these [access_mgr](impl/access_mgr.py) APIs.
 ______________________________________________________________________________
-## SECTION 2. Prerequisites
+## Prerequisites
 
  * Have a working py-fortress env setup by following instructions here: [README](./README.md)
  * Understanding of argument passing rules described here: [README-CLI](./README-CLI.md)
  
 ___________________________________________________________________________________
-## SECTION 3. Run it
+## Run it
 
 1. Prepare your terminal for execution of python3.  From the main dir of the git repo:
     ```
@@ -38,14 +29,12 @@ ________________________________________________________________________________
    * show : displays contents of session to stdout
    * add : maps to access_mgr.add_active_role
    * del : maps to access_mgr.drop_active_role
-   
-   
 
 ### The args are '--' + names contained within these py-fortress entities:
    * [user](model/user.py) - e.g. --uid, --password
    * [perm](model/perm.py) - e.g. --obj_name, --op_name
     
-### A Few Tips
+### Tips
 
    * These commands have a one-to-one mapping to the access APIs.  For example, the auth command maps to the access_mgr.create_session function and check calls access_mgr.check_access.
    * The description of the commands, including required arguments, can be inferred via the api doc inline to the access_mgr module.
