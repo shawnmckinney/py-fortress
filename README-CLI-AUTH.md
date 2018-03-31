@@ -9,7 +9,7 @@ _____________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 1. Introduction
 
-The py-fortress CLI drive the [access_mgr](impl/access_mgr.py) APIs.
+Describe commands contained within CLI program cli-test-auth.py which test drive the [access_mgr](impl/access_mgr.py) APIs.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
@@ -42,8 +42,8 @@ ________________________________________________________________________________
    
 
 ### The args are '--' + names contained within these py-fortress entities:
-   * [user](model/user.py)
-   * [perm](model/perm.py)
+   * [user](model/user.py) - e.g. --uid, --password
+   * [perm](model/perm.py) - e.g. --obj_name, --op_name
     
 ### A Few Tips
 
