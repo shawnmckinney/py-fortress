@@ -80,7 +80,6 @@ ________________________________________________________________________________
    
     --phones '+33 401 851 4679' '1-212-251-1111' '(028) 9024 6609'
     
-
    **mobiles**
     
     --mobiles ' 017x-1234567' '+44 020 7234 3456' '1-212-650-9632'
@@ -120,35 +119,35 @@ Both the user and role entity support adding temporal [constraint](model/constra
     --end_time 2359    
    _11:59 pm_
    
-    **begin_date** : YYYYMMDD - determines date when entity may be activated.
+   **begin_date** : YYYYMMDD - determines date when entity may be activated.
     
     --begin_date 20150101    
-    _Jan 1, 2015_
+   _Jan 1, 2015_
    
-    **end_date** : YYMMDD - indicates latest date entity may be activated.
+   **end_date** : YYMMDD - indicates latest date entity may be activated.
     
     --end_date 20191231
-    _Dec 31, 2019_
+   _Dec 31, 2019_
    
-    **begin_lock_date** : YYYYMMDD - determines beginning of enforced inactive status
+   **begin_lock_date** : YYYYMMDD - determines beginning of enforced inactive status
     
     --begin_lock_date 20180602
-    _Jun 2, 2018_
+   _Jun 2, 2018_
    
-    **end_lock_date** : YYMMDD - determines end of enforced inactive status.
+   **end_lock_date** : YYMMDD - determines end of enforced inactive status.
     
     --end_lock_date 20180610
-    _Jun 10, 2018_
+   _Jun 10, 2018_
    
-    **day_mask** : 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week entity may be activated.
+   **day_mask** : 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week entity may be activated.
     
     --day_mask 1357   
-    _Mon, Wed, Fri, Sun_
+   _Mon, Wed, Fri, Sun_
 
    **all together**
    
     user mod --uid someuser --name anysafetext --timeout 30 --begin_time 0900 --end_time 2359 --begin_date 20150101 --end_date 20191231 --begin_lock_date 20180602 --end_lock_date 20180610 --day_mask 1357
-    _Constraints are optional and may be applied to user and role entities on add and mod operations_
+   _Constraints are optional and may be applied to user and role entities on add and mod operations_
    
 ### A Few Tips More
 
