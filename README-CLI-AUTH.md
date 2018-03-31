@@ -259,7 +259,7 @@ ________________________________________________________________________________
     ```
    _Display the contents of session._
    
-3. **check** - access_mgr.check_access - pemission page456.read:
+3. **check** - access_mgr.check_access - perm page456.read:
    
     ```
     (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name read
@@ -270,7 +270,7 @@ ________________________________________________________________________________
     ```
    _The user has auditor activated so unless timeout validation failed this will succeed._
    
-4. **check** - access_mgr.check_access - pemission page456.edit:
+4. **check** - access_mgr.check_access - perm page456.edit:
    
     ```
     (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name edit
@@ -281,7 +281,7 @@ ________________________________________________________________________________
     ```
    _The user has account-mgr activated so unless timeout validation failed this will succeed._
    
-5. **check** - access_mgr.check_access - pemission page456.remove:
+5. **check** - access_mgr.check_access - perm page456.remove:
    
     ```
     (env)~py-fortress/test$ python3 cli_test_auth.py check --obj_name page456  --op_name remove
