@@ -42,7 +42,7 @@ ________________________________________________________________________________
 _______________________________________________________________________________   
 ## Setup Test Data With ([AdminMgr](impl/admin_mgr.py)) CLI
 
-This section requires another utility, [README-CLI.md](./README-CLI.md), to insert the RBAC test policy that will be tested later.
+This section requires another utility, [README-CLI.md](./README-CLI.md), to insert the RBAC policy that will be tested in the section following.
 
 From the Python3 runtime, enter the following commands:  
 
