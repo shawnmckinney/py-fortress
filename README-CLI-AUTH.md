@@ -191,7 +191,7 @@ From the Python3 runtime, enter the following commands:
     auth
     success
     ```
-   _Now the session has been pickled in on file system in current directory._
+   _The session has been created and stored to a file in the current directory, called sess.pickle, and used by commands that follow._
     
 2. **show** - output user session contents to stdout:
    
@@ -263,7 +263,7 @@ From the Python3 runtime, enter the following commands:
     *************** user *******************    
     success
     ```
-   _Display the contents of session._
+   _Display the contents of session including user atributes, status, role activations._
    
 3. **check** - access_mgr.check_access - perm page456.read:
    
