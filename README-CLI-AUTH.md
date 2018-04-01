@@ -370,7 +370,7 @@ From the Python3 runtime, enter the following commands:
         end_lock_date: 
     success    
     ```
-   _Notice the auditor role is not displayed because it is no longer activated._
+   _Notice the auditor role is not displayed because it is no longer active in session._
         
 9. **check** - access_mgr.check_access - perm page456.read:
    
@@ -381,7 +381,7 @@ From the Python3 runtime, enter the following commands:
     check
     failed
     ```
-   _Although the auditor role has been assigned to the user, it's been deactivated from the session so user cannot perform as one._
+   _Although the auditor role is still assigned to the user, its deactivated from the session so user cannot perform as one._
             
 10. **add** - access_mgr.add_active_role - auditor:
    
