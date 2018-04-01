@@ -28,6 +28,7 @@ CHCK = 'check'
 ROLES = 'roles'
 PERMS = 'perms'
 SHOW = 'show'
+DROP = 'drop'
 
 def load_entity (entity, args):
     for name in entity.__dict__:

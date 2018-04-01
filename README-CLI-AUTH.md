@@ -73,7 +73,7 @@ Here we'll load the policy defined above.
    * perms : maps to access_mgr.session_perms
    * show : displays contents of session to stdout
    * add : maps to access_mgr.add_active_role
-   * del : maps to access_mgr.drop_active_role
+   * drop : maps to access_mgr.drop_active_role
 
 ### The args are '--' + names contained within these py-fortress entities:
    * [user](model/user.py) - e.g. --uid, --password
@@ -250,11 +250,11 @@ From the Python3 runtime, enter the following commands:
     ```
    _Display all perms allowed for activated roles._
     
-7. **del** - access_mgr.drop_active_role - deactivate auditor role:
+7. **drop** - access_mgr.drop_active_role - deactivate auditor role:
    
     ```
-    $ cli_test_auth.py del --role auditor
-    del
+    $ cli_test_auth.py drop --role auditor
+    drop
     success
     ```
    _RBAC distinguishes between assigned and activated roles_

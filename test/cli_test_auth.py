@@ -18,7 +18,7 @@ from impl import access_mgr
 from util.fortress_error import FortressError
 from test.utils import print_user, print_entity
 from test.cli_utils import (
-    load_entity, add_args, ADD, DELETE, AUTH, CHCK, ROLES, PERMS, SHOW
+    load_entity, add_args, ADD, DELETE, AUTH, CHCK, ROLES, PERMS, SHOW, DROP
     )
 
 OUT_SESS_FILE = "sess.pickle"
@@ -57,7 +57,7 @@ def process(args):
             sess = un_pickle()
             access_mgr.add_active_role(sess, args.role)
             result = True
-        elif args.operation == DELETE:
+        elif args.operation == DROP:
             sess = un_pickle()
             access_mgr.drop_active_role(sess, args.role)
             result = True
@@ -85,7 +85,7 @@ def un_pickle():
     
 program_name = 'Process py-fortress access_mgr commands.'
 parser = argparse.ArgumentParser(description=program_name)        
-parser.add_argument('operation', metavar='operand', choices=[AUTH,CHCK,ROLES,PERMS,ADD,DELETE,SHOW], help='operation name')
+parser.add_argument('operation', metavar='operand', choices=[AUTH,CHCK,ROLES,PERMS,ADD,DELETE,SHOW,DROP], help='operation name')
 parser.add_argument('-r', '--role', dest='role', help='role name')
 add_args(parser, User())
 add_args(parser, Perm())    
