@@ -9,9 +9,10 @@ ______________________________________________________________________________
  
 ## Sample RBAC0 Policy
 
-This policy covers the basics, the Core of RBAC:  Many-to-many relationships between users, roles and perms and selective role activations.
-py-fortress adds to the mix one non-standard feature: constraint validations on user and role entity activation.  
-The policy that follows illustrates this concept using a role timing out after a period of inactivity.
+This tutorial covers the basics, RBAC Core:  Many-to-many relationships between users, roles and perms and selective role activations.
+py-fortress adds to the mix one non-standard feature: constraint validations on user and role entity activation. 
+ 
+The simple policy includes constraints later we'll demo a role timing out of the session.
 
 ### Users
 
@@ -26,7 +27,7 @@ The policy that follows illustrates this concept using a role timing out after a
 | account-mgr   | 30min   |            |          |       |
 | auditor       |  5min   |            |          |       |
 
- _constraints optional and include time, date, day and lock date validations_
+ _constraints are optional and include time, date, day and lock date validations_
 
 ### User-to-Role Assignments
 
