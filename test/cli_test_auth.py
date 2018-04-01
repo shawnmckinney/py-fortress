@@ -56,10 +56,18 @@ def process(args):
             result = True
         elif args.operation == ADD:
             sess = un_pickle()
+            if not args.role:
+                print("error --role required for this op")    
+                return False            
+            print('role=' + args.role)
             access_mgr.add_active_role(sess, args.role)
             result = True
         elif args.operation == DROP:
             sess = un_pickle()
+            if not args.role:
+                print("error --role required for this op")    
+                return False            
+            print('role=' + args.role)            
             access_mgr.drop_active_role(sess, args.role)
             result = True
         else:
@@ -72,15 +80,15 @@ def process(args):
             
     except FortressError as e:
         if e.id == global_ids.ACTV_FAILED_DAY:
-            print('Activation failed, day of week, id=' + str(e.id) + ', msg=' + e.msg)
+            print('failed day of week, id=' + str(e.id) + ', msg=' + e.msg)
         elif e.id == global_ids.ACTV_FAILED_DATE:
-            print('Activation failed, for date, id=' + str(e.id) + ', msg=' + e.msg)
+            print('failed for date, id=' + str(e.id) + ', msg=' + e.msg)
         elif e.id == global_ids.ACTV_FAILED_TIME:
-            print('Activation failed, for time of day, id=' + str(e.id) + ', msg=' + e.msg)
+            print('failed for time of day, id=' + str(e.id) + ', msg=' + e.msg)
         elif e.id == global_ids.ACTV_FAILED_TIMEOUT:
-            print('Activation failed, inactivity timeout, id=' + str(e.id) + ', msg=' + e.msg)
+            print('failed inactivity timeout, id=' + str(e.id) + ', msg=' + e.msg)
         elif e.id == global_ids.ACTV_FAILED_LOCK:
-            print('Activation failed, locked date')
+            print('failed locked date')
         else:
             print('FortressError id=' + str(e.id) +', ' + e.msg)
                         

@@ -54,7 +54,7 @@ def process_user(args):
         admin_mgr.delete_user(user)        
     elif args.operation == ASSIGN:
         role_nm = args.role        
-        print('role name=' + role_nm)
+        print('role=' + role_nm)
         admin_mgr.assign(user, Role(name=role_nm))                
     elif args.operation == DEASSIGN:
         role_nm = args.role        
@@ -150,11 +150,11 @@ def process_perm(args):
         admin_mgr.delete_perm(perm)        
     elif args.operation == GRANT:
         role_nm = args.role        
-        print('role role_nm=' + role_nm)
+        print('role=' + role_nm)
         admin_mgr.grant(perm, Role(name=role_nm))                        
     elif args.operation == REVOKE:
         role_nm = args.role        
-        print('role role_nm=' + role_nm)
+        print('role=' + role_nm)
         admin_mgr.revoke(perm, Role(name=role_nm))
     elif args.operation == READ:
         print_entity(review_mgr.read_perm(perm), perm.obj_name + '.' + perm.op_name)

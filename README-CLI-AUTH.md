@@ -279,6 +279,7 @@ From the Python3 runtime, enter the following commands:
     ```
     $ cli_test_auth.py drop --role auditor
     drop
+    role=auditor    
     success
     ```
    _RBAC distinguishes between assigned and activated roles_
@@ -310,8 +311,9 @@ From the Python3 runtime, enter the following commands:
 10. **add** - access_mgr.add_active_role - auditor:
    
     ```
-    $ python3 cli_test_auth.py add --role auditor
+    $ python3 cli_test_auth.py add --role auditor    
     add
+    role=auditor    
     success
     ```
     
