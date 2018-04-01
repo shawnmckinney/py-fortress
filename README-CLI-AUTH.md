@@ -89,9 +89,9 @@ Here we'll load the policy defined above.
 _______________________________________________________________________________   
 ## Setup an RBAC Policy Using ([admin_mgr](impl/admin_mgr.py)) CLI
 
-This section requires another utility, described in the [README-CLI](./README-CLI.md), to insert the RBAC policy that will be tested in the section following.
+* To setup RBAC test data, we'll be using another utility that was introduced here:  [README-CLI](./README-CLI.md).
 
-From the Python3 runtime terminal, enter the following commands, from the test folder:  
+From the py-fortress/test folder, enter the following commands:  
 
 1. **user add** - chorowitz
    
@@ -169,7 +169,7 @@ From the Python3 runtime terminal, enter the following commands, from the test f
 ________________________________________________________________________________
 ## Run the [access_mgr](impl/access_mgr.py) CLI
 
-From the Python3 runtime, enter the following commands:
+From the py-fortress/test folder, enter the following commands:
 
 1. **auth** - access_mgr.create_session - authenticate, activate roles:
    
