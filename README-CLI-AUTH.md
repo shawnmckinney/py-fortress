@@ -67,13 +67,13 @@ Here we'll load the policy defined above.
     
 ### The operation maps to (pick one):
 [AccessMgr](impl/access_mgr.py)
-   * auth : maps to access_mgr.create_session
-   * check : maps to access_mgr.check_access
-   * roles : maps to access_mgr.session_roles   
-   * perms : maps to access_mgr.session_perms
-   * show : displays contents of session to stdout
-   * add : maps to access_mgr.add_active_role
-   * drop : maps to access_mgr.drop_active_role
+   * auth => access_mgr.create_session
+   * check => maps to access_mgr.check_access
+   * roles => maps to access_mgr.session_roles   
+   * perms => maps to access_mgr.session_perms
+   * show => displays contents of session to stdout
+   * add => maps to access_mgr.add_active_role
+   * drop => maps to access_mgr.drop_active_role
 
 ### The args are '--' + names contained within these py-fortress entities:
    * [user](model/user.py) - e.g. --uid, --password
