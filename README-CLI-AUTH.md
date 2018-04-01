@@ -167,7 +167,7 @@ From the Python3 runtime terminal, enter the following commands, from the test f
     $ python3 cli.py perm grant --obj_name page456 --op_name read --role auditor
     ```
 ________________________________________________________________________________
-## Perform [AccessMgr](impl/access_mgr.py) Commands
+## Run the [access_mgr](impl/access_mgr.py) CLI
 
 From the Python3 runtime, enter the following commands:
 
