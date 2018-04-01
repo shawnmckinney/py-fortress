@@ -34,9 +34,12 @@ def process(args):
                         
 
 def process_user(args):
-    user = load_entity(User(), args)
+    user = load_entity(User(), args)        
     print(args.entity + ' ' + args.operation)    
-    if args.operation == ADD:
+    if not args.uid:
+        print("error --uid required for entity user")    
+        return False
+    elif args.operation == ADD:
         if args.name is not None:
             constraint = load_entity(Constraint(), args)
             user.constraint = constraint
@@ -76,7 +79,10 @@ def process_user(args):
 def process_role(args):
     role = load_entity(Role(), args)
     print(args.entity + ' ' + args.operation)        
-    if args.operation == ADD:
+    if not args.name:
+        print("error --name required for entity role")    
+        return False
+    elif args.operation == ADD:
         constraint = load_entity(Constraint(), args)
         role.constraint = constraint
         admin_mgr.add_role(role)        
@@ -104,25 +110,28 @@ def process_role(args):
        
         
 def process_object(args):
-    object = load_entity (PermObj(), args) 
+    pobject = load_entity (PermObj(), args) 
     print(args.entity + ' ' + args.operation)   
-    if args.operation == ADD:
-        admin_mgr.add_object(object)        
+    if not args.obj_name:
+        print("error --obj_name required for entity object")    
+        return False
+    elif args.operation == ADD:
+        admin_mgr.add_object(pobject)        
     elif args.operation == UPDATE:
-        admin_mgr.update_object(object)        
+        admin_mgr.update_object(pobject)        
     elif args.operation == DELETE:
-        admin_mgr.delete_object(object) 
+        admin_mgr.delete_object(pobject) 
     elif args.operation == READ:
-        print_entity(review_mgr.read_object(object), object.obj_name)
+        print_entity(review_mgr.read_object(pobject), pobject.obj_name)
         pass
     elif args.operation == SEARCH:
-        object.obj_name += '*'
-        objs = review_mgr.find_objects(object)
+        pobject.obj_name += '*'
+        objs = review_mgr.find_objects(pobject)
         if len(objs) > 0:
             for idx, obj in enumerate(objs):
-                print_entity(obj, object.obj_name + ':' + str(idx))
+                print_entity(obj, pobject.obj_name + ':' + str(idx))
         else:
-            print_ln('No matching records found matching filter: ' + object.obj_name) 
+            print_ln('No matching records found matching filter: ' + pobject.obj_name) 
     else:
         print('process_object failed, invalid operation=' + args.operation)
         return False
@@ -161,7 +170,10 @@ def process_perm(args):
             label = role_nm
             prms = review_mgr.role_perms(Role(name=role_nm))
         else:        
-            perm.obj_name += '*'
+            if perm.obj_name:            
+                perm.obj_name += '*'
+            else:
+                perm.obj_name = '*'            
             if perm.op_name:
                 perm.op_name += '*'
             else:
