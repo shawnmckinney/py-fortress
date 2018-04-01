@@ -1,6 +1,6 @@
 # Guide to Command Line Interpreter (CLI) for RBAC0 SYSTEM Testing
  
-This document describes commands to run the py-fortress cli-test-auth.py program which test drives these [access_mgr](impl/access_mgr.py) APIs.
+This document describes commands to run the py-fortress cli-test-auth.py program which test drives the [access_mgr](impl/access_mgr.py) APIs.
 ______________________________________________________________________________
 ## Prerequisites
 
@@ -9,7 +9,7 @@ ______________________________________________________________________________
 ___________________________________________________________________________________
 ## Run it
 
-1. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+1. Prepare a terminal for execution of python3.  From the main dir of the git repo:
     ```
     pyvenv env
     cd test
@@ -381,7 +381,7 @@ From the Python3 runtime, enter the following commands:
     check
     failed
     ```
-   _Although the auditor role is still assigned to the user, its deactivated from the session so user cannot perform as one._
+   _Although the auditor role is still assigned to the user, it's deactivated from the session so user cannot perform as one._
             
 10. **add** - access_mgr.add_active_role - auditor:
    
@@ -440,7 +440,7 @@ From the Python3 runtime, enter the following commands:
                        
 13. Wait 5 minutes before performing the next step. 
 
-    _Allow enough time for auditor role timeout to occur before moving to the next step.  Now, if you run the roles command, the auditor role will once again be missing._
+    _Allow enough time for the auditor role timeout to occur before moving to the next step.  Now, if you run the roles command, the auditor role will once again be missing._
                           
 14. **check** - access_mgr.check_access - perm page456.read:
    
