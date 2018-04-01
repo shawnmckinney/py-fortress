@@ -198,14 +198,11 @@ From the py-fortress/test folder, enter the following commands:
         ...
     User Constraint:
             name: chorowitz
-            raw: chorowitz$30$$$$$$$
             timeout: 30
     User-Role Constraint[1]:
             name: account-mgr
-            raw: account-mgr$0$$$$$$$
     User-Role Constraint[2]:
             name: auditor
-            raw: auditor$5$$$$$$$
             timeout: 5
     success    
     ```
