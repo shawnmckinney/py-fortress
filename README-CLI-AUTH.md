@@ -10,16 +10,16 @@ ______________________________________________________________________________
 ## Sample RBAC0 Policy
 
 This policy covers the basics, the Core of RBAC:  Many-to-many relationships between users, roles and perms and selective role activations.
-py-fortress adds to the mix one non-standard feature: constraint validations on user and role entity activation.  The policy that follows illustrates
-this concept using a role timing out after a session exceeds inactivity timeout.
+py-fortress adds to the mix one non-standard feature: constraint validations on user and role entity activation.  
+The policy that follows illustrates this concept using a role timing out after a period of inactivity.
 
-### User Table
+### Users
 
 | uid           | timeout | begin_time | end_time | ...   |
 | ------------- | ------- | ---------- | -------- | ----- |
 | chorowitz     | 30min   |            |          |       |
 
-### Role Table
+### Roles
 
 | name          | timeout | begin_time | end_time | ...   |
 | ------------- | ------- | ---------- | -------- | ----- |
@@ -28,13 +28,13 @@ this concept using a role timing out after a session exceeds inactivity timeout.
 
  _constraints optional and include time, date, day and lock date validations_
 
-### User-to-Role Assignment Table
+### User-to-Role Assignments
 
 | user          | account-mgr   | auditor       |
 | ------------- | ------------- | ------------- |
 | chorowitz     | true          | true          |
 
-### Permission Table
+### Permissions
 
 | obj_name      | op_name        |
 | ------------- | -------------- |
@@ -42,7 +42,7 @@ this concept using a role timing out after a session exceeds inactivity timeout.
 | page456       | remove         |
 | page456       | read           |
 
-### Role-to-Permission Table
+### Role-to-Permissions
 
 | role          | page456.edit   | page456.remove | page456.read   |
 | ------------- | -------------- | -------------- | -------------- |
