@@ -17,15 +17,14 @@ this concept using a role timing out after a session exceeds inactivity timeout.
 
 | uid           | timeout | begin_time | end_time | ...   |
 | ------------- | ------- | ---------- | -------- | ----- |
-| chorowitz     | 30min   |            |   ...    |       |
-| ...           |  ...    |            |   ...    |       |
+| chorowitz     | 30min   |            |          |       |
 
 ### Role Table
 
 | name          | timeout | begin_time | end_time | ...   |
 | ------------- | ------- | ---------- | -------- | ----- |
-| account-mgr   | 30min   |            |   ...    |       |
-| auditor       |  5min   |            |   ...    |       |
+| account-mgr   | 30min   |            |          |       |
+| auditor       |  5min   |            |          |       |
 
  _constraints optional and include time, date, day and lock date validations_
 
@@ -34,7 +33,6 @@ this concept using a role timing out after a session exceeds inactivity timeout.
 | user          | account-mgr   | auditor       |
 | ------------- | ------------- | ------------- |
 | chorowitz     | true          | true          |
-| ...           | ...           | ...           |
 
 ### Permission Table
 
