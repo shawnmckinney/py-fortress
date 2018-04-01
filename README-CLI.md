@@ -342,23 +342,14 @@ Both the user and role entity support adding temporal [constraint](model/constra
     role read
     account-mgr
         dn: cn=account-mgr,ou=Roles,dc=example,dc=com
-        props: 
         members: ['uid=cli-user2,ou=People,dc=example,dc=com', 'uid=chorowitz,ou=People,dc=example,dc=com']
         internal_id: 5c189235-41b5-4e59-9d80-dfd64d16372c
         name: account-mgr
         constraint: <model.constraint.Constraint object at 0x7fc250bd9e10>
-        description: 
     Role Constraint:
             raw: account-mgr$0$$$$$$$
-            end_date: 
-            end_lock_date: 
             timeout: 0
-            begin_time: 
-            end_time: 
             name: account-mgr
-            day_mask: 
-            begin_date: 
-            begin_lock_date: 
     *************** account-mgr *******************
     success
     ````
@@ -403,10 +394,8 @@ Both the user and role entity support adding temporal [constraint](model/constra
         description: optional arg
         dn: ftObjNm=page456,ou=Perms,dc=example,dc=com
         internal_id: 1635cb3b-d5e2-4fcb-b61a-b8e91437e536
-        props: 
         obj_name: page456
         ou: another optional arg
-        type: 
     success
     ````
     f. object search 
@@ -415,20 +404,16 @@ Both the user and role entity support adding temporal [constraint](model/constra
     obj_name=page
     object search
     page*:0
-        props: 
         obj_name: page456
         description: optional arg
         dn: ftObjNm=page456,ou=Perms,dc=example,dc=com
         ou: another optional arg
-        type: 
         internal_id: 1635cb3b-d5e2-4fcb-b61a-b8e91437e536
     page*:1
-        props: 
         obj_name: page123
         description: optional arg
         dn: ftObjNm=page123,ou=Perms,dc=example,dc=com
         ou: another optional arg
-        type: 
         internal_id: a823ef98-7be4-4f49-a805-83bfef5a0dfb
     success
     ````
@@ -442,14 +427,9 @@ Both the user and role entity support adding temporal [constraint](model/constra
         internal_id: 0dc55181-968e-4c60-8755-e20fa1ce017d
         dn: ftOpNm=read,ftObjNm=page456,ou=Perms,dc=example,dc=com
         abstract_name: page456.read
-        type: 
-        roles: 
         description: useful for human readable perm name
-        props: 
         obj_name: page456
-        obj_id: 
         op_name: read
-        users: 
     success    
     ````
     h. perm search
@@ -458,41 +438,26 @@ Both the user and role entity support adding temporal [constraint](model/constra
     obj_name=page
     perm search
     page*.*:0
-        props: 
-        roles: 
         abstract_name: page456.read
-        obj_id: 
-        users: 
         op_name: read
         internal_id: 0dc55181-968e-4c60-8755-e20fa1ce017d
         obj_name: page456
-        type: 
         dn: ftOpNm=read,ftObjNm=page456,ou=Perms,dc=example,dc=com
         description: useful for human readable perm name
     page*.*:1
-        props: 
         roles: ['account-mgr']
         abstract_name: page456.update
-        obj_id: 
-        users: 
         op_name: update
         internal_id: 626bca86-014b-4186-83a6-a583e39868a1
         obj_name: page456
-        type: 
         dn: ftOpNm=update,ftObjNm=page456,ou=Perms,dc=example,dc=com
-        description: 
     page*.*:2
-        props: 
         roles: ['account-mgr']
         abstract_name: page456.delete
-        obj_id: 
-        users: 
         op_name: delete
         internal_id: 6c2fa5fc-d7c3-4e85-ba7f-5e514ca4263f
         obj_name: page456
-        type: 
         dn: ftOpNm=delete,ftObjNm=page456,ou=Perms,dc=example,dc=com
-        description: 
     success    
     ````
     i. perm search (by role) 
@@ -500,26 +465,16 @@ Both the user and role entity support adding temporal [constraint](model/constra
     (env)~py-fortress/test$ python3 cli.py perm search --role account-mgr
     perm search
     account-mgr:0
-        description: 
         abstract_name: page456.update
-        obj_id: 
         obj_name: page456
-        users: 
         op_name: update
-        type: 
-        props: 
         roles: ['account-mgr']
         dn: ftOpNm=update,ftObjNm=page456,ou=Perms,dc=example,dc=com
         internal_id: 626bca86-014b-4186-83a6-a583e39868a1
     account-mgr:1
-        description: 
         abstract_name: page456.delete
-        obj_id: 
         obj_name: page456
-        users: 
         op_name: delete
-        type: 
-        props: 
         roles: ['account-mgr']
         dn: ftOpNm=delete,ftObjNm=page456,ou=Perms,dc=example,dc=com
         internal_id: 6c2fa5fc-d7c3-4e85-ba7f-5e514ca4263f
@@ -530,27 +485,17 @@ Both the user and role entity support adding temporal [constraint](model/constra
     (env)~py-fortress/test$ python3 cli.py perm search --uid chorowitz
     perm search
     chorowitz:0
-        type: 
-        description: 
         dn: ftOpNm=update,ftObjNm=page456,ou=Perms,dc=example,dc=com
-        obj_id: 
-        users: 
         internal_id: 626bca86-014b-4186-83a6-a583e39868a1
         roles: ['account-mgr']
         abstract_name: page456.update
-        props: 
         obj_name: page456
         op_name: update
     chorowitz:1
-        type: 
-        description: 
         dn: ftOpNm=delete,ftObjNm=page456,ou=Perms,dc=example,dc=com
-        obj_id: 
-        users: 
         internal_id: 6c2fa5fc-d7c3-4e85-ba7f-5e514ca4263f
         roles: ['account-mgr']
         abstract_name: page456.delete
-        props: 
         obj_name: page456
         op_name: delete
     success
