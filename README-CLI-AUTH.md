@@ -191,19 +191,11 @@ From the py-fortress/test folder, enter the following commands:
     show
     session
         is_authenticated: True
-        user: <model.user.User object at 0x7fa67c9cdd68>
-        last_access: <util.current_date_time.CurrentDateTime object at 0x7fa67c9cf518>
+        ...
     user
-        cn: chorowitz
-        constraint: <model.constraint.Constraint object at 0x7fa67c9cf0f0>
-        system: []
-        roles: ['account-mgr', 'auditor']
-        role_constraints: [<model.constraint.Constraint object at 0x7fa67c9cf278>, <model.constraint.Constraint object at 0x7fa67c9cf2b0>]
-        dn: uid=chorowitz,ou=People,dc=example,dc=com
         uid: chorowitz
         internal_id: 552c1a24-5087-4458-98f1-8c60167a8b7c
-        reset: []
-        sn: chorowitz
+        ...
     User Constraint:
             name: chorowitz
             raw: chorowitz$30$$$$$$$
