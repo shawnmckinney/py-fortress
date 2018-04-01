@@ -1,15 +1,61 @@
 # Guide to Command Line Interpreter (CLI) for RBAC0 SYSTEM Testing
  
-This document describes commands to run the py-fortress cli-test-auth.py program which test drives the [access_mgr](impl/access_mgr.py) APIs.
+Instructions to load a simple RBAC policy and use the cli-test-auth.py program that drives py-fortress [access_mgr](impl/access_mgr.py) APIs.
 ______________________________________________________________________________
 ## Prerequisites
 
  * Have a working py-fortress env setup by following instructions here: [README](./README.md)
  * Understanding of argument passing rules described here: [README-CLI](./README-CLI.md)
+ 
+## Sample RBAC0 Policy
+
+This policy covers the basics, the Core of RBAC:  Many-to-many relationships between users, roles and perms and selective role activations.
+py-fortress adds to the mix one non-standard feature: constraint validations on user and role entity activation.  The policy that follows illustrates
+this concept using a role timing out after a session exceeds inactivity timeout.
+
+### User Table
+
+| uid           | timeout | begin_time | end_time | ...   |
+| ------------- | ------- | ---------- | -------- | ----- |
+| chorowitz     | 30min   |            |   ...    |       |
+| ...           |  ...    |            |   ...    |       |
+
+### Role Table
+
+| name          | timeout | begin_time | end_time | ...   |
+| ------------- | ------- | ---------- | -------- | ----- |
+| account-mgr   | 30min   |            |   ...    |       |
+| auditor       |  5min   |            |   ...    |       |
+
+ _constraints optional and include time, date, day and lock date validations_
+
+### User-to-Role Assignment Table
+
+| user          | account-mgr   | auditor       |
+| ------------- | ------------- | ------------- |
+| chorowitz     | true          | true          |
+| ...           | ...           | ...           |
+
+### Permission Table
+
+| obj_name      | op_name        |
+| ------------- | -------------- |
+| page456       | edit           |
+| page456       | remove         |
+| page456       | read           |
+
+### Role-to-Permission Table
+
+| role          | page456.edit   | page456.remove | page456.read   |
+| ------------- | -------------- | -------------- | -------------- |
+| account-mgr   | true           | true           | false          |
+| auditor       | false          | false          | true           |
 ___________________________________________________________________________________
 ## Run it
 
-1. Prepare a terminal for execution of python3.  From the main dir of the git repo:
+Here we'll load the policy defined above.
+
+1. First, prepare a terminal for execution of python3.  From the main dir of the git repo:
     ```
     pyvenv env
     cd test
@@ -44,7 +90,7 @@ _______________________________________________________________________________
 
 This section requires another utility, [README-CLI.md](./README-CLI.md), to insert the RBAC policy that will be tested in the section following.
 
-From the Python3 runtime, enter the following commands:  
+From the Python3 runtime terminal, enter the following commands, from the test folder:  
 
 1. **user add** - chorowitz
    
