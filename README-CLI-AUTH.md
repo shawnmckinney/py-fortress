@@ -311,9 +311,7 @@ From the Python3 runtime, enter the following commands:
    
     ```
     $ python3 cli_test_auth.py add --role auditor
-    op_name=read
-    obj_name=page456
-    check
+    add
     success
     ```
     
