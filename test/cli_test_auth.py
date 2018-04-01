@@ -13,6 +13,7 @@ It defines classes_and_methods
 
 import pickle
 import argparse
+from util import global_ids
 from model import Perm, User
 from impl import access_mgr
 from util.fortress_error import FortressError
@@ -70,7 +71,18 @@ def process(args):
         pickle_it(sess)
             
     except FortressError as e:
-        print('FortressError id=' + str(e.id) +', ' + e.msg)
+        if e.id == global_ids.ACTV_FAILED_DAY:
+            print('Activation failed, day of week, id=' + str(e.id) + ', msg=' + e.msg)
+        elif e.id == global_ids.ACTV_FAILED_DATE:
+            print('Activation failed, for date, id=' + str(e.id) + ', msg=' + e.msg)
+        elif e.id == global_ids.ACTV_FAILED_TIME:
+            print('Activation failed, for time of day, id=' + str(e.id) + ', msg=' + e.msg)
+        elif e.id == global_ids.ACTV_FAILED_TIMEOUT:
+            print('Activation failed, inactivity timeout, id=' + str(e.id) + ', msg=' + e.msg)
+        elif e.id == global_ids.ACTV_FAILED_LOCK:
+            print('Activation failed, locked date')
+        else:
+            print('FortressError id=' + str(e.id) +', ' + e.msg)
                         
 def pickle_it(sess):
     if sess is not None:
