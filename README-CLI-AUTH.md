@@ -172,14 +172,17 @@ ________________________________________________________________________________
 From the py-fortress/test folder, enter the following commands:
 
 1. **auth** - access_mgr.create_session - authenticate, activate roles:
-   
+
     ```
     $ python3 cli_test_auth.py auth --uid 'chorowitz' --password 'secret'
+    ```
+    which outputs to stdout the operation name, arguments and the result:   
+    ```
     uid=chorowitz
     auth
     success
     ```
-   _The session has been created and stored to a file in the current directory, called sess.pickle, and used by commands that follow._
+   _The session has been created and stored to a file in the current directory, called sess.pickle, and used by commands that follow._   
     
 2. **show** - output user session contents to stdout:
    
