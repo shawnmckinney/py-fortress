@@ -74,11 +74,11 @@ Here we'll load the policy defined above.
    * add => maps to access_mgr.add_active_role
    * drop => maps to access_mgr.drop_active_role
    
-   _Where operations => functions here_ [AccessMgr](impl/access_mgr.py)
+   _Where operations => functions here_ [access_mgr.py](impl/access_mgr.py)
 
 ### The args are ‘–‘ + attribute name + attribute value
-   * --uid, --password from [user](model/user.py)
-   * --obj_name, --op_name, --obj_id from [perm](model/perm.py)
+   * --uid, --password from [user.py](model/user.py)
+   * --obj_name, --op_name, --obj_id from [perm.py](model/perm.py)
    * --role used for the role name
     
 ### Command Usage Tips
