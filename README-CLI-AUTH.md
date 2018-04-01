@@ -76,8 +76,9 @@ Here we'll load the policy defined above.
    * drop => maps to access_mgr.drop_active_role
 
 ### The args are '--' + names contained within these py-fortress entities:
-   * [user](model/user.py) - e.g. --uid, --password
-   * [perm](model/perm.py) - e.g. --obj_name, --op_name
+   * --uid, --password from [user](model/user.py)
+   * --obj_name, --op_name, --obj_id from [perm](model/perm.py)
+   * --role used for the role name
     
 ### Command Usage Tips
    * The description of the commands, i.e. required and optional arguments, can be inferred via the api doc inline to the access_mgr module.
