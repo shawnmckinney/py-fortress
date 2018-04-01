@@ -11,7 +11,6 @@ from util.logger import logger
 def print_ln( ln, num=None ):
     if num is None:
         num = 0
-    
     tabs = ''
     for x in range(0, num):
       tabs += '\t'        
@@ -24,7 +23,9 @@ def print_entity (entity, label, indent=None):
     print_ln(label, indent-1)    
     for name in entity.__dict__:
         if name != 'password':
-            print_ln ("\t{0}: {1}".format(name,entity.__dict__[name]), indent)
+            value = entity.__dict__[name]
+            if value:
+                print_ln ("\t{0}: {1}".format(name,value), indent)
 
 def print_user (entity, label):
         print_entity (entity, label, 1)
