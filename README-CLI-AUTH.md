@@ -94,20 +94,22 @@ From the Python3 runtime terminal, enter the following commands, from the test f
 1. **user add** - chorowitz
    
     ```
-    $ python3 cli.py user add --uid chorowitz --password 'secret' --timeout 30 --begin_date 20180101 --end_date none --day_mask 1234567
-    ```
+    $ python3 cli.py user add --uid chorowitz --password 'secret' --timeout 30
+    ``` 
+   _user has a 30 minute inactivity timeout_
     
 2. **role add** - account-mgr
    
     ```
-    $ python3 cli.py role add --name 'account-mgr' --timeout 30 --begin_date 20180101 --end_date none --day_mask 1234567
+    $ python3 cli.py role add --name 'account-mgr'
     ```
     
 3. **role add** - auditor
    
     ```
-    $ python3 cli.py role add --name 'auditor' --timeout 5 --begin_date 20180101 --end_date none --day_mask 1234567
+    $ python3 cli.py role add --name 'auditor' --timeout 5
     ```
+   _role has a 5 minute inactivity timeout, more later about this..._    
     
 4. **user assign** - chorowitz to role account-mgr
    
@@ -208,7 +210,7 @@ From the Python3 runtime, enter the following commands:
     check
     success
     ```
-   _The user has account-mgr activated so unless timeout validation failed this will succeed._
+   _The user has account-mgr activated and will succeed._
    
 5. **check** - access_mgr.check_access - perm page456.remove:
    
@@ -219,7 +221,7 @@ From the Python3 runtime, enter the following commands:
     check
     success
     ```
-   _The user has account-mgr activated so unless timeout validation failed this will succeed._
+   _The user has account-mgr activated and will succeed._
    
 6. **perms** - access_mgr.session_perms:
    
@@ -264,11 +266,8 @@ From the Python3 runtime, enter the following commands:
     roles
     account-mgr:0
         raw: account-mgr$30$$$20180101$none$$$1234567
-        end_date: none
         name: account-mgr
         timeout: 30
-        day_mask: 1234567
-        begin_date: 20180101
     success    
     ```
    _Notice the auditor role is not displayed because it is no longer active in session._
@@ -303,19 +302,12 @@ From the Python3 runtime, enter the following commands:
     roles
     account-mgr:0
         raw: account-mgr$30$$$20180101$none$$$1234567
-        end_date: none
         name: account-mgr
         timeout: 30
-        day_mask: 1234567
-        begin_date: 20180101
     auditor:1
-        end_date: none
-        day_mask: 1234567
         raw: auditor$5$$$20180101$none$$$1234567
-        begin_date: 20180101
         timeout: 5
         name: auditor
-        begin_lock_date:     success
     success            
     ```
     _Notice the audit role has been reactivated into the session._

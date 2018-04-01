@@ -40,9 +40,10 @@ def process_user(args):
         print("error --uid required for entity user")    
         return False
     elif args.operation == ADD:
-        if args.name is not None:
-            constraint = load_entity(Constraint(), args)
-            user.constraint = constraint
+        if not args.name:
+            args.name = args.uid
+        constraint = load_entity(Constraint(), args)
+        user.constraint = constraint
         admin_mgr.add_user(user)
     elif args.operation == UPDATE:
         if args.name is not None:        
