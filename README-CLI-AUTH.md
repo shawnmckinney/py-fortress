@@ -176,7 +176,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
     $ python3 cli_test_auth.py auth --uid 'chorowitz' --password 'secret'
     ```
-    which outputs to stdout the operation name, arguments and the result:   
+    Command outputs to stdout the operation name, arguments and the result:   
     ```
     uid=chorowitz
     auth
