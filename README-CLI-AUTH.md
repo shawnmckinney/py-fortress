@@ -86,6 +86,7 @@ Here we'll load the policy defined above.
    * This program 'pickles' (serializes) the RBAC session to a file called sess.pickle, and places in the executable folder.  This simulates an RBAC runtime to test these commands.
    * Call the auth operation first, subsequent ops will use and refresh the session.
    * Constraints on user and roles are enforced. For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
+   * More on argument format: [README-CLI](./README-CLI.md)
 _______________________________________________________________________________   
 ## Setup an RBAC Policy Using ([admin_mgr](impl/admin_mgr.py)) CLI
 
