@@ -60,13 +60,12 @@ Here we'll load the policy defined above.
     cd test
     ```
     
-2. To run the CLI:
+2. The syntax for py-fortress system commands:
     ```
     python3 cli-test-auth.py operation --arg1 --arg2 ...  
     ```
     
-### The operation maps to (pick one):
-[AccessMgr](impl/access_mgr.py)
+### The operation is (pick one):
    * auth => access_mgr.create_session
    * check => maps to access_mgr.check_access
    * roles => maps to access_mgr.session_roles   
@@ -74,8 +73,10 @@ Here we'll load the policy defined above.
    * show => displays contents of session to stdout
    * add => maps to access_mgr.add_active_role
    * drop => maps to access_mgr.drop_active_role
+   
+   _Where operations => functions here_ [AccessMgr](impl/access_mgr.py)
 
-### The args are '--' + names contained within these py-fortress entities:
+### The args are ‘–‘ + attribute name + attribute value
    * --uid, --password from [user](model/user.py)
    * --obj_name, --op_name, --obj_id from [perm](model/perm.py)
    * --role used for the role name
