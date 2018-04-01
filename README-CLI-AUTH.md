@@ -183,68 +183,7 @@ From the Python3 runtime, enter the following commands:
     (env)~/GIT/pyDev/py-fortress/test$ python3 cli_test_auth.py show
     show
     session
-        warnings: None
-        session_id: None
-        error_id: None
-        expiration_seconds: None
-        user: <model.user.User object at 0x7fdfb2745208>
-        grace_logins: None
-        message: None
-        timeout: None
-        is_authenticated: True
-        last_access: <util.current_date_time.CurrentDateTime object at 0x7fdfb2743e10>
-    user
-        department_number: 
-        l: 
-        role_constraints: [<model.constraint.Constraint object at 0x7fdfb2745320>, <model.constraint.Constraint object at 0x7fdfb2745470>]
-        postal_code: 
-        title: 
-        constraint: <model.constraint.Constraint object at 0x7fdfb2745550>
-        reset: []
-        phones: 
-        locked_time: []
-        emails: 
-        cn: chorowitz
-        ou: 
-        physical_delivery_office_name: 
-        roles: ['account-mgr', 'auditor']
-        pw_policy: 
-        room_number: 
-        mobiles: 
-        description: for testing only
-        uid: chorowitz
-        system: []
-        internal_id: 4a7a68ae-d0c3-4328-98dc-e7f64739ed67
-        employee_type: 
-        sn: chorowitz
-        props: 
-        dn: uid=chorowitz,ou=People,dc=example,dc=com
-        display_name: 
-     User Constraint:
-            raw: 
-     User-Role Constraint[1]:
-            day_mask: 1234567
-            begin_time: 
-            name: account-mgr
-            end_lock_date: 
-            begin_lock_date: 
-            begin_date: 20180101
-            end_time: 
-            timeout: 30
-            raw: account-mgr$30$$$20180101$none$$$1234567
-            end_date: none
-     User-Role Constraint[2]:
-            day_mask: 1234567
-            begin_time: 
-            name: auditor
-            end_lock_date: 
-            begin_lock_date: 
-            begin_date: 20180101
-            end_time: 
-            timeout: 5
-            raw: auditor$5$$$20180101$none$$$1234567
-            end_date: none
-    *************** user *******************    
+    ...
     success
     ```
    _Display the contents of session including user atributes, status, role activations._
@@ -288,38 +227,20 @@ From the Python3 runtime, enter the following commands:
     (env)~py-fortress/test$ python3 cli_test_auth.py get
     perms
     page456.read:0
-        description: 
         abstract_name: page456.read
-        obj_id: 
-        props: 
-        type: 
         roles: ['auditor']
-        users: 
-        dn: ftOpNm=read,ftObjNm=page456,ou=Perms,dc=example,dc=com
         internal_id: d6887434-050c-48d8-85b0-7c803c9fcf07
         obj_name: page456
         op_name: read
     page456.edit:1
-        description: 
         abstract_name: page456.edit
-        obj_id: 
-        props: 
-        type: 
         roles: ['account-mgr']
-        users: 
-        dn: ftOpNm=edit,ftObjNm=page456,ou=Perms,dc=example,dc=com
         internal_id: 02189535-4b39-4058-8daf-af0e09b0d235
         obj_name: page456
         op_name: edit
     page456.remove:2
-        description: 
         abstract_name: page456.remove
-        obj_id: 
-        props: 
-        type: 
         roles: ['account-mgr']
-        users: 
-        dn: ftOpNm=remove,ftObjNm=page456,ou=Perms,dc=example,dc=com
         internal_id: 10dea5d1-ff1d-4c3d-90c8-edeb4c7bb05b
         obj_name: page456
         op_name: remove
@@ -342,16 +263,12 @@ From the Python3 runtime, enter the following commands:
     (env)~py-fortress/test$ python3 cli_test_auth.py roles
     roles
     account-mgr:0
-        begin_time: 
         raw: account-mgr$30$$$20180101$none$$$1234567
-        begin_lock_date: 
         end_date: none
         name: account-mgr
-        end_time: 
         timeout: 30
         day_mask: 1234567
         begin_date: 20180101
-        end_lock_date: 
     success    
     ```
    _Notice the auditor role is not displayed because it is no longer active in session._
@@ -385,26 +302,19 @@ From the Python3 runtime, enter the following commands:
     (env)~py-fortress/test$ python3 cli_test_auth.py roles
     roles
     account-mgr:0
-        begin_time: 
         raw: account-mgr$30$$$20180101$none$$$1234567
-        begin_lock_date: 
         end_date: none
         name: account-mgr
-        end_time: 
         timeout: 30
         day_mask: 1234567
         begin_date: 20180101
-        end_lock_date: 
     auditor:1
         end_date: none
         day_mask: 1234567
         raw: auditor$5$$$20180101$none$$$1234567
         begin_date: 20180101
-        end_lock_date: 
         timeout: 5
-        begin_time: 
         name: auditor
-        end_time: 
         begin_lock_date:     success
     success            
     ```
