@@ -141,8 +141,8 @@ Both the user and role entity support adding temporal [constraint](model/constra
    
    **day_mask** : 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week entity may be activated.
     
-    --day_mask 1357   
-   _Mon, Wed, Fri, Sun_
+    --day_mask 1246   
+   _Sun, Mon, Wed, Fri_
 
    **all together**
    
