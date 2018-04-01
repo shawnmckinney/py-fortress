@@ -87,9 +87,9 @@ Here we'll load the policy defined above.
    * Call the auth operation first, subsequent ops will use and refresh the session.
    * Constraints on user and roles are enforced. For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
 _______________________________________________________________________________   
-## Setup Test Data With ([admin_mgr](impl/admin_mgr.py)) CLI
+## Setup an RBAC Policy Using ([admin_mgr](impl/admin_mgr.py)) CLI
 
-This section requires another utility, [README-CLI.md](./README-CLI.md), to insert the RBAC policy that will be tested in the section following.
+This section requires another utility, described in the [README-CLI](./README-CLI.md), to insert the RBAC policy that will be tested in the section following.
 
 From the Python3 runtime terminal, enter the following commands, from the test folder:  
 
