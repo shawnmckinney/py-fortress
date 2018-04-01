@@ -12,7 +12,7 @@ ______________________________________________________________________________
 This tutorial covers the basics, RBAC Core:  Many-to-many relationships between users, roles and perms and selective role activations.
 py-fortress adds to the mix one non-standard feature: constraint validations on user and role entity activation. 
  
-The simple policy includes constraints later we'll demo a role timing out of the session.
+The simple policy includes constraints being setup on user and role.  Later we'll demo a role timing out of the session.
 
 ### Users
 
