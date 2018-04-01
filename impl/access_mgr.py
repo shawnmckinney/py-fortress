@@ -209,32 +209,32 @@ def __refresh(session):
 
 def __validate(session):
     if session is None:
-        raise FortressError ('Session is None')
+        raise FortressError (msg='Session is None', id=global_ids.USER_SESS_NULL)
     elif session.user is None:
-        raise FortressError ('Session has no user')
+        raise FortressError (msg='Session has no user', id=global_ids.USER_SESS_NULL)
 
 
 def __validate_roles(user):
     if user.roles is None:
-        raise FortressError ('User roles is None')
+        raise FortressError (msg='User roles is None', id=global_ids.ROLE_LST_NULL)
     elif len(user.roles) < 1:
-        raise FortressError ('User roles is Empty')
+        raise FortressError (msg='User roles is Empty', id=global_ids.ROLE_LST_NULL)
 
 
 def __validate_user(user):
     if user is None:
-        raise FortressError ('User is None')
+        raise FortressError (msg='User is None', id=global_ids.USER_NULL)
     elif user.uid is None:
-        raise FortressError ('User uid is None')
+        raise FortressError (msg='User uid is None', id=global_ids.USER_ID_NULL)
 
 
 def __validate_perm(perm):
     if perm is None:
-        raise FortressError ('Perm is None')
+        raise FortressError (msg='Perm is None', id=global_ids.PERM_NULL)
     elif perm.obj_name is None:
-        raise FortressError ('Perm object name is None')
+        raise FortressError (msg='Perm object name is None', id=global_ids.PERM_OBJECT_NM_NULL)
     elif perm.op_name is None:
-        raise FortressError ('Perm op name is None')
+        raise FortressError (msg='Perm op name is None', id=global_ids.PERM_OPERATION_NM_NULL)
 
 
 def __validate_role_constraints(session):
