@@ -67,14 +67,14 @@ Here we'll load the policy defined above.
     
 ### The operation is (pick one):
    * auth => access_mgr.create_session
-   * check => maps to access_mgr.check_access
-   * roles => maps to access_mgr.session_roles   
-   * perms => maps to access_mgr.session_perms
+   * check => access_mgr.check_access
+   * roles => access_mgr.session_roles   
+   * perms => access_mgr.session_perms
    * show => displays contents of session to stdout
-   * add => maps to access_mgr.add_active_role
-   * drop => maps to access_mgr.drop_active_role
+   * add => access_mgr.add_active_role
+   * drop => access_mgr.drop_active_role
    
-   _Where operations => functions here_ [access_mgr.py](impl/access_mgr.py)
+   _Where operations map to functions here_ [access_mgr.py](impl/access_mgr.py)
 
 ### The args are ‘–‘ + attribute name + attribute value
    * --uid, --password from [user.py](model/user.py)
