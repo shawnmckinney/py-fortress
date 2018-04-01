@@ -94,7 +94,7 @@ From the Python3 runtime terminal, enter the following commands, from the test f
 1. **user add** - chorowitz
    
     ```
-    $ python3 cli.py user add --uid chorowitz --password 'secret' --timeout 30 --begin_date 20180101 --end_date none --day_mask 1234567 --description 'for testing only'
+    $ python3 cli.py user add --uid chorowitz --password 'secret' --timeout 30 --begin_date 20180101 --end_date none --day_mask 1234567
     ```
     
 2. **role add** - account-mgr
