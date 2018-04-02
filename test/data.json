@@ -1,5 +1,5 @@
 {
-    "users": [
+    "user": [
 	{
 	    "uid": "testuser1",
 	    "dn": "uid=testuser1,ou=people,dc=example,dc=com",
@@ -26,6 +26,18 @@
 	    "description": "description",
 	    "roles": ["roles", "go", "here"],
 	    "userPassword": "secret"
+	}
+    ],
+    "perm": [
+	{
+	    "obj_name": "testperm1",
+	    "op_name": "opname1",
+	    "obj_id": "id1",
+	    "description": "this is a description!",
+	    "users": [],
+	    "roles": [],
+	    "props": [],
+	    "dn": "ftObjId=id1+ftObjName=testperm1,ou=perms,dc=example,dc=com"
 	}
     ]
 }
