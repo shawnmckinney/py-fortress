@@ -99,7 +99,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
     $ python3 cli.py user add --uid chorowitz --password 'secret' --timeout 30
     ``` 
-   _user has a 30 minute inactivity timeout_
+   _user chorowitz has a 30 minute inactivity timeout_
     
 2. **role add** - account-mgr
    
@@ -112,7 +112,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
     $ python3 cli.py role add --name 'auditor' --timeout 5
     ```
-   _role has a 5 minute inactivity timeout, more later about this..._    
+   auditor has a 5 minute inactivity timeout, more later about this..._    
     
 4. **user assign** - chorowitz to role account-mgr
    
