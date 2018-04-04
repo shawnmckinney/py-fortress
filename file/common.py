@@ -6,27 +6,31 @@ from util.fortress_error import FortressError
 from file.fileex import NotFound,NotUnique
 
 def require_one(label='thing', entity_list=[], query=''):
-    if len(entity_list) == 0:
+    el = list(entity_list)
+    if len(el) == 0:
         raise NotFound(msg="{} Read not found, query={}".format(label, query),
                        id=None)
-    elif len(entity_list) > 1:
+    elif len(el) > 1:
         raise NotUnique(msg="{} Read not unique, query={}".format(label, query),
                         id=None)
     else:
-        return entity_list[0]
+        return el[0]
 
 attrs = {
     "extra": {
-        "user": ["userPassword", "dn"],
-        "perm": ["dn","abstract_name","internal_id","type"]
+        "user": ["password"],
+        "perm": ["abstract_name","internal_id","type"],
+        "role": ["internal_id"]
     },
     "search": {
         "user": ["uid","cn","sn","description"],
-        "perm": ["obj_name","op_name","obj_id","description"]
+        "perm": ["obj_name","op_name","obj_id","description"],
+        "role": ["name","description"]
     },
     "search_multi": {
         "user": ["roles"],
-        "perm": ["users","roles","props"]
+        "perm": ["roles"],
+        "role": ["members"]
     }
 }
 
@@ -58,7 +62,7 @@ def common_search (etype, entity):
 
 def __read_all(etype):
     try:
-        with open(Config.get('file')['filename'], 'r') as f:
-            return load(f)[etype]
+        with open(Config.get('file')[etype], 'r') as f:
+            return load(f)
     except FileNotFoundError as e:
         return []

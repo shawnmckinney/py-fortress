@@ -1,0 +1,6 @@
+[
+    {
+	"name": "testrole",
+	"members": ["testuser1", "testuser2"]
+    }
+]

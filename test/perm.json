@@ -1,0 +1,9 @@
+[
+    {
+        "obj_name": "testperm1",
+        "op_name": "opname1",
+        "obj_id": "id1",
+        "description": "this is a description!",
+        "roles": ["testrole1"]
+    }
+]

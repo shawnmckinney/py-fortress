@@ -1,9 +1,10 @@
 import unittest
-from file import userdao,permdao
 from model import User,Perm
 from test.utils import print_user, print_role, print_ln, print_entity
 import user_test_data
 from json import dumps
+
+from file import userdao,permdao,fileex
 
 class BasicTestSuite(unittest.TestCase):
     """These tests assume fortress user and permission data has been pre-loaded into File, i.e. via apache fortress administrative functions."""
@@ -51,11 +52,44 @@ class TestDaos(unittest.TestCase):
         except Exception as e:
             self.fail('perm search failed, exception=' + e.msg)
 
+    def test_search_roles(self):
+        """
+        Test role search by name in file
+        """
+        print_ln('test search role by name')
+        try:
+            rs = roledao.search(Role(name="test*"))
+            for r in rs:
+                print_entity(r, "Role")
+        except Exception as e:
+            self.fail('role search failed, exception=' + e.msg)
+
+    def test_auth_user(self):
+        print_ln('test authentication')
+        uids = ['testuser1','testuser2','foouser1']
+        for uid in uids:
+            for pw in uids:
+                exp_res = "success" if uid==pw else "authfail"
+                result = None
+                try:
+                    if userdao.authenticate(userdao.User(uid=uid,password=pw)):
+                        result = "success"
+                except fileex.AuthFail as a:
+                    result = "authfail"
+                except fileex.AuthError as a:
+                    result = "autherror: "+str(a)
+                except Exception as e:
+                    result = "exception: "+str(e)
+                if result != exp_res:
+                    self.fail('user auth: user {} password {} expected {} got {}'
+                              .format(uid,pw,exp_res,result))
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestDaos('test_search_users'))
     suite.addTest(TestDaos('test_search_wild'))
     suite.addTest(TestDaos('test_search_perms'))
+    suite.addTest(TestDaos('test_auth_user'))
     return suite
 
 if __name__ == '__main__':

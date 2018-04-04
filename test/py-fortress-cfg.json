@@ -21,7 +21,9 @@
     "password": "secret"
   },
   "file": {
-    "filename": "data.json"
+      "user": "user.json",
+      "perm": "perm.json",
+      "role": "role.json"
   },
   "dit": {
     "suffix": "dc=example,dc=com",
