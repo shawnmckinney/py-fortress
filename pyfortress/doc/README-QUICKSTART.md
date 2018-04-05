@@ -1,59 +1,22 @@
-# Role-Based Access Control API for Python
+# py-fortress LDAP Installation Quickstart
 -------------------------------------------------------------------------------
 ## Table of Contents
 
  * Document Overview
- * SECTION 1. Introduction 
- * SECTION 2. Prerequisites
- * SECTION 3. Start using ApacheDS or OpenLDAP Docker Image
- * SECTION 4. Setup Python Runtime and Configure py-fortress Usage
- * SECTION 5. Integration Test
- * SECTION 6. Simple Test Samples 
- * SECTION 7. Docker Commands
+ * SECTION 1. Prerequisites
+ * SECTION 2. Start using ApacheDS or OpenLDAP Docker Image
+ * SECTION 3. Setup Python Runtime and Configure py-fortress Usage
+ * SECTION 4. Integration Test
+ * SECTION 5. Simple Test Samples 
+ * SECTION 6. Docker Commands
 ___________________________________________________________________________________
 ## Document Overview
 
  * Contains instructions to install and test py-fortress using an ApacheDS or OpenLDAP Docker image.
  * Many ways of setting up an LDAP server.  Using a docker image is probably the most expedient.
  * For more robust choices, start here: [Options for using Apache Fortress and LDAP](https://github.com/apache/directory-fortress-core/blob/master/README.md).
-__________________________________________________________________________________
-## SECTION 1. Introduction
-
-### About py-fortress
- * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
- * Data stored within an LDAPv3 directory server
- * Includes Python APIs to manage and interrogate the security policy data.
- * Compatible with [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
-
-### About Role-Based Access Control
-
-[Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
-
-Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
-API to add, update, delete identity data and perform identity and access control decisions during runtime operations
-
- ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
- 
-The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
-review functions for performing queries; and system functions for creating and managing sessions, and making access control decisions.
-
-### About the APIs
-Links to the Python RBAC modules:
- * [access_mgr](impl/access_mgr.py): performs runtime access control operations
- * [admin_mgr](impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
- * [review_mgr](impl/review_mgr.py): administrative review functions on the RBAC entities.
- 
- *The API docs are contained within the above links.* 
-  
-### More on RBAC
- * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
- * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
-
-### Related Projects
-py-fortress is compatible with Apache Fortress by using the exact same data format.
- * [Apache Fortress](http://directory.apache.org/fortress)
 ___________________________________________________________________________________
-## SECTION 2. Prerequisites
+## SECTION 1. Prerequisites
 
 Minimum hardware requirements:
  * 1 Core
@@ -65,7 +28,7 @@ Minimum software requirements:
  * docker engine
  * Python3 and virtualenv (venv) or system install of the ldap3 python module
 ________________________________________________________________________________
-## SECTION 3. Start using ApacheDS or OpenLDAP Docker Image
+## SECTION 2. Start using ApacheDS or OpenLDAP Docker Image
 
 1. Pull the docker image (pick one):
 
@@ -98,7 +61,7 @@ ________________________________________________________________________________
     * make note of the port, it's needed later
     * depending on your docker setup may need to run as root or sudo priv's.
 ________________________________________________________________________________
-## SECTION 4. Setup Python Runtime and Configure py-fortress Usage
+## SECTION 3. Setup Python Runtime and Configure py-fortress Usage
 
 1. Clone py-fortress
     ```
@@ -164,7 +127,7 @@ ________________________________________________________________________________
     *Locations for these nodes are set in the config file.* 
     
 __________________________________________________________________________________
-## SECTION 5. Integration Tests
+## SECTION 4. Integration Tests
 
 These steps are optional and verify the env is working correctly.
 
@@ -183,7 +146,7 @@ These steps are optional and verify the env is working correctly.
     python3 test_review_mgr.py 
     ```
 __________________________________________________________________________________
-## SECTION 6. Simple Test Samples
+## SECTION 5. Simple Test Samples
 
 Another optional test.  
  
@@ -194,7 +157,7 @@ Another optional test.
 
 2. View the [test_samples](test/test_samples.py) and learn how RBAC APIs work.
 ____________________________________________________________________________________
-## SECTION 7. Docker Commands
+## SECTION 6. Docker Commands
 
 Here are some common commands needed to manage the Docker image.
 

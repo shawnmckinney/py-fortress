@@ -7,3 +7,8 @@ env/
 .pydevproject
 .project
 *.log
+build/
+dist/
+.settings
+py_fortress.egg*
+*.pickle

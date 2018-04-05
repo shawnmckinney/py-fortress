@@ -9,11 +9,11 @@ _____________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 1. Introduction
 
-The py-fortress CLI drive the [admin_mgr](impl/admin_mgr.py) and [review_mgr](impl/review_mgr.py) APIs.
+The py-fortress CLI drive the [admin_mgr](../impl/admin_mgr.py) and [review_mgr](../impl/review_mgr.py) APIs.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
- * Have a working py-fortress env setup by following instructions here: [README](./README.md)
+ * Have a working py-fortress env setup by following instructions here: [README-QUICKSTART](.README-QUICKSTART.md)
 ___________________________________________________________________________________
 ## SECTION 3. Run it
 
@@ -46,11 +46,11 @@ ________________________________________________________________________________
    * search
 
 ### The args are '--' + names contained within these py-fortress entities:
-   * [user](model/user.py)
-   * [role](model/role.py)
-   * [object](model/perm_object.py)
-   * [perm](model/perm.py)
-   * [constraint](model/constraint.py)
+   * [user](../model/user.py)
+   * [role](../model/role.py)
+   * [object](../model/perm_object.py)
+   * [perm](../model/perm.py)
+   * [constraint](../model/constraint.py)
 
 ### Argument Format
    * Consists of two dashes ‘- -‘ plus the attribute name and value pair, with a space between them.    
@@ -156,7 +156,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
    * The description of the commands, including required arguments, can be inferred via the api doc inline to the admin_mgr and review_mgr modules.
    * The program output echos the inputted arguments and the results.
    
-3. [AdminMgr](impl/admin_mgr.py) Examples:
+3. [AdminMgr](../impl/admin_mgr.py) Examples:
 
     a. user add
     ````
@@ -288,7 +288,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     success    
     ````
     
-4. [ReviewMgr](impl/review_mgr.py) Examples:
+4. [ReviewMgr](../impl/review_mgr.py) Examples:
 
     a. user read 
     ````
