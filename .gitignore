@@ -12,3 +12,4 @@ dist/
 .settings
 py_fortress.egg*
 *.pickle
+.python
