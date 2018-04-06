@@ -51,5 +51,5 @@ ________________________________________________________________________________
 1. If you're new to fortress: [LDAP SERVER QUICKSTART](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
 2. Install the py-fortress python package using pip: [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md)
 3. How the APIs work: [API Usage Guide](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-API.md)
-4. Use the CLI to setup and test: [](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI-AUTH.md)  
-5. Use the CLI to administer and interrogate: [Admin and Review Manager Command Line Interface](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI.md)  
+4. Use the CLI to setup and test: [Guide to Command Line Interpreter (CLI) for RBAC0 SYSTEM Testing](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI-AUTH.md)  
+5. Use the CLI to administer and interrogate: [Guide to Admin and Review CLI](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI.md)  
