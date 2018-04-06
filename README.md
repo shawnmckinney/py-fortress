@@ -15,8 +15,11 @@ ________________________________________________________________________________
 
 ### About py-fortress
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
- * Data stored within an LDAPv3 directory server
+ * Currently stores data on LDAP server.  Support for other backends like file in the works.
  * Includes Python APIs to manage and interrogate the security policy data.
+ * Includes a Command Line Interpreter to manage the data.
+ * Published to [PyPI](https://pypi.python.org/pypi/py-fortress)
+ * Released open source Apache License v2.0 
 
 ### About Role-Based Access Control
 
