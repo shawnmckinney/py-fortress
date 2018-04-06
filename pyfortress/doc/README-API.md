@@ -24,7 +24,7 @@ ______________________________________________________________________________
 
 0. Prepare your python module for usage by importing:
 
-    ```
+    ```python
     from pyfortress import (
         # model
         User,
@@ -43,7 +43,7 @@ ______________________________________________________________________________
 
 1. Add a user:
 
-    ```
+    ```python
     def test_add_user(self):
         """
         Add a basic user
@@ -59,7 +59,7 @@ ______________________________________________________________________________
 
 2. Add a role:
 
-    ```
+    ```python
     def test_add_role(self):
         """
         Add a basic role
@@ -74,7 +74,7 @@ ______________________________________________________________________________
 
 3. Add an object:
 
-    ```
+    ```python
     def test_add_obj(self):
         """
         Add a basic perm object
@@ -91,7 +91,7 @@ ______________________________________________________________________________
 
 4. Add a perm:
 
-    ```
+    ```python
     def test_add_perm(self):
         """
         Add a basic perm
@@ -107,7 +107,7 @@ ______________________________________________________________________________
 
 5. Assign a user:
 
-    ```
+    ```python
     def test_assign_user(self):
         """
         Assign a user to a role
@@ -123,7 +123,7 @@ ______________________________________________________________________________
 
 6. Grant a permission:
 
-    ```
+    ```python
     def test_grant_perm(self):
         """
         Grant a permission to a role
@@ -139,7 +139,7 @@ ______________________________________________________________________________
 
 7. Now test signing on the RBAC way:
 
-    ```
+    ```python
     def test_create_session(self):
         """
         create session
@@ -162,7 +162,7 @@ ______________________________________________________________________________
 
 8. Here's how to check a single permission:
 
-    ```
+    ```python
     def test_check_access(self):
         """
         create session and check perm
@@ -184,7 +184,7 @@ ______________________________________________________________________________
 
 9. Retrieve all of the permissions as a list:
 
-    ```
+    ```python
     def test_session_perms(self):
         """
         create session and get perms for user
