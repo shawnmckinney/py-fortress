@@ -1,4 +1,4 @@
-# py-fortress LDAP Installation Quickstart
+# py-fortress QUICKSTART
 -------------------------------------------------------------------------------
 ## Table of Contents
 
@@ -12,7 +12,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * Contains instructions to install and test py-fortress using an ApacheDS or OpenLDAP Docker image.
+ * Contains instructions to install and test py-fortress built from source using an ApacheDS or OpenLDAP Docker image.
  * Many ways of setting up an LDAP server.  Using a docker image is probably the most expedient.
  * For more robust choices, start here: [Options for using Apache Fortress and LDAP](https://github.com/apache/directory-fortress-core/blob/master/README.md).
 ___________________________________________________________________________________
