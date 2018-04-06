@@ -49,7 +49,7 @@ py-fortress is compatible with Apache Fortress Core, sharing data model, error c
 __________________________________________________________________________________
 ## SECTION 2. Installation, Setup and Usage
 1. If you're new to fortress: [LDAP SERVER QUICKSTART](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
-2. Two install the py-fortress python package using pip: [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md)
-3. How do the APIs work: [API Usage Guide](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-API.md)   
-4. Using CLI to update RBAC policy: [Admin and Review Manager Command Line Interface](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI.md) 
-5. Using CLI to test RBAC policy: [Access Manager Command Line Interface](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI-AUTH.md) 
+2. Install the py-fortress python package using pip: [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md)
+3. How the APIs work: [API Usage Guide](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-API.md)
+4. Use the CLI to setup and test: [](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI-AUTH.md)  
+5. Use the CLI to administer and interrogate: [Admin and Review Manager Command Line Interface](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI.md)  
