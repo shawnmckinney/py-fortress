@@ -10,7 +10,7 @@ ________________________________________________________________________________
 ## SECTION 1. Introduction
 
 There are about 26 APIs currently in [admin_mgr](../impl/admin_mgr.py), [review_mgr](../impl/review_mgr.py) and [access_mgr](../impl/access_mgr.py).
-This guide doesn't yet cover them all.
+This guide shows how they can be used.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
