@@ -14,9 +14,11 @@ This guide doesn't yet cover them all.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
- * Have a working py-fortress env setup by following instructions here: [README-QUICKSTART](.README-QUICKSTART.md)
- * Have installed the py-fortress package: [README-INSTALL](.README-INSTALL.md)  
-___________________________________________________________________________________
+1. Completed SECTION 2. *Start using ApacheDS or OpenLDAP Docker Image*: [README-QUICKSTART](.README-QUICKSTART.md)
+2. Completed: [README-INSTALL](.README-INSTALL.md)
+3. Copied [py-fortress-cfg.json](test/py-fortress-cfg.json) to the runtime folder of your python program, correctly pointing to an LDAP server (per step 1 above).
+
+* The [py-fortress-sample](https://github.com/shawnmckinney/py-fortress-sample) project has an example of how to setup a test program you can use as a starting point.    ___________________________________________________________________________________
 ______________________________________________________________________________
 ## SECTION 3. Usage
 
