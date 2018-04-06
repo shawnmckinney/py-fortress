@@ -46,10 +46,10 @@ Links to the Python RBAC modules:
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
 
 ### Related Project
-py-fortress is related to [Apache Fortress](http://directory.apache.org/fortress)
+The py-fortress project is related to [Apache Fortress](http://directory.apache.org/fortress)
  * Compatible data schema: [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
  * Compatible error handling: [org.apache.directory.fortress.core.SecurityException](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/SecurityException.html)
- * Similar API format for these interfaces:
+ * Similar API format:
     * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
     * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html) 
