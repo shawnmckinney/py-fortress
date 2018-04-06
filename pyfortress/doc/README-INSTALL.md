@@ -11,7 +11,7 @@ ______________________________________________________________________________
  * Python3 and virtualenv (venv) or system install of the ldap3 python module
 ___________________________________________________________________________________
 ______________________________________________________________________________
-## SECTION 3. Install
+## SECTION 2. Install
 
 
 1. Prepare your terminal for execution of python3.  From the main dir of the git repo:
