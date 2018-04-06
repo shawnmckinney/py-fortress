@@ -4,20 +4,16 @@ Created on Apr 4, 2018
 @author: smckinn
 @copyright: 2018 - Symas Corporation
 '''
-from setuptools import setup, find_packages
-
-# To use a consistent encoding
+from setuptools import setup
 from codecs import open
 from os import path
 
 here = path.abspath(path.dirname(__file__))
-
-# Get the long description from the README file
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='py-fortress',
-      version='0.0.2',
+      version='0.0.3',
       python_requires='>=3',
       description='RBAC for Python',
       long_description=long_description,
@@ -26,7 +22,7 @@ setup(name='py-fortress',
       author='Symas Corporation',
       author_email='smckinney@symas.com,ebackes@symas.com',
       license='Apache License 2.0',      
-      packages=['pyfortress.doc', 'pyfortress.impl', 'pyfortress.ldap', 'pyfortress.model', 'pyfortress.test', 'pyfortress.util'],
+      packages=['pyfortress', 'pyfortress.doc', 'pyfortress.impl', 'pyfortress.ldap', 'pyfortress.model', 'pyfortress.test', 'pyfortress.util'],
       #packages=find_packages(exclude=['pyfortress.env', 'pyfortress.file']),      
 
       package_data={
@@ -46,7 +42,8 @@ setup(name='py-fortress',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
         'Topic :: Software Development :: Libraries :: Python Modules',          
       ],
-      keywords='authorization rbac security',      
+      keywords='authorization rbac security', 
+      #namespace_packages=['pyfortress'],     
       zip_safe=False)
 
 

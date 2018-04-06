@@ -26,7 +26,7 @@ ________________________________________________________________________________
 Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
 API to add, update, delete identity data and perform identity and access control decisions during runtime operations
 
- ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
+ ![RBAC Core](https://github.com/shawnmckinney/py-fortress/blob/master/images/RbacCore.png "RBAC0 - The 'Core'")
  
 The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
 review functions for performing queries; and system functions for creating and managing sessions, and making access control decisions.

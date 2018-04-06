@@ -7,7 +7,7 @@
 
   "ldap": {
     "host": "localhost",
-    "port": 32768,
+    "port": 32769,
     "timeout": 1,
     "pool_name": "fort-conns",
     "pool_size": 5,
