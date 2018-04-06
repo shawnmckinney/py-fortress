@@ -7,9 +7,8 @@ Created on Feb 10, 2018
 
 import unittest
 from pyfortress.ldap import userdao, permdao, roledao, InvalidCredentials
-from pyfortress.model import User, Perm, Role, Constraint, PermObj
-from pyfortress.test import print_user, print_role, print_ln, print_entity
-import user_test_data, role_test_data, perm_test_data
+from pyfortress.model import User, Perm, Role, PermObj
+from pyfortress.test import print_user, print_role, print_ln, print_entity, user_test_data, role_test_data, perm_test_data
 
 
 class BasicTestSuite(unittest.TestCase):

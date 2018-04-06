@@ -10,7 +10,6 @@ from pyfortress.impl import review_mgr, admin_mgr, access_mgr
 from pyfortress.model import User, Role, Perm, PermObj
 from pyfortress.util import global_ids
 from pyfortress.test import print_user, print_role, print_ln, print_entity
-import user_test_data, role_test_data, perm_test_data
 
 
 class BasicTestSuite(unittest.TestCase):

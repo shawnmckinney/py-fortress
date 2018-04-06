@@ -49,7 +49,7 @@ py-fortress is compatible with Apache Fortress by using the exact same data form
 __________________________________________________________________________________
 ## SECTION 2. Installation, Setup and Usage
 1. [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md) 
-2. [LDAP Setup](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
+2. [LDAP SERVER QUICKSTART](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
 3. [Admin and Review Manager Command Line Interface](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI.md) 
 4. [Access Manager Command Line Interface](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI-AUTH.md) 
 5. [API Usage Guide](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-API.md) 
