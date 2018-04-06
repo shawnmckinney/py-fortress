@@ -17,7 +17,6 @@ ________________________________________________________________________________
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
  * Data stored within an LDAPv3 directory server
  * Includes Python APIs to manage and interrogate the security policy data.
- * Compatible with [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
 
 ### About Role-Based Access Control
 
@@ -44,8 +43,13 @@ Links to the Python RBAC modules:
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
 
 ### Related Project
-py-fortress is compatible with Apache Fortress Core, sharing data model, error codes and a similar API format.
- * [Apache Fortress](http://directory.apache.org/fortress)
+py-fortress is related to [Apache Fortress](http://directory.apache.org/fortress)
+ * Compatible data schema: [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
+ * Compatible error handling: [org.apache.directory.fortress.core.SecurityException](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/SecurityException.html)
+ * Similar API format for these interfaces:
+     1- [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
+     2- [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
+     3- [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
 __________________________________________________________________________________
 ## SECTION 2. Installation, Setup and Usage
 1. If you're new to fortress: [LDAP SERVER QUICKSTART](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
