@@ -77,7 +77,7 @@ ________________________________________________________________________________
     ```
     vi pyfortress/test/py-fortress-cfg.json
     ```
-    _cfg file is here: [py-fortress/pyfortress/test/py-fortress-cfg.json](pyfortress/test/py-fortress-cfg.json)_
+    _cfg file is here: [py-fortress/pyfortress/test/py-fortress-cfg.json](,,/test/py-fortress-cfg.json)_
 
 4. Set the LDAP Port
     ```
