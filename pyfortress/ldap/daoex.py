@@ -5,7 +5,7 @@ Created on Feb 11, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from util.fortress_error import FortressError
+from ..util import FortressError
 
 class LdapException(FortressError):
  pass

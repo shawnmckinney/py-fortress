@@ -33,9 +33,9 @@ review functions for performing queries; and system functions for creating and m
 
 ### About the APIs
 Links to the Python RBAC modules:
- * [access_mgr](impl/access_mgr.py): performs runtime access control operations
- * [admin_mgr](impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
- * [review_mgr](impl/review_mgr.py): administrative review functions on the RBAC entities.
+ * [access_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/access_mgr.py): performs runtime access control operations
+ * [admin_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
+ * [review_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/review_mgr.py): administrative review functions on the RBAC entities.
  
  *The API docs are contained within the above links.* 
   
@@ -48,8 +48,8 @@ py-fortress is compatible with Apache Fortress by using the exact same data form
  * [Apache Fortress](http://directory.apache.org/fortress)
 __________________________________________________________________________________
 ## SECTION 2. Installation, Setup and Usage
-1. [py-fortress Installation](pyfortress/doc/README-INSTALL.md) 
-2. [LDAP Setup](pyfortress/doc/README-QUICKSTART.md) 
-3. [Admin and Review Manager Command Line Interface](pyfortress/doc/README-CLI.md) 
-4. [Access Manager Command Line Interface](pyfortress/doc/README-CLI-AUTH.md) 
-5. [API Usage Guide](pyfortress/doc/README-API.md) 
+1. [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md) 
+2. [LDAP Setup](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
+3. [Admin and Review Manager Command Line Interface](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI.md) 
+4. [Access Manager Command Line Interface](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI-AUTH.md) 
+5. [API Usage Guide](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-API.md) 

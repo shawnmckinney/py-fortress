@@ -6,12 +6,12 @@ Created on Mar 17, 2018
 '''
 
 import uuid
-from model import Role, Constraint
-from ldap import ldaphelper, NotFound, NotUnique
 from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
-from util import Config, global_ids
-from ldap import userdao
-from util.fortress_error import FortressError
+from ..model import Role, Constraint
+from ..ldap import ldaphelper, NotFound, NotUnique
+from ..ldap import userdao
+from ..util import global_ids
+from ..util import FortressError
 
 def read (entity):
     roleList = search(entity)

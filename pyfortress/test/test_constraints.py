@@ -6,14 +6,14 @@ Created on Feb 24, 2018
 '''
 
 import unittest
-from util.date import Date
-from util.day import Day
-from util.lockdate import LockDate
-from util.time import Time
-from util.timeout import TimeOut
-from util.current_date_time import CurrentDateTime
-from model.constraint import Constraint
-from test.utils import print_ln, print_entity
+from pyfortress.util import Date
+from pyfortress.util import Day
+from pyfortress.util import LockDate
+from pyfortress.util import Time
+from pyfortress.util import TimeOut
+from pyfortress.util import CurrentDateTime
+from pyfortress.model import Constraint
+from pyfortress.test import print_ln, print_entity
 
 cons1 = [
     Constraint(

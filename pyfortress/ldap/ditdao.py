@@ -5,10 +5,10 @@ Created on Mar 21, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from ldap import ldaphelper, NotFound, NotUnique
-from util import Config, global_ids
-from util.fortress_error import FortressError
-from util.logger import logger
+from ..ldap import ldaphelper, NotFound, NotUnique
+from ..util import Config, global_ids
+from ..util import FortressError
+from ..util import logger
 
 
 def create_ou (name, desc=None):

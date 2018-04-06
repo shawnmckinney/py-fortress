@@ -11,9 +11,9 @@ Created on Mar 18, 2018
 '''
 
 import unittest
-from ldap import ditdao
-from util import global_ids
-from test.utils import print_ln
+from pyfortress.ldap import ditdao
+from pyfortress.util import global_ids
+from pyfortress.test import print_ln
 
 
 class BasicTestSuite(unittest.TestCase):

@@ -5,15 +5,16 @@ Created on Feb 11, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from util import Config
 import logging
-from util.logger import logger
 import ldap3
-from ldap import LdapException
 from ldap3.utils.log import set_library_log_activation_level
 set_library_log_activation_level(logging.CRITICAL)
 from ldap3.utils.log import set_library_log_detail_level, OFF, ERROR, BASIC, PROTOCOL, NETWORK, EXTENDED
-from util import global_ids
+from ..util import global_ids
+from ..ldap import LdapException
+from ..util import Config
+from ..util import logger
+
 
 # Open a connection for a particular user:
 def open_user (user_dn, password):

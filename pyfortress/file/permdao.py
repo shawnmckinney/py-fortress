@@ -1,6 +1,6 @@
-from model import Perm
-from util import Config, global_ids
-from file.common import require_one,attrs,common_search
+from ..model import Perm
+from ..util import Config, global_ids
+from ..file.common import require_one,attrs,common_search
 
 def read (entity):
     return require_one('Perm', search(entity), entity.obj_name)

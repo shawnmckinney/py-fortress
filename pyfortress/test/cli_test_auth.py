@@ -13,12 +13,12 @@ It defines classes_and_methods
 
 import pickle
 import argparse
-from util import global_ids
-from model import Perm, User
-from impl import access_mgr
-from util.fortress_error import FortressError
-from test.utils import print_user, print_entity
-from test.cli_utils import (
+from pyfortress.util import global_ids
+from pyfortress.model import Perm, User
+from pyfortress.impl import access_mgr
+from pyfortress.util import FortressError
+from pyfortress.test import print_user, print_entity
+from pyfortress.test.cli_utils import (
     load_entity, add_args, ADD, DELETE, AUTH, CHCK, ROLES, PERMS, SHOW, DROP
     )
 

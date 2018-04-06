@@ -5,7 +5,7 @@ Created on Mar 17, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from model import Role, Constraint
+from pyfortress.model import Role, Constraint
 
 ALL = 'all'
 NONE = 'none'

@@ -245,7 +245,7 @@ From the py-fortress/test folder, enter the following commands:
 6. **perms** - access_mgr.session_perms:
    
     ```
-    $ python3 cli_test_auth.py get
+    $ python3 cli_test_auth.py perms
     perms
     page456.read:0
         abstract_name: page456.read
@@ -272,7 +272,7 @@ From the py-fortress/test folder, enter the following commands:
 7. **drop** - access_mgr.drop_active_role - deactivate auditor role:
    
     ```
-    $ cli_test_auth.py drop --role auditor
+    $ python3 cli_test_auth.py drop --role auditor
     drop
     role=auditor    
     success

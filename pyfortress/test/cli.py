@@ -5,11 +5,11 @@ Created on Mar 23, 2018
 @copyright: 2018 - Symas Corporation
 '''
 import argparse
-from model import PermObj, Perm, User, Role, Constraint
-from impl import admin_mgr, review_mgr
-from test.utils import print_user, print_role, print_ln, print_entity
-from util.fortress_error import FortressError
-from test.cli_utils import (
+from pyfortress.model import PermObj, Perm, User, Role, Constraint
+from pyfortress.impl import admin_mgr, review_mgr
+from pyfortress.test.utils import print_user, print_role, print_ln, print_entity
+from pyfortress.util.fortress_error import FortressError
+from pyfortress.test.cli_utils import (
     load_entity, add_args, USER, ROLE, PERM, OBJECT, ADD, 
     UPDATE, DELETE, ASSIGN, DEASSIGN, READ, SEARCH, GRANT, REVOKE
     )

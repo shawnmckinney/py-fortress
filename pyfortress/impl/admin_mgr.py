@@ -5,12 +5,12 @@ Created on Mar 18, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from ldap import permdao, userdao, roledao
-from impl import utils
-from util import global_ids
-from util.fortress_error import FortressError
-from model import Perm, User, Role
-from util.logger import logger
+from ..ldap import permdao, userdao, roledao
+from ..impl import utils
+from ..util import global_ids
+from ..util import FortressError
+from ..model import Perm, User, Role
+from ..util import logger
 
 def add_user(user):
     """

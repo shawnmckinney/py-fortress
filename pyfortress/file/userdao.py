@@ -1,11 +1,11 @@
-from model import User
-from util import Config, global_ids
+from ..model import User
+from ..util import Config, global_ids
 from crypt import crypt
 from hmac import compare_digest
 
-from util.fortress_error import FortressError
-from file.fileex import AuthError,AuthFail
-from file.common import require_one,attrs,common_search
+from ..util.fortress_error import FortressError
+from ..file.fileex import AuthError,AuthFail
+from ..file.common import require_one,attrs,common_search
 
 def read (entity):
     return require_one('User', search(entity), entity.uid)

@@ -4,9 +4,8 @@ Created on Mar 18, 2018
 @author: smckinn
 @copyright: 2018 - Symas Corporation
 '''
-
-from ldap import permdao, userdao, roledao
-from impl import utils
+from ..ldap import permdao, userdao, roledao
+from ..impl import utils
 
 
 def read_user(user):

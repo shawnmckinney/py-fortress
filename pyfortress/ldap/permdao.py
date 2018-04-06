@@ -6,11 +6,11 @@ Created on Feb 16, 2018
 '''
 
 import uuid    
-from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
-from model import Perm, PermObj
-from ldap import ldaphelper, NotFound, NotUnique
-from util import Config, global_ids
-from util.fortress_error import FortressError
+from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
+from ..model import Perm, PermObj
+from ..ldap import ldaphelper, NotFound, NotUnique
+from ..util import global_ids
+from ..util import FortressError
 
 
 def read (entity):

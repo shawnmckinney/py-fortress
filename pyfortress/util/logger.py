@@ -5,13 +5,12 @@ Created on Feb 23, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-import datetime
-from util.config import Config
 import logging
 from logging import DEBUG, INFO, WARNING, ERROR, CRITICAL
+import datetime
+from ..util import Config
 
 LOGGER = 'logger'
-
 ctr = 1
 
 def setup(ctr):

@@ -5,9 +5,9 @@ Created on Feb 24, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from util.validator import Validator
-from util.logger import logger
-from util.global_ids import ACTV_FAILED_DAY, SUCCESS
+from . import Validator
+from . import logger
+from .global_ids import ACTV_FAILED_DAY, SUCCESS
 
 class Day(Validator):
         

@@ -5,8 +5,7 @@ Created on Feb 24, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from model import User, Perm, Role
-from util.logger import logger
+from ..util import logger
 
 def print_ln( ln, num=None ):
     if num is None:

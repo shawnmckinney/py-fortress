@@ -5,9 +5,8 @@ Created on Feb 24, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from util.validator import Validator
-from util.logger import logger
-from util.global_ids import ACTV_FAILED_TIME, SUCCESS
+from .validator import Validator
+from .global_ids import ACTV_FAILED_TIME, SUCCESS
 
 class Time(Validator):
         

@@ -6,10 +6,10 @@ Created on Mar 19, 2018
 '''
 
 import unittest
-from impl import review_mgr, admin_mgr, access_mgr
-from model import User, Role, Perm, PermObj
-from util import global_ids
-from test.utils import print_user, print_role, print_ln, print_entity
+from pyfortress.impl import review_mgr, admin_mgr, access_mgr
+from pyfortress.model import User, Role, Perm, PermObj
+from pyfortress.util import global_ids
+from pyfortress.test import print_user, print_role, print_ln, print_entity
 import user_test_data, role_test_data, perm_test_data
 
 

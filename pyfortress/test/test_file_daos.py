@@ -1,10 +1,10 @@
 import unittest
-from model import User,Perm
-from test.utils import print_user, print_role, print_ln, print_entity
+from pyfortress.model import User,Perm
+from pyfortress.test import print_user, print_role, print_ln, print_entity
 import user_test_data
 from json import dumps
 
-from file import userdao,permdao,fileex
+from pyfortress.file import userdao,permdao,fileex
 
 class BasicTestSuite(unittest.TestCase):
     """These tests assume fortress user and permission data has been pre-loaded into File, i.e. via apache fortress administrative functions."""

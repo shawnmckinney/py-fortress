@@ -68,12 +68,17 @@ ________________________________________________________________________________
     git clone https://github.com/shawnmckinney/py-fortress.git
     ```
 
-2. Now edit config file:
+2. Change directory into root folder of project:
     ```
-    vi test/py-fortress-cfg.json
+    cd py-fortress
     ```
 
-3. Set the LDAP Port
+3. Now edit config file:
+    ```
+    vi pyfortress/test/py-fortress-cfg.json
+    ```
+
+4. Set the LDAP Port
     ```
     ...
     "ldap": {
@@ -83,7 +88,7 @@ ________________________________________________________________________________
     ```
     *use value obtained earler*
         
-4. Update the connection parameters (pick one):
+5. Update the connection parameters (pick one):
 
     a. apacheds:
     ```
@@ -95,7 +100,7 @@ ________________________________________________________________________________
     "dn": "cn=Manager,dc=example,dc=com",
     ```
 
-5. Set the structure in DIT:
+6. Set the structure in DIT:
     ```
     ...
     "dit": {
@@ -108,18 +113,18 @@ ________________________________________________________________________________
     ```
     *if in doubt use the defaults*
     
-6. Save and exit
+7. Save and exit
 
-7. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+8. Prepare your terminal for execution of python3.  From the main dir of the git repo:
     ```
     pyvenv env
     . env/bin/activate
     pip3 install ldap3
     export PYTHONPATH=$(pwd)
-    cd test
+    cd pyfortress/test
     ```
     
-8. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
+9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
     ```
     python3 test_dit_dao.py 
     ```
@@ -155,7 +160,7 @@ Another optional test.
     python3 test_samples.py 
     ```
 
-2. View the [test_samples](test/test_samples.py) and learn how RBAC APIs work.
+2. View the [test_samples](../test/test_samples.py) and learn how RBAC APIs work.
 ____________________________________________________________________________________
 ## SECTION 6. Docker Commands
 

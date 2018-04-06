@@ -1,5 +1,7 @@
-from util.fortress_error import FortressError
-from util.global_ids import USER_PW_INVLD,USER_PW_CHK_FAILED
+from ..util import FortressError
+from ..util.global_ids import USER_PW_INVLD,USER_PW_CHK_FAILED
+
+
 class NotFound(FortressError):
     pass
 

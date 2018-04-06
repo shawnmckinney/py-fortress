@@ -5,12 +5,12 @@ Created on Feb 10, 2018
 @copyright: 2018 - Symas Corporation
 '''
     
-import uuid    
-from model import User, Constraint
-from ldap import ldaphelper, NotFound, NotUnique, InvalidCredentials
-from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
-from util import Config, global_ids
-from util.fortress_error import FortressError
+import uuid
+from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE    
+from ..model import User, Constraint
+from ..ldap import ldaphelper, NotFound, NotUnique, InvalidCredentials
+from ..util import global_ids
+from ..util import FortressError
 
 
 def read (entity):

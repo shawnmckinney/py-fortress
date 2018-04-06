@@ -1,9 +1,9 @@
 from json import load,dump
 import re
 
-from util import Config
-from util.fortress_error import FortressError
-from file.fileex import NotFound,NotUnique
+from ..util import Config
+from ..util.fortress_error import FortressError
+from ..file.fileex import NotFound,NotUnique
 
 def require_one(label='thing', entity_list=[], query=''):
     el = list(entity_list)
