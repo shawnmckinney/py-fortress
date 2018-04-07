@@ -30,6 +30,9 @@ This project is related to [Apache Fortress](http://directory.apache.org/fortres
     * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
     * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
+    
+There are things Apache Fortress Core can do that this project can't, including Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2), Dynamic Separation of Duties (RBAC3),
+_*so there's work yet to be done here*_.    
      
 ### About Role-Based Access Control
  ![RBAC Core](https://github.com/shawnmckinney/py-fortress/blob/master/images/RbacCore.png "RBAC0 - The 'Core'")
