@@ -21,14 +21,14 @@ ________________________________________________________________________________
 ## About py-fortress and RBAC
 
 ### About py-fortress
- * Security access control system that runs on a Python3 platform.
- * Requires an *LDAP* server. Support for a *File* backend in the works.
+ * Security access control APIs for the Python3 platform.
+ * Requires an *LDAP* server to store the policy data. Support for a *File* backend in the works.
  * Published to PyPI as [py-fortress](https://pypi.python.org/pypi/py-fortress).
  * Compliant with *ANSI INCITS 359* RBAC0, a.k.a "Core RBAC".    
  * Sponsored by [SYMAS](https://symas.com/)
  * Released under [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-#### Links to the RBAC API Modules
+#### Links to the API Modules
 The following modules have inline code docs describing the API signatures, required attributes and usages.
 
 |   | Link                                        | Description                                          |  
