@@ -101,17 +101,17 @@ These steps are optional and verify the env is working correctly.
 
 1. Run the admin mgr tests:
     ```
-    $python3 -m pyfortress.test.test_admin_mgr 
+    $ python3 -m pyfortress.test.test_admin_mgr 
     ```
 
 2. Run the access mgr tests:
     ```
-    $python3 -m pyfortress.test.test_access_mgr
+    $ python3 -m pyfortress.test.test_access_mgr
     ```
  
 3. Run the review mgr tests:
     ```
-    $python3 -m pyfortress.test.test_review_mgr 
+    $ python3 -m pyfortress.test.test_review_mgr 
     ```
 __________________________________________________________________________________
 ## SECTION 4. Simple Test Samples
@@ -120,7 +120,7 @@ Another optional test.
  
 1. Run the samples:
     ```
-    python3 -m pyfortress.test.test_samples 
+    $ python3 -m pyfortress.test.test_samples 
     ```
 
 2. View the [test_samples](../test/test_samples.py) and learn how RBAC APIs work.
