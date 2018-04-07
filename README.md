@@ -11,9 +11,8 @@ ________________________________________________________________________________
 
 ### About py-fortress
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
- * Data in LDAP. Support for other backends in the works.
- * Python APIs to manage and interrogate the security policy data.
- * Command Line Interpreter to manage the data.
+ * Data stored in LDAP. Support for other backends in the works.
+ * Python APIs and CLI to manage and interrogate the security policy data.
  * Published to [PyPI](https://pypi.python.org/pypi/py-fortress)
  * Released as open source, Apache License v2.0 
 
@@ -35,18 +34,14 @@ This project is related to [Apache Fortress](http://directory.apache.org/fortres
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
      
 ### About Role-Based Access Control
-
-[Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
-
-Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
-API to add, update, delete identity data and perform identity and access control decisions during runtime operations
-
  ![RBAC Core](https://github.com/shawnmckinney/py-fortress/blob/master/images/RbacCore.png "RBAC0 - The 'Core'")
- 
-The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
+ * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
+API to add, update, delete identity data and perform identity and access control decisions during runtime operations
+ * The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
 review functions for performing queries; and system functions for creating and managing sessions, and making access control decisions.
+ * [Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
 
-#### More about RBAC
+#### More info
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
 __________________________________________________________________________________
