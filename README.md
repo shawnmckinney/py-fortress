@@ -23,8 +23,8 @@ ________________________________________________________________________________
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, a.k.a "Core RBAC".
  * Data stored inside *LDAP* backend. Support for *File* backend in the works.
  * Python APIs and CLIs to manage, interrogate and test the security policy data.
- * Published to [PyPI](https://pypi.python.org/pypi/py-fortress) as *py-fortress*.
- * Open Source Software *Apache License 2.0*
+ * Published to PyPI as [py-fortress](https://pypi.python.org/pypi/py-fortress).
+ * Released under [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 #### Links to the RBAC API Modules
 The following modules have inline code docs describing the API signatures, required attributes and usages.
