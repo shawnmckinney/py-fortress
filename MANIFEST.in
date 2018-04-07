@@ -3,3 +3,5 @@ include *.md
 
 # Include the license file
 include LICENSE
+
+global-exclude user.json role.json perm.json test_file*.py
