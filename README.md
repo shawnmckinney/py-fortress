@@ -55,8 +55,6 @@ The Apache Fortress Core has capabilities that py-fortress can't do, like Hierar
  ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
  * Many-to-many relationship between Users, Roles and Permissions. Selective Role activation into Sessions. 
 API to add, update, delete entity data and perform access control decisions during runtime operations
- * The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
-review functions for performing queries; and system functions for creating and managing sessions, and making access control decisions.
  * [Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
 
 #### More RBAC info
