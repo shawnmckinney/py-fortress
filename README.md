@@ -24,15 +24,17 @@ The APIs have some code doc describing their usage inline.
    
 #### Related Project
 This project is related to [Apache Fortress](http://directory.apache.org/fortress)
- * Compatible data schema: [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
- * Compatible error handling: [org.apache.directory.fortress.core.SecurityException](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/SecurityException.html)
- * Similar API format:
+ * Shared data format:
+    * [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
+ * Shared exception ids:
+    * [org.apache.directory.fortress.core.SecurityException](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/SecurityException.html)
+ * Similar method names and signatures for these APIs:
     * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
     * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
     
-There are things Apache Fortress Core can do that this project can't, including Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2), Dynamic Separation of Duties (RBAC3),
-_*so there's work yet to be done here*_.    
+There are things Apache Fortress Core does that this project can't; Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2), Dynamic Separation of Duties (RBAC3).
+_*There's work yet to be done here*_.    
      
 ### About Role-Based Access Control
  ![RBAC Core](https://github.com/shawnmckinney/py-fortress/blob/master/images/RbacCore.png "RBAC0 - The 'Core'")
