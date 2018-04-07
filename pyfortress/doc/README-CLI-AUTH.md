@@ -62,7 +62,7 @@ Here we'll load the policy defined above.
     ```
     clitest operation --arg1 --arg2 ...  
     ```
-    *executes a package script that maps here: pyfortress.test.cli*
+    *executes a package script that maps here: pyfortress.test.cli_test_auth*
     
 ### The operation is (pick one):
    * auth => access_mgr.create_session
