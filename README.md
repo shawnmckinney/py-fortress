@@ -12,7 +12,7 @@ Located under the [doc](pyfortress/doc) folder and include:
 
 |   | Link                                                              | Description                     | 
 |---|:------------------------------------------------------------------|:--------------------------------| 
-|1. |[README-README-BUILDING](pyfortress/doc/README-BUILDING.md)        |So you want to build from source |
+|1. |[README-BUILDING](pyfortress/doc/README-BUILDING.md)               |To build the package from source |
 |2. |[README-QUICKSTART](pyfortress/doc/README-QUICKSTART.md)           |Beginners start here             | 
 |3. |[README-LDAP-DOCKER](pyfortress/doc/README-LDAP-DOCKER.md)         |Run LDAP in Docker               |
 |4. |[README-INSTALL](pyfortress/doc/README-INSTALL.md)                 |Install with PyPI Package        | 
