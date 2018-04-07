@@ -1,9 +1,9 @@
 # py-fortress README
 
 _**Fortress Role-Based Access Control**_ 
-![alt text](images/FortressLogo-small.png "fortress rbac")
+![py-fortress](images/FortressLogo-small.png "fortress rbac")
 
-## Document Overview
+## Document Contents
  * SECTION 1 - Intro to py-fortress and RBAC
  * SECTION 2 - Links to Install and Setup Docs
 __________________________________________________________________________________
@@ -17,27 +17,27 @@ ________________________________________________________________________________
  * Released as open source, Apache License v2.0 
 
 #### Links to the Python RBAC modules
-The APIs have some code doc describing their usage inline. 
+These APIs have inline code docs describing the method signatures and required attributes. 
  * [access_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/access_mgr.py): performs runtime access control operations
  * [admin_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
  * [review_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/review_mgr.py): administrative review functions on the RBAC entities.
    
 #### Related Project
-This project is related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation.
- * Shared data format:
+We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation that we have common...
+ * Data Format:
     * [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
- * Shared exception ids:
+ * Exception Ids:
     * [org.apache.directory.fortress.core.SecurityException](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/SecurityException.html)
- * Similar method names and signatures for these APIs:
+ * Method names and signatures:
     * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
     * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
     
-There are things Apache Fortress Core does that this project can't; Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3) to name a few.
+There're many things that the Apache Fortress Core can do that this project can't; Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3) to name a few.
 _*So there's work yet to be done here*_.    
      
 ### About Role-Based Access Control
- ![RBAC Core](https://github.com/shawnmckinney/py-fortress/blob/master/images/RbacCore.png "RBAC0 - The 'Core'")
+ ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
  * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
 API to add, update, delete identity data and perform identity and access control decisions during runtime operations
  * The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
