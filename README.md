@@ -36,7 +36,7 @@ These APIs have inline code docs describing the method signatures and required a
 |3. |[review_mgr](pyfortress/impl/review_mgr.py)  |read and search entities and their relationships      |  
    
 #### Related Project
-We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation sharing...
+We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation and share:
  * Data Format:
     * [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
  * Exception Ids:
@@ -45,12 +45,11 @@ We're related to the [Apache Fortress](http://directory.apache.org/fortress) Jav
     * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
     * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
- * Management interfaces. Data created by one can be used by the other, e.g. can be managed using the apache fortress gui and rest impls:
+ * Management interfaces. Entries created by one can be processed by the other, and can be managed using the Apache Fortress' Web and Rest interfaces:
     * [Apache Fortress Web](https://github.com/apache/directory-fortress-commander)
     * [Apache Fortress Rest](https://github.com/apache/directory-fortress-enmasse)
      
-Apache Fortress Core has RBAC capabilities that py-fortress can't do, namely Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3).
-_*There's more work to do*_.    
+Apache Fortress' Core has capabilities that py-fortress can't do, like Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3).   
      
 ### About Role-Based Access Control
  ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
