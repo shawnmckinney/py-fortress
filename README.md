@@ -5,7 +5,7 @@ _**Fortress Role-Based Access Control**_
 
 ## Document Overview
  * SECTION 1 - Intro to py-fortress and RBAC
- * SECTION 2 - Links to install/setup docs
+ * SECTION 2 - Links to Install and Setup Docs
 __________________________________________________________________________________
 ## SECTION 1. Intro to py-fortress and RBAC
 
@@ -43,7 +43,7 @@ review functions for performing queries; and system functions for creating and m
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
 __________________________________________________________________________________
-## SECTION 2. Installation, Setup and Usage
+## SECTION 2. Links to Install and Setup Docs
 1. If you're new to fortress: [LDAP SERVER QUICKSTART](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
 2. Install the py-fortress python package using pip: [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md)
 3. How the APIs work: [API Usage Guide](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-API.md)
