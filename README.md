@@ -9,11 +9,11 @@ _**Fortress Role-Based Access Control**_
 __________________________________________________________________________________
 ## SECTION 1. Links to Install and Setup Docs
 
-|   | Name                         | Link                                                        | 
+|   | Description                  | Link                                                        | 
 |---|:---------------------------- |:----------------------------------------------------------- | 
 |1. |py-fortress Beginners Guide   |[README-QUICKSTART](pyfortress/doc/README-QUICKSTART.md)     | 
-|2. |Install Guide                 |[py-fortress Installation](pyfortress/doc/README-INSTALL.md) | 
-|3. |API Usage Guide               | [README-API](pyfortress/doc/README-API.md)                  | 
+|2. |Install Guide                 |[README-INSTALL](pyfortress/doc/README-INSTALL.md)           | 
+|3. |API Usage Guide               |[README-API](pyfortress/doc/README-API.md)                   | 
 |4. |CLI for RBAC System           |[README-CLI-AUTH](pyfortress/doc/README-CLI-AUTH.md)         | 
 |5. |CLI for RBAC Admin and Review |[README-CLI](pyfortress/doc/README-CLI.md)                   | 
 _________________________________________________________________________________
