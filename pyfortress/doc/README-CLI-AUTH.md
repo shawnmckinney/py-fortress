@@ -359,4 +359,4 @@ From the py-fortress/test folder, enter the following commands:
     _Because the auditor role has timeout constraint set to 5 (minutes), role has been deactivated automatically from the session._              
     
     
-### END OF README
+#### End of README-CLI-AUTH

@@ -7,6 +7,7 @@
  * SECTION 2. Setup Python Runtime and Configure py-fortress Usage
  * SECTION 3. Integration Test
  * SECTION 4. Simple Test Samples 
+ * SECTION 5. View the Test Data using Command Line Interpreter (CLI)
 ___________________________________________________________________________________
 ## Document Overview
 
@@ -125,5 +126,29 @@ Another optional test.
     ```
 
 2. View the [test_samples](../test/test_samples.py) and learn how RBAC APIs work.
-_________________________________________________________________________________
-#### END OF README
+
+__________________________________________________________________________________
+## SECTION 5. View the Test Data using Command Line Interpreter (CLI)
+
+View the test data inserted earlier.  
+ 
+1. user search 
+    ```
+    $ python3 cli.py user search --uid p
+    ```
+    
+2. role search 
+    ```
+    $ python3 cli.py role search --name p
+    ```
+    
+3. perm search
+    ```
+    $ python3 cli.py perm search --obj_name p
+    ```
+
+4. More CLI commands
+  * [README-CLI](./README-CLI.md) and [README-CLI-AUTH](./README-CLI-AUTH.md) for more operations to test.
+
+
+#### End of README-BUILDING

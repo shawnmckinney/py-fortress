@@ -108,5 +108,5 @@ Here are some common commands needed to manage the Docker image.
  docker stop $CONTAINER_ID
  docker rm $CONTAINER_ID
  ```
-_________________________________________________________________________________
-#### END OF README LDAP DOCKER
+ 
+#### End of README-LDAP-DOCKER

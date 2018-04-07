@@ -11,7 +11,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * Contains instructions to install py-fortress and run some basic tests.
+Instructions to install py-fortress and do some basic testing.
 ___________________________________________________________________________________
 ## SECTION 1. Prerequisites
 
@@ -27,6 +27,8 @@ Minimum software requirements:
  * completion of [README-INSTALL](./README-INSTALL)  
 ________________________________________________________________________________
 ## SECTION 2. Setup Test Env
+
+Follow these steps to install py-fortress package and get it pointing to your LDAP server.
 
 1. Make a test folder:
     ```
@@ -95,10 +97,10 @@ ________________________________________________________________________________
     ```
     *initldap is a python script, created during install of py-fortress package, that maps here: pyfortress.test.test_dit_dao*
     *Locations for these nodes are set in the config file.* 
-    __________________________________________________________________________________
+________________________________________________________________________________________
 ## SECTION 3. Run Integration Tests
 
-These steps are optional and verify the env is working correctly.
+These test verify the code and the ldap server are working correctly.
 
 1. Run the admin mgr tests:
     ```
@@ -117,7 +119,7 @@ These steps are optional and verify the env is working correctly.
 __________________________________________________________________________________
 ## SECTION 4. Run Simple Test Samples
 
-Another optional test.  
+These are simple tests designed to instruct API usage.  
  
 1. Run the samples:
     ```
@@ -129,7 +131,7 @@ Another optional test.
 __________________________________________________________________________________
 ## SECTION 5. View the Test Data using Command Line Interpreter (CLI)
 
-Another optional test is to use the CLI package script.  
+View the test data inserted earlier.  
  
 1. user search 
     ```
@@ -146,7 +148,8 @@ Another optional test is to use the CLI package script.
     $ cli perm search --obj_name p
     ```
 
-4. [README-CLI](./README-CLI.md) and [README-CLI-AUTH](./README-CLI-AUTH.md) for more operations to test.
+4. More CLI commands
+  * [README-CLI](./README-CLI.md) and [README-CLI-AUTH](./README-CLI-AUTH.md) for more operations to test.
 
 
-# END README-QUICKSTART
+#### End of README-QUICKSTART
