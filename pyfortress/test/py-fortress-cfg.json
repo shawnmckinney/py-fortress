@@ -7,7 +7,7 @@
 
   "ldap": {
     "host": "localhost",
-    "port": 32769,
+    "port": 32768,
     "timeout": 1,
     "pool_name": "fort-conns",
     "pool_size": 5,
@@ -20,11 +20,6 @@
     "dn": "cn=Manager,dc=example,dc=com",
     "password": "secret"
   },
-  "file": {
-      "user": "user.json",
-      "perm": "perm.json",
-      "role": "role.json"
-  },
   "dit": {
     "suffix": "dc=example,dc=com",
     "users": "People",
@@ -33,5 +28,10 @@
   },
   "schema": {
     "raw_delimiter": "$"
+  },
+  "file": {
+      "user": "user.json",
+      "perm": "perm.json",
+      "role": "role.json"
   }
 }
