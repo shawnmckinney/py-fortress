@@ -5,7 +5,7 @@ _**Fortress Role-Based Access Control**_
 
 ## Document Contents
  * Links to Install and Setup Docs
- * About py-fortress and RBAC
+ * About py-fortress and Role-Based Access Control
 __________________________________________________________________________________
 ## Links to Install and Setup Docs
 Located under the [doc](pyfortress/doc) folder and include:
@@ -18,7 +18,7 @@ Located under the [doc](pyfortress/doc) folder and include:
 |4. |[README-CLI-AUTH](pyfortress/doc/README-CLI-AUTH.md)     |CLI for RBAC System           | 
 |5. |[README-CLI](pyfortress/doc/README-CLI.md)               |CLI for RBAC Admin and Review | 
 _________________________________________________________________________________
-## About py-fortress and RBAC
+## About py-fortress and Role-Based Access Control
 
 ### About py-fortress
  * Security access control APIs for the Python3 platform.
