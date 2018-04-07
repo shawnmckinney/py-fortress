@@ -11,7 +11,7 @@ ________________________________________________________________________________
 
 |   | Link                                                    | Description                  | 
 |---|:--------------------------------------------------------|:-----------------------------| 
-|1. |[README-QUICKSTART](pyfortress/doc/README-QUICKSTART.md) |py-fortress Beginners Guide   | 
+|1. |[README-QUICKSTART](pyfortress/doc/README-QUICKSTART.md) |Beginners Guide   | 
 |2. |[README-INSTALL](pyfortress/doc/README-INSTALL.md)       |Install Guide                 | 
 |3. |[README-API](pyfortress/doc/README-API.md)               |API Usage Guide               | 
 |4. |[README-CLI-AUTH](pyfortress/doc/README-CLI-AUTH.md)     |CLI for RBAC System           | 
