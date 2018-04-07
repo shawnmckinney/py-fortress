@@ -8,6 +8,7 @@ _**Fortress Role-Based Access Control**_
  * About py-fortress and RBAC
 __________________________________________________________________________________
 ## Links to Install and Setup Docs
+Located under the [doc](pyfortress/doc) folder and include:
 
 |   | Link                                                    | Description                  | 
 |---|:--------------------------------------------------------|:-----------------------------| 
@@ -20,10 +21,11 @@ ________________________________________________________________________________
 ## About py-fortress and RBAC
 
 ### About py-fortress
- * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, a.k.a "Core RBAC".
+ * Compliant with *ANSI INCITS 359* RBAC0, a.k.a "Core RBAC".
  * Data stored inside *LDAP* backend. Support for *File* backend in the works.
  * Python APIs and CLIs to manage, interrogate and test the security policy data.
  * Published to PyPI as [py-fortress](https://pypi.python.org/pypi/py-fortress).
+ * Sponsored by [SYMAS](https://symas.com/)
  * Released under [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 #### Links to the RBAC API Modules
