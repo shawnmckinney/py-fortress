@@ -23,7 +23,7 @@ These APIs have inline code docs describing the method signatures and required a
  * [review_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/review_mgr.py): administrative review functions on the RBAC entities.
    
 #### Related Project
-We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation that we have common...
+We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation sharing...
  * Data Format:
     * [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
  * Exception Ids:
@@ -32,7 +32,10 @@ We're related to the [Apache Fortress](http://directory.apache.org/fortress) Jav
     * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
     * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
-    
+ * Management interfaces. Data created by one can be used by the other, e.g. can be managed using the apache fortress gui and rest impls:
+    * [Apache Fortress Web](https://github.com/apache/directory-fortress-commander)
+    * [Apache Fortress Rest](https://github.com/apache/directory-fortress-enmasse)
+     
 There're many things that the Apache Fortress Core can do that this project can't; Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3) to name a few.
 _*So there's work yet to be done here*_.    
      
