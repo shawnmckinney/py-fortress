@@ -13,7 +13,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='py-fortress',
-      version='0.0.3',
+      version='0.0.4',
       python_requires='>=3',
       description='RBAC for Python',
       long_description=long_description,
@@ -43,44 +43,12 @@ setup(name='py-fortress',
         'Topic :: Software Development :: Libraries :: Python Modules',          
       ],
       keywords='authorization rbac security', 
-      #namespace_packages=['pyfortress'],     
+      #namespace_packages=['pyfortress'],
+      entry_points={
+       'console_scripts': [
+           'initldap = pyfortress.test.test_dit_dao:main',
+           'cli = pyfortress.test.cli:main',
+           'clitest = pyfortress.test.cli_test_auth:main',           
+        ],
+      },           
       zip_safe=False)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      #include_package_data=False,
-      #packages=find_packages(exclude=['py-fortress.env','py-fortress.test', 'env', '*.log']),
-      #packages=['py-fortress.impl', 'py-fortress.ldap', 'py-fortress.model', 'py-fortress.util'],
-      #packages=['py-fortress.impl'],
-      #packages=find_packages(exclude=["*.test", "*.test.*" '*.env', '*.env.*']),
-      #include_package_data=True,
-      #include_package_data=False,
-      #package_data={
-        # If any package contains *.txt or *.rst files, include them:
-        #'': ['*.txt', '*.md', '*.json'],
-       # 'py-fortress': ['*'],
-       # 'py-fortress': ['test/*'],
-      #},     
-      #exclude_package_data={
-      #  'py-fortress.test': ['*.log'],
-      #  'py-fortress.env': ['*'],
-      #  'py-fortress': ['env']      
-      #},       

@@ -1,18 +1,15 @@
-# py-fortress QUICKSTART
+# py-fortress LDAP DOCKER
 -------------------------------------------------------------------------------
 ## Table of Contents
 
  * Document Overview
  * SECTION 1. Prerequisites
  * SECTION 2. Start using ApacheDS or OpenLDAP Docker Image
- * SECTION 3. Setup Python Runtime and Configure py-fortress Usage
- * SECTION 4. Integration Test
- * SECTION 5. Simple Test Samples 
- * SECTION 6. Docker Commands
+ * SECTION 1. Docker Commands
 ___________________________________________________________________________________
 ## Document Overview
 
- * Contains instructions to install and test py-fortress built from source using an ApacheDS or OpenLDAP Docker image.
+ * Contains instructions to install ApacheDS or OpenLDAP using Docker.
  * Many ways of setting up an LDAP server.  Using a docker image is probably the most expedient.
  * For more robust choices, start here: [Options for using Apache Fortress and LDAP](https://github.com/apache/directory-fortress-core/blob/master/README.md).
 ___________________________________________________________________________________
@@ -24,9 +21,7 @@ Minimum hardware requirements:
 
 Minimum software requirements:
  * Linux machine
- * git
  * docker engine
- * Python3 and virtualenv (venv) or system install of the ldap3 python module
 ________________________________________________________________________________
 ## SECTION 2. Start using ApacheDS or OpenLDAP Docker Image
 
@@ -60,110 +55,8 @@ ________________________________________________________________________________
 
     * make note of the port, it's needed later
     * depending on your docker setup may need to run as root or sudo priv's.
-________________________________________________________________________________
-## SECTION 3. Setup Python Runtime and Configure py-fortress Usage
-
-1. Clone py-fortress
-    ```
-    git clone https://github.com/shawnmckinney/py-fortress.git
-    ```
-
-2. Change directory into root folder of project:
-    ```
-    cd py-fortress
-    ```
-
-3. Now edit config file:
-    ```
-    vi pyfortress/test/py-fortress-cfg.json
-    ```
-    _cfg file is here: [py-fortress/pyfortress/test/py-fortress-cfg.json](../test/py-fortress-cfg.json)_
-
-4. Set the LDAP Port
-    ```
-    ...
-    "ldap": {
-      ...
-      "port": 32768,
-    ...
-    ```
-    *use value obtained earler*
-        
-5. Update the connection parameters (pick one):
-
-    a. apacheds:
-    ```
-    "dn": "uid=admin,ou=system",
-    ```
-    
-    b. openldap:
-    ```
-    "dn": "cn=Manager,dc=example,dc=com",
-    ```
-
-6. Set the structure in DIT:
-    ```
-    ...
-    "dit": {
-        "suffix": "dc=example,dc=com",
-        "users": "People",
-        "roles": "Roles",
-        "perms": "Perms"
-    },
-    ...    
-    ```
-    *if in doubt use the defaults*
-    
-7. Save and exit
-
-8. Prepare your terminal for execution of python3.  From the main dir of the git repo:
-    ```
-    pyvenv env
-    . env/bin/activate
-    pip3 install ldap3
-    export PYTHONPATH=$(pwd)
-    cd pyfortress/test
-    ```
-    
-9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
-    ```
-    python3 test_dit_dao.py 
-    ```
-    
-    *Locations for these nodes are set in the config file.* 
-    
-__________________________________________________________________________________
-## SECTION 4. Integration Tests
-
-These steps are optional and verify the env is working correctly.
-
-1. Run the admin mgr tests:
-    ```
-    python3 test_admin_mgr.py 
-    ```
-
-2. Run the access mgr tests:
-    ```
-    python3 test_access_mgr.py 
-    ```
- 
-3. Run the review mgr tests:
-    ```
-    python3 test_review_mgr.py 
-    ```
-__________________________________________________________________________________
-## SECTION 5. Simple Test Samples
-
-Another optional test.  
- 
-1. Run the samples:
-    ```
-    python3 test_samples.py 
-    ```
-
-2. View the [test_samples](../test/test_samples.py) and learn how RBAC APIs work.
 ____________________________________________________________________________________
-## SECTION 6. Docker Commands
+## SECTION 3. Docker Commands
 
 Here are some common commands needed to manage the Docker image.
 
@@ -216,4 +109,4 @@ Here are some common commands needed to manage the Docker image.
  docker rm $CONTAINER_ID
  ```
 _________________________________________________________________________________
-#### END OF README
+#### END OF README LDAP DOCKER

@@ -4,9 +4,8 @@ Instructions to load a simple RBAC policy and use the cli-test-auth.py program t
 ______________________________________________________________________________
 ## Prerequisites
 
- * Have a working py-fortress env setup by following instructions here: [README-QUICKSTART](./README-QUICKSTART.md)
- * Understanding of argument passing rules described here: [README-CLI](./README-CLI.md)
- 
+Completed [README-QUICKSTART](.README-QUICKSTART.md)
+______________________________________________________________________________
 ## Sample RBAC0 Policy
 
 This tutorial covers the basics, RBAC Core:  Many-to-many relationships between users, roles and perms and selective role activations.
@@ -57,13 +56,13 @@ Here we'll load the policy defined above.
 1. First, prepare a terminal for execution of python3.  From the main dir of the git repo:
     ```
     pyvenv env
-    cd test
     ```
     
 2. The syntax for py-fortress system commands:
     ```
-    python3 cli-test-auth.py operation --arg1 --arg2 ...  
+    clitest operation --arg1 --arg2 ...  
     ```
+    *executes a package script that maps here: pyfortress.test.cli*
     
 ### The operation is (pick one):
    * auth => access_mgr.create_session
@@ -97,69 +96,69 @@ From the py-fortress/test folder, enter the following commands:
 1. **user add** - chorowitz
    
     ```
-    $ python3 cli.py user add --uid chorowitz --password 'secret' --timeout 30
+    $ cli user add --uid chorowitz --password 'secret' --timeout 30
     ``` 
    _user chorowitz has a 30 minute inactivity timeout_
     
 2. **role add** - account-mgr
    
     ```
-    $ python3 cli.py role add --name 'account-mgr'
+    $ cli role add --name 'account-mgr'
     ```
     
 3. **role add** - auditor
    
     ```
-    $ python3 cli.py role add --name 'auditor' --timeout 5
+    $ cli role add --name 'auditor' --timeout 5
     ```
    auditor has a 5 minute inactivity timeout, more later about this..._    
     
 4. **user assign** - chorowitz to role account-mgr
    
     ```
-    $ python3 cli.py user assign --uid 'chorowitz' --role 'account-mgr'
+    $ cli user assign --uid 'chorowitz' --role 'account-mgr'
     ```
     
 5. **user assign** - chorowitz to role auditor
    
     ```
-    $ python3 cli.py user assign --uid 'chorowitz' --role 'auditor'
+    $ cli user assign --uid 'chorowitz' --role 'auditor'
     ```
     
 6. **object add** - page456
    
     ```
-    $ python3 cli.py object add --obj_name page456
+    $ cli object add --obj_name page456
     ```
     
 7. **perm add** - page456.read
    
     ```
-    $ python3 cli.py perm add --obj_name page456 --op_name read
+    $ cli perm add --obj_name page456 --op_name read
     ```
     
 8. **perm add** - page456.edit
    
     ```
-    $ python3 cli.py perm add --obj_name page456 --op_name edit
+    $ cli perm add --obj_name page456 --op_name edit
     ```
     
 9. **perm add** - page456.remove
    
     ```
-    $ python3 cli.py perm add --obj_name page456 --op_name remove
+    $ cli perm add --obj_name page456 --op_name remove
     ```
     
 10. **perm grant** - page456.edit to role account-mgr
    
     ```
-    $ python3 cli.py perm grant --obj_name page456 --op_name edit --role account-mgr
+    $ cli perm grant --obj_name page456 --op_name edit --role account-mgr
     ```
     
 11. **perm grant** - page456.remove to role account-mgr
    
     ```
-    $ python3 cli.py perm grant --obj_name page456 --op_name remove --role account-mgr
+    $ cli perm grant --obj_name page456 --op_name remove --role account-mgr
     ```
     
 12. **perm grant** - page456.read to role auditor 
@@ -175,7 +174,7 @@ From the py-fortress/test folder, enter the following commands:
 1. **auth** - access_mgr.create_session - authenticate, activate roles:
 
     ```
-    $ python3 cli_test_auth.py auth --uid 'chorowitz' --password 'secret'
+    $ clitest auth --uid 'chorowitz' --password 'secret'
     ```
     Command outputs to stdout the operation name, arguments and the result:   
     ```
@@ -188,7 +187,7 @@ From the py-fortress/test folder, enter the following commands:
 2. **show** - output user session contents to stdout:
    
     ```
-    $ python3 cli_test_auth.py show
+    $ clitest show
     show
     session
         is_authenticated: True
@@ -212,7 +211,7 @@ From the py-fortress/test folder, enter the following commands:
 3. **check** - access_mgr.check_access - perm page456.read:
    
     ```
-    $ python3 cli_test_auth.py check --obj_name page456  --op_name read
+    $ clitest check --obj_name page456  --op_name read
     op_name=read
     obj_name=page456
     check
@@ -223,7 +222,7 @@ From the py-fortress/test folder, enter the following commands:
 4. **check** - access_mgr.check_access - perm page456.edit:
    
     ```
-    $ python3 cli_test_auth.py check --obj_name page456  --op_name edit
+    $ clitest check --obj_name page456  --op_name edit
     op_name=edit
     obj_name=page456
     check
@@ -234,7 +233,7 @@ From the py-fortress/test folder, enter the following commands:
 5. **check** - access_mgr.check_access - perm page456.remove:
    
     ```
-    $ python3 cli_test_auth.py check --obj_name page456  --op_name remove
+    $ clitest check --obj_name page456  --op_name remove
     op_name=remove
     obj_name=page456
     check
@@ -245,7 +244,7 @@ From the py-fortress/test folder, enter the following commands:
 6. **perms** - access_mgr.session_perms:
    
     ```
-    $ python3 cli_test_auth.py perms
+    $ clitest perms
     perms
     page456.read:0
         abstract_name: page456.read
@@ -272,7 +271,7 @@ From the py-fortress/test folder, enter the following commands:
 7. **drop** - access_mgr.drop_active_role - deactivate auditor role:
    
     ```
-    $ python3 cli_test_auth.py drop --role auditor
+    $ clitest drop --role auditor
     drop
     role=auditor    
     success
@@ -282,7 +281,7 @@ From the py-fortress/test folder, enter the following commands:
 8. **roles** - access_mgr.session_roles:
    
     ```
-    $ python3 cli_test_auth.py roles
+    $ clitest roles
     roles
     account-mgr:0
         raw: account-mgr$30$$$20180101$none$$$1234567
@@ -295,7 +294,7 @@ From the py-fortress/test folder, enter the following commands:
 9. **check** - access_mgr.check_access - perm page456.read:
    
     ```
-    $ python3 cli_test_auth.py check --obj_name page456  --op_name read
+    $ clitest check --obj_name page456  --op_name read
     op_name=read
     obj_name=page456
     check
@@ -306,7 +305,7 @@ From the py-fortress/test folder, enter the following commands:
 10. **add** - access_mgr.add_active_role - auditor:
    
     ```
-    $ python3 cli_test_auth.py add --role auditor    
+    $ clitest add --role auditor    
     add
     role=auditor    
     success
@@ -317,7 +316,7 @@ From the py-fortress/test folder, enter the following commands:
 11. **roles** - access_mgr.session_roles:
    
     ```
-    $ python3 cli_test_auth.py roles
+    $ clitest roles
     roles
     account-mgr:0
         raw: account-mgr$30$$$20180101$none$$$1234567
@@ -334,7 +333,7 @@ From the py-fortress/test folder, enter the following commands:
 12. **check** - access_mgr.check_access - perm page456.read:
    
     ```
-    $ python3 cli_test_auth.py check --obj_name page456  --op_name read
+    $ clitest check --obj_name page456  --op_name read
     op_name=read
     obj_name=page456
     check
@@ -350,7 +349,7 @@ From the py-fortress/test folder, enter the following commands:
 14. **check** - access_mgr.check_access - perm page456.read:
    
     ```
-    $ python3 cli_test_auth.py check --obj_name page456  --op_name read
+    $ clitest check --obj_name page456  --op_name read
     op_name=read
     obj_name=page456
     check

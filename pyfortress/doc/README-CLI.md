@@ -13,20 +13,20 @@ The py-fortress CLI drive the [admin_mgr](../impl/admin_mgr.py) and [review_mgr]
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
- * Have a working py-fortress env setup by following instructions here: [README-QUICKSTART](.README-QUICKSTART.md)
+Completed [README-QUICKSTART](.README-QUICKSTART.md)
 ___________________________________________________________________________________
 ## SECTION 3. Run it
 
-1. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+1. Prepare your terminal for execution of python3.  From the main dir of your test directory:
     ```
     pyvenv env
-    cd test
     ```
     
 2. To run the CLI:
     ```
-    python3 cli.py entity operation --arg1 --arg2 ...  
+    cli entity operation --arg1 --arg2 ...  
     ```
+    *executes a package script that maps here: pyfortress.test.cli*    
     
 ### Where entity is (pick one):
    * user
@@ -65,7 +65,8 @@ ________________________________________________________________________________
 
    For example, a perm grant:
    ```
-   $ python3 cli.py perm grant --obj_name myobj --op_name add --role 'my role'
+   $ cli perm grant --obj_name myobj --op_name add --role 'my role'
+   $ python3 -m pyfortress.test.cli
    ```
 
    * This command invokes Python’s runtime with the program name, cli.py, followed by an entity type, operation name and multiple name-value pairs.
@@ -160,7 +161,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
 
     a. user add
     ````
-    $ python3 cli.py user add --uid 'chorowitz' --password 'secret' --description 'added with py-fortress cli'
+    $ cli user add --uid 'chorowitz' --password 'secret' --description 'added with py-fortress cli'
     uid=chorowitz
     description=added with py-fortress cli
     user add
@@ -168,7 +169,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     b. user mod
     ````
-    $ python3 cli.py user mod --uid 'chorowitz' --l 'my location' --ou 'my-ou' --department_number 123
+    $ cli user mod --uid 'chorowitz' --l 'my location' --ou 'my-ou' --department_number 123
     uid=chorowitz
     department_number=123
     l=my location
@@ -178,14 +179,14 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     c. user del
     ````
-    $ python3 cli.py user del --uid 'chorowitz'
+    $ cli user del --uid 'chorowitz'
     uid=chorowitz
     user del
     success    
     ````
     d. user assign
     ````
-    $ python3 cli.py user assign --uid 'chorowitz' --role 'account-mgr'
+    $ cli user assign --uid 'chorowitz' --role 'account-mgr'
     uid=chorowitz
     role name=account-mgr
     user assign
@@ -193,7 +194,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     e. user deassign
     ````
-    $ python3 cli.py user deassign --uid 'chorowitz' --role 'account-mgr'
+    $ cli user deassign --uid 'chorowitz' --role 'account-mgr'
     uid=chorowitz
     role name=account-mgr
     user deassign
@@ -201,14 +202,14 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     f. role add
     ````
-    $ python3 cli.py role add --name 'account-mgr'
+    $ cli role add --name 'account-mgr'
     name=account-mgr
     role add
     success
     ````
     g. role mod
     ````
-    $ python3 cli.py role mod --name 'account-mgr' --description 'this desc is optional'
+    $ cli role mod --name 'account-mgr' --description 'this desc is optional'
     description=cli test role
     name=account-mgr
     role mod
@@ -216,21 +217,21 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     h. role del
     ````
-    $ python3 cli.py role del --name 'account-mgr'
+    $ cli role del --name 'account-mgr'
     name=account-mgr
     process_role,delete
     success    
     ````
     i. object add
     ````
-    $ python3 cli.py object add --obj_name page456
+    $ cli object add --obj_name page456
     obj_name=page456
     object add
     success
     ````
     j. object mod
     ````
-    $ python3 cli.py object mod --obj_name page456 --description 'optional arg' --ou 'another optional arg'
+    $ cli object mod --obj_name page456 --description 'optional arg' --ou 'another optional arg'
     obj_name=page456
     ou=another optional arg
     description=optional arg
@@ -239,14 +240,14 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     k. object del
     ````
-    $ python3 cli.py object del --obj_name page789
+    $ cli object del --obj_name page789
     obj_name=page789
     object del
     success
     ````
     l. perm add
     ````
-    $ python3 cli.py perm add --obj_name page456 --op_name read
+    $ cli perm add --obj_name page456 --op_name read
     obj_name=page456
     op_name=read
     perm add
@@ -254,7 +255,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     m. perm mod
     ````
-    $ python3 cli.py perm mod --obj_name page456 --op_name read --description 'useful for human readable perm name'
+    $ cli perm mod --obj_name page456 --op_name read --description 'useful for human readable perm name'
     obj_name=page456
     op_name=read
     description=useful for human readable perm name
@@ -263,7 +264,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     n. perm del
     ````
-    $ python3 cli.py perm del --obj_name page456 --op_name search
+    $ cli perm del --obj_name page456 --op_name search
     obj_name=page456
     op_name=search
     perm del
@@ -271,7 +272,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     o. perm grant
     ````
-    $ python3 cli.py perm grant --obj_name page456 --op_name update --role account-mgr
+    $ cli perm grant --obj_name page456 --op_name update --role account-mgr
     obj_name=page456
     op_name=update
     role name=account-mgr
@@ -280,7 +281,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     p. perm revoke
     ````
-    $ python3 cli.py perm revoke --obj_name page456 --op_name update --role account-mgr
+    $ cli perm revoke --obj_name page456 --op_name update --role account-mgr
     obj_name=page456
     op_name=update
     role name=account-mgr
@@ -292,7 +293,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
 
     a. user read 
     ````
-    $ python3 cli.py user read --uid chorowitz
+    $ cli user read --uid chorowitz
     uid=chorowitz
     user read
     chorowitz
@@ -305,7 +306,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     b. user search 
     ````
-    $ python3 cli.py user search --uid c
+    $ cli user search --uid c
     uid=c
     user search
     c*:0
@@ -337,7 +338,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     c. role read 
     ````
-    $ python3 cli.py role read --name account-mgr
+    $ cli role read --name account-mgr
     name=account-mgr
     role read
     account-mgr
@@ -355,7 +356,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     d. role search 
     ````
-    $ python3 cli.py role search --name py-
+    $ cli role search --name py-
     name=py-
     role search
     py-*:0
@@ -387,7 +388,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     e. object read 
     ````
-    $ python3 cli.py object read --obj_name page456
+    $ cli object read --obj_name page456
     obj_name=page456
     object read
     page456
@@ -400,7 +401,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     f. object search 
     ````
-    $ python3 cli.py object search --obj_name page
+    $ cli object search --obj_name page
     obj_name=page
     object search
     page*:0
@@ -419,7 +420,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     g. perm read 
     ````
-    $ python3 cli.py perm read --obj_name page456 --op_name read
+    $ cli perm read --obj_name page456 --op_name read
     op_name=read
     obj_name=page456
     perm read
@@ -434,7 +435,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     h. perm search
     ````
-    $ python3 cli.py perm search --obj_name page
+    $ cli perm search --obj_name page
     obj_name=page
     perm search
     page*.*:0
@@ -462,7 +463,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     i. perm search (by role) 
     ````
-    $ python3 cli.py perm search --role account-mgr
+    $ cli perm search --role account-mgr
     perm search
     account-mgr:0
         abstract_name: page456.update
@@ -482,7 +483,7 @@ Both the user and role entity support adding temporal [constraint](model/constra
     ````
     j. perm search (by user)
     ````
-    $ python3 cli.py perm search --uid chorowitz
+    $ cli perm search --uid chorowitz
     perm search
     chorowitz:0
         dn: ftOpNm=update,ftObjNm=page456,ou=Perms,dc=example,dc=com

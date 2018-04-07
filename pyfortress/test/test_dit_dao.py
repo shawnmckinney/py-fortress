@@ -11,6 +11,7 @@ Created on Mar 18, 2018
 '''
 
 import unittest
+import sys
 from pyfortress.ldap import ditdao
 from pyfortress.util import global_ids
 from pyfortress.test import print_ln
@@ -115,6 +116,16 @@ def suite():
     return suite  
 
  
-if __name__ == '__main__':
+# if __name__ == '__main__':
+#     runner = unittest.TextTestRunner(failfast=True)
+#     runner.run(suite())
+    
+def main():
+    # My code here
     runner = unittest.TextTestRunner(failfast=True)
     runner.run(suite())
+
+
+if __name__ == "__main__":
+    main()
+    

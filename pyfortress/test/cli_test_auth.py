@@ -10,7 +10,7 @@ It defines classes_and_methods
 @author:      smckinn
 @copyright:   2018 - Symas Corporation
 '''
-
+import sys
 import pickle
 import argparse
 from pyfortress.util import global_ids
@@ -91,6 +91,7 @@ def process(args):
             print('failed locked date')
         else:
             print('FortressError id=' + str(e.id) +', ' + e.msg)
+
                         
 def pickle_it(sess):
     if sess is not None:
@@ -98,16 +99,29 @@ def pickle_it(sess):
         pickle.dump(sess, pickling_on)
         pickling_on.close()
 
+
 def un_pickle():
     pickle_off = open(OUT_SESS_FILE,"rb")
     sess = pickle.load(pickle_off)
-    return sess    
-    
-program_name = 'Process py-fortress access_mgr commands.'
-parser = argparse.ArgumentParser(description=program_name)        
-parser.add_argument('operation', metavar='operand', choices=[AUTH,CHCK,ROLES,PERMS,ADD,DELETE,SHOW,DROP], help='operation name')
-parser.add_argument('-r', '--role', dest='role', help='role name')
-add_args(parser, User())
-add_args(parser, Perm())    
-args = parser.parse_args()
-process(args)
+    return sess
+
+
+def main(argv=None):
+    '''Command line options.'''
+    if argv is None:
+        argv = sys.argv
+    else:
+        sys.argv.extend(argv)
+
+    program_name = 'Process py-fortress access_mgr commands.'
+    parser = argparse.ArgumentParser(description=program_name)        
+    parser.add_argument('operation', metavar='operand', choices=[AUTH,CHCK,ROLES,PERMS,ADD,DELETE,SHOW,DROP], help='operation name')
+    parser.add_argument('-r', '--role', dest='role', help='role name')
+    add_args(parser, User())
+    add_args(parser, Perm())    
+    args = parser.parse_args()
+    process(args)
+
+
+if __name__ == "__main__":    
+    sys.exit(main())

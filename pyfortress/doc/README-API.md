@@ -5,7 +5,7 @@ _____________________________________________________________________________
 ## Table of Contents
  * SECTION 1. Introduction 
  * SECTION 2. Prerequisites
- * SECTION 3. Usage
+ * SECTION 3. API Usage
 ___________________________________________________________________________________
 ## SECTION 1. Introduction
 
@@ -14,13 +14,12 @@ This guide shows how they can be used.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
-1. Completed SECTION 2. *Start using ApacheDS or OpenLDAP Docker Image*: [README-QUICKSTART](.README-QUICKSTART.md)
-2. Completed: [README-INSTALL](.README-INSTALL.md)
-3. Copied [py-fortress-cfg.json](test/py-fortress-cfg.json) to the runtime folder of your python program, correctly pointing to an LDAP server (per step 1 above).
+Completed: [README-QUICKSTART](.README-QUICKSTART.md)
 
-* The [py-fortress-sample](https://github.com/shawnmckinney/py-fortress-sample) project has an example of how to setup a test program you can use as a starting point.    ___________________________________________________________________________________
-______________________________________________________________________________
-## SECTION 3. Usage
+* The [py-fortress-sample](https://github.com/shawnmckinney/py-fortress-sample) project has an example of how to setup a test program you can use as a starting point.
+
+____________________________________________________________________________________________________________________________________________________________
+## SECTION 3. API Usage
 
 0. Prepare your python module for usage by importing:
 

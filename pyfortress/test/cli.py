@@ -4,6 +4,7 @@ Created on Mar 23, 2018
 @author: smckinn
 @copyright: 2018 - Symas Corporation
 '''
+import sys
 import argparse
 from pyfortress.model import PermObj, Perm, User, Role, Constraint
 from pyfortress.impl import admin_mgr, review_mgr
@@ -192,20 +193,30 @@ def process_perm(args):
     return True                                
         
         
-parser = argparse.ArgumentParser(description='Process py-fortress admin and review commands.')
-parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJECT], help='entity name')
-parser.add_argument('operation', metavar='operand', choices=[ADD, UPDATE, DELETE, ASSIGN, DEASSIGN, GRANT, REVOKE, READ, SEARCH], help='operation name')
-parser.add_argument('-r', '--role', dest='role', help='role name')
-parser.add_argument('--phones', nargs="*", default=[])
-parser.add_argument('--mobiles', nargs="*", default=[])
-parser.add_argument('--emails', nargs="*", default=[])
-parser.add_argument('--props', nargs="*", default=[])
+def main(argv=None): # IGNORE:C0111
+    '''Command line options.'''
 
+    if argv is None:
+        argv = sys.argv
+    else:
+        sys.argv.extend(argv)
 
-add_args(parser, Role())
-add_args(parser, User())
-add_args(parser, Perm())    
-add_args(parser, PermObj())
-add_args(parser, Constraint())
-args = parser.parse_args()
-process(args)
+    parser = argparse.ArgumentParser(description='Process py-fortress admin and review commands.')
+    parser.add_argument('entity', metavar='entity', choices=[USER, ROLE, PERM, OBJECT], help='entity name')
+    parser.add_argument('operation', metavar='operand', choices=[ADD, UPDATE, DELETE, ASSIGN, DEASSIGN, GRANT, REVOKE, READ, SEARCH], help='operation name')
+    parser.add_argument('-r', '--role', dest='role', help='role name')
+    parser.add_argument('--phones', nargs="*", default=[])
+    parser.add_argument('--mobiles', nargs="*", default=[])
+    parser.add_argument('--emails', nargs="*", default=[])
+    parser.add_argument('--props', nargs="*", default=[])
+        
+    add_args(parser, Role())
+    add_args(parser, User())
+    add_args(parser, Perm())    
+    add_args(parser, PermObj())
+    add_args(parser, Constraint())
+    args = parser.parse_args()
+    process(args)
+
+if __name__ == "__main__":    
+    sys.exit(main())
