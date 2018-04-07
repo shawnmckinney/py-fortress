@@ -4,10 +4,10 @@ _**Fortress Role-Based Access Control**_
 ![py-fortress](images/FortressLogo-small.png "fortress rbac")
 
 ## Document Contents
- * SECTION 1. Links to Install and Setup Docs
- * SECTION 2. Intro to py-fortress and RBAC
+ * Links to Install and Setup Docs
+ * Intro to py-fortress and RBAC
 __________________________________________________________________________________
-## SECTION 1. Links to Install and Setup Docs
+## Links to Install and Setup Docs
 
 |   | Link                                                    | Description                  | 
 |---|:--------------------------------------------------------|:-----------------------------| 
@@ -17,7 +17,7 @@ ________________________________________________________________________________
 |4. |[README-CLI-AUTH](pyfortress/doc/README-CLI-AUTH.md)     |CLI for RBAC System           | 
 |5. |[README-CLI](pyfortress/doc/README-CLI.md)               |CLI for RBAC Admin and Review | 
 _________________________________________________________________________________
-## SECTION 2. Intro to py-fortress and RBAC
+## Intro to py-fortress and RBAC
 
 ### About py-fortress
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
