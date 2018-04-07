@@ -23,7 +23,7 @@ The APIs have some code doc describing their usage inline.
  * [review_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/review_mgr.py): administrative review functions on the RBAC entities.
    
 #### Related Project
-This project is related to [Apache Fortress](http://directory.apache.org/fortress)
+This project is related to the [Apache Fortress](http://directory.apache.org/fortress), Java implementation of RBAC.
  * Shared data format:
     * [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
  * Shared exception ids:
