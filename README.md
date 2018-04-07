@@ -28,11 +28,12 @@ ________________________________________________________________________________
 
 #### Links to the RBAC APIs
 These APIs have inline code docs describing the method signatures and required attributes.
-|   | Link                                      | Description                                          | 
-|---|:------------------------------------------|:-----------------------------------------------------| 
-|1. |[access_mgr](pyfortress/impl/access_mgr.py)|create session, check access, add, drop active roles  | 
-|2. |[admin_mgr](pyfortress/impl/admin_mgr.py)  |add, update, delete, assign, deassign entities        | 
-|3. |[review_mgr](pyfortress/impl/review_mgr.py)|read and search entities and their relationships      | 
+
+|   | Link                                        | Description                                          |  
+|---|:--------------------------------------------|:-----------------------------------------------------|  
+|1. |[access_mgr](pyfortress/impl/access_mgr.py)  |create session, check access, add, drop active roles  |  
+|2. |[admin_mgr](pyfortress/impl/admin_mgr.py)    |add, update, delete, assign, deassign entities        |  
+|3. |[review_mgr](pyfortress/impl/review_mgr.py)  |read and search entities and their relationships      |  
    
 #### Related Project
 We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation sharing...
