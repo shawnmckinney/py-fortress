@@ -23,7 +23,7 @@ The APIs have some code doc describing their usage inline.
  * [review_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/review_mgr.py): administrative review functions on the RBAC entities.
    
 #### Related Project
-This project is related to the [Apache Fortress](http://directory.apache.org/fortress), Java implementation of RBAC.
+This project is related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation.
  * Shared data format:
     * [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
  * Shared exception ids:
@@ -33,8 +33,8 @@ This project is related to the [Apache Fortress](http://directory.apache.org/for
     * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
     
-There are things Apache Fortress Core does that this project can't; Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2), Dynamic Separation of Duties (RBAC3).
-_*There's work yet to be done here*_.    
+There are things Apache Fortress Core does that this project can't; Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3) to name a few.
+_*So there's work yet to be done here*_.    
      
 ### About Role-Based Access Control
  ![RBAC Core](https://github.com/shawnmckinney/py-fortress/blob/master/images/RbacCore.png "RBAC0 - The 'Core'")
