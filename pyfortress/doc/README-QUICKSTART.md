@@ -4,13 +4,14 @@
 
  * Document Overview
  * SECTION 1. Prerequisites
- * SECTION 2. Setup Python Runtime and Configure py-fortress Usage
- * SECTION 3. Integration Test
- * SECTION 4. Simple Test Samples 
+ * SECTION 2. Setup Test Env
+ * SECTION 3. Run Integration Tests
+ * SECTION 4. Run Simple Test Samples
+ * SECTION 5. View the Test Data using Command Line Interpreter (CLI)   
 ___________________________________________________________________________________
 ## Document Overview
 
- * Contains instructions to install and test py-fortress by source
+ * Contains instructions to install py-fortress and run some basic tests.
 ___________________________________________________________________________________
 ## SECTION 1. Prerequisites
 
@@ -25,7 +26,7 @@ Minimum software requirements:
  * completion of [README-LDAP-DOCKER](./README-LDAP-DOCKER)
  * completion of [README-INSTALL](./README-INSTALL)  
 ________________________________________________________________________________
-## SECTION 2. Setup py-fortress Runtime
+## SECTION 2. Setup Test Env
 
 1. Make a test folder:
     ```
@@ -95,7 +96,7 @@ ________________________________________________________________________________
     *initldap is a python script, created during install of py-fortress package, that maps here: pyfortress.test.test_dit_dao*
     *Locations for these nodes are set in the config file.* 
     __________________________________________________________________________________
-## SECTION 3. Integration Tests
+## SECTION 3. Run Integration Tests
 
 These steps are optional and verify the env is working correctly.
 
@@ -114,7 +115,7 @@ These steps are optional and verify the env is working correctly.
     $ python3 -m pyfortress.test.test_review_mgr 
     ```
 __________________________________________________________________________________
-## SECTION 4. Simple Test Samples
+## SECTION 4. Run Simple Test Samples
 
 Another optional test.  
  
@@ -124,5 +125,28 @@ Another optional test.
     ```
 
 2. View the [test_samples](../test/test_samples.py) and learn how RBAC APIs work.
+
+__________________________________________________________________________________
+## SECTION 5. View the Test Data using Command Line Interpreter (CLI)
+
+Another optional test is to use the CLI package script.  
+ 
+1. user search 
+    ```
+    $ cli user search --uid p
+    ```
+    
+2. role search 
+    ```
+    $ cli role search --name p
+    ```
+    
+3. perm search
+    ```
+    $ cli perm search --obj_name p
+    ```
+
+4. [README-CLI](./README-CLI.md) and [README-CLI-AUTH](./README-CLI-AUTH.md) for more operations to test.
+
 
 # END README-QUICKSTART
