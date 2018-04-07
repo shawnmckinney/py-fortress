@@ -4,10 +4,18 @@ _**Fortress Role-Based Access Control**_
 ![py-fortress](images/FortressLogo-small.png "fortress rbac")
 
 ## Document Contents
- * SECTION 1 - Intro to py-fortress and RBAC
- * SECTION 2 - Links to Install and Setup Docs
+ * SECTION 1. Links to Install and Setup Docs
+ * SECTION 2. Intro to py-fortress and RBAC
 __________________________________________________________________________________
-## SECTION 1. Intro to py-fortress and RBAC
+## SECTION 1. Links to Install and Setup Docs
+Most of the docs for this project contained in the /doc folder.
+1. New to py-fortress: [LDAP SERVER QUICKSTART](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
+2. Install py-fortress package: [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md)
+3. How the APIs work: [API Usage Guide](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-API.md)
+4. Use the CLI to setup and test: [Guide to Command Line Interpreter (CLI) for RBAC0 SYSTEM Testing](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI-AUTH.md)  
+5. Use the CLI to administer and interrogate: [Guide to Admin and Review CLI](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI.md)  
+_________________________________________________________________________________
+## SECTION 2. Intro to py-fortress and RBAC
 
 ### About py-fortress
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
@@ -50,10 +58,3 @@ review functions for performing queries; and system functions for creating and m
 #### More info
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
-__________________________________________________________________________________
-## SECTION 2. Links to Install and Setup Docs
-1. If you're new to fortress: [LDAP SERVER QUICKSTART](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
-2. Install the py-fortress python package using pip: [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md)
-3. How the APIs work: [API Usage Guide](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-API.md)
-4. Use the CLI to setup and test: [Guide to Command Line Interpreter (CLI) for RBAC0 SYSTEM Testing](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI-AUTH.md)  
-5. Use the CLI to administer and interrogate: [Guide to Admin and Review CLI](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-CLI.md)  
