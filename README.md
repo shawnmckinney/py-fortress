@@ -5,29 +5,29 @@ _**Fortress Role-Based Access Control**_
 
 ## Document Contents
  * Links to Install and Setup Docs
- * Intro to py-fortress and RBAC
+ * About py-fortress and RBAC
 __________________________________________________________________________________
 ## Links to Install and Setup Docs
 
 |   | Link                                                    | Description                  | 
 |---|:--------------------------------------------------------|:-----------------------------| 
-|1. |[README-QUICKSTART](pyfortress/doc/README-QUICKSTART.md) |Beginners Guide   | 
+|1. |[README-QUICKSTART](pyfortress/doc/README-QUICKSTART.md) |Beginners Guide               | 
 |2. |[README-INSTALL](pyfortress/doc/README-INSTALL.md)       |Install Guide                 | 
 |3. |[README-API](pyfortress/doc/README-API.md)               |API Usage Guide               | 
 |4. |[README-CLI-AUTH](pyfortress/doc/README-CLI-AUTH.md)     |CLI for RBAC System           | 
 |5. |[README-CLI](pyfortress/doc/README-CLI.md)               |CLI for RBAC Admin and Review | 
 _________________________________________________________________________________
-## Intro to py-fortress and RBAC
+## About py-fortress and RBAC
 
 ### About py-fortress
- * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
- * Data stored in LDAP. Support for other backends in the works.
- * Python APIs and CLI to manage and interrogate the security policy data.
- * Published to [PyPI](https://pypi.python.org/pypi/py-fortress)
- * Released as open source, Apache License v2.0 
+ * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, a.k.a "Core RBAC".
+ * Data stored inside LDAP directories. Support for file backend in the works.
+ * Python APIs and CLIs to manage, interrogate and test the security policy data.
+ * Published to [PyPI](https://pypi.python.org/pypi/py-fortress) as 'py-fortress'.
+ * Released Apache License 2.0
 
-#### Links to the RBAC APIs
-These APIs have inline code docs describing the method signatures and required attributes.
+#### Links to the RBAC API Modules
+The following modules have inline code docs describing the API signatures, required attributes and usages.
 
 |   | Link                                        | Description                                          |  
 |---|:--------------------------------------------|:-----------------------------------------------------|  
@@ -53,7 +53,7 @@ The Apache Fortress Core has capabilities that py-fortress can't do, like Hierar
      
 ### About Role-Based Access Control
  ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
- * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. 
+ * Many-to-many relationship between Users, Roles and Permissions. Selective Role activation into Sessions. 
 API to add, update, delete identity data and perform identity and access control decisions during runtime operations
  * The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
 review functions for performing queries; and system functions for creating and managing sessions, and making access control decisions.
