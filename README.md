@@ -16,14 +16,12 @@ ________________________________________________________________________________
  * Published to [PyPI](https://pypi.python.org/pypi/py-fortress)
  * Released as open source, Apache License v2.0 
 
-#### About py-fortress APIs
-Links to the Python RBAC modules:
+#### Links to the Python RBAC modules
+The APIs have some code doc describing their usage inline. 
  * [access_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/access_mgr.py): performs runtime access control operations
  * [admin_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
  * [review_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/review_mgr.py): administrative review functions on the RBAC entities.
- 
- *The APIs have some code doc describing their usage inline.* 
-  
+   
 #### Related Project
 This project is related to [Apache Fortress](http://directory.apache.org/fortress)
  * Compatible data schema: [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
