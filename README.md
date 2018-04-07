@@ -12,13 +12,13 @@ Located under the [doc](pyfortress/doc) folder and include:
 
 |   | Link                                                              | Description                     | 
 |---|:------------------------------------------------------------------|:--------------------------------| 
-|1. |[README-QUICKSTART](pyfortress/doc/README-BUILDING.md)             |So you want to build from source |
+|1. |[README-README-BUILDING](pyfortress/doc/README-BUILDING.md)        |So you want to build from source |
 |2. |[README-QUICKSTART](pyfortress/doc/README-QUICKSTART.md)           |Beginners start here             | 
 |3. |[README-LDAP-DOCKER](pyfortress/doc/README-LDAP-DOCKER.md)         |Run LDAP in Docker               |
 |4. |[README-INSTALL](pyfortress/doc/README-INSTALL.md)                 |Install with PyPI Package        | 
-|5. |[README-API](pyfortress/doc/README-API.md)                         |API Usage Guide                  | 
-|6. |[README-CLI-AUTH](pyfortress/doc/README-CLI-AUTH.md)               |CLI for RBAC System              | 
-|7. |[README-CLI](pyfortress/doc/README-CLI.md)                         |CLI for RBAC Admin and Review    | 
+|5. |[README-API](pyfortress/doc/README-API.md)                         |API Usage Guide                  |
+|6. |[README-CLI](pyfortress/doc/README-CLI.md)                         |CLI for RBAC Admin and Review    |  
+|7. |[README-CLI-AUTH](pyfortress/doc/README-CLI-AUTH.md)               |CLI for RBAC System Testing      | 
 _________________________________________________________________________________
 ## About py-fortress and Role-Based Access Control
 
