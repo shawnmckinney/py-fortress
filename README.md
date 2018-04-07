@@ -1,4 +1,4 @@
-# Role-Based Access Control API for Python
+# Fortress Role-Based Access Control API for Python
 ![py-fortress](images/FortressLogo-small.png "PY-FORTRESS")
 -------------------------------------------------------------------------------
 ## Table of Contents
