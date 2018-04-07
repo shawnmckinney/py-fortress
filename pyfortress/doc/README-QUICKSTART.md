@@ -47,7 +47,7 @@ ________________________________________________________________________________
 
 4. Download and edit [py-fortress-cfg.json](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/test/py-fortress-cfg.json) config file to test folder:
     ```
-    wget https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/test/py-fortress-cfg.json
+    wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/pyfortress/test/py-fortress-cfg.json
     vi py-fortress-cfg.json
     ```
 
