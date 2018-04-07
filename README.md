@@ -49,7 +49,7 @@ We're related to the [Apache Fortress](http://directory.apache.org/fortress) Jav
     * [Apache Fortress Web](https://github.com/apache/directory-fortress-commander)
     * [Apache Fortress Rest](https://github.com/apache/directory-fortress-enmasse)
      
-There're things Apache Fortress Core can do that py-fortress; Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3) to name a few.
+Apache Fortress Core has RBAC capabilities that py-fortress can't do, namely Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3).
 _*There's more work to do*_.    
      
 ### About Role-Based Access Control
