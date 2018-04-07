@@ -3,28 +3,37 @@
 _**Fortress Role-Based Access Control**_ 
 ![alt text](images/FortressLogo-small.png "fortress rbac")
 
--------------------------------------------------------------------------------
-## Table of Contents
-
- * Document Overview
- * SECTION 1. Introduction
- * SECTION 2. Installation, Setup and Usage 
-___________________________________________________________________________________
 ## Document Overview
-
- * Overview of py-fortress, RBAC and the APIs
- * Pointers to install/setup doc
+ * SECTION 1 - Intro to py-fortress and RBAC
+ * SECTION 2 - Links to install/setup docs
 __________________________________________________________________________________
-## SECTION 1. Introduction
+## SECTION 1. Intro to py-fortress and RBAC
 
 ### About py-fortress
  * Compliant with *ANSI INCITS 359* Role-Based Access Control, RBAC0, aka Core RBAC.
- * Currently stores data on LDAP server.  Support for other backends like file in the works.
- * Includes Python APIs to manage and interrogate the security policy data.
- * Includes a Command Line Interpreter to manage the data.
+ * Data in LDAP. Support for other backends in the works.
+ * Python APIs to manage and interrogate the security policy data.
+ * Command Line Interpreter to manage the data.
  * Published to [PyPI](https://pypi.python.org/pypi/py-fortress)
- * Released open source Apache License v2.0 
+ * Released as open source, Apache License v2.0 
 
+#### About py-fortress APIs
+Links to the Python RBAC modules:
+ * [access_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/access_mgr.py): performs runtime access control operations
+ * [admin_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
+ * [review_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/review_mgr.py): administrative review functions on the RBAC entities.
+ 
+ *The APIs have some code doc describing their usage inline.* 
+  
+#### Related Project
+This project is related to [Apache Fortress](http://directory.apache.org/fortress)
+ * Compatible data schema: [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
+ * Compatible error handling: [org.apache.directory.fortress.core.SecurityException](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/SecurityException.html)
+ * Similar API format:
+    * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
+    * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
+    * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
+     
 ### About Role-Based Access Control
 
 [Link to ANSI INCITS 359 Specification](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
@@ -37,27 +46,10 @@ API to add, update, delete identity data and perform identity and access control
 The RBAC functional specification describes operations for the creation and maintenance of RBAC element sets and relations; 
 review functions for performing queries; and system functions for creating and managing sessions, and making access control decisions.
 
-### About the APIs
-Links to the Python RBAC modules:
- * [access_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/access_mgr.py): performs runtime access control operations
- * [admin_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/admin_mgr.py): performs administrative functions that provision entities into their backend datastore 
- * [review_mgr](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/impl/review_mgr.py): administrative review functions on the RBAC entities.
- 
- *The API docs are contained within the above links.* 
-  
-### If You're New to RBAC
+#### More about RBAC
  * [Intro to RBAC](http://directory.apache.org/fortress/user-guide/1-intro-rbac.html)
  * [The Seven Steps of Role Engineering](https://iamfortress.net/2015/03/05/the-seven-steps-of-role-engineering/)
-
-### Related Project
-The py-fortress project is related to [Apache Fortress](http://directory.apache.org/fortress)
- * Compatible data schema: [Apache Fortress LDAP schema](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
- * Compatible error handling: [org.apache.directory.fortress.core.SecurityException](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/SecurityException.html)
- * Similar API format:
-    * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
-    * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
-    * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html) 
-     __________________________________________________________________________________
+__________________________________________________________________________________
 ## SECTION 2. Installation, Setup and Usage
 1. If you're new to fortress: [LDAP SERVER QUICKSTART](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-QUICKSTART.md) 
 2. Install the py-fortress python package using pip: [py-fortress Installation](https://github.com/shawnmckinney/py-fortress/tree/master/pyfortress/doc/README-INSTALL.md)
