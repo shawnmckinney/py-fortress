@@ -45,11 +45,11 @@ We're related to the [Apache Fortress](http://directory.apache.org/fortress) Jav
     * [Interface AccessMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html)
     * [Interface AdminMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html)
     * [Interface ReviewMgr](http://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html)
- * Management interfaces. Entries created by one can be processed by the other, and can be managed using the Apache Fortress' Web and Rest interfaces:
+ * Management interfaces. Entries created by one can be processed by the other, and can be managed using Apache Fortress' Web and Rest interfaces:
     * [Apache Fortress Web](https://github.com/apache/directory-fortress-commander)
     * [Apache Fortress Rest](https://github.com/apache/directory-fortress-enmasse)
      
-Apache Fortress' Core has capabilities that py-fortress can't do, like Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3).   
+The Apache Fortress Core has capabilities that py-fortress can't do, like Hierarchical Roles (RBAC1), Static Separation of Duties (RBAC2) and Dynamic Separation of Duties (RBAC3).   
      
 ### About Role-Based Access Control
  ![RBAC Core](images/RbacCore.png "RBAC0 - The 'Core'")
