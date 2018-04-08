@@ -22,8 +22,7 @@ Minimum hardware requirements:
 Minimum software requirements:
  * Linux machine
  * Python3 and virtualenv (venv) or system install of the ldap3 python module
- * completion of [README-LDAP-DOCKER](./README-LDAP-DOCKER)
- * completion of [README-INSTALL](./README-INSTALL)  
+ * completion of [README-LDAP-DOCKER](./README-LDAP-DOCKER)  
 ________________________________________________________________________________
 ## SECTION 2. Setup Test Env
 
