@@ -14,10 +14,8 @@ This guide shows how they can be used.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
-Completed: [README-QUICKSTART](.README-QUICKSTART.md)
-
-* The [py-fortress-sample](https://github.com/shawnmckinney/py-fortress-sample) project has an example of how to setup a test program you can use as a starting point.
-
+* Completed env setup: [README-QUICKSTART](./README-QUICKSTART.md)
+* Optional, use sample module: [py-fortress-sample](https://github.com/shawnmckinney/py-fortress-sample) as starting point.
 ____________________________________________________________________________________________________________________________________________________________
 ## SECTION 3. API Usage
 
@@ -39,6 +37,82 @@ ________________________________________________________________________________
         global_ids
     )
     ```
+
+### Access Mgr APIs - Create Session, Check Access, Session Perms
+
+These are used to check the policies at runtime.  For example, to authenticate is *create_session* and authorization is *check_access* here.
+
+1. Now test signing on the RBAC way:
+
+    ```python
+    def test_create_session(self):
+        """
+        create session
+        """
+        print('test_create_session')
+        
+        try:
+            session = access_mgr.create_session(User(uid='foo1', password='secret'), False)
+            if not session:
+                print('test_create_session fail')
+                self.fail('test_create_session fail')
+            else:
+                print('test_create_session pass')
+                pass                        
+        except FortressError as e:
+            self.fail('test_create_session failed, exception=' + e.msg)            
+    ```
+    
+    _The session will then be held on to by the client for subsequent calls like check_access and session_perms_
+
+2. Here's how to check a single permission:
+
+    ```python
+    def test_check_access(self):
+        """
+        create session and check perm
+        """
+        print('test_check_access')
+        
+        try:
+            session = ... obtained earlier
+            result = access_mgr.check_access(session, Perm(obj_name='ShoppingCart', op_name='add'))
+            if not result:
+                print('test_check_access fail')
+                self.fail('test_check_access fail')
+            else:
+                print('test_check_access pass')
+                pass                        
+        except FortressError as e:
+            self.fail('test_check_access failed, exception=' + e.msg)                 
+    ```
+
+3. Retrieve all of the permissions as a list:
+
+    ```python
+    def test_session_perms(self):
+        """
+        create session and get perms for user
+        """
+        print('test_check_access')
+        
+        try:
+            session = ... obtained earlier
+            perms = access_mgr.session_perms(session)
+            if not perms:
+                print('test_session_perms failed')
+                self.fail('test_session_perms failed')
+            
+            for perm in perms:
+                print_perm(perm, 'session_perms: ')
+            pass                        
+        except FortressError as e:
+            self.fail('test_session_perms failed, exception=' + e.msg)     
+    ```
+
+### Admin and Review APIs - Create, Read, Update, Delete
+    
+These are for programs that manage the RBAC data.  For example admin guis, conversion programs, reporting apps.    
 
 1. Add a user:
 
@@ -136,74 +210,8 @@ ________________________________________________________________________________
             self.fail('test_grant_perm failed, exception=' + e.msg)     
     ```
 
-7. Now test signing on the RBAC way:
+7. [py-fortress-sample](https://github.com/shawnmckinney/py-fortress-sample)
 
-    ```python
-    def test_create_session(self):
-        """
-        create session
-        """
-        print('test_create_session')
-        
-        try:
-            session = access_mgr.create_session(User(uid='foo1', password='secret'), False)
-            if not session:
-                print('test_create_session fail')
-                self.fail('test_create_session fail')
-            else:
-                print('test_create_session pass')
-                pass                        
-        except FortressError as e:
-            self.fail('test_create_session failed, exception=' + e.msg)            
-    ```
-    
-    _The session will then be held on to by the client for subsequent calls like check_access and session_perms_
-
-8. Here's how to check a single permission:
-
-    ```python
-    def test_check_access(self):
-        """
-        create session and check perm
-        """
-        print('test_check_access')
-        
-        try:
-            session = ... obtained earlier
-            result = access_mgr.check_access(session, Perm(obj_name='ShoppingCart', op_name='add'))
-            if not result:
-                print('test_check_access fail')
-                self.fail('test_check_access fail')
-            else:
-                print('test_check_access pass')
-                pass                        
-        except FortressError as e:
-            self.fail('test_check_access failed, exception=' + e.msg)                 
-    ```
-
-9. Retrieve all of the permissions as a list:
-
-    ```python
-    def test_session_perms(self):
-        """
-        create session and get perms for user
-        """
-        print('test_check_access')
-        
-        try:
-            session = ... obtained earlier
-            perms = access_mgr.session_perms(session)
-            if not perms:
-                print('test_session_perms failed')
-                self.fail('test_session_perms failed')
-            
-            for perm in perms:
-                print_perm(perm, 'session_perms: ')
-            pass                        
-        except FortressError as e:
-            self.fail('test_session_perms failed, exception=' + e.msg)     
-    ```
-
-10. More... [py-fortress-sample](https://github.com/shawnmckinney/py-fortress-sample)
+8. More to come, read, search entities and relationships.
 
 #### End of README-API
