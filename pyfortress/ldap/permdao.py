@@ -269,6 +269,14 @@ def revoke ( entity, role ):
                                 + ', role='
                                 + role.name, 
                                 id=global_ids.PERM_ROLE_NOT_EXIST)            
+        elif result == global_ids.NOT_FOUND:
+            raise FortressError(msg='Perm not found, obj name=' 
+                                +  entity.obj_name 
+                                + ', op_name=' 
+                                + entity.op_name 
+                                + ', role='
+                                + role.name, 
+                                id=global_ids.PERM_NOT_EXIST)            
         elif result != 0:
             raise FortressError(msg='Perm revoke failed result=' + str(result), id=global_ids.PERM_REVOKE_FAILED)                    
     return entity
