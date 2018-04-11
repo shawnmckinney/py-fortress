@@ -1,13 +1,9 @@
 import unittest
 from pyfortress.model import User,Perm
 from pyfortress.test import print_user, print_role, print_ln, print_entity
-import user_test_data
 from json import dumps
 
 from pyfortress.file import userdao,permdao,fileex
-
-class BasicTestSuite(unittest.TestCase):
-    """These tests assume fortress user and permission data has been pre-loaded into File, i.e. via apache fortress administrative functions."""
 
 class TestDaos(unittest.TestCase):
     """
@@ -20,10 +16,9 @@ class TestDaos(unittest.TestCase):
         """
         print_ln('test search users by uid')
         try:
-            usr = User(uid = "foo*")
-            uList = userdao.search(usr)
-            for idx, entity in enumerate(uList) :
-                print_entity(entity, "User[" + str(idx+1) + "]:")
+            for user in userdao.search(User(uid="foo*")):
+                print_entity(user, "search user")
+                print_entity(userdao.read(user), "read user")
         except Exception as e:
             self.fail('user search failed, exception=' + e.msg)
 

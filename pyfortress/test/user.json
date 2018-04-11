@@ -4,7 +4,7 @@
         "cn": "test",
         "sn": "test",
         "description": "description",
-        "roles": ["roles", "go", "here"],
+        "role_constraints": ["testrole1", "roles", "go", "here"],
         "password": "$6$VBWj..DTaBLS1fGB$oxdaCU2ajetL7AOWtt4LMuUjnsbQNrPBivqXPTIGltHmh5siTpMFV0VG83.WidS49.R3aV9Uc8HZj6CfVzDsj0"
     },
     {
@@ -12,7 +12,7 @@
         "cn": "test",
         "sn": "test",
         "description": "description",
-        "roles": ["roles", "go", "here"],
+        "role_constraints": ["roles", "go", "here"],
         "password": "$6$f6JAC1yvlHhKCbA9$cnOEIyLZiSIb03FLoCBOC5bRzAuU/769krizUlghjEa2fb12g96.ID7PNK5EaAMILMWEjn2WJryKMvj2M4JQn0"
     },
     {
@@ -20,7 +20,7 @@
         "cn": "foo",
         "sn": "test",
         "description": "description",
-        "roles": ["roles", "go", "here"],
+        "role_constraints": ["roles", "go", "here", "testrole1"],
         "password": "$6$ewthOsZH0GRAjELZ$plIQXtZOgRnMDHwL5wBXju0gbBcrILiUC1Nuu43ZK4ToDZmzEl8x4.asmyvnaXMisVO1r.FwtzYjvgMK3snQt/"
     }
 ]

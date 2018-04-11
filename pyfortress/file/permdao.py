@@ -13,3 +13,6 @@ def __unload(entry):
     for attr in attrs["search"]["perm"] + attrs["search_multi"]["perm"] + attrs["extra"]["perm"]:
         setattr(entity, attr, entry.get(attr))
     return entity
+
+def search_on_roles (roles):
+    return search (Perm(roles=roles))

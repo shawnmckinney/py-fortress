@@ -1,6 +1,6 @@
 [
     {
-	"name": "testrole",
-	"members": ["testuser1", "testuser2"]
+	"name": "testrole1",
+	"members": ["testuser1", "foouser1"]
     }
 ]
