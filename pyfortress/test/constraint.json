@@ -1,0 +1,17 @@
+[
+    {
+        "name": "normal",
+        "timeout": 5,
+        "day_mask": "23456"
+    },
+    {
+        "name": "fast-timeout",
+        "timeout": 1,
+        "day_mask": "23456"
+    },
+    {
+        "name": "weekend",
+        "timeout": 60,
+        "day_mask": "17"
+    }
+]

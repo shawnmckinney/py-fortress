@@ -54,8 +54,9 @@ class TestAccessMgr(unittest.TestCase):
         """
         print_ln('test active_roles')
         try:
-            u = User(uid="foouser1",password="foouser1")
-            session=access_mgr.create_session(u,False)
+            u = userdao.read(User(uid="foouser1"))
+            u.password="foouser1"
+            session=access_mgr.create_session (u, False)
 
             if session.user.roles is not None and len(session.user.roles) > 0:
                 for role in list(access_mgr.session_roles(session)):
@@ -64,10 +65,10 @@ class TestAccessMgr(unittest.TestCase):
                 if session.user.roles is None or len(session.user.roles) > 0:
                     self.fail('test_active_roles did not inactivate all roles in session for uid=' + entity.uid)
 
-                for role in list(session.user.role_constraints):
+                for role in list(u.roles):
                     access_mgr.add_active_role(session, role)
 
-                if session.user.roles is None or len(session.user.roles) != len(session.user.role_constraints):
+                if session.user.roles is None or len(session.user.roles) != len(u.roles):
                     self.fail('test_active_roles did not activate all roles in session for uid=' + entity.uid)
 
         except Exception as e:

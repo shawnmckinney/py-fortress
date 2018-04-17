@@ -58,7 +58,7 @@ def create_session (user, is_trusted):
 def check_access (session, perm):
     with _valid_session (session):
         with _valid_perm (perm):
-            return frozenset() < _join (session.user.roles,entity.roles)
+            return frozenset() < _join (session.user.roles.keys(),entity.roles.keys())
 
 def _entity_role_set (roles):
     return frozenset (map (lambda r:r.casefold(), roles))
@@ -68,8 +68,11 @@ def _join (uroles, proles):
 
 def is_user_in_role (session, role):
     with _valid_session (session):
-        with _valid_userroles (session.user) as user:
-            return _rolename(role) in _entity_role_set (session.user.roles)
+        try:
+            with _valid_userroles (session.user) as roles:
+                return _rolename(role) in _entity_role_set (session.user.roles)
+        except FortressError as f:
+            return False
 
 def _rolename(rolething):
     if isinstance(rolething,Role):
@@ -82,8 +85,9 @@ def add_active_role (session, role):
         if is_user_in_role (session, role):
             raise FortressError (msg='add_active_role uid=' + session.user.uid + ', previously activated role=' + role, id=global_ids.URLE_ALREADY_ACTIVE)
         user = userdao.read(session.user)
-        if _rolename(role) in _entity_role_set(user.role_constraints):
-            session.user.roles.append(_rolename(role))
+        rn = _rolename(role)
+        if rn in _entity_role_set(user.roles):
+            session.user.roles[rn] = user.roles[rn]
         else:
             raise FortressError (msg='add_active_role uid=' + session.user.uid + ', has not been assigned role=' + role, id=global_ids.URLE_ASSIGN_NOT_EXIST)
 
@@ -91,14 +95,20 @@ def drop_active_role (session, role):
     with _valid_session (session):
         if not is_user_in_role (session, role):
             raise FortressError (msg='drop_active_role uid=' + session.user.uid + ', has not activated role=' + role, id=global_ids.URLE_NOT_ACTIVE)
-        session.user.roles.remove(_rolename(role))
+        session.user.roles.pop(_rolename(role), None)
 
 def session_roles (session):
     with _valid_session (session):
-        with _valid_userroles (session.user) as roles:
-            return roles
+        try:
+            with _valid_userroles (session.user) as roles:
+                return roles
+        except FortressError as f:
+            return []
 
 def session_perms (session):
     with _valid_session (session):
-        with _valid_role (session.user):
-            return permdao.search_on_roles(session.user.roles)
+        try:
+            with _valid_userroles (session.user):
+                return permdao.search_on_roles(session.user.roles)
+        except FortressError as f:
+            return []

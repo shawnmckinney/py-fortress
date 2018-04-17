@@ -1,12 +1,12 @@
-from ..model import Role
+from ..model import Constraint
 from ..util import Config, global_ids
 from ..file.common import require_one,attrs,common_search
 
 def read (entity):
-    return require_one('Role', search(entity), entity.obj_name)
+    return require_one('Constraint', search(entity), entity.obj_name)
 
 def search (entity):
-    return list(map(lambda e:__unload(e), common_search('role', entity)))
+    return list(map(lambda e:__unload(e), common_search('constraint', entity)))
 
 def __unload(entry):
     entity = Role()

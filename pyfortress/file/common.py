@@ -20,17 +20,20 @@ attrs = {
     "extra": {
         "user": ["password"],
         "perm": ["abstract_name","internal_id","type"],
-        "role": ["internal_id"]
+        "role": ["internal_id"],
+        "constraint": ["timeout","begin_time","end_time","begin_date","end_date","begin_lock_date","end_lock_date","day_mask"]
     },
     "search": {
         "user": ["uid","cn","sn","description"],
         "perm": ["obj_name","op_name","obj_id","description"],
-        "role": ["name","description"]
+        "role": ["name","description"],
+        "constraint": ["name"]
     },
     "search_multi": {
         "user": ["roles", "role_constraints"],
         "perm": ["roles"],
-        "role": ["members"]
+        "role": ["members"],
+        "constraint": []
     }
 }
 
@@ -55,6 +58,8 @@ def common_search (etype, entity):
                 if avs is None:
                     avs = []
                 uvs = e.get(attr, [])
+                if isinstance(uvs,dict):
+                    uvs = uvs.keys()
                 for av in avs:
                     av_re = re.compile(__make_wild_re(av))
                     if not any(map(lambda uv: av_re.fullmatch(uv) is not None, uvs)):
