@@ -1,7 +1,7 @@
 # py-fortress README
 
 _**Fortress Role-Based Access Control**_ 
-![py-fortress](images/ApacheFortressLogo_SHIELD.png "fortress rbac")
+![py-fortress](images/Fortressicon.png "fortress rbac")
 
 ## Document Contents
  * Links to Install and Setup Docs
