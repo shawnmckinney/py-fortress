@@ -30,7 +30,7 @@ Follow these steps to install py-fortress package and get it pointing to your LD
 
 1. Make a test folder:
     ```
-    md test    
+    mkdir test    
     cd test
     ```
 
