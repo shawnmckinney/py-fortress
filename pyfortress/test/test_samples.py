@@ -33,7 +33,7 @@ class TestSamples(unittest.TestCase):
     Basic tests for beginners
     """    
 
-    def test_read_user(self):
+    def test22_read_user(self):
         """
         Read a user that was created earlier. Expects a unique uid that points to an existing user.
         """
@@ -46,7 +46,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_search_users(self):
+    def test23_search_users(self):
         """
         Search for users that match the characters passed into with wildcard appended.  Will return zero or more records, one for each user in result set.
         """
@@ -60,7 +60,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_assigned_users(self):
+    def test24_assigned_users(self):
         """
         Search for users that are assigned a particular role.  Will return zero or more records, one for each user in result set.
         """
@@ -74,7 +74,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_perm_users(self):
+    def test25_perm_users(self):
         """
         Search for users that have been authorized a particular permission.  Will return zero or more records, of type user, one for each user authorized that particular perm.
         """
@@ -88,7 +88,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_add_user(self):
+    def test10_add_user(self):
         """
         To add a user in py-fortress, the uid must be supplied.  All other attributes are optional but to be able to authenticate a password must be present of course.
         """
@@ -101,8 +101,7 @@ class TestSamples(unittest.TestCase):
             print_exception(e)
             self.fail()
 
-
-    def test_delete_user(self):
+    def test01_delete_user(self):
         """
         The delete expects the uid passed in to match one record only and will throw an exception if not found, or otherwise if error occurs.
         """
@@ -119,7 +118,7 @@ class TestSamples(unittest.TestCase):
                 self.fail()
 
 
-    def test_read_role(self):
+    def test12_read_role(self):
         """
         The read role expects the role name to point to an existing entry and will throw an exception if not found or other error occurs.
         """
@@ -132,7 +131,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_search_roles(self):
+    def test14_search_roles(self):
         """
         Search for roles that match the characters passed into with wildcard appended.  Will return zero or more records, one for each user in result set.
         """
@@ -146,7 +145,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_assigned_roles(self):
+    def test15_assigned_roles(self):
         """
         Return the list of roles that have been assigned a particular user.  Will return zero or more records, of type constraint, one for each role assigned to user.
         """
@@ -160,7 +159,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_perm_roles(self):
+    def test16_perm_roles(self):
         """
         Return the list of roles that have granted a particular perm.  Will return zero or more records, containing the role names, one for each role assigned to permission.
         """
@@ -174,7 +173,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_add_role(self):
+    def test08_add_role(self):
         """
         A fortress role only need to be supplied a name but it must be unique, and not present.
         """
@@ -187,24 +186,24 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_delete_role(self):
+    def test05_delete_role(self):
         """
         The delete will throw an exception if the passed role is not found or otherwise fails to process.
         """
         print_test_name()        
         try:
             admin_mgr.delete_role(Role(name='Customer'))
-            print('test_delete_role success')                        
+            print('test5_delete_role success')
         except FortressError as e:
             if e.id == global_ids.ROLE_NOT_FOUND:
-                print('test_delete_role not found')
+                print('test5_delete_role not found')
                 pass
             else:            
                 print_exception(e)
                 self.fail()
 
 
-    def test_read_obj(self):
+    def test13_read_obj(self):
         """
         The ob_name is the only required attribute on a fortress object. Will throw an exception if not found.
         """
@@ -217,7 +216,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_search_objs(self):
+    def test17_search_objs(self):
         """
         Search for ojects that match the characters passed into with wildcard appended.  Will return zero or more records, one for each user in result set.
         """
@@ -231,7 +230,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_add_obj(self):
+    def test06_add_obj(self):
         """
         The ob_name is the only required attribute on a fortress object. Will throw an exception if not unique.
         """
@@ -245,7 +244,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_delete_obj(self):
+    def test04_delete_obj(self):
         """
         Delete a basic perm object
         """
@@ -263,7 +262,7 @@ class TestSamples(unittest.TestCase):
                 self.fail()
 
 
-    def test_read_perm(self):
+    def test18_read_perm(self):
         """
         Permissions require obj_name and op_name, obj_id is optional.  This will throw an exception if not found.
         """
@@ -276,7 +275,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_search_perms(self):
+    def test19_search_perms(self):
         """
         Search for perms that match the characters passed into with wildcard appended.  Will return zero or more records, one for each user in result set.
         """
@@ -290,7 +289,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_role_perms(self):
+    def test20_role_perms(self):
         """
         Search for perms that have been granted to a particular role.  Will return zero or more records, of type permission, one for each grant.
         """
@@ -304,7 +303,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_user_perms(self):
+    def test21_user_perms(self):
         """
         Search for perms that have been authorized to a particular user based on their role assignments.  Will return zero or more records, of type permission, one for each perm authorized for user.
         """
@@ -318,7 +317,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_add_perm(self):
+    def test07_add_perm(self):
         """
         Permissions require obj_name and op_name, obj_id is optional.  This will throw an exception if not unique.
         """
@@ -332,11 +331,11 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_delete_perm(self):
+    def test03_delete_perm(self):
         """
         Permissions require obj_name and op_name, obj_id is optional.  This will throw an exception if not found.
         """
-        print('test_delete_perm')
+        print('test3_delete_perm')
         try:
             admin_mgr.delete_perm(Perm(obj_name='ShoppingCart', op_name='add'))
             print_test_msg('success')                        
@@ -349,7 +348,7 @@ class TestSamples(unittest.TestCase):
                 self.fail()
 
 
-    def test_grant_perm(self):
+    def test09_grant_perm(self):
         """
         Grant a permission to a role passing required attrs for perm (obj_name op_name) and role (name). Throws exception if perm not found, or already have been granted.
         """
@@ -363,7 +362,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_revoke_perm(self):
+    def test02_revoke_perm(self):
         """
         Revokes a permission from a role passing required attrs for perm (obj_name op_name) and role (name). Throws exception if perm not found, or if not granted.
         """
@@ -380,7 +379,7 @@ class TestSamples(unittest.TestCase):
                 self.fail()
 
 
-    def test_assign_user(self):
+    def test11_assign_user(self):
         """
         Assign a user to a role passing req's attrs for user (uid) and role (name). Throws exception if either are not found, or already assigned.
         """
@@ -394,7 +393,7 @@ class TestSamples(unittest.TestCase):
             self.fail()
 
 
-    def test_create_session(self):
+    def test26_create_session(self):
         """
         Called when beginning an RBAC session. Requires uid and password if trusted is False, in which case it will authenticate in addition to activating roles into session.
         Throws exception if user is not found, or if authentication fails. 
@@ -413,8 +412,8 @@ class TestSamples(unittest.TestCase):
             print_exception(e)
             self.fail()
                         
-            
-    def test_check_access(self):
+
+    def test27_check_access(self):
         """
         Called to perform an RBAC permmission check.  Requires a valid session (returned from create_session) and a permission with required attrs obj_name, op_name, and optional obj_id.
         Returns true if user is allowed to perform the specified operation on object.
@@ -434,8 +433,8 @@ class TestSamples(unittest.TestCase):
             print_exception(e)
             self.fail()
                         
-            
-    def test_session_perms(self):
+
+    def test28_session_perms(self):
         """
         Return all permission authorized for user per their set of activated roles in the session.  Note this means that set could be a subset of assigned permissions, if any assigned roles are not activated.
         """
@@ -492,42 +491,42 @@ def print_perm (entity):
         
 def suite():
     suite = unittest.TestSuite()
-    
+
     # Teardown:        
-    suite.addTest(TestSamples('test_delete_user'))
-    suite.addTest(TestSamples('test_revoke_perm'))        
-    suite.addTest(TestSamples('test_delete_perm'))        
-    suite.addTest(TestSamples('test_delete_obj'))
-    suite.addTest(TestSamples('test_delete_role'))
+    suite.addTest(TestSamples('test01_delete_user'))
+    suite.addTest(TestSamples('test02_revoke_perm'))
+    suite.addTest(TestSamples('test03_delete_perm'))
+    suite.addTest(TestSamples('test04_delete_obj'))
+    suite.addTest(TestSamples('test05_delete_role'))
         
     # Buildup:
-    suite.addTest(TestSamples('test_add_obj'))
-    suite.addTest(TestSamples('test_add_perm'))
-    suite.addTest(TestSamples('test_add_role'))    
-    suite.addTest(TestSamples('test_grant_perm'))
-    suite.addTest(TestSamples('test_add_user'))    
-    suite.addTest(TestSamples('test_assign_user'))
+    suite.addTest(TestSamples('test06_add_obj'))
+    suite.addTest(TestSamples('test07_add_perm'))
+    suite.addTest(TestSamples('test08_add_role'))
+    suite.addTest(TestSamples('test09_grant_perm'))
+    suite.addTest(TestSamples('test10_add_user'))
+    suite.addTest(TestSamples('test11_assign_user'))
 
     # Interrogate entities and their relationships:
-    suite.addTest(TestSamples('test_read_role'))        
-    suite.addTest(TestSamples('test_read_obj'))
-    suite.addTest(TestSamples('test_search_roles'))    
-    suite.addTest(TestSamples('test_assigned_roles'))
-    suite.addTest(TestSamples('test_perm_roles'))    
-    suite.addTest(TestSamples('test_search_objs'))    
-    suite.addTest(TestSamples('test_read_perm'))
-    suite.addTest(TestSamples('test_search_perms'))
-    suite.addTest(TestSamples('test_role_perms'))
-    suite.addTest(TestSamples('test_user_perms'))
-    suite.addTest(TestSamples('test_read_user'))
-    suite.addTest(TestSamples('test_search_users'))
-    suite.addTest(TestSamples('test_assigned_users'))
-    suite.addTest(TestSamples('test_perm_users'))
+    suite.addTest(TestSamples('test12_read_role'))
+    suite.addTest(TestSamples('test13_read_obj'))
+    suite.addTest(TestSamples('test14_search_roles'))
+    suite.addTest(TestSamples('test15_assigned_roles'))
+    suite.addTest(TestSamples('test16_perm_roles'))
+    suite.addTest(TestSamples('test17_search_objs'))
+    suite.addTest(TestSamples('test18_read_perm'))
+    suite.addTest(TestSamples('test19_search_perms'))
+    suite.addTest(TestSamples('test20_role_perms'))
+    suite.addTest(TestSamples('test21_user_perms'))
+    suite.addTest(TestSamples('test22_read_user'))
+    suite.addTest(TestSamples('test23_search_users'))
+    suite.addTest(TestSamples('test24_assigned_users'))
+    suite.addTest(TestSamples('test25_perm_users'))
     
     # Test the policies:    
-    suite.addTest(TestSamples('test_create_session'))
-    suite.addTest(TestSamples('test_check_access'))
-    suite.addTest(TestSamples('test_session_perms'))
+    suite.addTest(TestSamples('test26_create_session'))
+    suite.addTest(TestSamples('test27_check_access'))
+    suite.addTest(TestSamples('test28_session_perms'))
     return suite  
  
 if __name__ == '__main__':
