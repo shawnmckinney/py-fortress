@@ -20,7 +20,7 @@ class TestAdminMgr(unittest.TestCase):
     Test the admin_mgr funcs
     """    
 
-    def test_add_user(self):
+    def test10_add_user(self):
         """
         Test the add user method
         """
@@ -34,7 +34,7 @@ class TestAdminMgr(unittest.TestCase):
                 self.fail('test_add_user failed, exception=' + e.msg)
 
 
-    def test_delete_user(self):
+    def test05_delete_user(self):
         """
         Test the user delete user method
         """
@@ -50,7 +50,7 @@ class TestAdminMgr(unittest.TestCase):
             self.fail('test_delete_user failed, exception=' + e.msg)
 
 
-    def test_add_role(self):
+    def test07_add_role(self):
         """
         Test the add role method
         """
@@ -64,7 +64,7 @@ class TestAdminMgr(unittest.TestCase):
                 self.fail('test_add_role failed, exception=' + e.msg)
 
 
-    def test_delete_role(self):
+    def test06_delete_role(self):
         """
         Test the role delete user method
         """
@@ -79,7 +79,7 @@ class TestAdminMgr(unittest.TestCase):
             self.fail('test_delete_role failed, exception=' + e.msg)
 
 
-    def test_add_object(self):
+    def test08_add_object(self):
         """
         Test the add object method
         """
@@ -93,7 +93,7 @@ class TestAdminMgr(unittest.TestCase):
                 self.fail('test_add_object failed, exception=' + e.msg)
 
 
-    def test_delete_object(self):
+    def test03_delete_object(self):
         """
         Test the role delete object method
         """
@@ -108,7 +108,7 @@ class TestAdminMgr(unittest.TestCase):
             self.fail('test_delete_object failed, exception=' + e.msg)
 
 
-    def test_add_perm(self):
+    def test09_add_perm(self):
         """
         Test the add perm method
         """
@@ -122,7 +122,7 @@ class TestAdminMgr(unittest.TestCase):
                 self.fail('test_add_perm failed, exception=' + e.msg)
 
 
-    def test_delete_perm(self):
+    def test02_delete_perm(self):
         """
         Test the perm delete object method
         """
@@ -137,7 +137,7 @@ class TestAdminMgr(unittest.TestCase):
             self.fail('test_delete_perm failed, exception=' + e.msg)
 
 
-    def test_assign_user(self):
+    def test11_assign_user(self):
         """
         Test the assign user method
         """
@@ -153,7 +153,7 @@ class TestAdminMgr(unittest.TestCase):
                     self.fail('test_assign_user failed, exception=' + e.msg)
 
 
-    def test_deassign_user(self):
+    def test04_deassign_user(self):
         """
         Test the user deassign method
         """
@@ -171,7 +171,7 @@ class TestAdminMgr(unittest.TestCase):
             #self.fail('test_deassign_user failed, exception=' + e.msg)
 
 
-    def test_grant(self):
+    def test12_grant(self):
         """
         Test the grant method
         """
@@ -187,7 +187,7 @@ class TestAdminMgr(unittest.TestCase):
                     self.fail('test_grant failed, exception=' + e.msg)
 
 
-    def test_revoke(self):
+    def test01_revoke(self):
         """
         Test the revoke method
         """
@@ -209,20 +209,20 @@ def suite():
     suite = unittest.TestSuite()
     
     # Teardown:
-    suite.addTest(TestAdminMgr('test_revoke'))              
-    suite.addTest(TestAdminMgr('test_delete_perm'))    
-    suite.addTest(TestAdminMgr('test_delete_object'))    
-    suite.addTest(TestAdminMgr('test_deassign_user'))    
-    suite.addTest(TestAdminMgr('test_delete_user'))        
-    suite.addTest(TestAdminMgr('test_delete_role'))    
+    suite.addTest(TestAdminMgr('test01_revoke'))
+    suite.addTest(TestAdminMgr('test02_delete_perm'))
+    suite.addTest(TestAdminMgr('test03_delete_object'))
+    suite.addTest(TestAdminMgr('test04_deassign_user'))
+    suite.addTest(TestAdminMgr('test05_delete_user'))
+    suite.addTest(TestAdminMgr('test06_delete_role'))
     
     # Buildup:
-    suite.addTest(TestAdminMgr('test_add_role'))
-    suite.addTest(TestAdminMgr('test_add_object'))            
-    suite.addTest(TestAdminMgr('test_add_perm'))    
-    suite.addTest(TestAdminMgr('test_add_user'))
-    suite.addTest(TestAdminMgr('test_assign_user'))    
-    suite.addTest(TestAdminMgr('test_grant'))       
+    suite.addTest(TestAdminMgr('test07_add_role'))
+    suite.addTest(TestAdminMgr('test08_add_object'))
+    suite.addTest(TestAdminMgr('test09_add_perm'))
+    suite.addTest(TestAdminMgr('test10_add_user'))
+    suite.addTest(TestAdminMgr('test11_assign_user'))
+    suite.addTest(TestAdminMgr('test12_grant'))
     return suite  
 
  

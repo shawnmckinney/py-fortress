@@ -22,7 +22,7 @@ class TestAccessMgr(unittest.TestCase):
     Test the access_mgr funcs
     """    
 
-    def test_create_sessions(self):
+    def test01_create_sessions(self):
         """
         Test the create_session method
         """
@@ -48,7 +48,7 @@ class TestAccessMgr(unittest.TestCase):
             self.fail('user create_session exception=' + e.msg)
 
 
-    def test_user_roles(self):
+    def test02_user_roles(self):
         """
         Test the user_roles & is_user_in_role method
         """
@@ -76,7 +76,7 @@ class TestAccessMgr(unittest.TestCase):
             self.fail('test_user_roles exception=' + e.msg)
 
 
-    def test_active_roles(self):
+    def test03_active_roles(self):
         """
         Test the add_active_role & drop_active_role methods
         """
@@ -137,7 +137,7 @@ class TestAccessMgr(unittest.TestCase):
             self.fail('test_active_roles exception=' + e.msg)
 
 
-    def test_session_permissions(self):
+    def test04_session_permissions(self):
         """
         Test the session_perms & check_access method
         """
@@ -171,10 +171,10 @@ class TestAccessMgr(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(TestAccessMgr('test_create_sessions'))
-    suite.addTest(TestAccessMgr('test_user_roles'))
-    suite.addTest(TestAccessMgr('test_active_roles'))         
-    suite.addTest(TestAccessMgr('test_session_permissions'))
+    suite.addTest(TestAccessMgr('test01_create_sessions'))
+    suite.addTest(TestAccessMgr('test02_user_roles'))
+    suite.addTest(TestAccessMgr('test03_active_roles'))
+    suite.addTest(TestAccessMgr('test04_session_permissions'))
        
     return suite  
 

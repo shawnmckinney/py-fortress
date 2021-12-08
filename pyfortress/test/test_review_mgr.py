@@ -20,7 +20,7 @@ class TestReivewMgr(unittest.TestCase):
     Test the review_mgr funcs
     """    
 
-    def test_assigned_users(self):
+    def test01_assigned_users(self):
         """
         Test the assigned users method
         """
@@ -37,7 +37,7 @@ class TestReivewMgr(unittest.TestCase):
             self.fail('test_assigned_users failed, exception=' + e.msg)
 
 
-    def test_assigned_roles(self):
+    def test02_assigned_roles(self):
         """
         Test the assigned roles method
         """
@@ -54,11 +54,11 @@ class TestReivewMgr(unittest.TestCase):
             self.fail('test_assigned_roles failed, exception=' + e.msg)
 
 
-    def test_perm_roles(self):
+    def test03_perm_roles(self):
         """
         Test the perm roles method
         """
-        print_ln('test_perm_roles')
+        print_ln('test16_perm_roles')
         
         try:
             pList = review_mgr.find_perms(Perm(obj_name='py-obj*', op_name='*'))                                    
@@ -68,10 +68,10 @@ class TestReivewMgr(unittest.TestCase):
                 for role in rList:
                     print_ln("Assigned role=" + role, 1)
         except Exception as e:
-            self.fail('test_perm_roles failed, exception=' + e.msg)
+            self.fail('test16_perm_roles failed, exception=' + e.msg)
 
 
-    def test_role_perms(self):
+    def test04_role_perms(self):
         """
         Test the role perms method
         """
@@ -88,7 +88,7 @@ class TestReivewMgr(unittest.TestCase):
             self.fail('test_role_perms failed, exception=' + e.msg)
 
 
-    def test_user_perms(self):
+    def test05_user_perms(self):
         """
         Test the user perms method
         """
@@ -105,7 +105,7 @@ class TestReivewMgr(unittest.TestCase):
             self.fail('test_user_perms failed, exception=' + e.msg)
 
 
-    def test_perm_users(self):
+    def test06_perm_users(self):
         """
         Test the perm users method
         """
@@ -124,12 +124,12 @@ class TestReivewMgr(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(TestReivewMgr('test_assigned_users'))
-    suite.addTest(TestReivewMgr('test_assigned_roles'))
-    suite.addTest(TestReivewMgr('test_perm_roles'))
-    suite.addTest(TestReivewMgr('test_role_perms'))
-    suite.addTest(TestReivewMgr('test_user_perms'))
-    suite.addTest(TestReivewMgr('test_perm_users'))                  
+    suite.addTest(TestReivewMgr('test01_assigned_users'))
+    suite.addTest(TestReivewMgr('test02_assigned_roles'))
+    suite.addTest(TestReivewMgr('test03_perm_roles'))
+    suite.addTest(TestReivewMgr('test04_role_perms'))
+    suite.addTest(TestReivewMgr('test05_user_perms'))
+    suite.addTest(TestReivewMgr('test06_perm_users'))
     return suite  
 
  
