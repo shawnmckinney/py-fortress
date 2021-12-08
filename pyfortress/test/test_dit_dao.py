@@ -27,71 +27,39 @@ class TestDitDao(unittest.TestCase):
     """    
                      
                       
-    def test_add_containers(self):
-        """
-        Test the add suffix method
-        """
-        print_ln('test_add_containers')
-        
-        try:
-            ditdao.create_ou(global_ids.USER_OU)
-            ditdao.create_ou(global_ids.ROLE_OU)
-            ditdao.create_ou(global_ids.PERM_OU)            
-            print('test_add_containers success')                                
-        except Exception as e:
-            error = 'test_add_containers errpr=' + e.msg
-            print(error)
-            self.fail(error)
-
-
-    def test_del_containers(self):
+    def test01_del_containers(self):
         """
         Test the delete ou method
         """
         print_ln('test_del_containers')
-        
+
         try:
             ditdao.delete_ou(global_ids.USER_OU)
             ditdao.delete_ou(global_ids.ROLE_OU)
-            ditdao.delete_ou(global_ids.PERM_OU)            
-            print('test_del_containers success')                                
+            ditdao.delete_ou(global_ids.PERM_OU)
+            print('test_del_containers success')
         except Exception as e:
             error = 'test_del_containers errpr=' + e.msg
             print(error)
             #self.fail(error)
 
 
-    def test_add_suffix(self):
-        """
-        Test the add suffix method
-        """
-        print_ln('test_add_suffix')
-        
-        try:
-            ditdao.create_suffix('example')            
-            print('test_add_suffix success')                                
-        except Exception as e:
-            error = 'test_add_suffix errpr=' + e.msg
-            print(error)
-            #self.fail(error)
-
-
-    def test_del_suffix(self):
+    def test02_del_suffix(self):
         """
         Test the del suffix method
         """
         print_ln('test_del_suffix')
-        
+
         try:
-            ditdao.delete_suffix()            
-            print('test_del_suffix success')                                
+            ditdao.delete_suffix()
+            print('test_del_suffix success')
         except Exception as e:
             error = 'test_del_suffix errpr=' + e.msg
             print(error)
             #self.fail(error)
 
 
-    def test_bootstrap(self):
+    def test03_bootstrap(self):
         """
         Create the DIT based on the config
         """
@@ -107,7 +75,9 @@ class TestDitDao(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(TestDitDao('test_bootstrap')) 
+    suite.addTest(TestDitDao('test01_del_containers'))
+    suite.addTest(TestDitDao('test02_del_suffix'))
+    suite.addTest(TestDitDao('test03_bootstrap'))
        
 #     suite.addTest(TestDitDao('test_del_containers'))
 #     suite.addTest(TestDitDao('test_del_suffix'))
