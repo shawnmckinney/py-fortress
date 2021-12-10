@@ -5,7 +5,7 @@ Created on Mar 17, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
-from pyfortress.model import PermObj, Perm
+from src.model import PermObj, Perm
 from enum import Enum
 
 

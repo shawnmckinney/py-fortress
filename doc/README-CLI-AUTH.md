@@ -1,6 +1,6 @@
 # Guide to Command Line Interpreter (CLI) for RBAC0 SYSTEM Testing
  
-Instructions to load a simple RBAC policy and use the cli-test-auth.py program that drives py-fortress [access_mgr](../impl/access_mgr.py) APIs.
+Instructions to load a simple RBAC policy and use the cli-test-auth.py program that drives py-fortress [access_mgr](src/impl/access_mgr.py) APIs.
 ______________________________________________________________________________
 ## Prerequisites
 
@@ -73,11 +73,11 @@ Here we'll load the policy defined above.
    * add => access_mgr.add_active_role
    * drop => access_mgr.drop_active_role
    
-   _Where operations map to functions here_ [access_mgr.py](impl/access_mgr.py)
+   _Where operations map to functions here_ [access_mgr.py](src/impl/access_mgr.py)
 
 ### The args are ‘–‘ + attribute name + attribute value
-   * --uid, --password from [user.py](../model/user.py)
-   * --obj_name, --op_name, --obj_id from [perm.py](../model/perm.py)
+   * --uid, --password from [user.py](src/model/user.py)
+   * --obj_name, --op_name, --obj_id from [perm.py](src/model/perm.py)
    * --role used for the role name
     
 ### Command Usage Tips
@@ -87,7 +87,7 @@ Here we'll load the policy defined above.
    * Constraints on user and roles are enforced. For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
    * More on argument format: [README-CLI](./README-CLI.md)
 _______________________________________________________________________________   
-## Setup an RBAC Policy Using ([admin_mgr](../impl/admin_mgr.py)) CLI
+## Setup an RBAC Policy Using ([admin_mgr](src/impl/admin_mgr.py)) CLI
 
 * To setup RBAC test data, we'll be using another utility that was introduced here:  [README-CLI](./README-CLI.md).
 
@@ -167,7 +167,7 @@ From the py-fortress/test folder, enter the following commands:
     $ python3 cli.py perm grant --obj_name page456 --op_name read --role auditor
     ```
 ________________________________________________________________________________
-## Run the [access_mgr](../impl/access_mgr.py) CLI
+## Run the [access_mgr](src/impl/access_mgr.py) CLI
 
 From the py-fortress/test folder, enter the following commands:
 

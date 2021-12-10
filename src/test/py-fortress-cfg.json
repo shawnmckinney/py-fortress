@@ -7,7 +7,7 @@
 
   "ldap": {
     "host": "localhost",
-    "port": 32768,
+    "port": 389,
     "timeout": 1,
     "pool_name": "fort-conns",
     "pool_size": 5,
@@ -17,7 +17,7 @@
     "use_ssl": false,
     "ldap3_log_level": "ERROR",
     "method": "simple",
-    "dn": "cn=Manager,dc=example,dc=com",
+    "dn": "dc=example,dc=com",
     "password": "secret"
   },
   "dit": {

@@ -41,7 +41,7 @@ ________________________________________________________________________________
     ```
     vi pyfortress/test/py-fortress-cfg.json
     ```
-    _cfg file is here: [py-fortress/pyfortress/test/py-fortress-cfg.json](../test/py-fortress-cfg.json)_
+    _cfg file is here: [py-fortress/src/test/py-fortress-cfg.json](../test/py-fortress-cfg.json)_
 
 4. Set the LDAP Port
     ```
@@ -125,7 +125,7 @@ Another optional test.
     python3 test_samples.py 
     ```
 
-2. View the [test_samples](../test/test_samples.py) and learn how RBAC APIs work.
+2. View the [test_samples](src/test/test_samples.py) and learn how RBAC APIs work.
 
 __________________________________________________________________________________
 ## SECTION 5. View the Test Data using Command Line Interpreter (CLI)

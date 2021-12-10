@@ -8,17 +8,17 @@ _**Fortress Role-Based Access Control**_
  * About py-fortress and Role-Based Access Control
 ________________________________
 ## Links to Install and Setup Docs
-Located under the [doc](pyfortress/doc) folder and include:
+Located under the [doc](doc) folder and include:
 
 |   | Link                                                              | Description                     | 
 |---|:------------------------------------------------------------------|:--------------------------------| 
-|1. |[README-BUILDING](pyfortress/doc/README-BUILDING.md)               |To build the package from source |
-|2. |[README-QUICKSTART](pyfortress/doc/README-QUICKSTART.md)           |Beginners start here             | 
-|3. |[README-LDAP-DOCKER](pyfortress/doc/README-LDAP-DOCKER.md)         |Run LDAP in Docker               |
-|4. |[README-INSTALL](pyfortress/doc/README-INSTALL.md)                 |Install with PyPI Package        | 
-|5. |[README-API](pyfortress/doc/README-API.md)                         |API Usage Guide                  |
-|6. |[README-CLI](pyfortress/doc/README-CLI.md)                         |CLI for RBAC Admin and Review    |  
-|7. |[README-CLI-AUTH](pyfortress/doc/README-CLI-AUTH.md)               |CLI for RBAC System Testing      | 
+|1. |[README-BUILDING](doc/README-BUILDING.md)               |To build the package from source |
+|2. |[README-QUICKSTART](doc/README-QUICKSTART.md)           |Beginners start here             | 
+|3. |[README-LDAP-DOCKER](doc/README-LDAP-DOCKER.md)         |Run LDAP in Docker               |
+|4. |[README-INSTALL](doc/README-INSTALL.md)                 |Install with PyPI Package        | 
+|5. |[README-API](doc/README-API.md)                         |API Usage Guide                  |
+|6. |[README-CLI](doc/README-CLI.md)                         |CLI for RBAC Admin and Review    |  
+|7. |[README-CLI-AUTH](doc/README-CLI-AUTH.md)               |CLI for RBAC System Testing      | 
 _________________________________________________________________________________
 ## About py-fortress and Role-Based Access Control
 
@@ -35,9 +35,9 @@ The following modules have inline code docs describing the API signatures, requi
 
 |   | Link                                        | Description                                          |  
 |---|:--------------------------------------------|:-----------------------------------------------------|  
-|1. |[access_mgr](pyfortress/impl/access_mgr.py)  |create session, check access, add, drop active roles  |  
-|2. |[admin_mgr](pyfortress/impl/admin_mgr.py)    |add, update, delete, assign, deassign entities        |  
-|3. |[review_mgr](pyfortress/impl/review_mgr.py)  |read and search entities and their relationships      |  
+|1. |[access_mgr](src/impl/access_mgr.py)  |create session, check access, add, drop active roles  |  
+|2. |[admin_mgr](src/impl/admin_mgr.py)    |add, update, delete, assign, deassign entities        |  
+|3. |[review_mgr](src/impl/review_mgr.py)  |read and search entities and their relationships      |  
    
 #### Related Project
 We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation and share:

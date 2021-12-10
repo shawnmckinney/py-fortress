@@ -24,7 +24,7 @@ The following samples pulled from here: [test_samples.py](../test/test_samples.p
 0. Prepare your python module for usage by importing:
 
     ```python
-    from pyfortress import (
+    from src import (
         # model
         User,
         Role,
