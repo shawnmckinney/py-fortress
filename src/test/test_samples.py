@@ -8,7 +8,7 @@ Created on Mar 19, 2018
 import unittest
 import inspect
 
-from pyfortress import (
+from src import (
     # model
     User,
     Role,

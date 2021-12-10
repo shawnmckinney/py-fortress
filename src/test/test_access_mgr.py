@@ -6,10 +6,10 @@ Created on Mar 2, 2018
 '''
 
 import unittest
-from pyfortress.ldap import InvalidCredentials
-from pyfortress.impl import access_mgr, review_mgr
-from pyfortress.model import User
-from pyfortress.test import print_ln
+from src.ldap import InvalidCredentials
+from src.impl import access_mgr, review_mgr
+from src.model import User
+from src.test import print_ln
 import sys
 
 

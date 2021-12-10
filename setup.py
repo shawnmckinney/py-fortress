@@ -22,8 +22,8 @@ setup(name='py-fortress',
       author='Symas Corporation',
       author_email='smckinney@symas.com,ebackes@symas.com',
       license='Apache License 2.0',      
-      packages=['pyfortress', 'pyfortress.doc', 'pyfortress.impl', 'pyfortress.ldap', 'pyfortress.model', 'pyfortress.test', 'pyfortress.util'],
-      #packages=find_packages(exclude=['pyfortress.env', 'pyfortress.file']),      
+      packages=['src', 'src.doc', 'src.impl', 'src.ldap', 'src.model', 'src.test', 'src.util'],
+      #packages=find_packages(exclude=['src.env', 'src.file']),
 
       package_data={
         # If any package contains *.txt or *.rst files, include them:
@@ -43,12 +43,12 @@ setup(name='py-fortress',
         'Topic :: Software Development :: Libraries :: Python Modules',          
       ],
       keywords='authorization rbac security', 
-      #namespace_packages=['pyfortress'],
+      #namespace_packages=['src'],
       entry_points={
        'console_scripts': [
-           'initldap = pyfortress.test.test_dit_dao:main',
-           'cli = pyfortress.test.cli:main',
-           'clitest = pyfortress.test.cli_test_auth:main',           
+           'initldap = src.test.test_dit_dao:main',
+           'cli = src.test.cli:main',
+           'clitest = src.test.cli_test_auth:main',
         ],
       },           
       zip_safe=False)

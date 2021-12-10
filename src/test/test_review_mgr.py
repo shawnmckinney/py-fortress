@@ -6,9 +6,9 @@ Created on Mar 18, 2018
 '''
 
 import unittest
-from pyfortress.impl import review_mgr
-from pyfortress.model import User, Role, Perm
-from pyfortress.test import print_ln, print_entity
+from src.impl import review_mgr
+from src.model import User, Role, Perm
+from src.test import print_ln, print_entity
 
 
 class BasicTestSuite(unittest.TestCase):

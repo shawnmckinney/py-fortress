@@ -124,7 +124,7 @@ These are simple tests designed to instruct API usage.
     $ python3 -m pyfortress.test.test_samples 
     ```
 
-2. View the [test_samples](../test/test_samples.py) and learn how RBAC APIs work.
+2. View the [test_samples](src/test/test_samples.py) and learn how RBAC APIs work.
 
 __________________________________________________________________________________
 ## SECTION 5. View the Test Data using Command Line Interpreter (CLI)

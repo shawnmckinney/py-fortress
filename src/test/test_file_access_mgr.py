@@ -1,7 +1,7 @@
 import unittest
-from pyfortress.file import userdao,roledao,permdao,fileex,access_mgr
-from pyfortress.model import User
-from pyfortress.test import print_ln,print_entity
+from src.file import userdao,roledao,permdao,fileex,access_mgr
+from src.model import User
+from src.test import print_ln,print_entity
 
 class TestAccessMgr(unittest.TestCase):
     """

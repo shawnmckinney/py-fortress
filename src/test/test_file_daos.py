@@ -1,9 +1,9 @@
 import unittest
-from pyfortress.model import User,Perm
-from pyfortress.test import print_user, print_role, print_ln, print_entity
+from src.model import User,Perm
+from src.test import print_user, print_role, print_ln, print_entity
 from json import dumps
 
-from pyfortress.file import userdao,permdao,fileex
+from src.file import userdao,permdao,fileex
 
 class TestDaos(unittest.TestCase):
     """
