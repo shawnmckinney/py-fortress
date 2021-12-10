@@ -1,4 +1,4 @@
-#import pyfortress
+#import src
 from .config import Config
 from .logger import logger
 from .validator import Validator
