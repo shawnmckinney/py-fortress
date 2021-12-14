@@ -6,9 +6,12 @@ Created on Feb 16, 2018
 '''
 
 import uuid    
-from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE
+import ldap
+from ldap import MOD_REPLACE, MOD_ADD, MOD_DELETE
+from ldap.cidict import cidict as CIDict
 from ..model import Perm, PermObj
 from ..ldap import ldaphelper, NotFound, NotUnique
+from ..ldap.ldaphelper import add_to_modlist, mods_to_modlist
 from ..util import global_ids
 from ..util import FortressError
 
@@ -36,15 +39,11 @@ def search (entity):
     search_filter += ')'           
     try:
         conn = ldaphelper.open()
-        id = conn.search(__CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
-        response = ldaphelper.get_response(conn, id)         
-        total_entries = len(response)        
+        entries = conn.search_s(__CONTAINER_DN, scope=ldap.SCOPE_SUBTREE, filterstr=search_filter, attrlist=SEARCH_ATTRS)
+        for dn, attrs in entries:
+            permList.append(__unload(dn, attrs))
     except Exception as e:
         raise FortressError(msg='Perm search error=' + str(e), id=global_ids.PERM_SEARCH_FAILED)
-    else:        
-        if total_entries > 0:
-            for entry in response:
-                permList.append(__unload(entry))
     finally:
         if conn:        
             ldaphelper.close(conn)
@@ -68,15 +67,11 @@ def search_objs (entity):
     search_filter += '(' + OBJ_NM + '=' + entity.obj_name + '))'           
     try:
         conn = ldaphelper.open()
-        id = conn.search(__CONTAINER_DN, search_filter, attributes=SEARCH_OBJ_ATTRS)
-        response = ldaphelper.get_response(conn, id)         
-        total_entries = len(response)        
+        entries = conn.search_s(__CONTAINER_DN, scope=ldap.SCOPE_SUBTREE, filterstr=search_filter, attrlist=SEARCH_ATTRS)
+        for dn, attrs in entries:
+            permList.append(__unload_obj(dn, attrs))
     except Exception as e:
         raise FortressError(msg='PermObj search error=' + str(e), id=global_ids.PERM_SEARCH_FAILED)
-    else:        
-        if total_entries > 0:
-            for entry in response:
-                permList.append(__unload_obj(entry))
     finally:
         if conn:        
             ldaphelper.close(conn)
@@ -98,54 +93,56 @@ def search_on_roles (roles):
     search_filter += end_filter                    
     try:
         conn = ldaphelper.open()
-        id = conn.search(__CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
-        response = ldaphelper.get_response(conn, id)         
-        total_entries = len(response)        
+        entries = conn.search_s(__CONTAINER_DN, scope=ldap.SCOPE_SUBTREE, filterstr=search_filter, attrlist=SEARCH_ATTRS)
+        for dn, attrs in entries:
+            permList.append(__unload(dn, attrs))
     except Exception as e:
         raise FortressError(msg='Perm Search Roles error=' + str(e), id=global_ids.PERM_ROLE_SEARCH_FAILED)
-    else:        
-        if total_entries > 0:
-            for entry in response:
-                permList.append(__unload(entry))
     finally:
         if conn:        
             ldaphelper.close(conn)
     return permList
 
 
-def __unload(entry):
+def __unload(dn, attrs):
     entity = Perm()
-    entity.dn = ldaphelper.get_dn(entry)
-    
-    entity.internal_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.INTERNAL_ID])
-    entity.obj_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][OBJ_ID])
-    entity.obj_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][OBJ_NM])
-    entity.op_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][OP_NM])
-    entity.abstract_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][PERM_NAME])
-    entity.type = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][TYPE])
-    entity.description = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.DESC])
+    entity.dn = dn
+
+    attrs = CIDict(attrs)
+
+    entity.internal_id = ldaphelper.get_attr_val(attrs.get(global_ids.INTERNAL_ID, []))
+    entity.obj_id = ldaphelper.get_attr_val(attrs.get(OBJ_ID, []))
+    entity.obj_name = ldaphelper.get_attr_val(attrs.get(OBJ_NM, []))
+    entity.op_name = ldaphelper.get_attr_val(attrs.get(OP_NM, []))
+    entity.abstract_name = ldaphelper.get_attr_val(attrs.get(PERM_NAME, []))
+    entity.type = ldaphelper.get_attr_val(attrs.get(TYPE, []))
+    entity.description = ldaphelper.get_one_attr_val(attrs.get(global_ids.DESC, []))
     # Get the multi-occurring attrs:
-    entity.users = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][USERS])    
-    entity.roles = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][ROLES])
-    entity.props = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][global_ids.PROPS])
+    entity.users = ldaphelper.get_list(attrs.get(USERS, []))
+    entity.roles = ldaphelper.get_list(attrs.get(ROLES, []))
+    entity.props = ldaphelper.get_list(attrs.get(global_ids.PROPS, []))
     return entity
 
 
-def __unload_obj(entry):
+def __unload_obj(dn, attrs):
     entity = PermObj()
-    entity.dn = ldaphelper.get_dn(entry)    
-    entity.internal_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.INTERNAL_ID])
-    entity.obj_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][OBJ_NM])
-    entity.type = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][TYPE])
-    entity.description = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.DESC])
-    entity.ou = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.OU])    
-    entity.props = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][global_ids.PROPS])
+
+    attrs = CIDict(attrs)
+
+    entity.dn = dn
+    entity.internal_id = ldaphelper.get_attr_val(attrs.get(global_ids.INTERNAL_ID, []))
+    entity.obj_name = ldaphelper.get_attr_val(attrs.get(OBJ_NM, []))
+    entity.type = ldaphelper.get_attr_val(attrs.get(TYPE, []))
+    entity.description = ldaphelper.get_one_attr_val(attrs.get(global_ids.DESC, []))
+    entity.ou = ldaphelper.get_one_attr_val(attrs.get(global_ids.OU, []))
+    entity.props = ldaphelper.get_list(attrs.get(global_ids.PROPS, []))
     return entity
 
 
 def create ( entity ):
     try:
         attrs = {}
+        attrs.update( {'objectClass': PERM_OCS} )
         attrs.update( {OBJ_NM : entity.obj_name} )
         attrs.update( {OP_NM : entity.op_name} )
         entity.abstract_name = entity.obj_name + '.' + entity.op_name        
@@ -170,15 +167,13 @@ def create ( entity ):
         if entity.roles is not None and len(entity.roles) > 0 :        
             attrs.update( {ROLES : entity.roles} )
         conn = ldaphelper.open()        
-        id = conn.add(__get_dn(entity), PERM_OCS, attrs)
+        conn.add_s(__get_dn(entity), add_to_modlist(attrs))
+    except ldap.ALREADY_EXISTS:
+        raise NotUnique(msg='Perm create failed, already exists:' + entity.obj_name, id=global_ids.PERM_ADD_FAILED)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='Perm create failed result=' + str(e), id=global_ids.PERM_ADD_FAILED)
     except Exception as e:
         raise FortressError(msg='Perm create error=' + str(e), id=global_ids.PERM_ADD_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='Perm create failed, already exists:' + entity.obj_name, id=global_ids.PERM_ADD_FAILED)             
-        elif result != 0:
-            raise FortressError(msg='Perm create failed result=' + str(result), id=global_ids.PERM_ADD_FAILED)                    
     return entity
 
 
@@ -186,42 +181,38 @@ def update ( entity ):
     try:
         attrs = {}
         if entity.description:        
-            attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )            
+            attrs.update( {global_ids.DESC : [(MOD_REPLACE, [entity.description])]} )
         if entity.type:        
-            attrs.update( {TYPE : [(MODIFY_REPLACE, [entity.type])]} )
+            attrs.update( {TYPE : [(MOD_REPLACE, [entity.type])]} )
         # list of strings:
         if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
+            attrs.update( {global_ids.PROPS : [(MOD_REPLACE, entity.props)]} )
         if entity.users is not None and len(entity.users) > 0 :        
-            attrs.update( {USERS : [(MODIFY_REPLACE, entity.users)]} )        
+            attrs.update( {USERS : [(MOD_REPLACE, entity.users)]} )
         if entity.roles is not None and len(entity.roles) > 0 :        
-            attrs.update( {ROLES : [(MODIFY_REPLACE, entity.roles)]} )
+            attrs.update( {ROLES : [(MOD_REPLACE, entity.roles)]} )
         if len(attrs) > 0:            
             conn = ldaphelper.open()                
-            id = conn.modify(__get_dn(entity), attrs)
+            conn.modify_s(__get_dn(entity), attrs_to_modlist(attrs))
+    except ldap.NO_SUCH_OBJECT:
+        raise NotFound(msg='Perm update failed, not found:' + entity.obj_name, id=global_ids.PERM_OP_NOT_FOUND)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='Perm update failed result=' + str(e), id=global_ids.PERM_UPDATE_FAILED)
     except Exception as e:
         raise FortressError(msg='Perm update error=' + str(e), id=global_ids.PERM_UPDATE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='Perm update failed, not found:' + entity.obj_name, id=global_ids.PERM_OP_NOT_FOUND)             
-        elif result != 0:
-            raise FortressError(msg='Perm update failed result=' + str(result), id=global_ids.PERM_UPDATE_FAILED)                    
     return entity
 
 
 def delete ( entity ):
     try:
         conn = ldaphelper.open()        
-        id = conn.delete(__get_dn(entity))
+        conn.delete_s(__get_dn(entity))
+    except ldap.NO_SUCH_OBJECT:
+        raise NotFound(msg='Perm delete not found:' + entity.obj_name, id=global_ids.PERM_OP_NOT_FOUND)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='Perm delete failed result=' + str(e), id=global_ids.PERM_DELETE_FAILED)
     except Exception as e:
         raise FortressError(msg='Perm delete error=' + str(e), id=global_ids.PERM_DELETE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='Perm delete not found:' + entity.obj_name, id=global_ids.PERM_OP_NOT_FOUND)                    
-        elif result != 0:
-            raise FortressError(msg='Perm delete failed result=' + str(result), id=global_ids.PERM_DELETE_FAILED)                    
     return entity
 
 
@@ -230,22 +221,20 @@ def grant ( entity, role ):
         attrs = {}
         # constraint type:
         if role is not None:
-            attrs.update( {ROLES : [(MODIFY_ADD, role.name)]} )                                     
-            conn = ldaphelper.open()                
-            id = conn.modify(__get_dn(entity), attrs)
+            attrs.update( {ROLES : [(MOD_ADD, role.name)]} )
+            conn = ldaphelper.open()
+            conn.modify_s(__get_dn(entity), attrs_to_modlist(attrs))
+    except ldap.NO_SUCH_OBJECT:
+        raise NotFound(msg='Perm grant failed, not found, obj name='
+                            +  entity.obj_name + ', op_name='
+                            + entity.op_name
+                            + ', op id=' + entity.obj_id
+                            + ', role='+ role.name,
+                            id=global_ids.PERM_OP_NOT_FOUND)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='Perm grant failed result=' + str(e), id=global_ids.PERM_GRANT_FAILED)
     except Exception as e:
         raise FortressError(msg='Perm grant error=' + str(e), id=global_ids.PERM_GRANT_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='Perm grant failed, not found, obj name=' 
-                                +  entity.obj_name + ', op_name=' 
-                                + entity.op_name 
-                                + ', op id=' + entity.obj_id 
-                                + ', role='+ role.name, 
-                                id=global_ids.PERM_OP_NOT_FOUND)             
-        elif result != 0:
-            raise FortressError(msg='Perm grant failed result=' + str(result), id=global_ids.PERM_GRANT_FAILED)                    
     return entity
 
 
@@ -254,37 +243,36 @@ def revoke ( entity, role ):
         attrs = {}
         # constraint type:
         if role is not None:
-            attrs.update( {ROLES : [(MODIFY_DELETE, role.name)]} )                                     
-            conn = ldaphelper.open()                
-            id = conn.modify(__get_dn(entity), attrs)
+            attrs.update( {ROLES : [(MOD_DELETE, role.name)]} )
+            conn = ldaphelper.open()
+            conn.modify_s(__get_dn(entity), attrs_to_modlist(attrs))
+    except ldap.NO_SUCH_OBJECT:
+        raise FortressError(msg='Perm not found, obj name='
+                            +  entity.obj_name
+                            + ', op_name='
+                            + entity.op_name
+                            + ', role='
+                            + role.name,
+                            id=global_ids.PERM_NOT_EXIST)
+    except ldap.NO_SUCH_ATTRIBUTE:
+        raise FortressError(msg='Perm revoke failed, not granted, obj name='
+                            +  entity.obj_name
+                            + ', op_name='
+                            + entity.op_name
+                            + ', role='
+                            + role.name,
+                            id=global_ids.PERM_ROLE_NOT_EXIST)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='Perm revoke failed result=' + str(e), id=global_ids.PERM_REVOKE_FAILED)
     except Exception as e:
         raise FortressError(msg='Perm revoke error=' + str(e), id=global_ids.PERM_REVOKE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NO_SUCH_ATTRIBUTE:
-            raise FortressError(msg='Perm revoke failed, not granted, obj name=' 
-                                +  entity.obj_name 
-                                + ', op_name=' 
-                                + entity.op_name 
-                                + ', role='
-                                + role.name, 
-                                id=global_ids.PERM_ROLE_NOT_EXIST)            
-        elif result == global_ids.NOT_FOUND:
-            raise FortressError(msg='Perm not found, obj name=' 
-                                +  entity.obj_name 
-                                + ', op_name=' 
-                                + entity.op_name 
-                                + ', role='
-                                + role.name, 
-                                id=global_ids.PERM_NOT_EXIST)            
-        elif result != 0:
-            raise FortressError(msg='Perm revoke failed result=' + str(result), id=global_ids.PERM_REVOKE_FAILED)                    
     return entity
 
 
 def create_obj ( entity ):
     try:
         attrs = {}
+        attrs.update( {'objectClass': PERM_OBJ_OCS} )
         attrs.update( {OBJ_NM : entity.obj_name} )
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
@@ -301,60 +289,51 @@ def create_obj ( entity ):
         if entity.props is not None and len(entity.props) > 0 :        
             attrs.update( {global_ids.PROPS : entity.props} )
         conn = ldaphelper.open()        
-        id = conn.add(__get_obj_dn(entity), PERM_OBJ_OCS, attrs)
+        conn.add_s(__get_obj_dn(entity), add_to_modlist(attrs))
+    except ldap.ALREADY_EXISTS:
+        raise NotUnique(msg='PermObj create failed, already exists:' + entity.uid, id=global_ids.PERM_ADD_FAILED)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='PermObj create failed result=' + str(e), id=global_ids.PERM_ADD_FAILED)
     except Exception as e:
         raise FortressError(msg='PermObj create error=' + str(e), id=global_ids.PERM_ADD_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='PermObj create failed, already exists:' + entity.obj_name, id=global_ids.PERM_DUPLICATE)             
-        elif result != 0:
-            raise FortressError(msg='PermObj create failed result=' + str(result), id=global_ids.PERM_ADD_FAILED)                    
     return entity
 
 
 def update_obj ( entity ):
     conn = None
-    id = 0
     try:
         attrs = {}        
         if entity.ou:        
-            attrs.update( {global_ids.OU : [(MODIFY_REPLACE, [entity.ou])]} )
+            attrs.update( {global_ids.OU : [(MOD_REPLACE, [entity.ou])]} )
         if entity.description:        
-            attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )            
+            attrs.update( {global_ids.DESC : [(MOD_REPLACE, [entity.description])]} )
         if entity.type:        
-            attrs.update( {TYPE : [(MODIFY_REPLACE, [entity.type])]} )
+            attrs.update( {TYPE : [(MOD_REPLACE, [entity.type])]} )
         # list of comma delimited strings:
-        if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
+        if entity.props is not None and len(entity.props) > 0 :
+            attrs.update( {global_ids.PROPS : [(MOD_REPLACE, entity.props)]} )
         if len(attrs) > 0:            
             conn = ldaphelper.open()                
-            id = conn.modify(__get_obj_dn(entity), attrs)
+            conn.modify_s(__get_obj_dn(entity), attrs_to_modlist(attrs))
+    except ldap.NO_SUCH_OBJECT:
+        raise NotFound(msg='PermObj update failed, not found:' + entity.obj_name, id=global_ids.PERM_OBJ_NOT_FOUND)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='PermObj update failed result=' + str(e), id=global_ids.PERM_UPDATE_FAILED)
     except Exception as e:
         raise FortressError(msg='PermObj update error=' + str(e), id=global_ids.PERM_UPDATE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='PermObj update failed, not found:' + entity.obj_name, id=global_ids.PERM_OBJ_NOT_FOUND)             
-        elif result != 0:
-            raise FortressError(msg='PermObj update failed result=' + str(result), id=global_ids.PERM_UPDATE_FAILED)                    
     return entity
 
 
 def delete_obj ( entity ):
     try:
         conn = ldaphelper.open()        
-        id = conn.delete(__get_obj_dn(entity))
+        conn.delete_s(__get_obj_dn(entity))
+    except ldap.NO_SUCH_OBJECT:
+        raise NotFound(msg='PermObj delete not found:' + entity.obj_name, id=global_ids.PERM_OBJ_NOT_FOUND)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='PermObj delete failed result=' + str(e), id=global_ids.PERM_DELETE_FAILED)
     except Exception as e:
         raise FortressError(msg='PermObj delete error=' + str(e), id=global_ids.PERM_DELETE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='PermObj delete not found:' + entity.obj_name, id=global_ids.PERM_OBJ_NOT_FOUND)
-        elif result == global_ids.NOT_ALLOWED_ON_NONLEAF:
-            raise FortressError(msg='PermObj has children.', id=global_ids.PERM_OBJECT_DELETE_FAILED_NONLEAF)                                
-        elif result != 0:
-            raise FortressError(msg='PermObj delete failed result=' + str(result), id=global_ids.PERM_DELETE_FAILED)                    
     return entity
 
 
@@ -369,6 +348,17 @@ def __get_dn(entity):
     else:
         dn = OP_NM + '=' + entity.op_name + ',' + __get_obj_dn(entity)
     return dn
+
+
+def attrs_to_modlist(attrs):
+    result = []
+    for attr, mods in attrs.items():
+        for op, vals in mods:
+            if not isinstance(vals, (tuple, list)):
+                vals = [vals]
+            vals = [v.encode() if isinstance(v, str) else v for v in vals]
+            result.append((op, attr, vals))
+    return result
 
 
 PERM_OC_NAME = 'ftOperation'

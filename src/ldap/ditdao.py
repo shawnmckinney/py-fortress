@@ -5,7 +5,9 @@ Created on Mar 21, 2018
 @copyright: 2018 - Symas Corporation
 '''
 
+import ldap
 from ..ldap import ldaphelper, NotFound, NotUnique
+from ..ldap.ldaphelper import add_to_modlist
 from ..util import Config, global_ids
 from ..util import FortressError
 from ..util import logger
@@ -15,67 +17,61 @@ def create_ou (name, desc=None):
     __validate(name) 
     try:
         attrs = {}
+        attrs.update( {'objectClass': OU_OCS} )
         attrs.update( {OU_NAME : name} )
         if not desc:
             desc = 'py-fortress Container ' + name
         attrs.update( {global_ids.DESC : desc} )
         conn = ldaphelper.open()  
-        id = conn.add(ldaphelper.get_container_dn(name), OU_OCS, attrs)
+        conn.add_s(ldaphelper.get_container_dn(name), add_to_modlist(attrs))
     except Exception as e:
         raise FortressError(msg='OU create error=' + str(e), id=global_ids.CNTR_CREATE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='OU create failed, already exists:' + name, id=global_ids.CNTR_ALREADY_EXISTS)             
-        elif result != 0:
-            raise FortressError(msg='OU create failed result=' + str(result), id=global_ids.CNTR_CREATE_FAILED)
+    except ldap.ALREADY_EXISTS:
+        raise NotUnique(msg='OU create failed, already exists:' + name, id=global_ids.CNTR_ALREADY_EXISTS)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='OU create failed result=' + str(e), id=global_ids.CNTR_CREATE_FAILED)
 
 
 def delete_ou ( name ):
     __validate(name)   
     try:
         conn = ldaphelper.open()       
-        id = conn.delete(ldaphelper.get_container_dn(name))
+        conn.delete_s(ldaphelper.get_container_dn(name))
+    except ldap.NO_SUCH_OBJECT:
+        raise NotFound(msg='OU delete not found:' + name, id=global_ids.CNTR_NOT_FOUND)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='OU delete failed result=' + str(e), id=global_ids.CNTR_DELETE_FAILED)
     except Exception as e:
         raise FortressError(msg='OU delete error=' + str(e), id=global_ids.CNTR_DELETE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='OU delete not found:' + name, id=global_ids.CNTR_NOT_FOUND)                    
-        elif result != 0:
-            raise FortressError(msg='OU delete failed result=' + str(result), id=global_ids.CNTR_DELETE_FAILED)
 
 
 def create_suffix ( name ):
     dn = DC_NAME + '=' + name + ',' + DC_NAME + '=com'
     try:
         attrs = {}
+        attrs.update( {'objectClass': SUFX_OCS} )
         attrs.update( {DC_NAME : name} )
         attrs.update( {O : name} )
         conn = ldaphelper.open()        
-        id = conn.add(dn, SUFX_OCS, attrs)
+        conn.add_s(dn, add_to_modlist(attrs))
+    except Exception as e:
+        raise NotUnique(msg='Suffix create failed, already exists:' + dn, id=global_ids.SUFX_ALREADY_EXISTS)
+    except ldap.ALREADY_EXISTS:
+        raise FortressError(msg='Suffix create failed, dn=' + dn + ', result=' + str(e), id=global_ids.SUFX_CREATE_FAILED)
     except Exception as e:
         raise FortressError(msg='Suffix create dn=' + dn + ', error=' + str(e), id=global_ids.SUFX_CREATE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='Suffix create failed, already exists:' + dn, id=global_ids.SUFX_ALREADY_EXISTS)             
-        elif result != 0:
-            raise FortressError(msg='Suffix create failed, dn=' + dn + ', result=' + str(result), id=global_ids.SUFX_CREATE_FAILED)
 
 
 def delete_suffix ():
     try:
         conn = ldaphelper.open()        
-        id = conn.delete(__SUFX_DN)
+        conn.delete_s(__SUFX_DN)
+    except ldap.NO_SUCH_OBJECT:
+        raise NotFound(msg='Suffix delete not found dn=' + __SUFX_DN, id=global_ids.SUFX_NOT_EXIST)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='Suffix delete failed, dn=' + __SUFX_DN + ', result=' + str(e), id=global_ids.SUFX_DELETE_FAILED)
     except Exception as e:
         raise FortressError(msg='Suffix delete failed, dn=' + __SUFX_DN + ', error=' + str(e), id=global_ids.SUFX_DELETE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='Suffix delete not found dn=' + __SUFX_DN, id=global_ids.SUFX_NOT_EXIST)                    
-        elif result != 0:
-            raise FortressError(msg='Suffix delete failed, dn=' + __SUFX_DN + ', result=' + str(result), id=global_ids.SUFX_DELETE_FAILED)
 
 
 def bootstrap ():

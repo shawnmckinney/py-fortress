@@ -14,7 +14,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(name='py-fortress',
       version='0.0.7',
-      python_requires='>=3',
+      python_requires='>=3.6',
       description='RBAC for Python',
       long_description=long_description,
       long_description_content_type="text/markdown",
@@ -31,7 +31,7 @@ setup(name='py-fortress',
       },     
       
       install_requires=[
-          'ldap3'
+          'python-ldap'
       ],      
       classifiers=[
         'Development Status :: 3 - Alpha',

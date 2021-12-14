@@ -6,9 +6,12 @@ Created on Feb 10, 2018
 '''
     
 import uuid
-from ldap3 import MODIFY_REPLACE, MODIFY_ADD, MODIFY_DELETE    
+import ldap
+from ldap import MOD_REPLACE, MOD_ADD, MOD_DELETE
+from ldap.cidict import cidict as CIDict
 from ..model import User, Constraint
 from ..ldap import ldaphelper, NotFound, NotUnique, InvalidCredentials
+from ..ldap.ldaphelper import add_to_modlist, mods_to_modlist
 from ..util import global_ids
 from ..util import FortressError
 
@@ -28,14 +31,12 @@ def authenticate (entity):
     result = False            
     try:        
         conn = ldaphelper.open_user(__get_dn(entity), entity.password)
-        result = conn.bind()
+        # result = conn.bind() # TODO: WTH?
     except Exception as e:
         raise FortressError(msg='User Authenticate error for uid=' + entity.uid + ', LDAP error=' + str(e), id=global_ids.USER_PW_CHK_FAILED)
     finally:
         if conn:        
             ldaphelper.close_user(conn)
-    if result is False:
-        raise InvalidCredentials(msg="User Authenticate invalid creds, uid=" + entity.uid, id=global_ids.USER_PW_INVLD)        
     return True
 
 
@@ -50,15 +51,11 @@ def search (entity):
     search_filter += ')'           
     try:
         conn = ldaphelper.open()
-        id = conn.search(CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
-        response = ldaphelper.get_response(conn, id)         
-        total_entries = len(response)        
+        entries = conn.search_s(CONTAINER_DN, scope=ldap.SCOPE_SUBTREE, filterstr=search_filter, attrlist=SEARCH_ATTRS)
+        for dn, attrs in entries:
+            userList.append(__unload(dn, attrs))
     except Exception as e:
         raise FortressError(msg='User Search error=' + str(e))    
-    else:        
-        if total_entries > 0:
-            for entry in response:
-                userList.append(__unload(entry))
     finally:
         if conn:        
             ldaphelper.close(conn)
@@ -80,57 +77,56 @@ def search_on_roles (roles):
     search_filter += end_filter                    
     try:
         conn = ldaphelper.open()
-        id = conn.search(CONTAINER_DN, search_filter, attributes=SEARCH_ATTRS)
-        response = ldaphelper.get_response(conn, id)         
-        total_entries = len(response)        
+        entries = conn.search_s(CONTAINER_DN, scope=ldap.SCOPE_SUBTREE, filterstr=search_filter, attrlist=SEARCH_ATTRS)
+        for dn, attrs in entries:
+            userList.append(__unload(dn, attrs))
     except Exception as e:
         raise FortressError(msg='User Search Roles error=' + str(e), id=global_ids.URLE_SEARCH_FAILED)
-    else:        
-        if total_entries > 0:
-            for entry in response:
-                userList.append(__unload(entry))
     finally:
         if conn:        
             ldaphelper.close(conn)
     return userList
 
 
-def __unload(entry):
+def __unload(dn, attrs):
     entity = User()
-    entity.dn = ldaphelper.get_dn(entry)        
-    entity.uid = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.UID])
-    entity.ou = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.OU])  
-    entity.internal_id = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.INTERNAL_ID])    
-    entity.pw_policy = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][PW_POLICY])
-    entity.cn = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.CN])
-    entity.sn = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.SN])
-    entity.description = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][global_ids.DESC])
-    entity.display_name = ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][DISPLAY_NAME])
-    entity.employee_type = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][EMPLOYEE_TYPE])
-    entity.title = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][TITLE])
-    entity.reset = ldaphelper.get_bool(entry[global_ids.ATTRIBUTES][IS_RESET])
-    entity.system = ldaphelper.get_bool(entry[global_ids.ATTRIBUTES][IS_SYSTEM])
-    entity.department_number = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][DEPT_NUM])
-    entity.l = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][LOCATION])
-    entity.physical_delivery_office_name = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][PHYSICAL_OFFICE_NM])
-    entity.postal_code = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][POSTAL_CODE])
-    entity.room_number = ldaphelper.get_one_attr_val(entry[global_ids.ATTRIBUTES][RM_NUM])
+    entity.dn = dn
+
+    attrs = CIDict(attrs)
+
+    entity.uid = ldaphelper.get_one_attr_val(attrs.get(global_ids.UID, []))
+    entity.ou = ldaphelper.get_one_attr_val(attrs.get(global_ids.OU, []))
+    entity.internal_id = ldaphelper.get_attr_val(attrs.get(global_ids.INTERNAL_ID, []))
+    entity.pw_policy = ldaphelper.get_attr_val(attrs.get(PW_POLICY, []))
+    entity.cn = ldaphelper.get_one_attr_val(attrs.get(global_ids.CN, []))
+    entity.sn = ldaphelper.get_one_attr_val(attrs.get(global_ids.SN, []))
+    entity.description = ldaphelper.get_one_attr_val(attrs.get(global_ids.DESC, []))
+    entity.display_name = ldaphelper.get_attr_val(attrs.get(DISPLAY_NAME, []))
+    entity.employee_type = ldaphelper.get_one_attr_val(attrs.get(EMPLOYEE_TYPE, []))
+    entity.title = ldaphelper.get_one_attr_val(attrs.get(TITLE, []))
+    entity.reset = ldaphelper.get_bool(attrs.get(IS_RESET, []))
+    entity.system = ldaphelper.get_bool(attrs.get(IS_SYSTEM, []))
+    entity.department_number = ldaphelper.get_one_attr_val(attrs.get(DEPT_NUM, []))
+    entity.l = ldaphelper.get_one_attr_val(attrs.get(LOCATION, []))
+    entity.physical_delivery_office_name = ldaphelper.get_one_attr_val(attrs.get(PHYSICAL_OFFICE_NM, []))
+    entity.postal_code = ldaphelper.get_one_attr_val(attrs.get(POSTAL_CODE, []))
+    entity.room_number = ldaphelper.get_one_attr_val(attrs.get(RM_NUM, []))
 
     # Get the attr as object:
-    entity.locked_time = ldaphelper.get_attr_object(entry[global_ids.ATTRIBUTES][LOCKED_TIME])
+    entity.locked_time = ldaphelper.get_attr_object(attrs.get(LOCKED_TIME, []))
 
     # Get the multi-occurring attrs:
-    entity.props = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][global_ids.PROPS])    
-    entity.phones = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][TELEPHONE_NUMBER])
-    entity.mobiles = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][MOBILE])
-    entity.emails = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][MAIL])
-    entity.roles = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][ROLES])
-    
+    entity.props = ldaphelper.get_list(attrs.get(global_ids.PROPS, []))
+    entity.phones = ldaphelper.get_list(attrs.get(TELEPHONE_NUMBER, []))
+    entity.mobiles = ldaphelper.get_list(attrs.get(MOBILE, []))
+    entity.emails = ldaphelper.get_list(attrs.get(MAIL, []))
+    entity.roles = ldaphelper.get_list(attrs.get(ROLES, []))
+
     # unload raw user constraint:
-    entity.constraint = Constraint(ldaphelper.get_attr_val(entry[global_ids.ATTRIBUTES][global_ids.CONSTRAINT]))
-    
-    # now, unload raw user-role constraints:    
-    rcsRaw = ldaphelper.get_list(entry[global_ids.ATTRIBUTES][ROLE_CONSTRAINTS])
+    entity.constraint = Constraint(ldaphelper.get_attr_val(attrs.get(global_ids.CONSTRAINT, [])))
+
+    # now, unload raw user-role constraints:
+    rcsRaw = ldaphelper.get_list(attrs.get(ROLE_CONSTRAINTS, []))
     if rcsRaw is not None :
         entity.role_constraints = []
         for rcRaw in rcsRaw :
@@ -142,6 +138,7 @@ def __unload(entry):
 def create ( entity ):
     try:
         attrs = {}
+        attrs.update( {'objectClass': USER_OCS} )
         attrs.update( {global_ids.UID : entity.uid} )
         # generate random id:
         entity.internal_id = str(uuid.uuid4())
@@ -181,7 +178,7 @@ def create ( entity ):
             attrs.update( {PW_POLICY : entity.pw_policy} )
         # boolean:
         if entity.system is not None :        
-            attrs.update( {IS_SYSTEM : entity.system} )
+            attrs.update( {IS_SYSTEM : 'TRUE' if entity.system else 'FALSE'} )
         # list of strings:
         if entity.phones is not None and len(entity.phones) > 0 :        
             attrs.update( {TELEPHONE_NUMBER : entity.phones} )
@@ -196,15 +193,13 @@ def create ( entity ):
             attrs.update( {global_ids.CONSTRAINT : entity.constraint.get_raw()} )
             
         conn = ldaphelper.open()     
-        id = conn.add(__get_dn(entity), USER_OCS, attrs)
+        conn.add_s(__get_dn(entity), add_to_modlist(attrs))
+    except ldap.ALREADY_EXISTS:
+        raise NotUnique(msg='User create failed, already exists:' + entity.uid, id=global_ids.USER_ADD_FAILED)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='User create failed result=' + str(e), id=global_ids.USER_ADD_FAILED)
     except Exception as e:
         raise FortressError(msg='User create error=' + str(e), id=global_ids.USER_ADD_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.OBJECT_ALREADY_EXISTS:
-            raise NotUnique(msg='User create failed, already exists:' + entity.uid, id=global_ids.USER_ADD_FAILED)             
-        elif result != 0:
-            raise FortressError(msg='User create failed result=' + str(result), id=global_ids.USER_ADD_FAILED)                    
     return entity
 
 
@@ -213,78 +208,74 @@ def update ( entity ):
         attrs = {}
         # strings:                
         if entity.cn:
-            attrs.update( {global_ids.CN : [(MODIFY_REPLACE, [entity.cn])]} )
+            attrs.update( {global_ids.CN : [(MOD_REPLACE, [entity.cn])]} )
         if entity.sn:
-            attrs.update( {global_ids.SN : [(MODIFY_REPLACE, [entity.sn])]} )
+            attrs.update( {global_ids.SN : [(MOD_REPLACE, [entity.sn])]} )
         if entity.password:                
-            attrs.update( {PW : [(MODIFY_REPLACE, [entity.password])]} )
+            attrs.update( {PW : [(MOD_REPLACE, [entity.password])]} )
         if entity.description:        
-            attrs.update( {global_ids.DESC : [(MODIFY_REPLACE, [entity.description])]} )
+            attrs.update( {global_ids.DESC : [(MOD_REPLACE, [entity.description])]} )
         if entity.ou:        
-            attrs.update( {global_ids.OU : [(MODIFY_REPLACE, [entity.ou])]} )
+            attrs.update( {global_ids.OU : [(MOD_REPLACE, [entity.ou])]} )
         if entity.display_name:        
-            attrs.update( {DISPLAY_NAME : [(MODIFY_REPLACE, [entity.display_name])]} )
+            attrs.update( {DISPLAY_NAME : [(MOD_REPLACE, [entity.display_name])]} )
         if entity.employee_type:        
-            attrs.update( {EMPLOYEE_TYPE : [(MODIFY_REPLACE, entity.employee_type)]} )
+            attrs.update( {EMPLOYEE_TYPE : [(MOD_REPLACE, entity.employee_type)]} )
         if entity.title:        
-            attrs.update( {TITLE : [(MODIFY_REPLACE, [entity.title])]} )
+            attrs.update( {TITLE : [(MOD_REPLACE, [entity.title])]} )
         if entity.department_number:        
-            attrs.update( {DEPT_NUM : [(MODIFY_REPLACE, entity.department_number)]} )
+            attrs.update( {DEPT_NUM : [(MOD_REPLACE, entity.department_number)]} )
         if entity.l:        
-            attrs.update( {LOCATION : [(MODIFY_REPLACE, entity.l)]} )
+            attrs.update( {LOCATION : [(MOD_REPLACE, entity.l)]} )
         if entity.physical_delivery_office_name:        
-            attrs.update( {PHYSICAL_OFFICE_NM : [(MODIFY_REPLACE, entity.physical_delivery_office_name)]} )
+            attrs.update( {PHYSICAL_OFFICE_NM : [(MOD_REPLACE, entity.physical_delivery_office_name)]} )
         if entity.postal_code:        
-            attrs.update( {POSTAL_CODE : [(MODIFY_REPLACE, entity.postal_code)]} )
+            attrs.update( {POSTAL_CODE : [(MOD_REPLACE, entity.postal_code)]} )
         if entity.room_number:        
-            attrs.update( {RM_NUM : [(MODIFY_REPLACE, entity.room_number)]} )      
+            attrs.update( {RM_NUM : [(MOD_REPLACE, entity.room_number)]} )
         if entity.pw_policy:        
-            attrs.update( {PW_POLICY : [(MODIFY_REPLACE, entity.pw_policy)]} )
+            attrs.update( {PW_POLICY : [(MOD_REPLACE, entity.pw_policy)]} )
             
         # list of strings:
         if entity.phones is not None and len(entity.phones) > 0 :        
-            attrs.update( {TELEPHONE_NUMBER : [(MODIFY_REPLACE, entity.phones)]} )           
+            attrs.update( {TELEPHONE_NUMBER : [(MOD_REPLACE, entity.phones)]} )
         if entity.mobiles is not None and len(entity.mobiles) > 0 :        
-            attrs.update( {MOBILE : [(MODIFY_REPLACE, entity.mobiles)]} )
+            attrs.update( {MOBILE : [(MOD_REPLACE, entity.mobiles)]} )
         if entity.emails is not None and len(entity.emails) > 0 :        
-            attrs.update( {MAIL : [(MODIFY_REPLACE, entity.emails)]} )
+            attrs.update( {MAIL : [(MOD_REPLACE, entity.emails)]} )
         if entity.system is not None :        
-            attrs.update( {IS_SYSTEM : [(MODIFY_REPLACE, entity.system)]} )
+            attrs.update( {IS_SYSTEM : [(MOD_REPLACE, 'TRUE' if entity.system else 'FALSE')]} )
 
         # list of delimited strings::
         if entity.constraint is not None :        
-            attrs.update( {global_ids.CONSTRAINT : [(MODIFY_REPLACE, entity.constraint.get_raw())]} )
+            attrs.update( {global_ids.CONSTRAINT : [(MOD_REPLACE, entity.constraint.get_raw())]} )
             
         # boolean:
         if entity.props is not None and len(entity.props) > 0 :        
-            attrs.update( {global_ids.PROPS : [(MODIFY_REPLACE, entity.props)]} )
+            attrs.update( {global_ids.PROPS : [(MOD_REPLACE, entity.props)]} )
             
         if len(attrs) > 0:            
             conn = ldaphelper.open()                
-            id = conn.modify(__get_dn(entity), attrs)
+            conn.modify_s(__get_dn(entity), mods_to_modlist(attrs))
+    except ldap.NO_SUCH_OBJECT:
+        raise NotFound(msg='User update failed, not found:' + entity.name, id=global_ids.USER_UPDATE_FAILED)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='User update failed result=' + str(e), id=global_ids.USER_UPDATE_FAILED)
     except Exception as e:
         raise FortressError(msg='User update error=' + str(e), id=global_ids.USER_UPDATE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='User update failed, not found:' + entity.name, id=global_ids.USER_UPDATE_FAILED)             
-        elif result != 0:
-            raise FortressError(msg='User update failed result=' + str(result), id=global_ids.USER_UPDATE_FAILED)                    
     return entity
 
 
 def delete ( entity ):
     try:
         conn = ldaphelper.open()        
-        id = conn.delete(__get_dn(entity))
+        conn.delete_s(__get_dn(entity))
+    except ldap.NO_SUCH_OBJECT:
+        raise FortressError(msg='User delete not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='User delete failed result=' + str(e), id=global_ids.USER_DELETE_FAILED)
     except Exception as e:
         raise FortressError(msg='User delete error=' + str(e), id=global_ids.USER_DELETE_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise FortressError(msg='User delete not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)                    
-        elif result != 0:
-            raise FortressError(msg='User delete failed result=' + str(result), id=global_ids.USER_DELETE_FAILED)                    
     return entity
 
 
@@ -292,19 +283,17 @@ def assign ( entity, constraint ):
     try:
         attrs = {}
         if constraint is not None:
-            attrs.update( {ROLE_CONSTRAINTS : [(MODIFY_ADD, constraint.get_raw())]} )
-            attrs.update( {ROLES : [(MODIFY_ADD, constraint.name)]} )                                     
+            attrs.update( {ROLE_CONSTRAINTS : [(MOD_ADD, constraint.get_raw())]} )
+            attrs.update( {ROLES : [(MOD_ADD, constraint.name)]} )
         if len(attrs) > 0:            
             conn = ldaphelper.open()                
-            id = conn.modify(__get_dn(entity), attrs)
+            conn.modify_s(__get_dn(entity), mods_to_modlist(attrs))
+    except ldap.NO_SUCH_OBJECT:
+        raise FortressError(msg='User assign failed, not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='User assign failed result=' + str(e), id=global_ids.URLE_ASSIGN_FAILED)
     except Exception as e:
         raise FortressError(msg='User assign error=' + str(e), id=global_ids.URLE_ASSIGN_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='User assign failed, not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)             
-        elif result != 0:
-            raise FortressError(msg='User assign failed result=' + str(result), id=global_ids.URLE_ASSIGN_FAILED)                    
     return entity
 
 
@@ -312,21 +301,19 @@ def deassign ( entity, constraint ):
     try:
         attrs = {}
         if constraint is not None:
-            attrs.update( {ROLE_CONSTRAINTS : [(MODIFY_DELETE, constraint.get_raw())]} )
-            attrs.update( {ROLES : [(MODIFY_DELETE, constraint.name)]} )                                     
+            attrs.update( {ROLE_CONSTRAINTS : [(MOD_DELETE, constraint.get_raw())]} )
+            attrs.update( {ROLES : [(MOD_DELETE, constraint.name)]} )
         if len(attrs) > 0:            
             conn = ldaphelper.open()                
-            id = conn.modify(__get_dn(entity), attrs)
+            conn.modify_s(__get_dn(entity), mods_to_modlist(attrs))
+    except ldap.NO_SUCH_OBJECT:
+        raise FortressError(msg='User deassign failed, not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)
+    except ldap.NO_SUCH_ATTRIBUTE:
+        raise FortressError(msg='User deassign failed, no such attribute=' + constraint.name, id=global_ids.URLE_ASSIGN_NOT_EXIST)
+    except ldap.LDAPError as e:
+        raise FortressError(msg='User deassign failed result=' + str(e), id=global_ids.URLE_ASSIGN_FAILED)
     except Exception as e:
         raise FortressError(msg='User deassign error=' + str(e), id=global_ids.URLE_DEASSIGN_FAILED)
-    else:
-        result = ldaphelper.get_result(conn, id)
-        if result == global_ids.NOT_FOUND:
-            raise NotFound(msg='User deassign failed, not found:' + entity.uid, id=global_ids.USER_NOT_FOUND)
-        elif result == global_ids.NO_SUCH_ATTRIBUTE:
-            raise FortressError(msg='User deassign failed, no such attribute=' + constraint.name, id=global_ids.URLE_ASSIGN_NOT_EXIST)                     
-        elif result != 0:
-            raise FortressError(msg='User deassign failed result=' + str(result), id=global_ids.URLE_DEASSIGN_FAILED)                    
     return entity
 
 
