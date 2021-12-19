@@ -46,9 +46,9 @@ Follow these steps to install py-fortress package and get it pointing to your LD
     pip install py-fortress
     ```
 
-4. Download and edit [py-fortress-cfg.json](https://github.com/shawnmckinney/py-fortress/blob/master/pyfortress/test/py-fortress-cfg.json) config file to test folder:
+4. Download and edit [py-fortress-cfg.json](https://github.com/shawnmckinney/py-fortress/blob/master/src/test/py-fortress-cfg.json) config file to test folder:
     ```
-    wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/pyfortress/test/py-fortress-cfg.json
+    wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/src/test/py-fortress-cfg.json
     vi py-fortress-cfg.json
     ```
 

@@ -39,7 +39,7 @@ ________________________________________________________________________________
 
 3. Now edit config file:
     ```
-    vi pyfortress/test/py-fortress-cfg.json
+    vi src/test/py-fortress-cfg.json
     ```
     _cfg file is here: [py-fortress/src/test/py-fortress-cfg.json](../test/py-fortress-cfg.json)_
 
@@ -48,7 +48,7 @@ ________________________________________________________________________________
     ...
     "ldap": {
       ...
-      "port": 32768,
+      "port": 389,
     ...
     ```
     *use value obtained during LDAP setup*
@@ -84,9 +84,9 @@ ________________________________________________________________________________
     ```
     pyvenv env
     . env/bin/activate
-    pip3 install ldap3
+    pip3 install python-ldap
     export PYTHONPATH=$(pwd)
-    cd pyfortress/test
+    cd src/test
     ```
     
 9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
