@@ -6,6 +6,8 @@ Created on Feb 11, 2018
 '''
 
 import json
+import sys
+import os
 
 class Config:
     current = {
@@ -13,8 +15,9 @@ class Config:
         "filename": None
     }
     
-    def load(filename='py-fortress-cfg.json.sample'):
-        with open(filename) as json_file:
+    def load(filename='py-fortress-cfg.json'):
+        file_path = os.path.join(sys.path[1], filename )
+        with open(file_path) as json_file:
             Config.current["data"] = json.load(json_file)
             Config.current["filename"] = filename
 
