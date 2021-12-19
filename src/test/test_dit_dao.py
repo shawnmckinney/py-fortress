@@ -11,7 +11,6 @@ Created on Mar 18, 2018
 '''
 
 import unittest
-import sys
 from src.ldap import ditdao
 from src.util import global_ids
 from src.test import print_ln
@@ -78,18 +77,9 @@ def suite():
     suite.addTest(TestDitDao('test01_del_containers'))
     suite.addTest(TestDitDao('test02_del_suffix'))
     suite.addTest(TestDitDao('test03_bootstrap'))
-       
-#     suite.addTest(TestDitDao('test_del_containers'))
-#     suite.addTest(TestDitDao('test_del_suffix'))
-#     suite.addTest(TestDitDao('test_add_suffix'))
-#     suite.addTest(TestDitDao('test_add_containers'))                    
-    return suite  
+    return suite
 
  
-# if __name__ == '__main__':
-#     runner = unittest.TextTestRunner(failfast=True)
-#     runner.run(suite())
-    
 def main():
     # My code here
     runner = unittest.TextTestRunner(failfast=True)
