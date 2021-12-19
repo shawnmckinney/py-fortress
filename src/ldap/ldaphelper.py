@@ -126,7 +126,7 @@ def mods_to_modlist(attrs):
 
 
 # Begin the Config section:
-Config.load('py-fortress-cfg.json.sample')
+Config.load('py-fortress-cfg.json')
 LDAP = 'ldap'
 _service_uid = Config.get(LDAP)['dn']
 _service_pw = Config.get(LDAP)['password']

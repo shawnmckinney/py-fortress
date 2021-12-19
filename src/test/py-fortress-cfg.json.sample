@@ -4,7 +4,6 @@
     "file_name": "fortress",
     "console_out": true
   },
-
   "ldap": {
     "uri": "ldap://localhost",
     "timeout": 1,
