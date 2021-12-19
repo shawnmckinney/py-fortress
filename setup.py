@@ -22,7 +22,7 @@ setup(name='py-fortress',
       author='Symas Corporation',
       author_email='smckinney@symas.com,ebackes@symas.com',
       license='Apache License 2.0',      
-      packages=['src', 'src.doc', 'src.impl', 'src.ldap', 'src.model', 'src.test', 'src.util'],
+      packages=['src', 'doc', 'src.impl', 'src.ldap', 'src.model', 'src.test', 'src.util'],
       #packages=find_packages(exclude=['src.env', 'src.file']),
 
       package_data={
