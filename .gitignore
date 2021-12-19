@@ -8,6 +8,7 @@ venv/
 .pydevproject
 .project
 *.log
+*-cfg.json
 build/
 dist/
 .settings

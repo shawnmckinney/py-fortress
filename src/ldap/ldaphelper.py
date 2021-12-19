@@ -126,29 +126,16 @@ def mods_to_modlist(attrs):
 
 
 # Begin the Config section:
-Config.load('py-fortress-cfg.json')
+Config.load('py-fortress-cfg.json.sample')
 LDAP = 'ldap'
-_ldap_host = Config.get(LDAP)['host']
 _service_uid = Config.get(LDAP)['dn']
 _service_pw = Config.get(LDAP)['password']
 _ldap_timeout = int(Config.get(LDAP)['timeout'])
-_ldap_debug = Config.get(LDAP)['debug']
-_pool_name = Config.get(LDAP)['pool_name']
 _pool_size = int(Config.get(LDAP)['pool_size'])
-_pool_lifetime = int(Config.get(LDAP)['pool_lifetime'])
-_pool_keepalive = int(Config.get(LDAP)['pool_keepalive'])
-_ldap_use_ssl = Config.get(LDAP)['use_ssl']
-_ldap3_log_level_str = Config.get(LDAP)['ldap3_log_level']
-_ldap3_log_level = 0
+_ldap_use_tls = Config.get(LDAP)['use_tls']
+_uri = Config.get(LDAP)['uri']
+_ldap_debug = Config.get(LDAP)['debug']
 
-if 'uri' in Config.get(LDAP):
-    _uri = Config.get(LDAP)['uri']
-else:
-    hostport = [Config.get(LDAP)['host']]
-    if 'port' in Config.get(LDAP):
-        hostport.append(str(Config.get(LDAP)['port']))
-    _uri = ldapurl.LDAPUrl(hostport=":".join(hostport)).unparse()
-
-_srv_pool = ConnectionManager(_uri, size=_pool_size, bind=_service_uid, passwd=_service_pw, timeout=_ldap_timeout, use_tls=_ldap_use_ssl)
-_usr_pool = ConnectionManager(_uri, size=_pool_size, timeout=_ldap_timeout, use_tls=_ldap_use_ssl)
+_srv_pool = ConnectionManager(_uri, size=_pool_size, bind=_service_uid, passwd=_service_pw, timeout=_ldap_timeout, use_tls=_ldap_use_tls)
+_usr_pool = ConnectionManager(_uri, size=_pool_size, timeout=_ldap_timeout, use_tls=_ldap_use_tls)
 __SUFX_DN = Config.get('dit')['suffix']

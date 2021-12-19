@@ -6,19 +6,13 @@
   },
 
   "ldap": {
-    "host": "localhost",
-    "port": 389,
+    "uri": "ldap://localhost",
     "timeout": 1,
-    "pool_name": "fort-conns",
     "pool_size": 5,
-    "pool_lifetime": 600,
-    "pool_keepalive": 30,
-    "debug": false,
-    "use_ssl": false,
-    "ldap3_log_level": "ERROR",
-    "method": "simple",
     "dn": "dc=example,dc=com",
-    "password": "secret"
+    "password": "secret",
+    "use_tls": false,
+    "debug": false
   },
   "dit": {
     "suffix": "dc=example,dc=com",

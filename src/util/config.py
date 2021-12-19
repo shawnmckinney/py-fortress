@@ -13,7 +13,7 @@ class Config:
         "filename": None
     }
     
-    def load(filename='py-fortress-cfg.json'):                
+    def load(filename='py-fortress-cfg.json.sample'):
         with open(filename) as json_file:
             Config.current["data"] = json.load(json_file)
             Config.current["filename"] = filename

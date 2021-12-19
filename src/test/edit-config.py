@@ -2,7 +2,7 @@ from os import environ,replace
 from json import load,dump
 from collections import OrderedDict
 
-filename = 'test/py-fortress-cfg.json'
+filename = 'test/py-fortress-cfg.json.sample'
 
 with open(filename, 'r') as f:
     config = load(f, object_pairs_hook=OrderedDict)
