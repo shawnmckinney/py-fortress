@@ -1,17 +1,13 @@
 '''
-Created on Feb 11, 2018
-
-@author: smckinney
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
-import logging
-import ldap
 import ldapurl
 from ..util import global_ids
 from ..ldap import LdapException
 from ..util import Config
 from ..util import logger
+from ldappool import ConnectionManager
 
 
 # Open a connection for a particular user:
@@ -28,8 +24,8 @@ def open ():
 
 def _open_user (user_dn, password):
     try:
-        c = ldap.initialize(_uri)
-        c.bind_s(user_dn, password)
+        with _srv_pool.connection(user_dn, password) as conn:
+            c = conn
     except Exception as e:
         raise LdapException ('connutl.open Exception=' + str (e))
     if(_ldap_debug):
@@ -39,8 +35,8 @@ def _open_user (user_dn, password):
 
 def _open_admin ():
     try:
-        c = ldap.initialize(_uri)
-        c.bind_s(_service_uid, _service_pw)
+        with _srv_pool.connection() as conn:
+            c = conn
     except Exception as e:
         raise LdapException ('connutl.open Exception=' + str (e))
     if(_ldap_debug):
@@ -132,6 +128,7 @@ def mods_to_modlist(attrs):
 # Begin the Config section:
 Config.load('py-fortress-cfg.json')
 LDAP = 'ldap'
+_ldap_host = Config.get(LDAP)['host']
 _service_uid = Config.get(LDAP)['dn']
 _service_pw = Config.get(LDAP)['password']
 _ldap_timeout = int(Config.get(LDAP)['timeout'])
@@ -152,12 +149,6 @@ else:
         hostport.append(str(Config.get(LDAP)['port']))
     _uri = ldapurl.LDAPUrl(hostport=":".join(hostport)).unparse()
 
-logger.info('Initialize py-fortress ldap...')
-logger.info('ldap url: ' + _uri)
-
-# Needed for server/connection pooling:
-#_srv1 = ldap3.Server(host=_ldap_host, port=_ldap_port, connect_timeout=_ldap_timeout, use_ssl=_ldap_use_ssl)
-#_srv_pool = ldap3.ServerPool([_srv1], ldap3.ROUND_ROBIN, exhaust=True, active=True)
-#_usr_pool = ldap3.ServerPool([_srv1], ldap3.ROUND_ROBIN, exhaust=True, active=True)
-
+_srv_pool = ConnectionManager(_uri, size=_pool_size, bind=_service_uid, passwd=_service_pw, timeout=_ldap_timeout, use_tls=_ldap_use_ssl)
+_usr_pool = ConnectionManager(_uri, size=_pool_size, timeout=_ldap_timeout, use_tls=_ldap_use_ssl)
 __SUFX_DN = Config.get('dit')['suffix']
