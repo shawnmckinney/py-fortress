@@ -1,8 +1,5 @@
 '''
-Created on Apr 4, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 from setuptools import setup
 from codecs import open
@@ -31,7 +28,9 @@ setup(name='py-fortress',
       },     
       
       install_requires=[
-          'python-ldap'
+          'python-ldap',
+          'ldappool',
+          'six'
       ],      
       classifiers=[
         'Development Status :: 3 - Alpha',
