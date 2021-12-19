@@ -37,23 +37,29 @@ ________________________________________________________________________________
     cd py-fortress
     ```
 
-3. Now edit config file:
-    ```
-    vi src/test/py-fortress-cfg.json
-    ```
-    _cfg file is here: [py-fortress/src/test/py-fortress-cfg.json](../test/py-fortress-cfg.json)_
+3. Copy sample cfg file:
+   ```bash
+   cp py-fortress-cfg.json.sample py-fortress-cfg.json
+   ```
 
-4. Set the LDAP Port
+    sample cfg file is here: [py-fortress-cfg.json.sample](../py-fortress-cfg.json.sample)
+
+4. Now edit config file:
+    ```
+    vi py-fortress-cfg.json
+    ```
+
+5. Set the LDAP URI
     ```
     ...
     "ldap": {
       ...
-      "port": 389,
+      "uri": "ldap://localhost",
     ...
     ```
     *use value obtained during LDAP setup*
         
-5. Update the connection parameters (pick one):
+6. Update the connection parameters (pick one):
 
     a. apacheds:
     ```
@@ -62,10 +68,10 @@ ________________________________________________________________________________
     
     b. openldap:
     ```
-    "dn": "cn=Manager,dc=example,dc=com",
+    "dn": "dc=example,dc=com",
     ```
 
-6. Set the structure in DIT:
+7. Set the structure in DIT:
     ```
     ...
     "dit": {
@@ -78,23 +84,25 @@ ________________________________________________________________________________
     ```
     *if in doubt use the defaults*
     
-7. Save and exit
+8. Save and exit
 
-8. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+9. Prepare your terminal for execution of python3.  From the main dir of the git repo:
     ```
     pyvenv env
     . env/bin/activate
-    pip3 install python-ldap
+    pip install python-ldap
+    pip install six
+    pip install ldappool
     export PYTHONPATH=$(pwd)
     cd src/test
     ```
     
-9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
-    ```
-    python3 test_dit_dao.py 
-    ```
+10. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
+     ```
+     python3 test_dit_dao.py 
+     ```
     
-    *Locations for these nodes are set in the config file.* 
+     *Locations for these nodes are set in the config file.* 
     
 __________________________________________________________________________________
 ## SECTION 3. Integration Tests

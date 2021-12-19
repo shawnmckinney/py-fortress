@@ -57,7 +57,7 @@ Follow these steps to install py-fortress package and get it pointing to your LD
     ...
     "ldap": {
       ...
-      "port": 32768,
+      "uri": "ldap://localhost",
     ...
     ```
     *use value obtained during LDAP setup*
@@ -71,7 +71,7 @@ Follow these steps to install py-fortress package and get it pointing to your LD
     
     b. openldap:
     ```
-    "dn": "cn=Manager,dc=example,dc=com",
+    "dn": "dc=example,dc=com",
     ```
 
 7. Set the structure in DIT:
