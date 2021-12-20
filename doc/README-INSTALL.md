@@ -22,7 +22,7 @@ ______________________________________________________________________________
 
 2. Install the package to PIP:
     ```
-    pip3 install py-fortress
+    pip install py-fortress
     ```
 
 #### End of README-INSTALL
