@@ -37,29 +37,46 @@ ________________________________________________________________________________
     cd py-fortress
     ```
 
-3. Copy sample cfg file:
-   ```bash
-   cp py-fortress-cfg.json.sample py-fortress-cfg.json
-   ```
+3. Build
 
-    sample cfg file is here: [py-fortress-cfg.json.sample](../py-fortress-cfg.json.sample)
+```bash
+pyvenv env
+. env/bin/activate
+python3 -m pip install --upgrade build
+python3 -m build
+```
+4. Install
 
-4. Now edit config file:
-    ```
-    vi py-fortress-cfg.json
-    ```
+```bash
+pip install py-fortress
+```
 
-5. Set the LDAP URI
-    ```
-    ...
-    "ldap": {
-      ...
-      "uri": "ldap://localhost",
-    ...
-    ```
-    *use value obtained during LDAP setup*
+5. Prepare the config:
+
+Copy sample cfg file:
+
+```bash
+cp py-fortress-cfg.json.sample py-fortress-cfg.json
+```
+
+sample cfg file is here: [py-fortress-cfg.json.sample](../py-fortress-cfg.json.sample)
+
+6. Now edit config file:
+ ```
+vi py-fortress-cfg.json
+```
+
+7. Set the LDAP URI
+```
+...
+"ldap": {
+...
+"uri": "ldap://localhost",
+...
+```
+*use value obtained during LDAP setup*
         
-6. Update the connection parameters (pick one):
+8. Update the connection parameters (pick one):
 
     a. apacheds:
     ```
@@ -71,7 +88,7 @@ ________________________________________________________________________________
     "dn": "dc=example,dc=com",
     ```
 
-7. Set the structure in DIT:
+9. Set the structure in DIT:
     ```
     ...
     "dit": {
@@ -84,20 +101,20 @@ ________________________________________________________________________________
     ```
     *if in doubt use the defaults*
     
-8. Save and exit
+10. Save and exit
 
-9. Prepare your terminal for execution of python3.  From the main dir of the git repo:
-    ```
-    pyvenv env
-    . env/bin/activate
-    pip install python-ldap
-    pip install six
-    pip install ldappool
-    export PYTHONPATH=$(pwd)
-    cd test
-    ```
+11. Run the tests:
+ ```
+pyvenv env
+. env/bin/activate
+pip install python-ldap
+pip install six
+pip install ldappool
+export PYTHONPATH=$(pwd)
+cd test
+```
     
-10. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
+12. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
      ```
      python3 test_dit_dao.py 
      ```
@@ -160,3 +177,21 @@ View the test data inserted earlier.
 
 
 #### End of README-BUILDING
+
+
+#### Testing the scripts from source:
+
+Run the tests:
+ ```
+pyvenv env
+. env/bin/activate
+pip install python-ldap
+pip install six
+pip install ldappool
+export PYTHONPATH=$(pwd)
+cd test
+python3 test_admin_mgr.py
+python3 test_access_mgr.py
+...
+```
+    
