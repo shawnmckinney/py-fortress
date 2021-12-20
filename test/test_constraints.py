@@ -1,8 +1,5 @@
 '''
-Created on Feb 24, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
 import unittest
@@ -13,7 +10,7 @@ from src.util import Time
 from src.util import TimeOut
 from src.util import CurrentDateTime
 from src.model import Constraint
-from src.test import print_ln, print_entity
+from test import print_ln, print_entity
 
 cons1 = [
     Constraint(

@@ -1,19 +1,11 @@
 '''
-Created on Mar 22, 2018
-
-@author: smckinn
-'''
-'''
-Created on Mar 18, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
 import unittest
 from src.ldap import ditdao
 from src.util import global_ids
-from src.test import print_ln
+from test import print_ln
 
 
 class BasicTestSuite(unittest.TestCase):

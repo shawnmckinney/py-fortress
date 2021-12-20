@@ -1,15 +1,12 @@
 '''
-Created on Mar 2, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
 import unittest
 from src.ldap import InvalidCredentials
 from src.impl import access_mgr, review_mgr
 from src.model import User
-from src.test import print_ln
+from test import print_ln
 import sys
 
 
@@ -34,7 +31,7 @@ class TestAccessMgr(unittest.TestCase):
             loop_cnt = len(uList)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
-                    sys.stdout.write('.')
+                    sys.stdout.write('')
                     sys.stdout.flush()
                 entity.password = 'password'
                 try:
@@ -58,7 +55,7 @@ class TestAccessMgr(unittest.TestCase):
             uList = review_mgr.find_users(usr)                        
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
-                    sys.stdout.write('.')
+                    sys.stdout.write('')
                     sys.stdout.flush()           
                 entity.password = 'password'     
                 session = access_mgr.create_session(entity, False)
@@ -86,7 +83,7 @@ class TestAccessMgr(unittest.TestCase):
             uList = review_mgr.find_users(usr)                        
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
-                    sys.stdout.write('.')
+                    sys.stdout.write('')
                     sys.stdout.flush()                    
                 
                 entity.password = 'password'
@@ -147,7 +144,7 @@ class TestAccessMgr(unittest.TestCase):
             uList = review_mgr.find_users(usr)                        
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
-                    sys.stdout.write('.')
+                    sys.stdout.write('')
                     sys.stdout.flush()
 
                 entity.password = 'password'                                    

@@ -1,14 +1,5 @@
-#!/usr/local/bin/python2.7
-# encoding: utf-8
 '''
- -- shortdesc
-
- is a description
-
-It defines classes_and_methods
-
-@author:      smckinn
-@copyright:   2018 - Symas Corporation
+@copyright:   2022 - Symas Corporation
 '''
 import sys
 import pickle
@@ -17,8 +8,8 @@ from src.util import global_ids
 from src.model import Perm, User
 from src.impl import access_mgr
 from src.util import FortressError
-from src.test import print_user, print_entity
-from src.test.cli_utils import (
+from test import print_user, print_entity
+from test.cli_utils import (
     load_entity, add_args, ADD, DELETE, AUTH, CHCK, ROLES, PERMS, SHOW, DROP
     )
 

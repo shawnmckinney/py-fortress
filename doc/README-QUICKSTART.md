@@ -46,9 +46,10 @@ Follow these steps to install py-fortress package and get it pointing to your LD
     pip install py-fortress
     ```
 
-4. Download and edit [py-fortress-cfg.json](https://github.com/shawnmckinney/py-fortress/blob/master/src/test/py-fortress-cfg.json) config file to test folder:
+4. Download and edit [py-fortress-cfg.json](https://github.com/shawnmckinney/py-fortress/blob/master/test/py-fortress-cfg.json) config file to test folder:
     ```
-    wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/src/test/py-fortress-cfg.json
+    wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/py-fortress-cfg.json.sample
+    cp py-fortress-cfg.json.sample py-fortress-cfg.json
     vi py-fortress-cfg.json
     ```
 
@@ -102,17 +103,17 @@ These test verify the code and the ldap server are working correctly.
 
 1. Run the admin mgr tests:
     ```
-    $ python3 -m pyfortress.test.test_admin_mgr 
+    $ python3 -m test.test_admin_mgr 
     ```
 
 2. Run the access mgr tests:
     ```
-    $ python3 -m pyfortress.test.test_access_mgr
+    $ python3 -m test.test_access_mgr
     ```
  
 3. Run the review mgr tests:
     ```
-    $ python3 -m pyfortress.test.test_review_mgr 
+    $ python3 -m test.test_review_mgr 
     ```
 __________________________________________________________________________________
 ## SECTION 4. Run Simple Test Samples
@@ -121,10 +122,10 @@ These are simple tests designed to instruct API usage.
  
 1. Run the samples:
     ```
-    $ python3 -m pyfortress.test.test_samples 
+    $ python3 -m test.test_samples 
     ```
 
-2. View the [test_samples](src/test/test_samples.py) and learn how RBAC APIs work.
+2. View the [test_samples](test/test_samples.py) and learn how RBAC APIs work.
 
 __________________________________________________________________________________
 ## SECTION 5. View the Test Data using Command Line Interpreter (CLI)

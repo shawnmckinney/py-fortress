@@ -1,14 +1,11 @@
 '''
-Created on Feb 10, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
 import unittest
 from src.ldap import userdao, permdao, roledao, InvalidCredentials
 from src.model import User, Perm, Role, PermObj
-from src.test import print_user, print_role, print_ln, print_entity, user_test_data, role_test_data, perm_test_data
+from test import print_user, print_role, print_ln, print_entity, user_test_data, role_test_data, perm_test_data
 
 
 class BasicTestSuite(unittest.TestCase):

@@ -1,7 +1,11 @@
+'''
+@copyright: 2022 - Symas Corporation
+'''
 import unittest
-from src.file import userdao,roledao,permdao,fileex,access_mgr
+from src.file import userdao, access_mgr
 from src.model import User
-from src.test import print_ln,print_entity
+from test import print_ln
+
 
 class TestAccessMgr(unittest.TestCase):
     """

@@ -1,6 +1,9 @@
+'''
+@copyright: 2022 - Symas Corporation
+'''
 import unittest
 from src.model import User,Perm
-from src.test import print_user, print_role, print_ln, print_entity
+from test import print_ln, print_entity
 from json import dumps
 
 from src.file import userdao,permdao,fileex

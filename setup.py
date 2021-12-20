@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='py-fortress',
-      version='0.0.7',
+      version='0.1.0',
       python_requires='>=3.6',
       description='RBAC for Python',
       long_description=long_description,
@@ -19,7 +19,7 @@ setup(name='py-fortress',
       author='Symas Corporation',
       author_email='smckinney@symas.com,ebackes@symas.com',
       license='Apache License 2.0',      
-      packages=['src', 'doc', 'src.impl', 'src.ldap', 'src.model', 'src.test', 'src.util'],
+      packages=['src', 'doc', 'src.impl', 'src.ldap', 'src.model', 'test', 'src.util'],
       #packages=find_packages(exclude=['src.env', 'src.file']),
 
       package_data={
@@ -45,9 +45,9 @@ setup(name='py-fortress',
       #namespace_packages=['src'],
       entry_points={
        'console_scripts': [
-           'initldap = src.test.test_dit_dao:main',
-           'cli = src.test.cli:main',
-           'clitest = src.test.cli_test_auth:main',
+           'initldap = test.test_dit_dao:main',
+           'cli = test.cli:main',
+           'clitest = test.cli_test_auth:main',
         ],
       },           
       zip_safe=False)

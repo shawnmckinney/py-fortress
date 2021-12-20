@@ -1,4 +1,4 @@
-version: 1
+version: 3
 
 dn: dc=example,dc=com
 objectClass: organization

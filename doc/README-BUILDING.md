@@ -94,7 +94,7 @@ ________________________________________________________________________________
     pip install six
     pip install ldappool
     export PYTHONPATH=$(pwd)
-    cd src/test
+    cd test
     ```
     
 10. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
@@ -133,7 +133,7 @@ Another optional test.
     python3 test_samples.py 
     ```
 
-2. View the [test_samples](src/test/test_samples.py) and learn how RBAC APIs work.
+2. View the [test_samples](test/test_samples.py) and learn how RBAC APIs work.
 
 __________________________________________________________________________________
 ## SECTION 5. View the Test Data using Command Line Interpreter (CLI)

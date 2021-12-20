@@ -1,8 +1,5 @@
 '''
-Created on Mar 17, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2012 - Symas Corporation
 '''
 
 from src.model import PermObj, Perm

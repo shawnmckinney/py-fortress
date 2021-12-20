@@ -1,14 +1,11 @@
 '''
-Created on Mar 18, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
 import unittest
 from src.impl import review_mgr
 from src.model import User, Role, Perm
-from src.test import print_ln, print_entity
+from test import print_ln, print_entity
 
 
 class BasicTestSuite(unittest.TestCase):
