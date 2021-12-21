@@ -2,14 +2,14 @@
 @copyright: 2022 - Symas Corporation
 '''
 import unittest
-from src.file import userdao, access_mgr
-from src.model import User
-from test import print_ln
+from rbac.file import userdao
+from rbac.model import User
+from rbac.cli.utils import print_ln
 
 
 class TestAccessMgr(unittest.TestCase):
     """
-    Test the access_mgr funcs
+    Test the access funcs
     """
 
     def test_create_sessions(self):
@@ -21,7 +21,7 @@ class TestAccessMgr(unittest.TestCase):
         try:
             for user in userdao.search(User(uid="*")):
                 user.password = user.uid
-                session = access_mgr.create_session(user, False)
+                session = access.create_session(user, False)
                 if session is None:
                     self.fail('create session {} returned None'.format(user.uid))
                 print ('session made for user {}'.format(user.uid))
@@ -36,15 +36,15 @@ class TestAccessMgr(unittest.TestCase):
         try:
             for user in userdao.search(User(uid="*")):
                 user.password = user.uid
-                session = access_mgr.create_session(user, False)
+                session = access.create_session(user, False)
                 if session is None:
                     self.fail('create session {} returned None'.format(user.uid))
                 print ('session made for user {}'.format(user.uid))
 
                 if session.user.roles is not None and len(session.user.roles) > 0:
-                    roles = access_mgr.session_roles(session)
+                    roles = access.session_roles(session)
                     for role in roles:
-                        result = access_mgr.is_user_in_role(session, role)
+                        result = access.is_user_in_role(session, role)
                         if not result:
                             self.fail('test_user_roles failed uid=' + entity.uid + ', role=' + role)
             print()
@@ -60,17 +60,17 @@ class TestAccessMgr(unittest.TestCase):
         try:
             u = userdao.read(User(uid="foouser1"))
             u.password="foouser1"
-            session=access_mgr.create_session (u, False)
+            session=access.create_session (u, False)
 
             if session.user.roles is not None and len(session.user.roles) > 0:
-                for role in list(access_mgr.session_roles(session)):
-                    access_mgr.drop_active_role(session, role)
+                for role in list(access.session_roles(session)):
+                    access.drop_active_role(session, role)
 
                 if session.user.roles is None or len(session.user.roles) > 0:
                     self.fail('test_active_roles did not inactivate all roles in session for uid=' + entity.uid)
 
                 for role in list(u.roles):
-                    access_mgr.add_active_role(session, role)
+                    access.add_active_role(session, role)
 
                 if session.user.roles is None or len(session.user.roles) != len(u.roles):
                     self.fail('test_active_roles did not activate all roles in session for uid=' + entity.uid)

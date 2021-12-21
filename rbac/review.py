@@ -1,11 +1,8 @@
 '''
-Created on Mar 18, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
-from ..ldap import permdao, userdao, roledao
-from ..impl import utils
+from rbac.ldap import permdao, userdao, roledao
+from rbac.util import utils
 
 
 def read_user(user):

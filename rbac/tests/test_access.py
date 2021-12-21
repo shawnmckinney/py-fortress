@@ -3,20 +3,20 @@
 '''
 
 import unittest
-from src.ldap import InvalidCredentials
-from src.impl import access_mgr, review_mgr
-from src.model import User
-from test import print_ln
+from rbac.ldap import InvalidCredentials
+from rbac import access, review
+from rbac.model import User
+from rbac.cli.utils import print_ln
 import sys
 
 
 class BasicTestSuite(unittest.TestCase):
-    """These tests the py-fortress access_mgr functions."""
+    """These tests the py-fortress access functions."""
                 
 
 class TestAccessMgr(unittest.TestCase):
     """
-    Test the access_mgr funcs
+    Test the access funcs
     """    
 
     def test01_create_sessions(self):
@@ -27,7 +27,7 @@ class TestAccessMgr(unittest.TestCase):
                                              
         try:
             usr = User(uid = "py-user*")    
-            uList = review_mgr.find_users(usr)            
+            uList = review.find_users(usr)
             loop_cnt = len(uList)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
@@ -35,7 +35,7 @@ class TestAccessMgr(unittest.TestCase):
                     sys.stdout.flush()
                 entity.password = 'password'
                 try:
-                    session = access_mgr.create_session(entity, False)
+                    session = access.create_session(entity, False)
                     if session is None:
                         self.fail('test create sessions failed ' + entity.uid)
                 except InvalidCredentials as e:
@@ -52,20 +52,20 @@ class TestAccessMgr(unittest.TestCase):
         print_ln('test user_roles')        
         try:
             usr = User(uid = "py-user*")
-            uList = review_mgr.find_users(usr)                        
+            uList = review.find_users(usr)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('')
                     sys.stdout.flush()           
                 entity.password = 'password'     
-                session = access_mgr.create_session(entity, False)
+                session = access.create_session(entity, False)
                 if session is None:
                     self.fail('test_user_roles failed ' + entity.uid)
                     
                 if session.user.roles is not None and len(session.user.roles) > 0:                    
-                    roles = access_mgr.session_roles(session)
+                    roles = access.session_roles(session)
                     for role in roles:
-                        result = access_mgr.is_user_in_role(session, role.name)
+                        result = access.is_user_in_role(session, role.name)
                         if not result:
                             self.fail('test_user_roles failed uid=' + entity.uid + ', role=' + role)
             print()                                                                            
@@ -80,19 +80,19 @@ class TestAccessMgr(unittest.TestCase):
         print_ln('test active_roles')        
         try:
             usr = User(uid = "py-user*")
-            uList = review_mgr.find_users(usr)                        
+            uList = review.find_users(usr)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('')
                     sys.stdout.flush()                    
                 
                 entity.password = 'password'
-                session = access_mgr.create_session(entity, False)
+                session = access.create_session(entity, False)
                 if session is None:
                     self.fail('test_active_roles failed ' + entity.uid)
                     
                 if session.user.roles is not None and len(session.user.roles) > 0:                    
-                    roles = access_mgr.session_roles(session)
+                    roles = access.session_roles(session)
                     active_roles = list(roles)
                     
                     # now deactivate all of the roles:
@@ -101,11 +101,11 @@ class TestAccessMgr(unittest.TestCase):
                             sys.stdout.write('`')
                             sys.stdout.flush()                            
                         
-                        result = access_mgr.is_user_in_role(session, role.name)
+                        result = access.is_user_in_role(session, role.name)
                         if not result:
                             self.fail('test_active_roles failed uid=' + entity.uid + ', role=' + role)
-                        access_mgr.drop_active_role(session, role.name)
-                        result = access_mgr.is_user_in_role(session, role.name)
+                        access.drop_active_role(session, role.name)
+                        result = access.is_user_in_role(session, role.name)
                         if result:
                             self.fail('test_active_roles negative failed uid=' + entity.uid + ', role=' + role)
                             
@@ -118,11 +118,11 @@ class TestAccessMgr(unittest.TestCase):
                             sys.stdout.write('`')
                             sys.stdout.flush()
                             
-                        result = access_mgr.is_user_in_role(session, role.name)
+                        result = access.is_user_in_role(session, role.name)
                         if result:
                             self.fail('test_active_roles failed inactive negative check uid=' + entity.uid + ', role=' + role)
-                        access_mgr.add_active_role(session, role.name)
-                        result = access_mgr.is_user_in_role(session, role.name)
+                        access.add_active_role(session, role.name)
+                        result = access.is_user_in_role(session, role.name)
                         if not result:
                             self.fail('test_active_roles failed inactive positive check uid=' + entity.uid + ', role=' + role)
                             
@@ -141,24 +141,24 @@ class TestAccessMgr(unittest.TestCase):
         print_ln('test session_perms')        
         try:
             usr = User(uid = "py-user*")
-            uList = review_mgr.find_users(usr)                        
+            uList = review.find_users(usr)
             for idx, entity in enumerate(uList) :
                 if idx % 10 == 0:
                     sys.stdout.write('')
                     sys.stdout.flush()
 
                 entity.password = 'password'                                    
-                session = access_mgr.create_session(entity, False)
+                session = access.create_session(entity, False)
                 if session is None:
                     self.fail('test_session_permissions failed ' + entity.uid)
                 if session.user.roles is not None and len(session.user.roles) > 0:                    
-                    perms = access_mgr.session_perms(session)
+                    perms = access.session_perms(session)
                     for idx2, perm in enumerate(perms):
                         if idx2 % 10 == 0:
                             sys.stdout.write('`')
                             sys.stdout.flush()
                                                         
-                        result = access_mgr.check_access(session, perm)
+                        result = access.check_access(session, perm)
                         if not result:
                             self.fail('test_session_permissions failed uid=' + entity.uid + ', perm obj name=' + perm.obj_name + ', op name=' + perm.op_name + ', obj id=' + perm.obj_id)                                                
             print()

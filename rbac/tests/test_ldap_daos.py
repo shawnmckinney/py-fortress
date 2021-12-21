@@ -3,9 +3,11 @@
 '''
 
 import unittest
-from src.ldap import userdao, permdao, roledao, InvalidCredentials
-from src.model import User, Perm, Role, PermObj
-from test import print_user, print_role, print_ln, print_entity, user_test_data, role_test_data, perm_test_data
+from rbac.ldap import userdao, permdao, roledao, InvalidCredentials
+from rbac.model import User, Perm, Role, PermObj
+from rbac.tests import user_test_data, role_test_data
+from rbac.cli.utils import print_user, print_role, print_ln, print_entity
+from rbac.tests import perm_test_data
 
 
 class BasicTestSuite(unittest.TestCase):

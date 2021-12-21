@@ -3,14 +3,14 @@
 '''
 
 import unittest
-from src.util import Date
-from src.util import Day
-from src.util import LockDate
-from src.util import Time
-from src.util import TimeOut
-from src.util import CurrentDateTime
-from src.model import Constraint
-from test import print_ln, print_entity
+from rbac.util import Date
+from rbac.util import Day
+from rbac.util import LockDate
+from rbac.util import Time
+from rbac.util import TimeOut
+from rbac.util import CurrentDateTime
+from rbac.model import Constraint
+from rbac.cli.utils import print_ln, print_entity
 
 cons1 = [
     Constraint(

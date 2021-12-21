@@ -3,9 +3,9 @@
 '''
 
 import unittest
-from src.ldap import ditdao
-from src.util import global_ids
-from test import print_ln
+from rbac.ldap import ditdao
+from rbac.util import global_ids
+from rbac.cli.utils import print_ln
 
 
 class BasicTestSuite(unittest.TestCase):

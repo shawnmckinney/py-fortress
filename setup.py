@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='py-fortress',
-      version='0.1.0',
+      version='0.1.1',
       python_requires='>=3.6',
       description='RBAC for Python',
       long_description=long_description,
@@ -19,9 +19,7 @@ setup(name='py-fortress',
       author='Symas Corporation',
       author_email='smckinney@symas.com,ebackes@symas.com',
       license='Apache License 2.0',      
-      packages=['src', 'doc', 'src.impl', 'src.ldap', 'src.model', 'test', 'src.util'],
-      #packages=find_packages(exclude=['src.env', 'src.file']),
-
+      packages=['rbac', 'rbac.cli', 'rbac.ldap', 'rbac.model', 'rbac.util', 'rbac.tests', 'doc'],
       package_data={
         # If any package contains *.txt or *.rst files, include them:
         '': ['*.md', '*.json'],
@@ -45,9 +43,9 @@ setup(name='py-fortress',
       #namespace_packages=['src'],
       entry_points={
        'console_scripts': [
-           'initldap = test.test_dit_dao:main',
-           'cli = test.cli:main',
-           'clitest = test.cli_test_auth:main',
+           'initldap = rbac.tests.test_dit_dao:main',
+           'cli = rbac.cli.cli:main',
+           'clitest = rbac.cli.cli_test_auth:main',
         ],
       },           
       zip_safe=False)

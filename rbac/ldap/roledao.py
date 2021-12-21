@@ -1,8 +1,5 @@
 '''
-Created on Mar 17, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
 import uuid
@@ -15,7 +12,7 @@ from ..ldap import ldaphelper, NotFound, NotUnique
 from ..ldap import userdao
 from ..ldap.ldaphelper import add_to_modlist, mods_to_modlist
 from ..util import global_ids
-from ..util import FortressError
+from ..util.fortress_error import RbacError
 
 def read (entity):
     roleList = search(entity)
@@ -38,7 +35,7 @@ def search (entity):
         for dn, attrs in entries:
             roleList.append(__unload(dn, attrs))
     except Exception as e:
-        raise FortressError(msg='Role search error=' + str(e), id=global_ids.ROLE_SEARCH_FAILED)
+        raise RbacError(msg='Role search error=' + str(e), id=global_ids.ROLE_SEARCH_FAILED)
     finally:
         if conn:        
             ldaphelper.close(conn)
@@ -89,9 +86,9 @@ def create ( entity ):
     except ldap.ALREADY_EXISTS:
         raise NotUnique(msg='Role create failed, already exists:' + entity.uid, id=global_ids.ROLE_ADD_FAILED)
     except ldap.LDAPError as e:
-        raise FortressError(msg='Role create failed result=' + str(e), id=global_ids.ROLE_ADD_FAILED)
+        raise RbacError(msg='Role create failed result=' + str(e), id=global_ids.ROLE_ADD_FAILED)
     except Exception as e:
-        raise FortressError(msg='Role create error=' + str(e), id=global_ids.ROLE_ADD_FAILED)
+        raise RbacError(msg='Role create error=' + str(e), id=global_ids.ROLE_ADD_FAILED)
     return entity
 
 
@@ -112,9 +109,9 @@ def update ( entity ):
     except ldap.NO_SUCH_OBJECT:
         raise NotFound(msg='Role update failed, not found:' + entity.name, id=global_ids.ROLE_NOT_FOUND)
     except ldap.LDAPError as e:
-        raise FortressError('Role update failed result=' + str(e), global_ids.ROLE_UPDATE_FAILED)
+        raise RbacError('Role update failed result=' + str(e), global_ids.ROLE_UPDATE_FAILED)
     except Exception as e:
-        raise FortressError(msg='Role update error=' + str(e), id=global_ids.ROLE_UPDATE_FAILED)
+        raise RbacError(msg='Role update error=' + str(e), id=global_ids.ROLE_UPDATE_FAILED)
     return entity
 
 
@@ -125,9 +122,9 @@ def delete ( entity ):
     except ldap.NO_SUCH_OBJECT:
         raise NotFound(msg='Role delete not found:' + entity.name, id=global_ids.ROLE_NOT_FOUND)
     except ldap.LDAPError as e:
-        raise FortressError(msg='Role delete failed result=' + str(e), id=global_ids.ROLE_DELETE_FAILED)
+        raise RbacError(msg='Role delete failed result=' + str(e), id=global_ids.ROLE_DELETE_FAILED)
     except Exception as e:
-        raise FortressError(msg='Role delete error=' + str(e), id=global_ids.ROLE_DELETE_FAILED)
+        raise RbacError(msg='Role delete error=' + str(e), id=global_ids.ROLE_DELETE_FAILED)
     return entity
 
 
@@ -142,9 +139,9 @@ def add_member ( entity, uid ):
     except ldap.NO_SUCH_OBJECT:
         raise NotFound(msg='Add member failed, not found, role=' +  entity.name + ', member dn=' + user_dn, id=global_ids.ROLE_NOT_FOUND)
     except ldap.LDAPError as e:
-        raise FortressError(msg='Add member failed result=' + str(e), id=global_ids.ROLE_USER_ASSIGN_FAILED)
+        raise RbacError(msg='Add member failed result=' + str(e), id=global_ids.ROLE_USER_ASSIGN_FAILED)
     except Exception as e:
-        raise FortressError(msg='Add member error=' + str(e), id=global_ids.ROLE_USER_ASSIGN_FAILED)
+        raise RbacError(msg='Add member error=' + str(e), id=global_ids.ROLE_USER_ASSIGN_FAILED)
     return entity
 
 
@@ -157,11 +154,11 @@ def remove_member ( entity, uid ):
             conn = ldaphelper.open()
             conn.modify_s(__get_dn(entity), mods_to_modlist(attrs))
     except ldap.NO_SUCH_ATTRIBUTE:
-        raise FortressError(msg='Remove member failed, not assigned, role=' +  entity.name + ', member dn=' + user_dn, id=global_ids.URLE_ASSIGN_NOT_EXIST)
+        raise RbacError(msg='Remove member failed, not assigned, role=' +  entity.name + ', member dn=' + user_dn, id=global_ids.URLE_ASSIGN_NOT_EXIST)
     except ldap.LDAPError as e:
-        raise FortressError(msg='Remove member failed result=' + str(e), id=global_ids.ROLE_REMOVE_OCCUPANT_FAILED)
+        raise RbacError(msg='Remove member failed result=' + str(e), id=global_ids.ROLE_REMOVE_OCCUPANT_FAILED)
     except Exception as e:
-        raise FortressError(msg='Remove member error=' + str(e), id=global_ids.ROLE_REMOVE_OCCUPANT_FAILED)
+        raise RbacError(msg='Remove member error=' + str(e), id=global_ids.ROLE_REMOVE_OCCUPANT_FAILED)
     return entity
 
 
@@ -185,7 +182,7 @@ def get_members (entity):
         member_dns = ldaphelper.get_list(attrs.get(MEMBER, []))
         uList = __convert_list(member_dns)
     except Exception as e: # FIXME: change to LDAPError
-        raise FortressError(msg='Get members search error=' + str(e), id=global_ids.ROLE_OCCUPANT_SEARCH_FAILED)
+        raise RbacError(msg='Get members search error=' + str(e), id=global_ids.ROLE_OCCUPANT_SEARCH_FAILED)
     finally:
         if conn:        
             ldaphelper.close(conn)
@@ -213,7 +210,7 @@ def get_members_constraint (entity):
         constraint = Constraint(ldaphelper.get_attr_val(attrs.get(global_ids.CONSTRAINT, [])))
         mList = __convert_list(member_dns)
     except Exception as e: # FIXME: change to LDAPError
-        raise FortressError(msg='Get members search error=' + str(e), id=global_ids.ROLE_OCCUPANT_SEARCH_FAILED)
+        raise RbacError(msg='Get members search error=' + str(e), id=global_ids.ROLE_OCCUPANT_SEARCH_FAILED)
     finally:
         if conn:        
             ldaphelper.close(conn)

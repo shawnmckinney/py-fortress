@@ -1,6 +1,6 @@
 # Guide to Command Line Interpreter (CLI) for RBAC0 SYSTEM Testing
  
-Instructions to load a simple RBAC policy and use the cli-test-auth.py program that drives py-fortress [access_mgr](src/impl/access_mgr.py) APIs.
+Instructions to load a simple RBAC policy and use the cli-test-auth.py program that drives py-fortress [access](src/impl/access.py) APIs.
 ______________________________________________________________________________
 ## Prerequisites
 
@@ -65,15 +65,15 @@ Here we'll load the policy defined above.
     *executes a package script that maps here: pyfortress.test.cli_test_auth*
     
 ### The operation is (pick one):
-   * auth => access_mgr.create_session
-   * check => access_mgr.check_access
-   * roles => access_mgr.session_roles   
-   * perms => access_mgr.session_perms
+   * auth => access.create_session
+   * check => access.check_access
+   * roles => access.session_roles   
+   * perms => access.session_perms
    * show => displays contents of session to stdout
-   * add => access_mgr.add_active_role
-   * drop => access_mgr.drop_active_role
+   * add => access.add_active_role
+   * drop => access.drop_active_role
    
-   _Where operations map to functions here_ [access_mgr.py](src/impl/access_mgr.py)
+   _Where operations map to functions here_ [access.py](src/impl/access.py)
 
 ### The args are ‘–‘ + attribute name + attribute value
    * --uid, --password from [user.py](src/model/user.py)
@@ -81,13 +81,13 @@ Here we'll load the policy defined above.
    * --role used for the role name
     
 ### Command Usage Tips
-   * The description of the commands, i.e. required and optional arguments, can be inferred via the api doc inline to the access_mgr module.
+   * The description of the commands, i.e. required and optional arguments, can be inferred via the api doc inline to the access module.
    * This program 'pickles' (serializes) the RBAC session to a file called sess.pickle, and places in the executable folder.  This simulates an RBAC runtime to test these commands.
    * Call the auth operation first, subsequent ops will use and refresh the session.
    * Constraints on user and roles are enforced. For example, if user has timeout constraint of 30 (minutes), and the delay between ops for existing session exceeds, it will be deactivated.
    * More on argument format: [README-CLI](./README-CLI.md)
 _______________________________________________________________________________   
-## Setup an RBAC Policy Using ([admin_mgr](src/impl/admin_mgr.py)) CLI
+## Setup an RBAC Policy Using ([admin](src/impl/admin.py)) CLI
 
 * To setup RBAC test data, we'll be using another utility that was introduced here:  [README-CLI](./README-CLI.md).
 
@@ -167,11 +167,11 @@ From the py-fortress/test folder, enter the following commands:
     $ python3 cli.py perm grant --obj_name page456 --op_name read --role auditor
     ```
 ________________________________________________________________________________
-## Run the [access_mgr](src/impl/access_mgr.py) CLI
+## Run the [access](src/impl/access.py) CLI
 
 From the py-fortress/test folder, enter the following commands:
 
-1. **auth** - access_mgr.create_session - authenticate, activate roles:
+1. **auth** - access.create_session - authenticate, activate roles:
 
     ```
     $ clitest auth --uid 'chorowitz' --password 'secret'
@@ -208,7 +208,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
    _Display the contents of session including user atributes, status, role activations._
    
-3. **check** - access_mgr.check_access - perm page456.read:
+3. **check** - access.check_access - perm page456.read:
    
     ```
     $ clitest check --obj_name page456  --op_name read
@@ -219,7 +219,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
    _The user has auditor activated so unless timeout validation failed this will succeed._
    
-4. **check** - access_mgr.check_access - perm page456.edit:
+4. **check** - access.check_access - perm page456.edit:
    
     ```
     $ clitest check --obj_name page456  --op_name edit
@@ -230,7 +230,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
    _The user has account-mgr activated and will succeed._
    
-5. **check** - access_mgr.check_access - perm page456.remove:
+5. **check** - access.check_access - perm page456.remove:
    
     ```
     $ clitest check --obj_name page456  --op_name remove
@@ -241,7 +241,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
    _The user has account-mgr activated and will succeed._
    
-6. **perms** - access_mgr.session_perms:
+6. **perms** - access.session_perms:
    
     ```
     $ clitest perms
@@ -268,7 +268,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
    _Display all perms allowed for activated roles._
     
-7. **drop** - access_mgr.drop_active_role - deactivate auditor role:
+7. **drop** - access.drop_active_role - deactivate auditor role:
    
     ```
     $ clitest drop --role auditor
@@ -278,7 +278,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
    _RBAC distinguishes between assigned and activated roles_
         
-8. **roles** - access_mgr.session_roles:
+8. **roles** - access.session_roles:
    
     ```
     $ clitest roles
@@ -291,7 +291,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
    _Notice the auditor role is not displayed because it is no longer active in session._
         
-9. **check** - access_mgr.check_access - perm page456.read:
+9. **check** - access.check_access - perm page456.read:
    
     ```
     $ clitest check --obj_name page456  --op_name read
@@ -302,7 +302,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
    _Although the auditor role is still assigned to the user, it's deactivated from the session so user cannot perform as one._
             
-10. **add** - access_mgr.add_active_role - auditor:
+10. **add** - access.add_active_role - auditor:
    
     ```
     $ clitest add --role auditor    
@@ -313,7 +313,7 @@ From the py-fortress/test folder, enter the following commands:
     
     _Now the user resumes auditor activities._
                 
-11. **roles** - access_mgr.session_roles:
+11. **roles** - access.session_roles:
    
     ```
     $ clitest roles
@@ -330,7 +330,7 @@ From the py-fortress/test folder, enter the following commands:
     ```
     _Notice the audit role has been reactivated into the session._
         
-12. **check** - access_mgr.check_access - perm page456.read:
+12. **check** - access.check_access - perm page456.read:
    
     ```
     $ clitest check --obj_name page456  --op_name read
@@ -346,7 +346,7 @@ From the py-fortress/test folder, enter the following commands:
 
     _Allow enough time for the auditor role timeout to occur before moving to the next step.  Now, if you run the roles command, the auditor role will once again be missing._
                           
-14. **check** - access_mgr.check_access - perm page456.read:
+14. **check** - access.check_access - perm page456.read:
    
     ```
     $ clitest check --obj_name page456  --op_name read

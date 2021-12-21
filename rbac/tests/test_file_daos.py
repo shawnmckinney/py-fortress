@@ -2,11 +2,11 @@
 @copyright: 2022 - Symas Corporation
 '''
 import unittest
-from src.model import User,Perm
-from test import print_ln, print_entity
+from rbac.model import User,Perm
+from rbac.cli.utils import print_ln, print_entity
 from json import dumps
 
-from src.file import userdao,permdao,fileex
+from rbac.file import userdao,permdao,fileex
 
 class TestDaos(unittest.TestCase):
     """

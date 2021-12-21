@@ -1,8 +1,5 @@
 '''
-Created on Feb 10, 2018
-
-@author: smckinney
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
 class User:    

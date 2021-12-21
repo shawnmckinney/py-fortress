@@ -1,5 +1,7 @@
+'''
+@copyright: 2022 - Symas Corporation
+'''
 from ..model import Role
-from ..util import Config, global_ids
 from ..file.common import require_one,attrs,common_search
 
 def read (entity):

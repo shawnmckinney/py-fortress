@@ -2,7 +2,7 @@
 @copyright: 2022 - Symas Corporation
 '''
 
-from src.model import Role, Constraint
+from rbac.model import Role, Constraint
 
 ALL = 'all'
 NONE = 'none'

@@ -19,118 +19,85 @@ Minimum hardware requirements:
  * 1 Core
  * 1 GB RAM
 
-Minimum software requirements:
- * Linux machine
- * Python3 and virtualenv (venv) or system install of the ldap3 python module
- * completion of [README-LDAP-DOCKER](./README-LDAP-DOCKER.md)  
+Prerequisites:
+ * LDAP server configured for Apache Fortress using [README-LDAP-DOCKER](./README-LDAP-DOCKER.md)
 ________________________________________________________________________________
 ## SECTION 2. Setup Test Env
 
 Follow these steps to install py-fortress package and get it pointing to your LDAP server.
 
 1. Make a test folder:
-    ```
-    mkdir test    
-    cd test
-    ```
+```
+mkdir test    
+cd test
+```
 
 2. Prepare your terminal for execution of python3.  From the main dir of the git repo:
-    ```
-    pyvenv env
-    . env/bin/activate
-    export PYTHONPATH=$(pwd)
-    ```
+```
+pyvenv env
+. env/bin/activate
+export PYTHONPATH=$(pwd)
+```
     
 3. Install py-fortress
-    ```
-    pip install py-fortress
-    ```
+```
+pip install py-fortress
+```
 
 4. Download and edit [py-fortress-cfg.json](https://github.com/shawnmckinney/py-fortress/blob/master/test/py-fortress-cfg.json) config file to test folder:
-    ```
-    wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/py-fortress-cfg.json.sample
-    cp py-fortress-cfg.json.sample py-fortress-cfg.json
-    vi py-fortress-cfg.json
-    ```
+ ```
+wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/py-fortress-cfg.json.sample
+cp py-fortress-cfg.json.sample py-fortress-cfg.json
+vi py-fortress-cfg.json
+```
 
 5. Set the LDAP Port
-    ```
-    ...
-    "ldap": {
+```
+...
+"ldap": {
       ...
       "uri": "ldap://localhost",
-    ...
-    ```
+      ...
+```
     *use value obtained during LDAP setup*
         
 6. Update the connection parameters (pick one):
 
-    a. apacheds:
-    ```
-    "dn": "uid=admin,ou=system",
-    ```
+a. apacheds:
+```
+"dn": "uid=admin,ou=system",
+```
     
-    b. openldap:
-    ```
-    "dn": "dc=example,dc=com",
-    ```
+b. openldap:
+```
+"dn": "dc=example,dc=com",
+```
 
 7. Set the structure in DIT:
-    ```
-    ...
-    "dit": {
-        "suffix": "dc=example,dc=com",
-        "users": "People",
-        "roles": "Roles",
-        "perms": "Perms"
-    },
-    ...    
-    ```
-    *if in doubt use the defaults*
+```
+...
+"dit": {
+    "suffix": "dc=example,dc=com",
+    "users": "People",
+    "roles": "Roles",
+    "perms": "Perms"
+},
+...    
+```
+*if in doubt use the defaults*
     
 8. Save and exit config file.
 
 9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
-    ```
-    initldap 
-    ```
-    *initldap is a python script, created during install of py-fortress package, that maps here: pyfortress.test.test_dit_dao*
-    *Locations for these nodes are set in the config file.* 
+```
+initldap 
+```
+*initldap is a python script, created during install of py-fortress package, that maps here: pyfortress.tests.test_dit_dao*
+*Locations for these nodes are set in the config file.* 
 ________________________________________________________________________________________
-## SECTION 3. Run Integration Tests
+## SECTION 3. Using Command Line Interpreter (CLI)
 
-These test verify the code and the ldap server are working correctly.
-
-1. Run the admin mgr tests:
-    ```
-    $ python3 -m test.test_admin_mgr 
-    ```
-
-2. Run the access mgr tests:
-    ```
-    $ python3 -m test.test_access_mgr
-    ```
- 
-3. Run the review mgr tests:
-    ```
-    $ python3 -m test.test_review_mgr 
-    ```
-__________________________________________________________________________________
-## SECTION 4. Run Simple Test Samples
-
-These are simple tests designed to instruct API usage.  
- 
-1. Run the samples:
-    ```
-    $ python3 -m test.test_samples 
-    ```
-
-2. View the [test_samples](test/test_samples.py) and learn how RBAC APIs work.
-
-__________________________________________________________________________________
-## SECTION 5. View the Test Data using Command Line Interpreter (CLI)
-
-View the test data inserted earlier.  
+View the test data.  
  
 1. user search 
     ```

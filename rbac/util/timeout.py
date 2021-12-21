@@ -1,8 +1,5 @@
 '''
-Created on Feb 24, 2018
-
-@author: smckinn
-@copyright: 2018 - Symas Corporation
+@copyright: 2022 - Symas Corporation
 '''
 
 from . import Validator
