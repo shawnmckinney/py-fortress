@@ -9,7 +9,7 @@ _____________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 1. Introduction
 
-The py-fortress CLI drive the [admin_mgr](../impl/admin_mgr.py) and [review_mgr](../impl/review_mgr.py) APIs.
+The py-fortress CLI drive the [admin](../impl/admin.py) and [review](../impl/review.py) APIs.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
@@ -153,11 +153,11 @@ Both the user and role entity support adding temporal [constraint](src/model/con
    
 ### A Few Tips More
 
-   * These commands have a one-to-one mapping to the admin and review APIs.  For example, the perm grant command maps to the admin_mgr.grant function and perm search –uid calls review_mgr.user_perms.
-   * The description of the commands, including required arguments, can be inferred via the api doc inline to the admin_mgr and review_mgr modules.
+   * These commands have a one-to-one mapping to the admin and review APIs.  For example, the perm grant command maps to the admin.grant function and perm search –uid calls review.user_perms.
+   * The description of the commands, including required arguments, can be inferred via the api doc inline to the admin and review modules.
    * The program output echos the inputted arguments and the results.
    
-3. [AdminMgr](src/impl/admin_mgr.py) Examples:
+3. [AdminMgr](src/impl/admin.py) Examples:
 
     a. user add
     ````
@@ -289,7 +289,7 @@ Both the user and role entity support adding temporal [constraint](src/model/con
     success    
     ````
     
-4. [ReviewMgr](src/impl/review_mgr.py) Examples:
+4. [ReviewMgr](src/impl/review.py) Examples:
 
     a. user read 
     ````

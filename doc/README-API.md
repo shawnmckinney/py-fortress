@@ -9,7 +9,7 @@ _____________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 1. Introduction
 
-There are about 37 APIs contained within [admin_mgr](../impl/admin_mgr.py), [review_mgr](../impl/review_mgr.py) and [access_mgr](../impl/access_mgr.py) modules.
+There are about 37 APIs contained within [admin](../impl/admin.py), [review](../impl/review.py) and [access](../impl/access.py) modules.
 This guide shows how they can be used.
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
@@ -19,23 +19,23 @@ ______________________________________________________________________________
 ____________________________________________________________________________________________________________________________________________________________
 ## SECTION 3. API Usage
 
-The following samples pulled from here: [test_samples.py](../test/test_samples.py).
+The following samples pulled from here: [test_samples.py](../rbac/tests/test_samples.py).
 
 0. Prepare your python module for usage by importing:
 
     ```python
-    from src import (
+    from rbac import (
         # model
         User,
         Role,
         Perm,
         PermObj,
         # apis:
-        review_mgr, 
-        admin_mgr, 
-        access_mgr,
+        review, 
+        admin, 
+        access,
         #exception handling:
-        FortressError,
+        RbacError,
         global_ids
     )
     ```
@@ -54,14 +54,14 @@ These are used to check the policies at runtime.  For example, to authenticate i
         print('test_create_session')
         
         try:
-            session = access_mgr.create_session(User(uid='foo1', password='secret'), False)
+            session = access.create_session(User(uid='foo1', password='secret'), False)
             if not session:
                 print('test_create_session fail')
                 self.fail('test_create_session fail')
             else:
                 print('test_create_session pass')
                 pass                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_create_session failed, exception=' + e.msg)            
     ```
     
@@ -78,14 +78,14 @@ These are used to check the policies at runtime.  For example, to authenticate i
         
         try:
             session = ... obtained earlier
-            result = access_mgr.check_access(session, Perm(obj_name='ShoppingCart', op_name='add'))
+            result = access.check_access(session, Perm(obj_name='ShoppingCart', op_name='add'))
             if not result:
                 print('test_check_access fail')
                 self.fail('test_check_access fail')
             else:
                 print('test_check_access pass')
                 pass                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_check_access failed, exception=' + e.msg)                 
     ```
 
@@ -100,7 +100,7 @@ These are used to check the policies at runtime.  For example, to authenticate i
         
         try:
             session = ... obtained earlier
-            perms = access_mgr.session_perms(session)
+            perms = access.session_perms(session)
             if not perms:
                 print('test_session_perms failed')
                 self.fail('test_session_perms failed')
@@ -108,7 +108,7 @@ These are used to check the policies at runtime.  For example, to authenticate i
             for perm in perms:
                 print_perm(perm, 'session_perms: ')
             pass                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_session_perms failed, exception=' + e.msg)     
     ```
 
@@ -126,9 +126,9 @@ These are for programs that manage and search the data. For example admin guis, 
         print('test_add_user')
         
         try:
-            admin_mgr.add_user(User(uid='foo1', password='secret'))
+            admin.add_user(User(uid='foo1', password='secret'))
             print('test_add_user success')                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_add_user failed, exception=' + e.msg)     
     ```
 
@@ -141,9 +141,9 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print('test_add_role')        
         try:
-            admin_mgr.add_role(Role(name='Customer'))
+            admin.add_role(Role(name='Customer'))
             print('test_add_role success')                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_add_role failed, exception=' + e.msg)     
     ```
 
@@ -157,9 +157,9 @@ These are for programs that manage and search the data. For example admin guis, 
         print('test_add_obj')
         
         try:
-            admin_mgr.add_object(PermObj(obj_name='ShoppingCart'))
+            admin.add_object(PermObj(obj_name='ShoppingCart'))
             print('test_add_obj success')                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_add_obj failed, exception=' + e.msg)     
     ```
 
@@ -174,9 +174,9 @@ These are for programs that manage and search the data. For example admin guis, 
         print('test_add_perm')
         
         try:
-            admin_mgr.add_perm(Perm(obj_name='ShoppingCart', op_name='add'))
+            admin.add_perm(Perm(obj_name='ShoppingCart', op_name='add'))
             print('test_add_perm success')                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_add_perm failed, exception=' + e.msg)     
     ```
 
@@ -190,9 +190,9 @@ These are for programs that manage and search the data. For example admin guis, 
         print('test_assign_user')
         
         try:
-            admin_mgr.assign(User(uid='foo1'), Role(name='Customer'))
+            admin.assign(User(uid='foo1'), Role(name='Customer'))
             print('test_assign_user success')                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_assign_user failed, exception=' + e.msg)     
     ```
 
@@ -206,9 +206,9 @@ These are for programs that manage and search the data. For example admin guis, 
         print('test_grant_perm')
         
         try:
-            admin_mgr.grant(Perm(obj_name='ShoppingCart', op_name='add'), Role(name="Customer"))
+            admin.grant(Perm(obj_name='ShoppingCart', op_name='add'), Role(name="Customer"))
             print('test_grant_perm success')                        
-        except FortressError as e:
+        except RbacError as e:
             self.fail('test_grant_perm failed, exception=' + e.msg)     
     ```
 
@@ -221,9 +221,9 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()
         try:
-            out_user = review_mgr.read_user(User(uid='foo1'))
+            out_user = review.read_user(User(uid='foo1'))
             print_user(out_user)
-        except FortressError as e:            
+        except RbacError as e:            
             print_exception(e)
             self.fail()
     ```
@@ -238,10 +238,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()
         try:
-            users = review_mgr.find_users(User(uid='foo*'))
+            users = review.find_users(User(uid='foo*'))
             for user in users:
                 print_user(user)
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```
@@ -256,10 +256,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()
         try:
-            uids = review_mgr.assigned_users(Role(name='Customer'))
+            uids = review.assigned_users(Role(name='Customer'))
             for uid in uids:
                 print_test_msg('uid=' + uid)
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```
@@ -274,10 +274,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()
         try:
-            users = review_mgr.perm_users(Perm(obj_name='ShoppingCart', op_name='add'))
+            users = review.perm_users(Perm(obj_name='ShoppingCart', op_name='add'))
             for user in users:
                 print_user(user)
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()
     
@@ -293,9 +293,9 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            out_role = review_mgr.read_role(Role(name='Customer'))
+            out_role = review.read_role(Role(name='Customer'))
             print_role(out_role)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()
     
@@ -311,10 +311,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            roles = review_mgr.find_roles(Role(name='Customer*'))
+            roles = review.find_roles(Role(name='Customer*'))
             for role in roles:
                 print_role(role)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```
@@ -329,10 +329,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            constraints = review_mgr.assigned_roles(User(uid='foo1'))
+            constraints = review.assigned_roles(User(uid='foo1'))
             for constraint in constraints:
                 print_test_msg('role name=' + constraint.name)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```
@@ -347,10 +347,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            names = review_mgr.perm_roles(Perm(obj_name='ShoppingCart', op_name='add'))
+            names = review.perm_roles(Perm(obj_name='ShoppingCart', op_name='add'))
             for name in names:
                 print_test_msg('role name=' + name)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```
@@ -365,9 +365,9 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            out_obj = review_mgr.read_object(PermObj(obj_name='ShoppingCart'))
+            out_obj = review.read_object(PermObj(obj_name='ShoppingCart'))
             print_obj(out_obj)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```
@@ -382,10 +382,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            objs = review_mgr.find_objects(PermObj(obj_name='ShoppingCart*'))
+            objs = review.find_objects(PermObj(obj_name='ShoppingCart*'))
             for obj in objs:
                 print_obj(obj)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```
@@ -400,9 +400,9 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            out_perm = review_mgr.read_perm(Perm(obj_name='ShoppingCart', op_name='add'))
+            out_perm = review.read_perm(Perm(obj_name='ShoppingCart', op_name='add'))
             print_perm(out_perm)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()
     ```
@@ -417,10 +417,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            perms = review_mgr.find_perms(Perm(obj_name='ShoppingCart*', op_name='*'))
+            perms = review.find_perms(Perm(obj_name='ShoppingCart*', op_name='*'))
             for perm in perms:
                 print_perm(perm)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()
     ```
@@ -435,10 +435,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            perms = review_mgr.role_perms(Role(name='Customer'))
+            perms = review.role_perms(Role(name='Customer'))
             for perm in perms:
                 print_perm(perm)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```
@@ -453,10 +453,10 @@ These are for programs that manage and search the data. For example admin guis, 
         """
         print_test_name()        
         try:
-            perms = review_mgr.user_perms(User(uid='foo1'))
+            perms = review.user_perms(User(uid='foo1'))
             for perm in perms:
                 print_perm(perm)                        
-        except FortressError as e:
+        except RbacError as e:
             print_exception(e)
             self.fail()    
     ```

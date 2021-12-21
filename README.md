@@ -35,9 +35,9 @@ The following modules have inline code docs describing the API signatures, requi
 
 |   | Link                                        | Description                                          |  
 |---|:--------------------------------------------|:-----------------------------------------------------|  
-|1. |[access_mgr](src/impl/access_mgr.py)  |create session, check access, add, drop active roles  |  
-|2. |[admin_mgr](src/impl/admin_mgr.py)    |add, update, delete, assign, deassign entities        |  
-|3. |[review_mgr](src/impl/review_mgr.py)  |read and search entities and their relationships      |  
+|1. |[access](rbac/access.py)  |create session, check access, add, drop active roles  |  
+|2. |[admin](rbac/admin.py)    |add, update, delete, assign, deassign entities        |  
+|3. |[review](rbac/review.py)  |read and search entities and their relationships      |  
    
 #### Related Project
 We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation and share:
