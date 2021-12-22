@@ -26,7 +26,7 @@ class Config:
                 # Keep looking
                 pass
             if not found:
-                msg = "Could not locate py-fortress-cfg.json. Was it added to user home directory or /etc/py-fortress or env var:" + PYFORTRESS_CONF
+                msg = "Could not locate py-fortress-cfg.json. Was it added to current directory or user home directory or /etc/py-fortress or env var:" + PYFORTRESS_CONF
                 print(msg)
                 raise RbacError(msg="Configuration error=" + msg, id=global_ids.CONFIG_BOOTSTRAP_FAILED)
 
