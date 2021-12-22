@@ -26,12 +26,12 @@ setup(name='py-fortress',
       },     
       
       install_requires=[
-          'python-ldap',
-          'ldappool',
-          'six'
-      ],      
+          'python-ldap >= 3.4.0',
+          'six',
+          'ldappool >= 3.0.0'
+      ],
       classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Programming Language :: Python :: 3',  
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
