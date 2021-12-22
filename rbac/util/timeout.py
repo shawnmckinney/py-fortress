@@ -3,7 +3,6 @@
 '''
 
 from . import Validator
-from . import logger
 from .global_ids import ACTV_FAILED_TIMEOUT, SUCCESS
 
 class TimeOut(Validator):
@@ -12,7 +11,6 @@ class TimeOut(Validator):
         # this is the expected condition for a new session i.e. first ever access:
         if session.last_access is None:
             return SUCCESS
-        logger.debug('TimeOut.validate time=' + str(now.time) + ', last access=' + str(session.last_access) + ', constraint timeout=' + str(constraint.timeout))
         rc = ACTV_FAILED_TIMEOUT
         if constraint.timeout == 0:
             rc = SUCCESS

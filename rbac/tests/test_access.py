@@ -70,7 +70,7 @@ class TestAccessMgr(unittest.TestCase):
                             self.fail('test_user_roles failed uid=' + entity.uid + ', role=' + role)
             print()                                                                            
         except Exception as e:
-            self.fail('test_user_roles exception=' + e.msg)
+            self.fail('test_user_roles exception=' + e)
 
 
     def test03_active_roles(self):

@@ -16,7 +16,7 @@ class Config:
     
     def load(filename='py-fortress-cfg.json'):
         found = False
-        for loc in os.curdir, os.path.expanduser("~"), "/etc/py-fortress", os.environ.get(PYFORTRESS_CONF):
+        for loc in os.curdir, os.path.expanduser("~"), "/etc/pyfortress", os.environ.get(PYFORTRESS_CONF):
             try:
                 with open(os.path.join(loc, filename)) as json_file:
                     Config.current["data"] = json.load(json_file)

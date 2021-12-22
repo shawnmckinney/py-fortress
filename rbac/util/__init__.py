@@ -12,3 +12,4 @@ from .timeout import TimeOut
 from .current_date_time import CurrentDateTime
 from .global_ids import ACTV_FAILED_DAY, ACTV_FAILED_DATE, ACTV_FAILED_TIMEOUT, ACTV_FAILED_TIME, ACTV_FAILED_LOCK, SUCCESS
 from .fortress_error import RbacError
+from .logger import logger

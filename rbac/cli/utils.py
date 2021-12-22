@@ -2,7 +2,6 @@
 @copyright: 2022 - Symas Corporation
 '''
 from argparse import ArgumentError
-from rbac.util import logger
 
 # entities =
 USER = 'user'
@@ -52,7 +51,7 @@ def print_ln(ln, num=None):
     for x in range(0, num):
         tabs += '\t'
     print(tabs + ln)
-    logger.debug((tabs + ln))
+    #logger.debug((tabs + ln))
 
 
 def print_entity(entity, label, indent=None):

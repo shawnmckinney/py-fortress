@@ -25,19 +25,14 @@ ________________________________________________________________________________
 From the project root folder, copy sample cfg file:
 
 ```bash
-cp py-fortress-cfg.json.sample $PATH/py-fortress-cfg.json
+cp py-fortress-cfg.json.sample rbac/tests/py-fortress-cfg.json
 ```
-
-Where PATH equals one of the following:
-a. user home directory
-b. /etc/py-fortress
-c. pointed to with ```export PYFORTRESS_CONF=path```
 
 sample cfg file is here: [py-fortress-cfg.json.sample](../py-fortress-cfg.json.sample)
 
 2. Now edit config file:
  ```
-vi py-fortress-cfg.json
+vi rbac/tests/py-fortress-cfg.json
 ```
 
 3. Set the LDAP URI
@@ -77,20 +72,20 @@ vi py-fortress-cfg.json
     
 6. Save and exit
 
-7. Prepare your terminal for execution of python3.  From the main dir of the git repo:
-    ```
-    pyvenv env
-    . env/bin/activate
-    export PYTHONPATH=$(pwd)
-    ```
-
-8. Run the tests (from source):
+7. Goto test folder:
  ```
 cd rbac/tests
 ```
-    
-9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
+
+8. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+```bash
+python3 -m venv env
+. env/bin/activate
+export PYTHONPATH=$(pwd)
 ```
+ 
+9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
+```bash
 python3 test_dit_dao.py
 ```
 * Locations for these nodes are set in the config file.*
