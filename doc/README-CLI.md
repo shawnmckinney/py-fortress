@@ -13,20 +13,21 @@ The py-fortress CLI drive the [admin](../impl/admin.py) and [review](../impl/rev
 ______________________________________________________________________________
 ## SECTION 2. Prerequisites
 
-Completed [README-QUICKSTART](.README-QUICKSTART.md)
+* Completed [README-QUICKSTART](.README-QUICKSTART.md)
+* Python 3.6
 ___________________________________________________________________________________
 ## SECTION 3. Run it
 
 1. Prepare your terminal for execution of python3.  From the main dir of your test directory:
-    ```
-    pyvenv env
-    ```
+```
+python3 -m venv env
+```
     
 2. To run the CLI:
-    ```
-    cli entity operation --arg1 --arg2 ...  
-    ```
-    *executes a package script that maps here: pyfortress.test.cli*    
+```
+cli entity operation --arg1 --arg2 ...  
+```
+   *executes a package script that maps here: pyfortress.test.cli*    
     
 ### Where entity is (pick one):
    * user

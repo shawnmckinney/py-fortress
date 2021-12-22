@@ -20,6 +20,7 @@ Minimum hardware requirements:
  * 1 GB RAM
 
 Prerequisites:
+ * Python3.6
  * LDAP server configured for Apache Fortress using [README-LDAP-DOCKER](./README-LDAP-DOCKER.md)
 ________________________________________________________________________________
 ## SECTION 2. Setup Test Env
@@ -34,7 +35,7 @@ cd test
 
 2. Prepare your terminal for execution of python3.  From the main dir of the git repo:
 ```
-pyvenv env
+python3 -m venv env
 . env/bin/activate
 export PYTHONPATH=$(pwd)
 ```

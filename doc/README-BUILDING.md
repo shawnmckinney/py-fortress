@@ -18,7 +18,7 @@ Minimum hardware requirements:
 
 Minimum software requirements:
  * Linux machine
- * Python3 and virtualenv (venv) or system install of the ldap3 python module
+ * Python3.6 and virtualenv (venv)
 ________________________________________________________________________________
 ## SECTION 2. Setup Python Runtime and Configure py-fortress Usage
 
@@ -35,7 +35,7 @@ ________________________________________________________________________________
 3. Build
 
 ```bash
-pyvenv env
+python3 -m venv env
 . env/bin/activate
 python3 -m pip install --upgrade build
 python3 -m build

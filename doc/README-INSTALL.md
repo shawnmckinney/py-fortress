@@ -1,6 +1,6 @@
 # py-fortress Package Installation Guide
  
-Instructions to install the py-fortress package
+Instructions to install the py-fortress package from PYPI
 _____________________________________________________________________________
 ## Table of Contents
  * SECTION 1. Prerequisites
@@ -8,21 +8,22 @@ _____________________________________________________________________________
 ______________________________________________________________________________
 ## SECTION 1. Prerequisites
 
- * Python3 and virtualenv (venv)
+ * Python3.6 and virtualenv (venv)
+ * Connection to Internet
 ___________________________________________________________________________________
 ______________________________________________________________________________
 ## SECTION 2. Install
 
 
 1. Prepare your terminal for execution of python3.  From the main dir of the git repo:
-    ```
-    pyvenv env
-    . env/bin/activate
-    ```
+```
+python3 -m venv env
+. env/bin/activate
+```
 
 2. Install the package to PIP:
-    ```
-    pip install py-fortress
-    ```
+```
+pip install py-fortress
+```
 
 #### End of README-INSTALL

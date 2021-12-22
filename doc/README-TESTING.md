@@ -82,8 +82,11 @@ cd rbac/tests
 python3 -m venv env
 . env/bin/activate
 export PYTHONPATH=$(pwd)
+pip install "python-ldap>=3.4.0"
+pip install "six>=1.16.0"
+pip install "ldappool>=3.0.0"
 ```
- 
+
 9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
 ```bash
 python3 test_dit_dao.py
