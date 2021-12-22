@@ -25,8 +25,13 @@ ________________________________________________________________________________
 From the project root folder, copy sample cfg file:
 
 ```bash
-cp py-fortress-cfg.json.sample py-fortress-cfg.json
+cp py-fortress-cfg.json.sample $PATH/py-fortress-cfg.json
 ```
+
+Where PATH equals one of the following:
+a. user home directory
+b. /etc/py-fortress
+c. pointed to with ```export PYFORTRESS_CONF=path```
 
 sample cfg file is here: [py-fortress-cfg.json.sample](../py-fortress-cfg.json.sample)
 

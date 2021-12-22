@@ -40,7 +40,7 @@ pyvenv env
 python3 -m pip install --upgrade build
 python3 -m build
 ...
-successfully built py-fortress-0.1.1.tar.gz and py_fortress-x.x.x-py3-none-any.wh
+successfully built py-fortress-x.x.x.tar.gz and py_fortress-x.x.x-py3-none-any.wh
 ```
 
 Where x.x.x == the current version of py-fortress

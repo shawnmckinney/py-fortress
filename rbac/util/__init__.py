@@ -3,7 +3,6 @@
 '''
 
 from .config import Config
-from .logger import logger
 from .validator import Validator
 from .date import Date
 from .day import Day

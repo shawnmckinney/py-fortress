@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='py-fortress',
-      version='0.1.1',
+      version='0.1.3',
       python_requires='>=3.6',
       description='RBAC for Python',
       long_description=long_description,
@@ -27,7 +27,7 @@ setup(name='py-fortress',
       
       install_requires=[
           'python-ldap >= 3.4.0',
-          'six',
+          'six >= 1.16.0',
           'ldappool >= 3.0.0'
       ],
       classifiers=[
@@ -40,12 +40,12 @@ setup(name='py-fortress',
         'Topic :: Software Development :: Libraries :: Python Modules',          
       ],
       keywords='authorization rbac security', 
-      #namespace_packages=['src'],
       entry_points={
        'console_scripts': [
            'initldap = rbac.tests.test_dit_dao:main',
            'cli = rbac.cli.cli:main',
            'clitest = rbac.cli.cli_test_auth:main',
         ],
-      },           
+      },
+      data_files=[('conf', ['py-fortress-cfg.json.sample'])],
       zip_safe=False)

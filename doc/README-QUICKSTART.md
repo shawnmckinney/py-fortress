@@ -47,11 +47,16 @@ pip install py-fortress
 4. Download and edit [py-fortress-cfg.json](https://github.com/shawnmckinney/py-fortress/blob/master/test/py-fortress-cfg.json) config file to test folder:
  ```
 wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/py-fortress-cfg.json.sample
-cp py-fortress-cfg.json.sample py-fortress-cfg.json
+cp py-fortress-cfg.json.sample $PATH/py-fortress-cfg.json
 vi py-fortress-cfg.json
 ```
 
-5. Set the LDAP Port
+Where PATH equals one of the following:
+a. user home directory
+b. /etc/py-fortress
+c. pointed to with ```export PYFORTRESS_CONF=path```
+
+2. Set the LDAP Port
 ```
 ...
 "ldap": {

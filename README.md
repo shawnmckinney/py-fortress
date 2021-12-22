@@ -10,15 +10,15 @@ ________________________________
 ## Links to Install and Setup Docs
 Located under the [doc](doc) folder and include:
 
-|   | Link                                                              | Description                     | 
-|---|:------------------------------------------------------------------|:--------------------------------| 
-|1. |[README-BUILDING](doc/README-BUILDING.md)               |To build the package from source |
-|2. |[README-QUICKSTART](doc/README-QUICKSTART.md)           |Beginners start here             | 
-|3. |[README-LDAP-DOCKER](doc/README-LDAP-DOCKER.md)         |Run LDAP in Docker               |
-|4. |[README-INSTALL](doc/README-INSTALL.md)                 |Install with PyPI Package        | 
-|5. |[README-API](doc/README-API.md)                         |API Usage Guide                  |
-|6. |[README-CLI](doc/README-CLI.md)                         |CLI for RBAC Admin and Review    |  
-|7. |[README-CLI-AUTH](doc/README-CLI-AUTH.md)               |CLI for RBAC System Testing      | 
+|   | Link                                                                                                     | Description                     | 
+|---|:---------------------------------------------------------------------------------------------------------|:--------------------------------| 
+|1. | [README-BUILDING](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-BUILDING.md)       |To build the package from source |
+|2. | [README-QUICKSTART](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-QUICKSTART.md)   |Beginners start here             | 
+|3. | [README-LDAP-DOCKER](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-LDAP-DOCKER.md) |Run LDAP in Docker               |
+|4. | [README-INSTALL](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-INSTALL.md)         |Install with PyPI Package        | 
+|5. | [README-API](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-API.md)                 |API Usage Guide                  |
+|6. | [README-CLI](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-CLI.md)                 |CLI for RBAC Admin and Review    |  
+|7. | [README-CLI-AUTH](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-CLI-AUTH.md)       |CLI for RBAC System Testing      | 
 _________________________________________________________________________________
 ## About py-fortress and Role-Based Access Control
 
@@ -33,11 +33,11 @@ ________________________________________________________________________________
 #### Links to the API Modules
 The following modules have inline code docs describing the API signatures, required attributes and usages.
 
-|   | Link                                        | Description                                          |  
-|---|:--------------------------------------------|:-----------------------------------------------------|  
-|1. |[access](rbac/access.py)  |create session, check access, add, drop active roles  |  
-|2. |[admin](rbac/admin.py)    |add, update, delete, assign, deassign entities        |  
-|3. |[review](rbac/review.py)  |read and search entities and their relationships      |  
+|   | Link                                                                              | Description                                          |  
+|---|:----------------------------------------------------------------------------------|:-----------------------------------------------------|  
+|1. | [access](https://github.com/shawnmckinney/py-fortress/blob/master/rbac/access.py) |create session, check access, add, drop active roles  |  
+|2. | [admin](https://github.com/shawnmckinney/py-fortress/blob/master/rbac/admin.py)   |add, update, delete, assign, deassign entities        |  
+|3. | [review](https://github.com/shawnmckinney/py-fortress/blob/master/rbac/review.py) |read and search entities and their relationships      |  
    
 #### Related Project
 We're related to the [Apache Fortress](http://directory.apache.org/fortress) Java implementation and share:

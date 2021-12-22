@@ -23,22 +23,22 @@ The following samples pulled from here: [test_samples.py](../rbac/tests/test_sam
 
 0. Prepare your python module for usage by importing:
 
-    ```python
-    from rbac import (
-        # model
-        User,
-        Role,
-        Perm,
-        PermObj,
-        # apis:
-        review, 
-        admin, 
-        access,
-        #exception handling:
-        RbacError,
-        global_ids
-    )
-    ```
+```python
+from rbac import (
+    # model
+    User,
+    Role,
+    Perm,
+    PermObj,
+    # apis:
+    review,
+    admin,
+    access,
+    #exception handling:
+    RbacError,
+    global_ids
+)
+```
 
 ### Access Mgr APIs - Create Session, Check Access, Session Perms
 
