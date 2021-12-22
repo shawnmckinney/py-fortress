@@ -16,19 +16,20 @@ class Config:
     
     def load(filename='py-fortress-cfg.json'):
         found = False
-        for loc in os.curdir, os.path.expanduser("~"), "/etc/pyfortress", os.environ.get(PYFORTRESS_CONF):
-            try:
+        for loc in os.curdir, os.path.expanduser("~"), "/etc/pyfortress", os.getenv(PYFORTRESS_CONF):
+            file = os.path.join(loc, filename)
+            print("try config file: " + file)
+            if os.path.isfile(file):
                 with open(os.path.join(loc, filename)) as json_file:
                     Config.current["data"] = json.load(json_file)
                     Config.current["filename"] = filename
                     found = True
-            except IOError as e:
-                # Keep looking
-                pass
-            if not found:
-                msg = "Could not locate py-fortress-cfg.json. Was it added to current directory or user home directory or /etc/py-fortress or env var:" + PYFORTRESS_CONF
-                print(msg)
-                raise RbacError(msg="Configuration error=" + msg, id=global_ids.CONFIG_BOOTSTRAP_FAILED)
+                    break
+
+        if not found:
+            msg = "Could not locate py-fortress-cfg.json. Was it added to current directory or user home directory or /etc/pyfortress or env var: " + PYFORTRESS_CONF
+            print(msg)
+            raise RbacError(msg="Configuration error=" + msg, id=global_ids.CONFIG_BOOTSTRAP_FAILED)
 
     def get(key):
         return Config.current["data"][key]

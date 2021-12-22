@@ -10,21 +10,20 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='py-fortress',
-      version='0.1.4',
+      version='0.1.5',
       python_requires='>=3.6',
       description='RBAC for Python',
       long_description=long_description,
       long_description_content_type="text/markdown",
       url='https://github.com/shawnmckinney/py-fortress',
       author='Symas Corporation',
-      author_email='smckinney@symas.com,ebackes@symas.com',
-      license='Apache License 2.0',      
+      author_email='smckinney@symas.com',
+      license='Apache License 2.0',
       packages=['rbac', 'rbac.cli', 'rbac.ldap', 'rbac.model', 'rbac.util', 'rbac.tests', 'doc'],
       package_data={
         # If any package contains *.txt or *.rst files, include them:
-        '': ['*.md', '*.json'],
-      },     
-      
+        '': ['*.md'],
+      },
       install_requires=[
           'python-ldap >= 3.4.0',
           'six >= 1.16.0',

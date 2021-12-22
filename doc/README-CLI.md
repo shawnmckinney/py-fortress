@@ -21,6 +21,7 @@ ________________________________________________________________________________
 1. Prepare your terminal for execution of python3.  From the main dir of your test directory:
 ```
 python3 -m venv env
+. env/bin/activate
 ```
     
 2. To run the CLI:

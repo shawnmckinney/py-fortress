@@ -25,14 +25,20 @@ ________________________________________________________________________________
 From the project root folder, copy sample cfg file:
 
 ```bash
-cp py-fortress-cfg.json.sample rbac/tests/py-fortress-cfg.json
+cp py-fortress-cfg.json.sample $PATH/py-fortress-cfg.json
 ```
+
+Where PATH equals one of the following:
+a. current directory
+b. user home directory
+c. /etc/pyfortress
+d. pointed to by: ```export PYFORTRESS_CONF=...```
 
 sample cfg file is here: [py-fortress-cfg.json.sample](../py-fortress-cfg.json.sample)
 
 2. Now edit config file:
  ```
-vi rbac/tests/py-fortress-cfg.json
+vi $PATH/py-fortress-cfg.json
 ```
 
 3. Set the LDAP URI

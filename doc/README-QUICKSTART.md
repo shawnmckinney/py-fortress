@@ -53,11 +53,10 @@ vi py-fortress-cfg.json
 ```
 
 Where PATH equals one of the following:
-a. user home directory
-b. /etc/pyfortress
-c. pointed to: ```export PYFORTRESS_CONF=path```
-
-* where 'path' is location of the file
+a. current directory
+b. user home directory
+c. /etc/pyfortress
+d. pointed to by: ```export PYFORTRESS_CONF=...```
 
 2. Set the LDAP Port
 ```
