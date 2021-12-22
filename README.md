@@ -10,15 +10,16 @@ ________________________________
 ## Links to Install and Setup Docs
 Located under the [doc](doc) folder and include:
 
-|   | Link                                                                                                     | Description                     | 
-|---|:---------------------------------------------------------------------------------------------------------|:--------------------------------| 
-|1. | [README-BUILDING](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-BUILDING.md)       |To build the package from source |
-|2. | [README-QUICKSTART](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-QUICKSTART.md)   |Beginners start here             | 
-|3. | [README-LDAP-DOCKER](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-LDAP-DOCKER.md) |Run LDAP in Docker               |
-|4. | [README-INSTALL](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-INSTALL.md)         |Install with PyPI Package        | 
-|5. | [README-API](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-API.md)                 |API Usage Guide                  |
-|6. | [README-CLI](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-CLI.md)                 |CLI for RBAC Admin and Review    |  
-|7. | [README-CLI-AUTH](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-CLI-AUTH.md)       |CLI for RBAC System Testing      | 
+|     | Link                                                                                                     | Description                       | 
+|-----|:---------------------------------------------------------------------------------------------------------|:--------------------------------- | 
+| 1.  | [README-BUILDING](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-BUILDING.md)       |To build the package from source |
+| 2.  | [README-QUICKSTART](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-QUICKSTART.md)   |Beginners start here             | 
+| 3.  | [README-LDAP-DOCKER](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-LDAP-DOCKER.md) |Run LDAP in Docker               |
+| 4.  | [README-INSTALL](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-INSTALL.md)         |Install with PyPI Package        | 
+| 5.  | [README-TESTING](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-TESTING.md)         |Run the tests from source        | 
+| 6.  | [README-API](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-API.md)                 |API Usage Guide                  |
+| 7.  | [README-CLI](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-CLI.md)                 |CLI for RBAC Admin and Review    |  
+| 8.  | [README-CLI-AUTH](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-CLI-AUTH.md)       |CLI for RBAC System Testing      | 
 _________________________________________________________________________________
 ## About py-fortress and Role-Based Access Control
 
