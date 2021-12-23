@@ -17,8 +17,6 @@ Minimum hardware requirements:
  * 1 GB RAM
 
 Minimum software requirements:
- * Linux machine
- * Python3.6 and virtualenv (venv)
  * python-ldap dependencies installed [README-UPGRADE-PYTHON](./README-UPGRADE-PYTHON.md)
 ________________________________________________________________________________
 ## SECTION 2. Setup Python Runtime and Configure py-fortress Usage

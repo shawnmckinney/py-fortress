@@ -21,8 +21,6 @@ Minimum hardware requirements:
  * 1 GB RAM
 
 Prerequisites:
- * Linux machine with Internet connection
- * Python3
  * Accounts setup on testpypi and pypi with access to py-fortress project
  * Account setup on github with contributor access to py-fortress
  * python-ldap dependencies installed [README-UPGRADE-PYTHON](./README-UPGRADE-PYTHON.md)

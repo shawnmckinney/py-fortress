@@ -20,7 +20,7 @@ Minimum hardware requirements:
  * 1 GB RAM
 
 Minimum software requirements:
- * Linux machine
+ * RHEL/Debian machine
  * docker engine
 ________________________________________________________________________________
 ## SECTION 2. Start using ApacheDS or OpenLDAP Docker Image

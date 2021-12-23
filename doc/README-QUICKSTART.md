@@ -20,7 +20,6 @@ Minimum hardware requirements:
  * 1 GB RAM
 
 Prerequisites:
- * Python3.6
  * LDAP server configured for Apache Fortress using [README-LDAP-DOCKER](./README-LDAP-DOCKER.md)
  * python-ldap dependencies installed [README-UPGRADE-PYTHON](./README-UPGRADE-PYTHON.md)
 ________________________________________________________________________________

@@ -17,7 +17,8 @@ Minimum hardware requirements:
  * 1 GB RAM
 
 Minimum software requirements:
- * Linux machine
+ * RHEL/Debian machine
+ * Python >=3.6 
 ________________________________________________________________________________
 ## SECTION 2. Setup Python Runtime
 
