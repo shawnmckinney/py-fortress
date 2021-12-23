@@ -8,7 +8,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * Contains instructions to build and test py-fortress
+ * Contains instructions to build py-fortress
 ___________________________________________________________________________________
 ## SECTION 1. Prerequisites
 
