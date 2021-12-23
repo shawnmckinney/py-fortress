@@ -2,10 +2,10 @@
 @copyright: 2022 - Symas Corporation
 '''
 
-from ..util import global_ids
-from ..ldap import LdapException
-from ..util import Config
-from ..util import logger
+from rbac.util import global_ids
+from rbac.ldap import LdapException
+from rbac.util import Config
+from rbac.util import logger
 from ldappool import ConnectionManager
 
 

@@ -7,12 +7,12 @@ import ldap
 from ldap import MOD_REPLACE, MOD_ADD, MOD_DELETE
 from ldap.cidict import cidict as CIDict
 from ldap.dn import str2dn
-from ..model import Role, Constraint
-from ..ldap import ldaphelper, NotFound, NotUnique
-from ..ldap import userdao
-from ..ldap.ldaphelper import add_to_modlist, mods_to_modlist
-from ..util import global_ids
-from ..util.fortress_error import RbacError
+from rbac.model import Role, Constraint
+from rbac.ldap import ldaphelper, NotFound, NotUnique
+from rbac.ldap import userdao
+from rbac.ldap.ldaphelper import add_to_modlist, mods_to_modlist
+from rbac.util import global_ids
+from rbac.util.fortress_error import RbacError
 
 def read (entity):
     roleList = search(entity)

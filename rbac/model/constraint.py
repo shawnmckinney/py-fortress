@@ -2,7 +2,7 @@
 @copyright: 2022 - Symas Corporation
 '''
 
-from ..util import Config
+from rbac.util import Config
 
 DELIMITER = Config.get('schema')['raw_delimiter']
 

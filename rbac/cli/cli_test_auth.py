@@ -8,7 +8,6 @@ from rbac.util import global_ids
 from rbac.model import Perm, User
 from rbac import access
 from rbac.util import RbacError
-#from test import print_user, print_entity
 from ..cli.utils import print_user, print_entity
 from rbac.cli.utils import (
     load_entity, add_args, ADD, DELETE, AUTH, CHCK, ROLES, PERMS, SHOW, DROP

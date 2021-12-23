@@ -6,8 +6,8 @@ import unittest
 from rbac import admin, review
 from rbac.model import User, Role, Perm, PermObj
 from rbac.cli.utils import print_user, print_role, print_ln
-from . import user_test_data, role_test_data
-from . import perm_test_data
+from rbac.tests import user_test_data, role_test_data
+from rbac.tests import perm_test_data
 
 
 class BasicTestSuite(unittest.TestCase):

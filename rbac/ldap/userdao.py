@@ -6,11 +6,11 @@ import uuid
 import ldap
 from ldap import MOD_REPLACE, MOD_ADD, MOD_DELETE
 from ldap.cidict import cidict as CIDict
-from ..model import User, Constraint
-from ..ldap import ldaphelper, NotFound, NotUnique, InvalidCredentials
-from ..ldap.ldaphelper import add_to_modlist, mods_to_modlist
-from ..util import global_ids
-from ..util.fortress_error import RbacError
+from rbac.model import User, Constraint
+from rbac.ldap import ldaphelper, NotFound, NotUnique, InvalidCredentials
+from rbac.ldap.ldaphelper import add_to_modlist, mods_to_modlist
+from rbac.util import global_ids
+from rbac.util.fortress_error import RbacError
 
 def read (entity):
     userList = search(entity)

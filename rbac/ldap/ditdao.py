@@ -3,11 +3,11 @@
 '''
 
 import ldap
-from ..ldap import ldaphelper, NotFound, NotUnique
-from ..ldap.ldaphelper import add_to_modlist
-from ..util import Config, global_ids
-from ..util.fortress_error import RbacError
-from ..util import logger
+from rbac.ldap import ldaphelper, NotFound, NotUnique
+from rbac.ldap.ldaphelper import add_to_modlist
+from rbac.util import Config, global_ids
+from rbac.util.fortress_error import RbacError
+from rbac.util import logger
 
 
 def create_ou (name, desc=None):
