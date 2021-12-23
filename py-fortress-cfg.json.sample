@@ -22,9 +22,4 @@
   "schema": {
     "raw_delimiter": "$"
   },
-  "file": {
-      "user": "user.json",
-      "perm": "perm.json",
-      "role": "role.json"
-  }
 }

@@ -9,7 +9,7 @@ ______________________________________________________________________________
 ## SECTION 1. Prerequisites
 
  * Python3.6 and virtualenv (venv)
- * Connection to Internet
+ * python-ldap dependencies installed [README-UPGRADE-PYTHON](./README-UPGRADE-PYTHON.md)
 ___________________________________________________________________________________
 ______________________________________________________________________________
 ## SECTION 2. Install

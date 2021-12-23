@@ -15,12 +15,29 @@ Instructions to test py-fortress from source.
 ___________________________________________________________________________________
 ## SECTION 1. Prerequisites
 
-* Completion of [README-BUILDING](README-BUILDING.md)
-* LDAP server configured for Apache Fortress using [README-LDAP-DOCKER](./README-LDAP-DOCKER.md)
+Minimum hardware requirements:
+ * 1 Core
+ * 1 GB RAM
+ 
+Minimum software requirements:
+ * Linux machine
+ * Python3.6 and virtualenv (venv)
+ * python-ldap dependencies installed [README-UPGRADE-PYTHON](./README-UPGRADE-PYTHON.md)
+ * LDAP server configured for Apache Fortress using [README-LDAP-DOCKER](./README-LDAP-DOCKER.md)
 ________________________________________________________________________________
 ## SECTION 2. Setup Test Env
 
-1. Prepare the config:
+1. Clone py-fortress
+    ```
+    git clone https://github.com/shawnmckinney/py-fortress.git
+    ```
+
+2. Change directory into root folder of project:
+    ```
+    cd py-fortress
+    ```
+
+3. Prepare the config:
 
 From the project root folder, copy sample cfg file:
 
@@ -36,12 +53,12 @@ d. pointed to by: ```export PYFORTRESS_CONF=...```
 
 sample cfg file is here: [py-fortress-cfg.json.sample](../py-fortress-cfg.json.sample)
 
-2. Now edit config file:
+4. Now edit config file:
  ```
 vi $PATH/py-fortress-cfg.json
 ```
 
-3. Set the LDAP URI
+5. Set the LDAP URI
 ```
 ...
 "ldap": {
@@ -51,7 +68,7 @@ vi $PATH/py-fortress-cfg.json
 ```
 *use value obtained during LDAP setup*
         
-4. Update the connection parameters (pick one):
+6. Update the connection parameters (pick one):
 
     a. apacheds:
     ```
@@ -63,7 +80,7 @@ vi $PATH/py-fortress-cfg.json
     "dn": "dc=example,dc=com",
     ```
 
-5. Set the structure in DIT:
+7. Set the structure in DIT:
     ```
     ...
     "dit": {
@@ -76,14 +93,14 @@ vi $PATH/py-fortress-cfg.json
     ```
     *if in doubt use the defaults*
     
-6. Save and exit
+8. Save and exit
 
-7. Goto test folder:
+9. Goto test folder:
  ```
 cd rbac/tests
 ```
 
-8. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+10. Prepare your terminal for execution of python3.  From the main dir of the git repo:
 ```bash
 python3 -m venv env
 . env/bin/activate
@@ -93,7 +110,7 @@ pip install "six>=1.16.0"
 pip install "ldappool>=3.0.0"
 ```
 
-9. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
+11. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
 ```bash
 python3 test_dit_dao.py
 ```

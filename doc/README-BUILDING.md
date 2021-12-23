@@ -19,6 +19,7 @@ Minimum hardware requirements:
 Minimum software requirements:
  * Linux machine
  * Python3.6 and virtualenv (venv)
+ * python-ldap dependencies installed [README-UPGRADE-PYTHON](./README-UPGRADE-PYTHON.md)
 ________________________________________________________________________________
 ## SECTION 2. Setup Python Runtime and Configure py-fortress Usage
 
@@ -52,3 +53,5 @@ pip install dist/py_fortress-x.x.x-py3-none-any.whl
 ```
 
 Where x.x.x == the current version of py-fortress
+
+#### End of # py-fortress README-BUILDING
