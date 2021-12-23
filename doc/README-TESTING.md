@@ -93,12 +93,7 @@ vi $PATH/py-fortress-cfg.json
     
 8. Save and exit
 
-9. Goto test folder:
- ```
-cd rbac/tests
-```
-
-10. Prepare your terminal for execution of python3.  From the main dir of the git repo:
+9. Prepare your terminal for execution of python3.  From the main dir of the git repo:
 ```bash
 python3 -m venv env
 . env/bin/activate
@@ -106,6 +101,11 @@ export PYTHONPATH=$(pwd)
 pip install "python-ldap>=3.4.0"
 pip install "six>=1.16.0"
 pip install "ldappool>=3.0.0"
+```
+
+10. Goto test folder:
+ ```
+cd rbac/tests
 ```
 
 11. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
