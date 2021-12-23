@@ -4,25 +4,29 @@
 
 import json
 import os
-from ..util.global_ids import PYFORTRESS_CONF
-from ..util.fortress_error import RbacError
-from ..util import global_ids
+from . fortress_error import RbacError
+from . import global_ids
+
+# config file ENV VAR:
+PYFORTRESS_CONF = "PYFORTRESS_CONF"
+DATA = 'data'
+FILENAME = 'filename'
 
 class Config:
     current = {
-        "data": {},
-        "filename": None
+        DATA: {},
+        FILENAME: None
     }
     
     def load(filename='py-fortress-cfg.json'):
         found = False
         for loc in os.curdir, os.path.expanduser("~"), "/etc/pyfortress", os.getenv(PYFORTRESS_CONF):
             file = os.path.join(loc, filename)
-            print("try config file: " + file)
             if os.path.isfile(file):
+                print("opening config file: " + file)
                 with open(os.path.join(loc, filename)) as json_file:
-                    Config.current["data"] = json.load(json_file)
-                    Config.current["filename"] = filename
+                    Config.current[DATA] = json.load(json_file)
+                    Config.current[FILENAME] = filename
                     found = True
                     break
 
@@ -32,10 +36,10 @@ class Config:
             raise RbacError(msg="Configuration error=" + msg, id=global_ids.CONFIG_BOOTSTRAP_FAILED)
 
     def get(key):
-        return Config.current["data"][key]
+        return Config.current[DATA][key]
 
     def getDefault(key, default=None):
-        return Config.current["data"].get(key, default)
+        return Config.current[DATA].get(key, default)
 
 # bootstrap the config:
 Config.load()

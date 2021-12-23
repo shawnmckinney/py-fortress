@@ -2,9 +2,6 @@
 @copyright: 2022 - Symas Corporation
 '''
 
-# config file ENV VAR:
-PYFORTRESS_CONF = "PYFORTRESS_CONF"
-
 # config attribute names
 ATTRIBUTES = 'attributes'
 USER_OU = 'users'
