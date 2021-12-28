@@ -26,14 +26,14 @@ ________________________________________________________________________________
 ## SECTION 2. Setup Test Env
 
 1. Clone py-fortress
-    ```
-    git clone https://github.com/shawnmckinney/py-fortress.git
-    ```
+```
+git clone https://github.com/shawnmckinney/py-fortress.git
+```
 
 2. Change directory into root folder of project:
-    ```
-    cd py-fortress
-    ```
+```
+cd py-fortress
+```
 
 3. Prepare the config:
 
@@ -61,7 +61,7 @@ vi $PATH/py-fortress-cfg.json
 ...
 "ldap": {
 ...
-"uri": "ldap://localhost",
+"uri": "ldap://localhost:389",
 ...
 ```
 *use value obtained during LDAP setup*
@@ -103,14 +103,9 @@ pip install "six>=1.16.0"
 pip install "ldappool>=3.0.0"
 ```
 
-10. Goto test folder:
- ```
-cd rbac/tests
-```
-
-11. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
+10. Run the bootstrap pgm that creates the LDAP node structure, i.e. the *DIT*
 ```bash
-python3 test_dit_dao.py
+python3 rbac/tests/test_dit_dao.py
 ```
 * Locations for these nodes are set in the config file.*
     
@@ -120,18 +115,18 @@ ________________________________________________________________________________
 These steps are optional and verify the env is working correctly.
 
 1. Run the admin mgr tests:
-```
-python3 test_admin.py 
+```bash
+python3 rbac/tests/test_admin.py 
 ```
 
 2. Run the access mgr tests:
-```
-python3 test_access.py 
+```bash
+python3 rbac/tests/test_access.py 
 ```
  
 3. Run the review mgr tests:
-```
-python3 test_review.py 
+```bash
+python3 rbac/tests/test_review.py 
 ```
 __________________________________________________________________________________
 ## SECTION 4. Simple Test Samples
@@ -139,8 +134,8 @@ ________________________________________________________________________________
 Another optional test.  
  
 1. Run the samples:
-```
-python3 test_samples.py 
+```bash
+python3 rbac/tests/test_samples.py 
 ```
 
 2. View the [test_samples](../rbac/tests/test_samples.py) and learn how RBAC APIs work.
@@ -150,24 +145,19 @@ ________________________________________________________________________________
 
 View the test data inserted earlier.
 
-1. Navigate to cli folder:
+1. user search 
 ```bash
-cd rbac/cli
-```
- 
-3. user search 
-```
-$ python3 cli.py user search --uid p
+$ python3 rbac/cli/cli.py user search --uid p
 ```
     
 2. role search 
-```
-$ python3 cli.py role search --name p
+```bash
+$ python3 rbac/cli/cli.py role search --name p
 ```
     
 3. perm search
-```
-$ python3 cli.py perm search --obj_name p
+```bash
+$ python3 rbac/cli/cli.py perm search --obj_name p
 ```
 
 4. More CLI commands

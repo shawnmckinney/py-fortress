@@ -33,14 +33,19 @@ ________________________________________________________________________________
 git clone https://github.com/shawnmckinney/py-fortress.git
 ```
 
-2. Prepare the virutal env:
+2. Change directory into root folder of project:
+```
+cd py-fortress
+```
+
+3. Prepare the virutal env:
 ```bash
 python3 -m venv env
 . env/bin/activate
 python3 -m pip install --upgrade build
 ```
 
-3. Build:
+4. Build:
 ```bash
 python3 -m build
 ```
