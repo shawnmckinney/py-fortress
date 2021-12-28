@@ -45,8 +45,7 @@ pip install py-fortress
 
 4. Download and edit [py-fortress-cfg.json](https://github.com/shawnmckinney/py-fortress/blob/master/test/py-fortress-cfg.json) config file to test folder:
  ```
-wget https://raw.githubusercontent.com/shawnmckinney/py-fortress/master/py-fortress-cfg.json.sample
-cp py-fortress-cfg.json.sample $PATH/py-fortress-cfg.json
+cp ./env/conf/py-fortress-cfg.json.sample py-fortress-cfg.json
 vi py-fortress-cfg.json
 ```
 
