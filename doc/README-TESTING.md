@@ -5,8 +5,8 @@
  * Document Overview
  * SECTION 1. Prerequisites
  * SECTION 2. Setup Test Env
- * SECTION 3. Run Integration Tests
- * SECTION 4. Run Simple Test Samples
+ * SECTION 3. Integration Tests
+ * SECTION 4. Simple Test Samples
  * SECTION 5. View the Test Data using Command Line Interpreter (CLI)   
 ___________________________________________________________________________________
 ## Document Overview

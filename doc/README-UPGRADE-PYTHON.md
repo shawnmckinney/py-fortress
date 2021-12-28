@@ -4,7 +4,7 @@
 
  * Document Overview
  * SECTION 1. Prerequisites
- * SECTION 2. Setup Python Runtime and Configure py-fortress Usage
+ * SECTION 2. Setup Python Runtime
 ___________________________________________________________________________________
 ## Document Overview
 

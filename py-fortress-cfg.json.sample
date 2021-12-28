@@ -5,7 +5,7 @@
     "console_out": true
   },
   "ldap": {
-    "uri": "ldap://localhost",
+    "uri": "ldap://localhost:389",
     "timeout": 1,
     "pool_size": 5,
     "dn": "dc=example,dc=com",
