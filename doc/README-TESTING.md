@@ -98,7 +98,7 @@ vi $PATH/py-fortress-cfg.json
 python3 -m venv env
 . env/bin/activate
 export PYTHONPATH=$(pwd)
-pip install "python-ldap>=3.4.0"
+pip install "python-ldap>=3.4.2"
 pip install "six>=1.16.0"
 pip install "ldappool>=3.0.0"
 ```

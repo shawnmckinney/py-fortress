@@ -25,7 +25,7 @@ setup(name='py-fortress',
         '': ['*.md'],
       },
       install_requires=[
-          'python-ldap >= 3.4.0',
+          'python-ldap >= 3.4.2',
           'six >= 1.16.0',
           'ldappool >= 3.0.0'
       ],
