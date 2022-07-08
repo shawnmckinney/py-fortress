@@ -20,16 +20,18 @@ class Config:
     
     def load(filename='py-fortress-cfg.json'):
         found = False
-        for loc in os.curdir, os.path.expanduser("~"), "/etc/pyfortress", os.getenv(PYFORTRESS_CONF):
+        conf_folder = os.getenv(PYFORTRESS_CONF)
+        if conf_folder is None:
+            conf_folder=''
+        for loc in os.curdir, os.path.expanduser("~"), "/etc/pyfortress", conf_folder:
             file = os.path.join(loc, filename)
             if os.path.isfile(file):
-                print("opening config file: " + file)
                 with open(os.path.join(loc, filename)) as json_file:
+                    #print("opening config file: " + file)
                     Config.current[DATA] = json.load(json_file)
                     Config.current[FILENAME] = filename
                     found = True
                     break
-
         if not found:
             msg = "Could not locate py-fortress-cfg.json. Was it added to current directory or user home directory or /etc/pyfortress or env var: " + PYFORTRESS_CONF
             print(msg)
