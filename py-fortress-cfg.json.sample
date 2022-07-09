@@ -11,7 +11,8 @@
     "dn": "dc=example,dc=com",
     "password": "secret",
     "use_tls": false,
-    "debug": false
+    "debug": false,
+    "validate_cacert": true
   },
   "dit": {
     "suffix": "dc=example,dc=com",
