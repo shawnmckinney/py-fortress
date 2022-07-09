@@ -1,7 +1,7 @@
 '''
 @copyright: 2022 - Symas Corporation
 '''
-
+from ldap import LDAPError
 from rbac.util import global_ids
 from rbac.ldap import LdapException
 from rbac.util import Config
@@ -25,10 +25,13 @@ def _open_user (user_dn, password):
     try:
         with _srv_pool.connection(user_dn, password) as conn:
             c = conn
+    except LDAPError as l:
+        print('done')
+        raise LdapException ('connutl.open user LDAPError=' + str (l))
     except Exception as e:
-        raise LdapException ('connutl.open Exception=' + str (e))
+        raise LdapException ('connutl.open user Exception=' + str (e))
     if(_ldap_debug):
-        logger.debug(c.usage)        
+        logger.debug("debug: " + c.usage)
     return c
 
 
@@ -36,8 +39,11 @@ def _open_admin ():
     try:
         with _srv_pool.connection() as conn:
             c = conn
+    except LDAPError as l:
+        print('done')
+        raise LdapException ('connutl.open admin LDAPError=' + str (l))
     except Exception as e:
-        raise LdapException ('connutl.open Exception=' + str (e))
+        raise LdapException ('yo connutl.open admin Exception=' + str (e))
     if(_ldap_debug):
         logger.debug(c.usage)        
     return c
@@ -138,3 +144,5 @@ _ldap_debug = Config.get(LDAP)['debug']
 _srv_pool = ConnectionManager(_uri, size=_pool_size, bind=_service_uid, passwd=_service_pw, timeout=_ldap_timeout, use_tls=_ldap_use_tls)
 _usr_pool = ConnectionManager(_uri, size=_pool_size, timeout=_ldap_timeout, use_tls=_ldap_use_tls)
 __SUFX_DN = Config.get('dit')['suffix']
+
+#ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
