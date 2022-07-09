@@ -1,8 +1,7 @@
 '''
 @copyright: 2022 - Symas Corporation
 '''
-import ldap
-from ldap import LDAPError
+from ldap import set_option, LDAPError, OPT_X_TLS_REQUIRE_CERT, OPT_DEBUG_LEVEL, OPT_X_TLS_NEVER
 from rbac.util import global_ids
 from rbac.ldap import LdapException
 from rbac.util import Config
@@ -24,13 +23,11 @@ def _open_user (user_dn, password):
     try:
         with _srv_pool.connection(user_dn, password) as conn:
             c = conn
-
     except LDAPError as l:
         raise LdapException ('connutl.open user LDAPError=' + str (l))
     except Exception as e:
         raise LdapException ('connutl.open user Exception=' + str (e))
     return c
-
 
 def _open_admin ():
     try:
@@ -39,31 +36,26 @@ def _open_admin ():
     except LDAPError as l:
         raise LdapException ('connutl.open admin LDAPError=' + str (l))
     except Exception as e:
-        raise LdapException ('yo connutl.open admin Exception=' + str (e))
+        raise LdapException ('connutl.open admin Exception=' + str (e))
     return c
-
 
 def close (conn):
     pass
     #conn.unbind()
 
-
 def close_user (conn):
     conn.unbind()
-
 
 def get_response(conn, id):
     res = conn.get_response(id)
     return res[0] 
 
-    
 # Call this to get value from a single-occurring attribute:    
 def get_attr_val(lattr):
     value = ""
     if lattr:
         value = lattr[0].decode()
     return value
-
 
 # Call this to get value from a single-occurring attribute:    
 def get_attr_object(lattr):
@@ -72,36 +64,30 @@ def get_attr_object(lattr):
         value = lattr[0].decode()
     return value
 
-
 # Call this when expecting a single value from a multi-occurring attribute:
 def get_one_attr_val(lattr):
     if not lattr:
         return "" # FIXME: really?
     return lattr[0].decode()
 
-
 # Call this to get a list of attribute values:
 def get_list(lattr):
     return [value.decode() for value in lattr]
-
 
 def get_bool(lattr, default=False):
     if not lattr:
         return default
     return (lattr[0].decode() == 'TRUE')
 
-
 def get_result(conn, id):
     res = conn.get_response(id)
     return res[1].get('result')
-
 
 def get_dn(entry):
     return entry['dn']
 
 def get_container_dn(ou):
     return global_ids.OU + '=' + Config.get('dit')[ou] + ',' + __SUFX_DN
-
 
 def add_to_modlist(attrs):
     result = []
@@ -111,7 +97,6 @@ def add_to_modlist(attrs):
         vals = [v.encode() if isinstance(v, str) else v for v in vals]
         result.append((attr, vals))
     return result
-
 
 def mods_to_modlist(attrs):
     result = []
@@ -141,7 +126,7 @@ _usr_pool = ConnectionManager(_uri, size=_pool_size, timeout=_ldap_timeout, use_
 __SUFX_DN = Config.get('dit')['suffix']
 
 if _ldap_validate_cacert == False:
-    ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
+    set_option(OPT_X_TLS_REQUIRE_CERT, OPT_X_TLS_NEVER)
 
 if _ldap_debug:
-    ldap.set_option(ldap.OPT_DEBUG_LEVEL, 255)
+    set_option(OPT_DEBUG_LEVEL, 255)
