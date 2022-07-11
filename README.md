@@ -21,6 +21,7 @@ Located under the [doc](doc) folder and include:
 | 7.  | [README-CLI](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-CLI.md)                       | CLI for RBAC Admin and Review    |  
 | 8.  | [README-CLI-AUTH](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-CLI-AUTH.md)             | CLI for RBAC System Testing      | 
 | 9.  | [README-UPGRADE-PYTHON](https://github.com/shawnmckinney/py-fortress/blob/master/doc/README-UPGRADE-PYTHON.md) | python-ldap dependencies         | 
+| 10. | [TROUBLESHOOTING-GUIDE](https://github.com/shawnmckinney/py-fortress/blob/master/doc/TROUBLESHOOTING-GUIDE.md) | Common errors                    | 
 _________________________________________________________________________________
 ## About py-fortress and Role-Based Access Control
 
