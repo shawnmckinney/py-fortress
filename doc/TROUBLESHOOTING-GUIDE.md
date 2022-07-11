@@ -160,14 +160,9 @@ Remedy: Ensure the dn and password is specified correctly in the config:
 
 ```python
   "ldap": {
-    "uri": "ldaps://fortress-a:10636",
-    "timeout": 1,
-    "pool_size": 5,
+    ...
     "dn": "uid=admin,ou=system",
-    "password": "F00F1ghters",
-    "use_tls": false,
-    "debug": false,
-    "validate_cacert": true
+    "password": "secret",
   },
  ```
 
