@@ -153,7 +153,7 @@ Remedy: Ensure the DIT exists and is specified correctly in the config:
 Occurs on any operation:
 
 ```
-ldap.INVALID_CREDENTIALS: {'msgtype': 97, 'msgid': 1, 'result': 49, 'desc': 'Invalid credentials', 'ctrls': [], 'info': 'INVALID_CREDENTIALS: Bind failed: ERR_229 Cannot authenticate user uid=admin,ou=system'}
+ldap.INVALID_CREDENTIALS: {'msgtype': 97, 'msgid': 1, 'result': 49, 'desc': 'Invalid credentials', 'ctrls': [], 'info': 'INVALID_CREDENTIALS: Bind failed: ERR_229 Cannot authenticate user cn=manager,dc=example,dc=com'}
 ```
 
 Remedy: Ensure the dn and password is specified correctly in the config:
@@ -161,7 +161,7 @@ Remedy: Ensure the dn and password is specified correctly in the config:
 ```python
   "ldap": {
     ...
-    "dn": "uid=admin,ou=system",
+    "dn": "cn=manager,dc=example,dc=com",
     "password": "secret",
   },
  ```
