@@ -64,14 +64,30 @@ python3 -m twine upload --repository testpypi dist/*
 
 3. Install to test machine
 ```bash
-pip install --index-url https://test.pypi.org/py-fortress/ --no-deps YOUR-USERNAME-HERE
+pip3 install -i https://test.pypi.org/simple/ py-fortress --no-deps
 ```
 
 * where YOUR-USERNAME-HERE is for account setup on [TestPyPI](https://test.pypi.org/project/)
 
 4. Run the tests:
 
-TODO: add instructions
+```bash
+cd sometestfolder
+python3 -m venv env
+. env/bin/activate
+export PYTHONPATH=$(pwd)
+pip install "python-ldap>=3.4.2"
+pip install "six>=1.16.0"
+pip install "ldappool>=3.0.0"
+pip3 install -i https://test.pypi.org/simple/ py-fortress --no-deps
+export PYFORTRESS_CONF=[path to file]
+
+# run some CLI commands:
+cli user add --uid 'chorowitz' --password 'secret' --description 'added with py-fortress cli'
+cli user search --uid chorowitz
+cli user search --uid p
+# etc...
+```
 
 ________________________________________________________________________________
 ## SECTION 4. Tag the release

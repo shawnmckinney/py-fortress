@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='py-fortress',
-      version='0.1.6',
+      version='0.1.7',
       python_requires='>=3.6',
       description='RBAC for Python 3',
       long_description=long_description,
