@@ -27,12 +27,6 @@ Could not locate py-fortress-cfg.json. Was it added to current directory or user
 
 Remedy: Ensure py-fortress-cfg.json is available per [README-TESTING](./README-TESTING.md)
 
-```
-# TLS_CACERT  fully qualified path and filename of CA certificate file
-# For example:
-TLS_CACERT  /opt/symas/etc/openldap/certs/ca.crt
-```
-
 ## 2. Untrusted CA Certificate
 
 ```
