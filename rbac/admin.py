@@ -2,7 +2,12 @@
 @copyright: 2022 - Symas Corporation
 '''
 
-from rbac.ldap import permdao, userdao, roledao
+from rbac.dao_factory import get_userdao, get_roledao, get_permdao
+
+# Get DAO implementations based on configuration
+userdao = get_userdao()
+roledao = get_roledao()
+permdao = get_permdao()
 from rbac.util import global_ids, utils
 from rbac.util.fortress_error import RbacError
 from rbac.model import Perm, User, Role

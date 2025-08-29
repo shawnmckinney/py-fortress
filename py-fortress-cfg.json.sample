@@ -4,6 +4,7 @@
     "file_name": "py-fortress",
     "console_out": true
   },
+  "backend": "ldap",
   "ldap": {
     "uri": "ldap://localhost:389",
     "timeout": 1,
@@ -13,6 +14,19 @@
     "use_tls": false,
     "debug": false,
     "validate_cacert": true
+  },
+  "sql": {
+    "driver": "sqlite3",
+    "database": "/tmp/fortress.db",
+    "host": "localhost",
+    "port": 5432,
+    "username": "fortress",
+    "password": "secret"
+  },
+  "file": {
+    "user": "/tmp/users.json",
+    "role": "/tmp/roles.json", 
+    "perm": "/tmp/perms.json"
   },
   "dit": {
     "suffix": "dc=example,dc=com",
