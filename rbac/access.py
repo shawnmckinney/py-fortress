@@ -4,7 +4,11 @@
 
 from rbac.model import Session
 from rbac.util import Date, Day, LockDate, Time, TimeOut, CurrentDateTime
-from rbac.ldap import userdao, permdao
+from rbac.dao_factory import get_userdao, get_permdao
+
+# Get DAO implementations based on configuration
+userdao = get_userdao()
+permdao = get_permdao()
 from rbac.util.fortress_error import RbacError
 from rbac.util import logger, global_ids, SUCCESS
 
