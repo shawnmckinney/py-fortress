@@ -314,8 +314,14 @@ def _unload(row):
         entity.roles = roles_data if roles_data is not None else []
     else:
         entity.roles = []  # Always provide an empty list if no roles
+    
+    # Initialize role_constraints as empty list (like LDAP version does)
+    entity.role_constraints = []
         
     if row['constraint_data']:
         entity.constraint = Constraint(raw=row['constraint_data'])
+    else:
+        # Always create a constraint, even if empty (like LDAP version does)
+        entity.constraint = Constraint()
     
     return entity
