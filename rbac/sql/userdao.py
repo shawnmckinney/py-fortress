@@ -139,7 +139,7 @@ def create(entity):
         json.dumps(entity.emails) if entity.emails else None,
         json.dumps(entity.props) if entity.props else None,
         entity.constraint.get_raw() if entity.constraint else None,
-        json.dumps(getattr(entity, 'roles', [])) if hasattr(entity, 'roles') else None
+        json.dumps(getattr(entity, 'roles', [])) if hasattr(entity, 'roles') and entity.roles else json.dumps([])
     ]
     
     try:
@@ -307,8 +307,14 @@ def _unload(row):
         entity.emails = json.loads(row['emails'])
     if row['props']:
         entity.props = json.loads(row['props'])
+    
+    # Handle roles - ensure it's always a list
     if row['roles']:
-        entity.roles = json.loads(row['roles'])
+        roles_data = json.loads(row['roles'])
+        entity.roles = roles_data if roles_data is not None else []
+    else:
+        entity.roles = []  # Always provide an empty list if no roles
+        
     if row['constraint_data']:
         entity.constraint = Constraint(raw=row['constraint_data'])
     

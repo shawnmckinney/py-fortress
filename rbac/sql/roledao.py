@@ -132,7 +132,13 @@ def delete(entity):
 def add_member(entity, uid):
     """Add a user as a member of this role"""
     role = read(Role(name=entity.name))
-    members = json.loads(role.members or '[]') if hasattr(role, 'members') and role.members else []
+    if hasattr(role, 'members') and role.members:
+        if isinstance(role.members, str):
+            members = json.loads(role.members)
+        else:
+            members = role.members
+    else:
+        members = []
     
     if uid not in members:
         members.append(uid)
@@ -145,7 +151,13 @@ def add_member(entity, uid):
 def remove_member(entity, uid):
     """Remove a user as a member of this role"""
     role = read(Role(name=entity.name))
-    members = json.loads(role.members or '[]') if hasattr(role, 'members') and role.members else []
+    if hasattr(role, 'members') and role.members:
+        if isinstance(role.members, str):
+            members = json.loads(role.members)
+        else:
+            members = role.members
+    else:
+        members = []
     
     if uid in members:
         members.remove(uid)
@@ -158,8 +170,12 @@ def remove_member(entity, uid):
 def get_members(entity):
     """Get all members (users) of this role"""
     role = read(Role(name=entity.name))
-    members = json.loads(role.members or '[]') if hasattr(role, 'members') and role.members else []
-    return members
+    if hasattr(role, 'members') and role.members:
+        if isinstance(role.members, str):
+            return json.loads(role.members)
+        else:
+            return role.members
+    return []
 
 def get_members_constraint(entity):
     """Get all members with their constraints - for now just return members"""
